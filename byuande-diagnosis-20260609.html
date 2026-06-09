@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>保元德 · 投放全景诊断报告 · 竞品对标分析</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f0f2f5; color: #2d3436; font-size: 14px; }
+  .page-header { background: linear-gradient(135deg, #0984e3 0%, #6c5ce7 100%); color: white; padding: 32px 40px; }
+  .page-header h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .page-header .meta { opacity: 0.85; font-size: 13px; }
+  .nav { background: white; padding: 0 40px; border-bottom: 1px solid #e0e0e0; display: flex; gap: 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .nav a { padding: 14px 18px; text-decoration: none; color: #636e72; font-size: 13px; font-weight: 500; border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .nav a:hover { color: #0984e3; border-bottom-color: #0984e3; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+  .section { background: white; border-radius: 12px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .section-title { font-size: 17px; font-weight: 700; color: #2d3436; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #f0f2f5; display: flex; align-items: center; gap: 8px; }
+  .section-title .icon { font-size: 20px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .kpi-card { background: #f8f9fa; border-radius: 10px; padding: 18px; border-left: 4px solid #0984e3; }
+  .kpi-card.ntld { border-left-color: #6c5ce7; }
+  .kpi-card .label { font-size: 12px; color: #636e72; margin-bottom: 6px; }
+  .kpi-card .value { font-size: 22px; font-weight: 700; color: #2d3436; }
+  .kpi-card .sub { font-size: 11px; color: #b2bec3; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #f8f9fa; padding: 10px 12px; text-align: left; font-weight: 600; color: #636e72; border-bottom: 2px solid #e0e0e0; white-space: nowrap; }
+  td { padding: 9px 12px; border-bottom: 1px solid #f0f2f5; vertical-align: middle; }
+  tr:hover td { background: #fafbfc; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge-gray { background: #f0f2f5; color: #636e72; }
+  .badge-blue { background: #e3f2fd; color: #0984e3; }
+  .badge-purple { background: #f3e5f5; color: #6c5ce7; }
+  .badge-green { background: #e8f5e9; color: #00b894; }
+  .badge-gold { background: #fff3e0; color: #f39c12; }
+  .brand-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+  .brand-bay { background: #e3f2fd; color: #0984e3; }
+  .brand-ntld { background: #f3e5f5; color: #6c5ce7; }
+  .bay-row td { background: #fafeff; }
+  .ntld-row td { background: #fdf8ff; }
+  .live-name-cell { font-weight: 600; color: #2d3436; background: #f8f9fa !important; border-right: 2px solid #e0e0e0; }
+  .product-cell { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; color: #636e72; }
+  .cmp-lead { color: #00b894; font-weight: 700; font-size: 11px; }
+  .cmp-lag { color: #e17055; font-weight: 700; font-size: 11px; }
+  .cmp-par { color: #636e72; font-size: 11px; }
+  .risk-high { color: #e17055; font-weight: 700; }
+  .risk-mid { color: #f39c12; font-weight: 700; }
+  .risk-ok { color: #00b894; font-weight: 700; }
+  .insight-box { background: linear-gradient(135deg, #e3f2fd, #f3e5f5); border-radius: 8px; padding: 16px; margin-top: 16px; border-left: 4px solid #0984e3; }
+  .insight-box h4 { font-size: 13px; font-weight: 700; color: #0984e3; margin-bottom: 8px; }
+  .insight-box ul { padding-left: 16px; }
+  .insight-box li { font-size: 13px; color: #2d3436; margin-bottom: 4px; line-height: 1.6; }
+  .action-list { list-style: none; padding: 0; }
+  .action-list li { padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; font-size: 13px; line-height: 1.6; }
+  .action-red { background: #fff5f5; border-left: 4px solid #e17055; }
+  .action-yellow { background: #fffbf0; border-left: 4px solid #f39c12; }
+  .action-green { background: #f0fff4; border-left: 4px solid #00b894; }
+  .chart-container { height: 280px; margin: 16px 0; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .stat-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .stat-chip { background: #f8f9fa; border-radius: 8px; padding: 10px 16px; text-align: center; min-width: 100px; }
+  .stat-chip .sv { font-size: 18px; font-weight: 700; color: #2d3436; }
+  .stat-chip .sl { font-size: 11px; color: #636e72; margin-top: 2px; }
+  .divider { height: 1px; background: #f0f2f5; margin: 20px 0; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .tag { background: #f0f2f5; border-radius: 20px; padding: 4px 12px; font-size: 12px; color: #636e72; }
+  .note { font-size: 11px; color: #b2bec3; margin-top: 8px; }
+  @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } .kpi-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>📊 保元德 · 投放全景诊断报告 · 竞品对标分析</h1>
+  <div class="meta">分析周期：2026-05-09 ~ 2026-06-07 &nbsp;|&nbsp; 行业：膳食营养 &nbsp;|&nbsp; 生成时间：2026-06-08 20:43</div>
+</div>
+
+<nav class="nav">
+  <a href="#overview">总览</a>
+  <a href="#balance">余额预算</a>
+  <a href="#infra">基建对比</a>
+  <a href="#live-detail">直播间效果</a>
+  <a href="#category-cmp">同品类对标</a>
+  <a href="#competitor">竞品概况</a>
+  <a href="#appendix">附录趋势</a>
+</nav>
+
+<div class="container">
+
+<!-- ===== 总览 ===== -->
+<div class="section" id="overview">
+  <div class="section-title"><span class="icon">🎯</span>总览：核心指标对比</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="label">保元德 · 日均消耗</div>
+      <div class="value">¥3.3万</div>
+      <div class="sub">直播链路</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">保元德 · ROI</div>
+      <div class="value">1.92</div>
+      <div class="sub">系统汇总行口径</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">保元德 · CTR</div>
+      <div class="value">3.12%</div>
+      <div class="sub">点击率</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">保元德 · CVR</div>
+      <div class="value">6.45%</div>
+      <div class="sub">浅层转化率</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card ntld">
+      <div class="label">行业参考 · 日均消耗</div>
+      <div class="value" style="font-size:16px">¥49万</div>
+      <div class="sub">竞品参考</div>
+    </div>
+    <div class="kpi-card ntld">
+      <div class="label">行业参考 · ROI</div>
+      <div class="value" style="font-size:16px">2.83</div>
+      <div class="sub">竞品参考</div>
+    </div>
+    <div class="kpi-card ntld">
+      <div class="label">行业参考 · CTR</div>
+      <div class="value" style="font-size:16px">3.86%</div>
+      <div class="sub">竞品参考</div>
+    </div>
+    <div class="kpi-card ntld">
+      <div class="label">行业参考 · CVR</div>
+      <div class="value" style="font-size:16px">3.41%</div>
+      <div class="sub">竞品参考</div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>指标</th><th class="num">保元德</th><th class="num">行业参考</th><th>对比</th></tr></thead>
+    <tbody>
+      <tr><td>日均消耗</td><td class="num">¥3.3万/天</td><td class="num">¥49万/天</td><td><span style="color:#e17055;font-weight:bold">&#128308; 落后</span></td></tr>
+      <tr><td>ROI（系统汇总行）</td><td class="num">1.92</td><td class="num">2.83</td><td><span style="color:#e17055;font-weight:bold">&#128308; 落后</span></td></tr>
+      <tr><td>CTR（点击率）</td><td class="num">3.12%</td><td class="num">3.86%</td><td><span style="color:#e17055;font-weight:bold">&#128308; 落后</span></td></tr>
+      <tr><td>CVR（浅层转化率）</td><td class="num">6.45%</td><td class="num">3.41%</td><td><span style="color:#00b894;font-weight:bold">&#128994; 领先</span></td></tr>
+      <tr><td>客单价</td><td class="num">¥71.8</td><td class="num">¥89.0</td><td><span style="color:#e17055;font-weight:bold">&#128308; 落后</span></td></tr>
+      <tr><td>有消耗账户数</td><td class="num">14</td><td class="num">293</td><td><span style="color:#e17055;font-weight:bold">&#128308; 落后</span></td></tr>
+      <tr><td>有曝光广告数</td><td class="num">270</td><td class="num">1860</td><td><span style="color:#e17055;font-weight:bold">&#128308; 落后</span></td></tr>
+      <tr><td>素材数</td><td class="num">16,945</td><td class="num">89,399</td><td><span style="color:#e17055;font-weight:bold">&#128308; 落后</span></td></tr>
+      <tr><td>智投渗透率</td><td class="num">7.2%</td><td class="num">27.9%</td><td><span style="color:#e17055;font-weight:bold">&#128308; 落后</span></td></tr>
+    </tbody>
+  </table>
+  <div class="insight-box">
+    <h4>💡 总览洞察</h4>
+    <ul>
+      <li>保元德 CVR（6.45%）显著高于行业参考（3.41%），说明直播间承接转化能力较强，是核心优势。</li>
+      <li>CTR（3.12% vs 3.86%）和 ROI（1.92 vs 2.83）均落后，素材吸引力和整体投放效率有提升空间。</li>
+      <li>智投渗透率仅 7.2%，远低于行业参考 27.9%，智能工具使用是重要差距点。</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== 余额预算 ===== -->
+<div class="section" id="balance">
+  <div class="section-title"><span class="icon">💰</span>模块一：余额预算诊断</div>
+  <div class="stat-row">
+    <div class="stat-chip">
+      <div class="sv">🟡 中风险</div>
+      <div class="sl">整体风险等级</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sv">¥48.0万</div>
+      <div class="sl">账户总余额</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sv">¥3.3万/天</div>
+      <div class="sl">日均消耗</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sv" class="risk-mid">2 个</div>
+      <div class="sl">中风险账户</div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>账户ID</th><th class="num">账户余额</th><th class="num">昨日消耗</th><th class="num">可用天数</th><th class="num">预算使用率</th><th>风险等级</th></tr></thead>
+    <tbody>
+      <tr><td style="font-size:11px">69066847</td><td>¥63853</td><td>¥7156</td><td>8.9天</td><td>10.1%</td><td style="color:#00b894;font-weight:600">🟢 健康</td></tr>
+<tr><td style="font-size:11px">79278085</td><td>¥61440</td><td>¥875</td><td>70.2天</td><td>1.4%</td><td style="color:#00b894;font-weight:600">🟢 健康</td></tr>
+<tr><td style="font-size:11px">78702583</td><td>¥52320</td><td>¥13421</td><td>3.9天</td><td>36.6%</td><td style="color:#f39c12;font-weight:600">🟡 中风险</td></tr>
+<tr><td style="font-size:11px">79278099</td><td>¥51733</td><td>¥4974</td><td>10.4天</td><td>8.8%</td><td style="color:#00b894;font-weight:600">🟢 健康</td></tr>
+<tr><td style="font-size:11px">69009718</td><td>¥46118</td><td>¥0</td><td>无消耗</td><td>0.0%</td><td style="color:#00b894;font-weight:600">🟢 健康</td></tr>
+<tr><td style="font-size:11px">78702619</td><td>¥39618</td><td>¥9782</td><td>4.0天</td><td>19.8%</td><td style="color:#f39c12;font-weight:600">🟡 中风险</td></tr>
+<tr><td style="font-size:11px">69575752</td><td>¥36885</td><td>¥0</td><td>无消耗</td><td>0.0%</td><td style="color:#00b894;font-weight:600">🟢 健康</td></tr>
+<tr><td style="font-size:11px">79278105</td><td>¥34705</td><td>¥4888</td><td>7.1天</td><td>12.3%</td><td style="color:#00b894;font-weight:600">🟢 健康</td></tr>
+<tr><td style="font-size:11px">78702606</td><td>¥28166</td><td>¥2725</td><td>10.3天</td><td>8.8%</td><td style="color:#00b894;font-weight:600">🟢 健康</td></tr>
+<tr><td style="font-size:11px">79278096</td><td>¥25489</td><td>¥1920</td><td>13.3天</td><td>7.0%</td><td style="color:#00b894;font-weight:600">🟢 健康</td></tr>
+<tr><td style="font-size:11px">79278092</td><td>¥20204</td><td>¥2672</td><td>7.6天</td><td>11.7%</td><td style="color:#00b894;font-weight:600">🟢 健康</td></tr>
+<tr><td style="font-size:11px">69066844</td><td>¥19493</td><td>¥0</td><td>无消耗</td><td>0.0%</td><td style="color:#00b894;font-weight:600">🟢 健康</td></tr>
+
+    </tbody>
+  </table>
+  <div class="insight-box">
+    <h4>💡 余额预算洞察</h4>
+    <ul>
+      <li>账户 78702583、78702619 余额/日消耗比低于 5 倍，存在断投风险，建议优先补充预算。</li>
+      <li>部分账户（69009718、69575752、69066844）无消耗，建议核查是否需要激活或关闭。</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== 基建对比 ===== -->
+<div class="section" id="infra">
+  <div class="section-title"><span class="icon">🏗️</span>模块二：基建规模对比</div>
+  <p style="font-size:12px;color:#636e72;margin-bottom:10px">竞品参考：同品类头部竞品近30天数据；行业头部：同赛道日均消耗TOP5客户中位数水平</p>
+  <table>
+    <thead><tr><th>维度</th><th class="num">保元德</th><th class="num">竞品参考</th><th class="num">行业头部</th><th>达标状态</th></tr></thead>
+    <tbody>
+      <tr><td>有消耗账户数</td><td class="num">14</td><td class="num">293</td><td class="num">62</td><td><span style="color:#e17055;font-weight:600">⚠️ 待提升</span></td></tr>
+      <tr><td>有曝光广告数</td><td class="num">270</td><td class="num">1860</td><td class="num">1591</td><td><span style="color:#e17055;font-weight:600">⚠️ 待提升</span></td></tr>
+      <tr><td>素材数</td><td class="num">16,945</td><td class="num">89,399</td><td class="num">21,927</td><td><span style="color:#e17055;font-weight:600">⚠️ 待提升</span></td></tr>
+      <tr><td>日均消耗</td><td class="num">¥3.3万/天</td><td class="num">¥49万/天</td><td class="num">¥31.0万/天</td><td>-</td></tr>
+      <tr><td>直播间数量</td><td class="num">6 个</td><td class="num">-</td><td class="num">-</td><td>-</td></tr>
+      <tr><td>智投渗透率</td><td class="num">7.2%</td><td class="num">27.9%</td><td class="num">-</td><td><span style="color:#e17055;font-weight:600">⚠️ 待提升</span></td></tr>
+    </tbody>
+  </table>
+  <div class="insight-box">
+    <h4>💡 基建洞察</h4>
+    <ul>
+      <li>账户数（14）、广告数（270）与行业头部（账户62 / 广告1591）相比仍有差距，基建规模扩张空间较大。</li>
+      <li>素材数（16,945）已超过行业头部中位数（21,927），创意供给充足；与竞品（89,399）相比仍有较大差距，可持续扩充。</li>
+      <li>智投渗透率（7.2%）与竞品（27.9%）差距显著，建议加速智投工具的使用。</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== 直播间效果 ===== -->
+<div class="section" id="live-detail">
+  <div class="section-title"><span class="icon">📺</span>模块三：保元德直播间 × 智投类型效果明细</div>
+  <p style="font-size:12px;color:#636e72;margin-bottom:12px">同一直播间的不同投放类型连续排列，便于横向对比效率差异。按直播间总消耗降序排列。</p>
+  <table>
+    <thead>
+      <tr>
+        <th>直播间</th>
+        <th>投放类型</th>
+        <th class="num">消耗</th>
+        <th class="num">消耗占比</th>
+        <th class="num">CTR</th>
+        <th class="num">CVR</th>
+        <th class="num">ROI</th>
+        <th class="num">广告数</th>
+        <th class="num">素材数</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td rowspan="2" class="live-name-cell">保元德植物硒厂家直发</td><td><span class="badge badge-gray">非智投</span></td><td class="num">¥44.9万</td><td class="num">46.0%</td><td class="num">3.16%</td><td class="num">10.55%</td><td class="num">1.91</td><td class="num">26</td><td class="num">2258</td></tr>
+<tr><td><span class="badge badge-blue">单链路智投</span></td><td class="num">¥8199</td><td class="num">0.8%</td><td class="num">2.71%</td><td class="num">11.23%</td><td class="num">2.14</td><td class="num">9</td><td class="num">116</td></tr>
+<tr><td rowspan="2" class="live-name-cell">保元德滋补甄选</td><td><span class="badge badge-gray">非智投</span></td><td class="num">¥31.5万</td><td class="num">32.3%</td><td class="num">3.92%</td><td class="num">4.43%</td><td class="num">2.06</td><td class="num">146</td><td class="num">9449</td></tr>
+<tr><td><span class="badge badge-blue">单链路智投</span></td><td class="num">¥4.9万</td><td class="num">5.1%</td><td class="num">4.16%</td><td class="num">2.85%</td><td class="num">1.90</td><td class="num">122</td><td class="num">2309</td></tr>
+<tr><td rowspan="2" class="live-name-cell">保元德滋补膳食店</td><td><span class="badge badge-gray">非智投</span></td><td class="num">¥12.3万</td><td class="num">12.6%</td><td class="num">1.50%</td><td class="num">6.33%</td><td class="num">1.62</td><td class="num">47</td><td class="num">4186</td></tr>
+<tr><td><span class="badge badge-purple">短直双开</span></td><td class="num">¥4476</td><td class="num">0.5%</td><td class="num">1.37%</td><td class="num">5.02%</td><td class="num">1.74</td><td class="num">18</td><td class="num">356</td></tr>
+<tr><td rowspan="2" class="live-name-cell">保元德营养健康</td><td><span class="badge badge-gray">非智投</span></td><td class="num">¥1.6万</td><td class="num">1.6%</td><td class="num">3.86%</td><td class="num">4.10%</td><td class="num">1.67</td><td class="num">31</td><td class="num">921</td></tr>
+<tr><td><span class="badge badge-blue">单链路智投</span></td><td class="num">¥8516</td><td class="num">0.9%</td><td class="num">5.36%</td><td class="num">4.00%</td><td class="num">1.90</td><td class="num">33</td><td class="num">401</td></tr>
+<tr><td rowspan="1" class="live-name-cell">保元德滋补严选店</td><td><span class="badge badge-gray">非智投</span></td><td class="num">¥1250</td><td class="num">0.1%</td><td class="num">3.30%</td><td class="num">0.28%</td><td class="num">0.17</td><td class="num">1</td><td class="num">36</td></tr>
+<tr><td rowspan="1" class="live-name-cell">保元德健康好物</td><td><span class="badge badge-gray">非智投</span></td><td class="num">¥37</td><td class="num">0.0%</td><td class="num">1.97%</td><td class="num">0.00%</td><td class="num">0.00</td><td class="num">1</td><td class="num">31</td></tr>
+    </tbody>
+  </table>
+  <div class="insight-box">
+    <h4>💡 直播间效果洞察</h4>
+    <ul>
+      <li><strong>智投渗透率说明：</strong>保元德整体非智投广告占消耗的 92.8%，智投仅占 7.2%（单链路智投 6.8%、短直双开 0.5%），这是真实的投放结构现状，并非数据异常。</li>
+      <li>保元德植物硒厂家直发：消耗最高（¥45.7万），CVR 达 10.6%，转化能力突出，是核心直播间；但智投渗透率仅 1.8%，智投扩量空间最大。</li>
+      <li>保元德滋补甄选：单链路智投（¥4.9万，占比 13.5%）与非智投（¥31.5万）并存，智投 CTR 更高（4.16% vs 3.92%），建议加大智投比例。</li>
+      <li>保元德营养健康：单链路智投 CTR（5.36%）显著高于非智投（3.86%），智投渗透率已达 34.9%，是智投使用最积极的直播间。</li>
+      <li>保元德滋补膳食店：CTR 偏低（1.49%），短直双开 ROI（1.74）略高于非智投（1.62），可探索扩大双开比例。</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== 同品类对标 ===== -->
+<div class="section" id="category-cmp">
+  <div class="section-title"><span class="icon">🔍</span>模块四：同品类直播间效果对标（叶黄素品类）</div>
+  <div class="tag-row">
+    <span class="tag">📌 对标品类：叶黄素</span>
+    <span class="tag">📌 版位：微信视频号</span>
+    <span class="tag">📌 主推品：磷虾油叶黄素酯软胶囊 vs 蓝莓叶黄素酯软胶囊</span>
+  </div>
+  <p style="font-size:12px;color:#636e72;margin-bottom:12px">
+    主推品判断依据：微信小店商品ID维度下消耗最高的商品名称。
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>品牌</th>
+        <th>直播间</th>
+        <th>主推品（简）</th>
+        <th class="num">日均消耗</th>
+        <th class="num">CTR</th>
+        <th class="num">CVR</th>
+        <th class="num">ROI</th>
+        <th class="num">广告数</th>
+        <th class="num">素材数</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bay-row"><td><span class="brand-tag brand-bay">保元德</span></td><td>保元德滋补甄选</td><td class="product-cell" title="【直播钜惠】保元德磷虾油叶黄素酯DHA藻油软胶囊（无糖型）真添加磷虾油">【直播钜惠】保元德磷虾油叶黄素酯DHA藻油软...</td><td class="num">¥1.2万/天</td><td class="num">3.95% <span class="cmp-par">≈ 持平</span></td><td class="num">4.22% <span class="cmp-par">≈ 持平</span></td><td class="num">2.04 <span class="cmp-lead">▲ 领先</span></td><td class="num">268</td><td class="num">11758</td></tr>
+<tr class="bay-row"><td><span class="brand-tag brand-bay">保元德</span></td><td>保元德滋补膳食店</td><td class="product-cell" title="【限时特惠】保元德磷虾油叶黄素酯23.04g（无糖型）真添加磷虾油叶黄素酯DHA纯含量好吸收官方正品k1">【限时特惠】保元德磷虾油叶黄素酯23.04g...</td><td class="num">¥4247/天</td><td class="num">1.49% <span class="cmp-lag">▼ 落后</span></td><td class="num">6.28% <span class="cmp-lead">▲ 领先</span></td><td class="num">1.63 <span class="cmp-par">≈ 持平</span></td><td class="num">65</td><td class="num">4542</td></tr>
+<tr class="ntld-row"><td><span class="brand-tag brand-ntld">行业参考</span></td><td>叶黄素类直播间（2个）</td><td class="product-cell">蓝莓叶黄素酯软胶囊系列</td><td class="num">¥1.4万~¥1.5万/天</td><td class="num">3.4%~8.7%</td><td class="num">2.3%~4.5%</td><td class="num">1.61~1.85</td><td class="num">132~253</td><td class="num">3529~3713</td></tr>
+    </tbody>
+  </table>
+  <div class="note">* ▲领先/▼落后/≈持平 基于保元德值与行业参考范围对比得出</div>
+  <div class="insight-box">
+    <h4>💡 叶黄素品类对标洞察</h4>
+    <ul>
+      <li>保元德滋补甄选 ROI（2.04）领先行业参考范围（1.61~1.85），说明该直播间在叶黄素品类上效率优势明显。</li>
+      <li>保元德滋补甄选 CTR（3.95%）处于行业参考范围内，持平；CVR（4.22%）高于行业参考上限，转化承接能力强。</li>
+      <li>保元德滋补膳食店 CTR（1.49%）落后行业参考，素材吸引力是核心优化方向；广告数（65）偏少，建议扩充广告组。</li>
+      <li>行业参考在叶黄素品类投入广告数（132~253）、素材数（3529~3713），基建规模更大，可参考扩量节奏。</li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+  <h4 style="font-size:14px;font-weight:600;margin-bottom:12px">📌 同版位基建 + 效果对比（视频号版位 · 叶黄素品类）</h4>
+  <p style="font-size:12px;color:#636e72;margin-bottom:8px">消耗口径统一为日均消耗（总消耗÷30天）。行业参考为同品类叶黄素直播间。</p>
+  <table>
+    <thead><tr><th>品牌</th><th>直播间</th><th>品类</th><th class="num">日均消耗</th><th class="num">广告数</th><th class="num">素材数</th><th class="num">CTR</th><th class="num">CVR</th><th class="num">ROI</th><th class="num">客单价</th></tr></thead>
+    <tbody>
+      <tr style="background:#e8f4fd"><td style="font-weight:600;color:#0984e3">保元德</td><td>保元德滋补甄选</td><td>叶黄素</td><td class="num">¥8238/天</td><td class="num">261</td><td class="num">4154</td><td class="num">2.23%</td><td class="num">10.70%</td><td class="num">2.09</td><td class="num">¥80</td></tr>
+<tr style="background:#e8f4fd"><td style="font-weight:600;color:#0984e3">保元德</td><td>保元德滋补膳食店</td><td>叶黄素</td><td class="num">¥2871/天</td><td class="num">65</td><td class="num">1622</td><td class="num">1.45%</td><td class="num">7.28%</td><td class="num">1.73</td><td class="num">¥79</td></tr>
+<tr style="background:#f3f0ff"><td style="font-weight:600;color:#6c5ce7">行业参考</td><td>竞品叶黄素直播间</td><td>叶黄素</td><td class="num">¥6660/天</td><td class="num">115</td><td class="num">996</td><td class="num">2.03%</td><td class="num">10.11%</td><td class="num">1.63</td><td class="num">¥112</td></tr>
+<tr style="background:#f3f0ff"><td style="font-weight:600;color:#6c5ce7">行业参考</td><td>竞品叶黄素直播间</td><td>叶黄素</td><td class="num">¥5561/天</td><td class="num">241</td><td class="num">1090</td><td class="num">3.27%</td><td class="num">8.68%</td><td class="num">1.94</td><td class="num">¥115</td></tr>
+    </tbody>
+  </table>
+  <div class="note">* 行业参考为同品类叶黄素直播间</div>
+</div>
+
+<!-- ===== 竞品概况 ===== -->
+<div class="section" id="competitor">
+  <div class="section-title"><span class="icon">🏢</span>模块五：行业参考投放概况</div>
+  
+  <div class="two-col">
+    <div>
+      <h4 style="font-size:14px;font-weight:600;margin-bottom:12px">📺 直播链路：各品类直播间分布</h4>
+      <p style="font-size:12px;color:#636e72;margin-bottom:8px">共 35 个直播间在投，按主推品类分布如下：</p>
+      <table>
+        <thead><tr><th>主推品类</th><th class="num">直播间数</th><th class="num">单间日耗范围</th><th class="num">账户数</th><th class="num">广告数</th><th class="num">素材数</th></tr></thead>
+        <tbody>
+          <tr><td>骨胶原蛋白钙</td><td class="num">6 个</td><td class="num">¥217~¥6.2万/天</td><td class="num">32</td><td class="num">1,392</td><td class="num">13,388</td></tr>
+<tr><td>钙铁锌</td><td class="num">12 个</td><td class="num">¥4~¥1.8万/天</td><td class="num">50</td><td class="num">786</td><td class="num">18,309</td></tr>
+<tr><td>维生素C/E/硒</td><td class="num">5 个</td><td class="num">¥30~¥3.8万/天</td><td class="num">10</td><td class="num">539</td><td class="num">4,855</td></tr>
+<tr><td>B族维生素</td><td class="num">3 个</td><td class="num">¥702~¥3.1万/天</td><td class="num">7</td><td class="num">349</td><td class="num">4,589</td></tr>
+<tr><td>叶黄素</td><td class="num">2 个</td><td class="num">¥1.4万~¥1.5万/天</td><td class="num">6</td><td class="num">340</td><td class="num">6,434</td></tr>
+<tr><td>益生菌</td><td class="num">1 个</td><td class="num">¥1.4万~¥1.4万/天</td><td class="num">5</td><td class="num">239</td><td class="num">4,645</td></tr>
+        </tbody>
+      </table>
+      <div class="note">* 日耗范围为该品类下各直播间的单间日均消耗区间（min~max）；账户数/广告数/素材数为品类下所有直播间合计</div>
+    </div>
+    <div>
+      <h4 style="font-size:14px;font-weight:600;margin-bottom:12px">🛒 小店链路：各品类商品分布</h4>
+      <p style="font-size:12px;color:#636e72;margin-bottom:8px">共 100 款商品在投，按品类分布如下：</p>
+      <table>
+        <thead><tr><th>品类</th><th class="num">商品数</th><th class="num">单品日耗范围（P25~P75）</th><th class="num">账户数</th><th class="num">广告数</th><th class="num">素材数</th></tr></thead>
+        <tbody>
+          <tr><td>骨胶原蛋白钙</td><td class="num">35 款</td><td class="num">¥13~¥524/天</td><td class="num">152</td><td class="num">3,377</td><td class="num">13,844</td></tr>
+<tr><td>B族维生素</td><td class="num">37 款</td><td class="num">¥4~¥1571/天</td><td class="num">207</td><td class="num">4,207</td><td class="num">15,757</td></tr>
+<tr><td>维生素C/E/硒</td><td class="num">15 款</td><td class="num">¥6~¥4680/天</td><td class="num">47</td><td class="num">736</td><td class="num">4,228</td></tr>
+<tr><td>钙铁锌</td><td class="num">22 款</td><td class="num">¥12~¥229/天</td><td class="num">54</td><td class="num">705</td><td class="num">3,580</td></tr>
+<tr><td>叶黄素</td><td class="num">10 款</td><td class="num">¥3~¥59/天</td><td class="num">27</td><td class="num">772</td><td class="num">2,307</td></tr>
+<tr><td>益生菌</td><td class="num">4 款</td><td class="num">¥1~¥1279/天</td><td class="num">11</td><td class="num">223</td><td class="num">1,457</td></tr>
+        </tbody>
+      </table>
+      <div class="note">* 单品日耗为该品类内有消耗商品日均消耗的P25~P75区间（去除极端值）；账户数/广告数/素材数为品类下所有商品合计</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h4 style="font-size:14px;font-weight:600;margin-bottom:12px">📊 直播链路：保元德 vs 竞品 品类基建对比</h4>
+  <p style="font-size:12px;color:#636e72;margin-bottom:8px">保元德现有直播品类与竞品同口径对比，直观呈现基建差距。</p>
+  <table>
+    <thead><tr><th>品牌</th><th>主推品类</th><th class="num">直播间数</th><th class="num">单间日耗范围</th><th class="num">账户数</th><th class="num">广告数</th><th class="num">素材数</th></tr></thead>
+    <tbody>
+      <tr style="background:#e8f4fd"><td><span class="brand-tag brand-bay" style="font-size:11px">保元德</span></td><td>叶黄素</td><td class="num">2 个</td><td class="num">¥4.2千~¥1.2万/天</td><td class="num">12</td><td class="num">324</td><td class="num">14,935</td></tr>
+<tr style="background:#f3f0ff"><td><span class="brand-tag brand-ntld" style="font-size:11px">竞品</span></td><td>叶黄素</td><td class="num">2 个</td><td class="num">¥1.4万~¥1.5万/天</td><td class="num">6</td><td class="num">340</td><td class="num">6,434</td></tr>
+    </tbody>
+  </table>
+  <div class="note">* 竞品为同赛道头部竞品近30天数据；账户数/广告数/素材数为品类下所有直播间合计</div>
+  
+  <div class="insight-box">
+    <h4>💡 竞品概况洞察</h4>
+    <ul>
+      <li>行业参考直播链路以骨胶原蛋白钙（6个直播间）和钙铁锌（12个直播间）为主力，保元德目前主推叶黄素和植物硒，品类差异化明显。</li>
+      <li>小店链路 B族维生素（28款）和骨胶原蛋白钙（29款）是商品数最多的品类，说明这两个品类竞争激烈。</li>
+      <li>叶黄素品类：行业参考直播间仅 2 个，保元德在该品类有一定竞争优势，建议持续深耕。</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== 行动清单 ===== -->
+<div class="section">
+  <div class="section-title"><span class="icon">🚀</span>优先行动清单</div>
+  <ul class="action-list">
+    <li class="action-red">🔴 <strong>立即</strong>：为账户 78702583、78702619 补充预算，当前余额/日消耗比低于 5 倍，存在断投风险</li>
+    <li class="action-red">🔴 <strong>立即</strong>：保元德滋补膳食店 CTR 仅 1.49%，优先更换素材，重点测试高点击率创意</li>
+    <li class="action-yellow">🟡 <strong>本周内</strong>：保元德滋补甄选和营养健康直播间智投效率更高，建议将智投比例从 7.2% 提升至 20%+</li>
+    <li class="action-yellow">🟡 <strong>本周内</strong>：叶黄素品类保元德滋补甄选 ROI 领先，建议扩大该直播间广告数（当前 268 个），测试更多素材</li>
+    <li class="action-green">🟢 <strong>持续观察</strong>：保元德植物硒厂家直发 CVR 高达 10.57%，持续监控该直播间的消耗稳定性</li>
+    <li class="action-green">🟢 <strong>持续观察</strong>：叶黄素品类在行业参考中仅 2 个直播间，竞争相对较少，可作为重点扩量方向持续跟踪</li>
+  </ul>
+</div>
+
+<!-- ===== 附录趋势 ===== -->
+<div class="section" id="appendix">
+  <div class="section-title"><span class="icon">📈</span>附录：消耗与 ROI 趋势</div>
+  <div class="two-col">
+    <div>
+      <h4 style="font-size:13px;font-weight:600;margin-bottom:8px;color:#0984e3">保元德 · 消耗趋势</h4>
+      <div id="chart_bay_trend" class="chart-container"></div>
+    </div>
+    <div>
+      <h4 style="font-size:13px;font-weight:600;margin-bottom:8px;color:#6c5ce7">行业参考 · 消耗趋势</h4>
+      <div id="chart_ntr_trend" class="chart-container"></div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div>
+      <h4 style="font-size:13px;font-weight:600;margin-bottom:8px;color:#0984e3">保元德 · ROI 趋势</h4>
+      <div id="chart_bay_cr" class="chart-container"></div>
+    </div>
+    <div>
+      <h4 style="font-size:13px;font-weight:600;margin-bottom:8px;color:#6c5ce7">行业参考 · ROI 趋势</h4>
+      <div id="chart_ntr_cr" class="chart-container"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+Plotly.newPlot('chart_bay_trend',[{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[1.88, 1.97, 2.02, 1.83, 1.52, 1.79, 1.81, 1.67, 1.57, 1.91, 1.91, 1.83, 1.97, 1.18, 1.32, 2.13, 1.91, 2.26, 3.88, 4.1, 4.22, 4.77, 3.83, 4.91, 6.55, 6.84, 5.65, 4.4, 4.18, 4.61],name:"0 (\u975e\u667a\u6295\u5e7f\u544a)",type:"bar",marker:{color:"#636EFA"}},{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.04, 0.06, 0.08, 0.01, 0.0, 0.01, 0.02, 0.02, 0.07, 0.03, 0.01, 0.01, 0.03, 0.02, 0.02, 0.01, 0.0, 0.0, 0.0],name:"3001 (\u77ed\u76f4\u53cc\u5f00)",type:"bar",marker:{color:"#EF553B"}},{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[0.1, 0.05, 0.03, 0.24, 0.49, 0.44, 0.69, 0.62, 0.26, 0.36, 0.19, 0.33, 0.24, 0.22, 0.29, 0.31, 0.08, 0.0, 0.0, 0.39, 0.26, 0.13, 0.03, 0.0, 0.0, 0.0, 0.07, 0.24, 0.31, 0.24],name:"3002 (\u5355\u94fe\u8def\u667a\u6295)",type:"bar",marker:{color:"#00CC96"}}],{"title":{"text":"保元德 消耗趋势（按智投类型）","font":{"size":13}},"barmode":"stack","xaxis":{"tickangle":-45,"tickfont":{"size":9}},"yaxis":{"title":"消耗(万元)"},"legend":{"orientation":"h","y":-0.35,"font":{"size":9}},"margin":{"t":50,"b":130,"l":60,"r":20},"height":300,"plot_bgcolor":"#fafafa","paper_bgcolor":"#fff"});
+Plotly.newPlot('chart_ntr_trend',[{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[8.14, 10.32, 8.63, 7.15, 7.86, 16.24, 11.81, 10.54, 16.41, 13.26, 15.67, 14.0, 12.69, 12.33, 9.89, 10.33, 10.43, 11.57, 14.6, 13.9, 22.85, 13.25, 17.97, 12.84, 13.71, 17.09, 18.66, 13.96, 13.89, 13.21],name:"0 (\u975e\u667a\u6295\u5e7f\u544a)",type:"bar",marker:{color:"#636EFA"}},{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[0.0, 0.0, 0.21, 0.13, 0.25, 0.23, 0.09, 0.0, 0.0, 0.01, 0.01, 0.01, 0.0, 0.0, 0.0, 0.0, 0.0, 0.43, 0.13, 0.06, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],name:"3001 (\u77ed\u76f4\u53cc\u5f00)",type:"bar",marker:{color:"#EF553B"}},{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[20.62, 24.91, 25.18, 17.65, 11.48, 11.03, 9.68, 10.49, 13.14, 10.68, 10.53, 11.61, 12.58, 18.39, 12.76, 13.59, 16.54, 14.06, 12.89, 10.73, 8.5, 9.55, 11.32, 12.18, 10.71, 12.82, 13.64, 10.15, 9.8, 8.4],name:"3002 (\u5355\u94fe\u8def\u667a\u6295)",type:"bar",marker:{color:"#00CC96"}},{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[0.23, 0.28, 0.19, 0.18, 0.13, 0.11, 0.1, 0.19, 0.12, 0.2, 0.19, 0.14, 0.11, 0.11, 0.2, 0.22, 0.17, 0.39, 0.35, 0.31, 0.18, 0.21, 0.16, 0.17, 0.28, 0.37, 0.49, 0.43, 0.36, 0.51],name:"3003 (\u5168\u5e97\u6258\u7ba1)",type:"bar",marker:{color:"#AB63FA"}},{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[7.59, 9.3, 7.1, 6.31, 11.3, 9.63, 8.69, 9.38, 12.77, 12.84, 12.25, 16.14, 12.93, 20.02, 11.46, 10.12, 8.17, 13.73, 11.67, 11.06, 14.23, 21.89, 17.35, 16.14, 18.18, 15.52, 13.16, 14.84, 12.15, 10.91],name:"3004 (\u63a8\u76f4\u64ad)",type:"bar",marker:{color:"#FFA15A"}},{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[8.47, 9.52, 9.6, 8.7, 9.36, 9.34, 8.87, 10.44, 8.29, 9.84, 9.4, 10.37, 10.53, 11.12, 10.71, 11.23, 12.12, 11.45, 12.93, 9.8, 10.37, 10.09, 11.11, 10.14, 10.45, 6.82, 4.36, 3.74, 3.65, 3.66],name:"3005 (\u63a8\u76f4\u8d2d\u5355\u54c1)",type:"bar",marker:{color:"#19D3F3"}},{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[0.07, 0.02, 0.0, 0.01, 0.0, 0.0, 0.01, 0.19, 0.16, 0.28, 0.23, 0.03, 0.0, 0.26, 0.38, 0.49, 0.53, 0.29, 0.55, 0.44, 1.05, 0.34, 0.22, 0.37, 0.46, 0.17, 0.09, 0.05, 0.02, 0.01],name:"4001 (\u5168\u57df\u901a\u76f4\u64ad)",type:"bar",marker:{color:"#FF6692"}},{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[0.16, 0.11, 0.11, 0.17, 0.16, 0.13, 0.1, 0.18, 0.18, 0.13, 0.13, 0.12, 0.07, 0.21, 0.09, 0.14, 0.13, 0.08, 0.32, 0.19, 0.52, 0.18, 0.34, 0.38, 0.27, 0.44, 0.42, 0.53, 0.39, 0.32],name:"4002 (\u5168\u57df\u901a\u76f4\u8d2d)",type:"bar",marker:{color:"#B6E880"}}],{"title":{"text":"行业基准 消耗趋势（按智投类型）","font":{"size":13}},"barmode":"stack","xaxis":{"tickangle":-45,"tickfont":{"size":9}},"yaxis":{"title":"消耗(万元)"},"legend":{"orientation":"h","y":-0.35,"font":{"size":9}},"margin":{"t":50,"b":130,"l":60,"r":20},"height":300,"plot_bgcolor":"#fafafa","paper_bgcolor":"#fff"});
+Plotly.newPlot('chart_bay_cr',[{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[925, 1147, 1058, 1209, 1289, 1442, 1433, 1637, 1861, 1793, 1650, 1755, 1728, 1486, 1460, 1179, 960, 327, 680, 937, 1249, 1462, 1430, 1477, 1586, 1542, 2503, 1912, 1596, 1846],name:"创意ID数",type:"scatter",mode:"lines+markers",line:{color:"#f39c12"},yaxis:"y"},{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[1.98, 2.02, 2.06, 2.07, 2.0, 2.23, 2.5, 2.29, 1.82, 2.26, 2.1, 2.2, 2.26, 1.48, 1.62, 2.44, 1.99, 2.28, 3.9, 4.56, 4.51, 4.91, 3.88, 4.94, 6.57, 6.86, 5.74, 4.64, 4.49, 4.84],name:"消耗(万)",type:"bar",marker:{color:"#0984e3",opacity:0.4},yaxis:"y2"}],{"title":{"text":"保元德 创意ID数 vs 消耗趋势","font":{"size":13}},"xaxis":{"tickangle":-45,"tickfont":{"size":9}},"yaxis":{"title":"创意ID数","side":"left"},"yaxis2":{"title":"消耗(万)","side":"right","overlaying":"y"},"legend":{"orientation":"h","y":-0.35},"margin":{"t":50,"b":130,"l":60,"r":60},"height":300,"plot_bgcolor":"#fafafa","paper_bgcolor":"#fff"});
+Plotly.newPlot('chart_ntr_cr',[{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[10122, 10335, 10842, 10088, 11593, 12068, 10684, 11356, 10966, 11309, 11651, 12008, 10880, 10551, 9256, 8689, 9675, 10302, 9227, 10036, 10153, 11275, 11091, 11191, 10836, 10688, 10699, 10970, 10157, 10301],name:"创意ID数",type:"scatter",mode:"lines+markers",line:{color:"#f39c12"},yaxis:"y"},{x:["2026/05/09", "2026/05/10", "2026/05/11", "2026/05/12", "2026/05/13", "2026/05/14", "2026/05/15", "2026/05/16", "2026/05/17", "2026/05/18", "2026/05/19", "2026/05/20", "2026/05/21", "2026/05/22", "2026/05/23", "2026/05/24", "2026/05/25", "2026/05/26", "2026/05/27", "2026/05/28", "2026/05/29", "2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07"],y:[45.27, 54.45, 51.0, 40.29, 40.55, 46.71, 39.35, 41.41, 51.07, 47.24, 48.39, 52.42, 48.92, 62.44, 45.5, 46.11, 48.1, 52.0, 53.44, 46.51, 57.7, 55.52, 58.47, 52.22, 54.04, 53.25, 50.8, 43.7, 40.26, 37.02],name:"消耗(万)",type:"bar",marker:{color:"#0984e3",opacity:0.4},yaxis:"y2"}],{"title":{"text":"行业基准 创意ID数 vs 消耗趋势","font":{"size":13}},"xaxis":{"tickangle":-45,"tickfont":{"size":9}},"yaxis":{"title":"创意ID数","side":"left"},"yaxis2":{"title":"消耗(万)","side":"right","overlaying":"y"},"legend":{"orientation":"h","y":-0.35},"margin":{"t":50,"b":130,"l":60,"r":60},"height":300,"plot_bgcolor":"#fafafa","paper_bgcolor":"#fff"});
+</script>
+<script>(function(){var _h=0,_t;function s(){var h=document.documentElement.scrollHeight;if(h>0&&h!==_h){_h=h;window.parent.postMessage({type:"iframe-resize",height:h},"*")}}function d(){clearTimeout(_t);_t=setTimeout(s,150)}if(document.readyState==="complete")s();else window.addEventListener("load",s);if(typeof ResizeObserver!=="undefined")new ResizeObserver(d).observe(document.documentElement)})();</script></body>
+</html>
