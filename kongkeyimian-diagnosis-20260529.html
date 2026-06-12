@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>空刻意面_投放勤奋度诊断报告</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: #f0f2f5; color: #2d3436; line-height: 1.6; }
+.container { max-width: 1500px; margin: 0 auto; padding: 20px; }
+
+.stage-card { background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%); border-radius: 16px; padding: 32px 40px; color: #fff; margin-bottom: 20px; }
+.stage-card h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+.stage-card .subtitle { font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 20px; }
+.stage-badges { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+.stage-badge { padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; }
+.badge-l1 { background: linear-gradient(135deg, #0984e3, #74b9ff); }
+.badge-l2 { background: linear-gradient(135deg, #00b894, #55efc4); }
+.badge-l3 { background: linear-gradient(135deg, #f39c12, #fdcb6e); }
+.stage-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+.stage-metric { background: rgba(255,255,255,0.1); border-radius: 10px; padding: 12px 16px; }
+.stage-metric .label { font-size: 12px; color: rgba(255,255,255,0.6); }
+.stage-metric .value { font-size: 22px; font-weight: 700; }
+.stage-conclusion { border-left: 4px solid #74b9ff; padding: 12px 20px; background: rgba(255,255,255,0.08); border-radius: 0 8px 8px 0; margin-top: 12px; }
+.stage-conclusion .conclusion-text { font-size: 18px; font-weight: 600; color: #74b9ff; }
+
+.section { background: #fff; border-radius: 14px; padding: 28px 32px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+.section-header { display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 2px solid #f0f0f0; margin-bottom: 20px; }
+.section-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.section-title { font-size: 20px; font-weight: 700; }
+.section-tag { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; color: #fff; }
+.l1-blue { background: #0984e3; }
+.l2-green { background: #00b894; }
+.l3-gold { background: #f39c12; }
+
+table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+th { background: #f8f9fa; padding: 10px 14px; text-align: left; font-size: 12px; color: #636e72; font-weight: 600; border-bottom: 2px solid #e0e0e0; }
+td { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+tr:hover { background: #f8f9fa; }
+
+.diagnosis-box { background: #f8f9fa; border-radius: 10px; padding: 16px 20px; margin-top: 16px; }
+.diagnosis-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 14px; }
+.diagnosis-item:last-child { margin-bottom: 0; }
+
+.scene-wrapper { margin-top: 16px; }
+.scene-platform { border: 2px solid; border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+.scene-platform.adq { border-color: #0984e3; }
+.scene-platform.xds { border-color: #00b894; }
+.scene-platform-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; padding: 4px 12px; border-radius: 6px; display: inline-block; }
+.adq .scene-platform-title { background: #0984e3; color: #fff; }
+.xds .scene-platform-title { background: #00b894; color: #fff; }
+.scene-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.scene-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.scene-card { border: 1px solid #e0e0e0; border-radius: 10px; padding: 14px; text-align: center; }
+.scene-card.active { border-color: #00b894; background: #f0fff4; }
+.scene-card .scene-name { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.scene-card .scene-cost { font-size: 16px; font-weight: 700; }
+.scene-card .scene-roi { font-size: 12px; color: #636e72; }
+.scene-card .scene-status { font-size: 18px; margin-bottom: 4px; }
+
+.acct-table { font-size: 12px; }
+.acct-table th { font-size: 11px; }
+
+.force-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.force-card { border-radius: 10px; border: 1px solid #e0e0e0; overflow: hidden; }
+.force-card-header { padding: 12px 16px; font-size: 17px; font-weight: 700; border-left: 4px solid; }
+.force-card-header.product { border-top: 3px solid #e17055; background: #fff5f0; border-left-color: #e17055; }
+.force-card-header.content { border-top: 3px solid #0984e3; background: #f0f7ff; border-left-color: #0984e3; }
+.force-card-header.business { border-top: 3px solid #00b894; background: #f0fff7; border-left-color: #00b894; }
+.force-card-body { padding: 16px; }
+.force-metric { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+.force-metric:last-child { border-bottom: none; }
+.force-metric .fm-label { font-size: 13px; color: #636e72; }
+.force-metric .fm-value { font-size: 15px; font-weight: 600; }
+.force-tips { margin-top: 12px; padding-top: 12px; border-top: 1px solid #f0f0f0; }
+.force-tips .tip-title { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.force-tips .tip-item { font-size: 12px; color: #636e72; padding: 4px 0 4px 16px; position: relative; }
+.force-tips .tip-item::before { content: "\2192"; position: absolute; left: 0; color: #0984e3; }
+
+.action-list { margin-top: 16px; }
+.action-phase { margin-bottom: 16px; }
+.action-phase-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: #2d3436; }
+.action-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; font-size: 13px; }
+.action-item input[type="checkbox"] { margin-top: 3px; accent-color: #00b894; }
+
+.doc-link { display: inline-block; margin-top: 8px; padding: 6px 14px; background: #0984e3; color: #fff; border-radius: 6px; text-decoration: none; font-size: 13px; }
+.doc-link:hover { background: #0873c5; }
+
+.pass { color: #00b894; font-weight: 600; }
+.fail { color: #d63031; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- 大表头 -->
+<div class="stage-card">
+  <h1>空刻意面</h1>
+  <div class="subtitle">杭州空刻网络科技有限公司 &middot; 投放勤奋度诊断报告</div>
+  <div class="stage-badges">
+    <span class="stage-badge badge-l1">L1 基建未达标</span>
+  </div>
+  <div class="stage-metrics">
+    <div class="stage-metric">
+      <div class="label">行业基建达标率</div>
+      <div class="value">75%</div>
+    </div>
+    <div class="stage-metric">
+      <div class="label">日均消耗</div>
+      <div class="value">2.89万</div>
+    </div>
+    <div class="stage-metric">
+      <div class="label">智投占比(ADQ)</div>
+      <div class="value">94.5%</div>
+    </div>
+    <div class="stage-metric">
+      <div class="label">小店广告占比</div>
+      <div class="value">13.5%</div>
+    </div>
+  </div>
+  <div class="stage-conclusion">
+    <div class="conclusion-text">基建绝对值未达标 &mdash;&mdash; 先补量，再谈结构。日均消耗2.89万未达食饮大盘腰部4.92万中位数，但账户数/项目数/素材数远超中位数，消耗规模是核心差距。</div>
+  </div>
+</div>
+
+<!-- 行动清单 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#00b894;color:#fff;">&#x1F4CB;</div>
+    <div class="section-title">行动清单</div>
+  </div>
+  <div class="action-list">
+    <div class="action-phase">
+      <div class="action-phase-title">&#x26A1; 第1-2周：补齐非智投基建 + 提升小店广告占比</div>
+      <div class="action-item"><input type="checkbox"><span><b>1:1复制策略</b>：智投已验证的内容应1:1复制到非智投 &mdash;&mdash; 当前非智投项目数仅68（智投98），差距30个项目，需补齐基建增加参竞覆盖</span></div>
+      <div class="action-item"><input type="checkbox"><span><b>提升小店广告占比</b>：当前小店广告仅13.5%（理想30%），开小店广告&middot;直播+直购双链路，提升至30%</span></div>
+      <div class="action-item"><input type="checkbox"><span><b>全店托管子模式补齐</b>：当前仅推全店有消耗7237元，推多品仅40元 &mdash;&mdash; 建议两种模式都做基建</span></div>
+    </div>
+    <div class="action-phase">
+      <div class="action-phase-title">&#x1F680; 第3-4周：消耗规模突破 + 三力深耕</div>
+      <div class="action-item"><input type="checkbox"><span><b>消耗规模提升</b>：日均2.89万，对标食饮大盘腰部4.92万仍有差距，通过基建复制+版位拓展提升消耗天花板</span></div>
+      <div class="action-item"><input type="checkbox"><span><b>618补贴品追加投放</b>：有补贴标签商品13个(34%) vs 无补贴25个(66%)，建议扩大报名范围，提升补贴商品占比至50%+</span></div>
+      <div class="action-item"><input type="checkbox"><span><b>版位拓展</b>：视频号占比72.4%高度集中，需增加朋友圈/公众号/PCAD等版位覆盖</span></div>
+    </div>
+    <a class="doc-link" href="https://doc.weixin.qq.com/doc/w3_AaEAUgbuAPUCNjWuHgYUfSMK7aL86?scode=AJEAIQdfAAo1psaAKvAaEAUgbuAPU" target="_blank">&#x1F4D6; 投放细节指南：26年粮油调味速食经营爆量指南&mdash;5月更新</a>
+  </div>
+</div>
+
+<!-- L1 拼概率 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#0984e3;color:#fff;">1</div>
+    <div class="section-title">L1 拼概率（卷勤奋&middot;卷基建）</div>
+    <span class="section-tag l1-blue">基建诊断</span>
+  </div>
+
+  <h3 style="font-size:16px;margin:16px 0 8px;">1.1 消耗趋势（近30天）</h3>
+  <div id="chart_trend" style="height:320px;"></div>
+
+  <h3 style="font-size:16px;margin:24px 0 8px;">1.2 基建分层对标（食饮大盘&middot;腰部中位数）</h3>
+  <table>
+    <thead><tr><th>指标</th><th>实际值</th><th>腰部中位数</th><th>达标</th></tr></thead>
+    <tbody>
+      <tr><td>账户数</td><td>17</td><td>4.0</td><td class="pass">&#x2705; 达标</td></tr>
+      <tr><td>项目/广告数</td><td>185</td><td>43.5</td><td class="pass">&#x2705; 达标</td></tr>
+      <tr><td>素材数(去重)</td><td>4,547</td><td>536</td><td class="pass">&#x2705; 达标</td></tr>
+      <tr><td>日均消耗(万)</td><td>2.89</td><td>4.92</td><td class="fail">&#x274C; 未达标</td></tr>
+    </tbody>
+  </table>
+  <div class="diagnosis-box">
+    <div class="diagnosis-item">&#x26A0;&#xFE0F; 标准版达标率 75%（3/4），日均消耗2.89万未达食饮大盘腰部4.92万中位数</div>
+    <div class="diagnosis-item">&#x2705; 账户数/项目数/素材数远超中位数，基建铺量充足，消耗规模是核心差距</div>
+  </div>
+
+  <h3 style="font-size:16px;margin:24px 0 8px;">1.3 素材基建（近30天去重素材数趋势）</h3>
+  <div id="chart_material" style="height:280px;"></div>
+  <div class="diagnosis-box">
+    <div class="diagnosis-item">&#x1F4CA; 近30天去重素材数从216~1369波动，5月中旬后素材量级显著提升至1000+</div>
+    <div class="diagnosis-item">&#x2705; 当前阶段应从&ldquo;堆量&rdquo;转向&ldquo;提质&rdquo; &mdash;&mdash; 优化素材CTR/CVR，提升单素材产出效率</div>
+  </div>
+</div>
+
+<!-- L2 拼投放力 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#00b894;color:#fff;">2</div>
+    <div class="section-title">L2 拼投放力（卷智能投放&middot;工具平权）</div>
+    <span class="section-tag l2-green">结构诊断</span>
+  </div>
+
+  <h3 style="font-size:16px;margin:16px 0 8px;">2.1 投流结构：理想 vs 实际</h3>
+  <div id="chart_structure" style="height:300px;"></div>
+
+  <table style="margin-top:16px;">
+    <thead><tr><th>模块</th><th>子项</th><th>内部占比</th><th>理想总占比</th><th>实际内部占比</th><th>实际总占比</th><th>Gap</th></tr></thead>
+    <tbody>
+      <tr><td>ADQ(理想70%)</td><td>智投</td><td>70%</td><td>49%</td><td>94.5%</td><td>81.8%</td><td style="color:#00b894">+32.8%</td></tr>
+      <tr><td>ADQ(理想70%)</td><td>非智投</td><td>30%</td><td>21%</td><td>5.5%</td><td>4.7%</td><td style="color:#d63031">-16.3%</td></tr>
+      <tr><td>ADQ小计</td><td>-</td><td>100%</td><td>70%</td><td>-</td><td>86.5%</td><td style="color:#00b894">+16.5%</td></tr>
+      <tr><td>小店广告(理想30%)</td><td>-</td><td>-</td><td>30%</td><td>-</td><td>13.5%</td><td style="color:#d63031">-16.5%</td></tr>
+    </tbody>
+  </table>
+  <div class="diagnosis-box">
+    <div class="diagnosis-item">&#x26A0;&#xFE0F; <b>非智投占比严重偏低</b>：仅4.7%（理想21%），智投已验证的内容应1:1复制到非智投</div>
+    <div class="diagnosis-item">&#x26A0;&#xFE0F; <b>小店广告占比偏低</b>：仅13.5%（理想30%），需开直购+直播双链路提升占比</div>
+    <div class="diagnosis-item">&#x2705; ADQ内部智投占比94.5%，远超北极星70%目标</div>
+  </div>
+  <div style="font-size:12px;color:#636e72;margin-top:8px;">&#x1F4CC; 北极星指标：ADQ内部智投占比&ge;70%（小店广告虽属智投，但不计入北极星分子）</div>
+
+  <h4 style="font-size:14px;margin:20px 0 8px;">&#x1F504; 1:1复制基建对比（项目数维度）</h4>
+  <table>
+    <thead><tr><th>链路</th><th>智投项目数</th><th>非智投项目数</th><th>1:1达成</th><th>差距</th></tr></thead>
+    <tbody>
+      <tr><td>直播链路</td><td>44</td><td>34</td><td class="fail">&#x274C;</td><td>差10个</td></tr>
+      <tr><td>小店链路</td><td>54</td><td>34</td><td class="fail">&#x274C;</td><td>差20个</td></tr>
+      <tr><td>合计</td><td>98</td><td>68</td><td class="fail">&#x274C;</td><td>差30个</td></tr>
+    </tbody>
+  </table>
+  <div class="diagnosis-box">
+    <div class="diagnosis-item">&#x26A0;&#xFE0F; 非智投侧基建不足，智投已验证的内容应1:1复制到非智投，补齐基建才能拿到更多量级</div>
+    <div class="diagnosis-item">&#x1F4CA; 小店链路差距最大（差20个项目），优先补建非智投&middot;小店链路</div>
+  </div>
+
+  <h3 style="font-size:16px;margin:24px 0 8px;">2.3 双开状态</h3>
+  <table>
+    <thead><tr><th>平台</th><th>消耗(万)</th><th>占比</th><th>状态</th></tr></thead>
+    <tbody>
+      <tr><td>ADQ</td><td>75.10</td><td>86.5%</td><td>&#x2705; 已开</td></tr>
+      <tr><td>小店广告</td><td>11.68</td><td>13.5%</td><td>&#x2705; 已开</td></tr>
+    </tbody>
+  </table>
+  <div class="diagnosis-box">
+    <div class="diagnosis-item">&#x2705; 已双开，但小店广告占比仅13.5%（理想30%），需提升小店广告投放力度</div>
+  </div>
+
+  <h3 style="font-size:16px;margin:24px 0 8px;">2.4 智投场景分布</h3>
+  <div class="scene-wrapper">
+    <div class="scene-platform adq">
+      <div class="scene-platform-title">ADQ平台</div>
+      <div class="scene-grid-4">
+        <div class="scene-card active">
+          <div class="scene-status">&#x2705;</div>
+          <div class="scene-name">单链路&middot;推直播</div>
+          <div class="scene-cost">17.08万</div>
+          <div class="scene-roi">ROI 1.73</div>
+        </div>
+        <div class="scene-card active">
+          <div class="scene-status">&#x2705;</div>
+          <div class="scene-name">单链路&middot;推直购</div>
+          <div class="scene-cost">1.84万</div>
+          <div class="scene-roi">ROI 2.00</div>
+        </div>
+        <div class="scene-card active">
+          <div class="scene-status">&#x2705;</div>
+          <div class="scene-name">全店托管<br><span style="font-size:11px;color:#636e72">推全店&#x2705; 推多品&#x26A0;&#xFE0F;</span></div>
+          <div class="scene-cost">0.73万</div>
+          <div class="scene-roi">ROI 1.33</div>
+        </div>
+        <div class="scene-card active">
+          <div class="scene-status">&#x2705;</div>
+          <div class="scene-name">短直双开<br><span style="font-size:11px;color:#636e72">直播51.34万&middot;小店11.74万</span></div>
+          <div class="scene-cost">63.08万</div>
+          <div class="scene-roi">ROI 1.80/2.70</div>
+        </div>
+      </div>
+    </div>
+    <div class="scene-platform xds">
+      <div class="scene-platform-title">小店广告平台</div>
+      <div class="scene-grid-2">
+        <div class="scene-card active">
+          <div class="scene-status">&#x2705;</div>
+          <div class="scene-name">小店广告&middot;直播</div>
+          <div class="scene-cost">3.04万</div>
+          <div class="scene-roi">ROI 2.52</div>
+        </div>
+        <div class="scene-card active">
+          <div class="scene-status">&#x2705;</div>
+          <div class="scene-name">小店广告&middot;直购</div>
+          <div class="scene-cost">8.65万</div>
+          <div class="scene-roi">ROI 1.94</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="diagnosis-box">
+    <div class="diagnosis-item">&#x2705; 6个智投场景全部已开，场景覆盖完整</div>
+    <div class="diagnosis-item">&#x26A0;&#xFE0F; 全店托管&middot;推多品仅40元消耗，基建严重不足 &mdash;&mdash; 建议推多品模式补建项目</div>
+    <div class="diagnosis-item">&#x1F4CA; 短直双开为主力场景（合计63.08万，占智投72.8%），直播链路ROI 1.80，小店链路ROI 2.70</div>
+  </div>
+
+  <h3 style="font-size:16px;margin:24px 0 8px;">2.5 分账户结构诊断（17个账户，按行动项聚合）</h3>
+  <table class="acct-table">
+    <thead><tr><th>行动项</th><th>账户数</th><th>总消耗(万)</th><th>账户ID(全量)</th><th>缺失场景</th></tr></thead>
+    <tbody>
+      <tr>
+        <td style="color:#d63031;font-weight:600">纯非智投&middot;需迁移至智投</td>
+        <td>2</td><td>1.80</td>
+        <td style="font-size:11px">62309222, 80858655</td>
+        <td>推直播&#x274C; 推直购&#x274C; 全店托管&#x274C; 短直双开&#x274C;</td>
+      </tr>
+      <tr>
+        <td style="color:#e17055;font-weight:600">手动为主&middot;智投占比低</td>
+        <td>1</td><td>0.58</td>
+        <td style="font-size:11px">79142530</td>
+        <td>推直购&#x274C; 短直双开&#x274C;</td>
+      </tr>
+      <tr>
+        <td style="color:#e17055;font-weight:600">智投+手动混合&middot;需提升智投</td>
+        <td>1</td><td>1.94</td>
+        <td style="font-size:11px">79142546</td>
+        <td>推直购&#x274C; 全店托管&#x274C; 短直双开&#x274C;</td>
+      </tr>
+      <tr>
+        <td style="color:#00b894;font-weight:600">智投为主&middot;标杆账户</td>
+        <td>12</td><td>68.10</td>
+        <td style="font-size:11px">48120555, 48120591, 81822028, 76966212, 65592913, 81834858, 81834857, 63705901, 81822027, 81822031, 45162802, 66620297</td>
+        <td>推直购&#x274C; 全店托管&#x274C;（普遍缺失）</td>
+      </tr>
+      <tr>
+        <td style="color:#00b894;font-weight:600">小店广告账户&middot;双链路已开</td>
+        <td>1</td><td>11.68</td>
+        <td style="font-size:11px">56834836</td>
+        <td>无缺失&#x2705;</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="diagnosis-box">
+    <div class="diagnosis-item">&#x26A0;&#xFE0F; <b>2个纯非智投账户</b>（62309222、80858655）需迁移至智投</div>
+    <div class="diagnosis-item">&#x26A0;&#xFE0F; <b>12个智投标杆账户普遍缺失推直购+全店托管场景</b>，仅开推直播+短直双开，小店链路智投覆盖不足</div>
+    <div class="diagnosis-item">&#x26A0;&#xFE0F; <b>1个手动为主账户</b>（79142530）智投占比仅9.2%，需大幅提升</div>
+    <div class="diagnosis-item">&#x1F4CA; 小店广告账户56834836双链路已开&#x2705;，无缺失</div>
+  </div>
+</div>
+
+<!-- L3 拼三力 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#f39c12;color:#fff;">3</div>
+    <div class="section-title">L3 拼三力（卷资源&middot;围绕&ldquo;人&rdquo;打透）</div>
+    <span class="section-tag l3-gold">三力诊断</span>
+  </div>
+
+  <div class="force-grid">
+    <div class="force-card">
+      <div class="force-card-header product">&#x1F6D2; 618补贴品投放进展</div>
+      <div class="force-card-body">
+        <div class="force-metric"><span class="fm-label">有补贴标签商品数</span><span class="fm-value">13个</span></div>
+        <div class="force-metric"><span class="fm-label">无补贴标签商品数</span><span class="fm-value">25个</span></div>
+        <div class="force-metric"><span class="fm-label">补贴覆盖率</span><span class="fm-value" style="color:#e17055">34.2%</span></div>
+        <div class="force-metric"><span class="fm-label">有补贴消耗</span><span class="fm-value">35.75万</span></div>
+        <div class="force-metric"><span class="fm-label">无补贴消耗</span><span class="fm-value">33.24万</span></div>
+        <div class="force-tips">
+          <div class="tip-title">&#x1F3AF; 行动指南</div>
+          <div class="tip-item">指导报名618补贴活动（平台满减券/官方补贴等），提升补贴商品占比至50%+</div>
+          <div class="tip-item">针对已报名补贴商品追加广告投放，放大补贴加持效果</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="force-card">
+      <div class="force-card-header content">&#x1F4F1; 内容力</div>
+      <div class="force-card-body">
+        <div class="force-metric"><span class="fm-label">去重素材数</span><span class="fm-value">4,547</span></div>
+        <div class="force-metric"><span class="fm-label">CTR</span><span class="fm-value">1.25%</span></div>
+        <div class="force-metric"><span class="fm-label">智投ROI</span><span class="fm-value">1.83</span></div>
+        <div class="force-metric"><span class="fm-label">版位集中度(视频号)</span><span class="fm-value" style="color:#e17055">72.4%</span></div>
+        <div class="force-tips">
+          <div class="tip-title">&#x1F3AF; 动作抓手</div>
+          <div class="tip-item">版位拓展：降低视频号依赖，增加朋友圈/公众号/PCAD</div>
+          <div class="tip-item">创意规格丰富：增加九图/大图/横版视频等规格</div>
+          <div class="tip-item">视频号外流量突破：主动追加非视频号版位</div>
+          <div class="tip-item">素材适配多版位：同一素材适配不同版位规格</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="force-card">
+      <div class="force-card-header business">&#x1F4B0; 经营力</div>
+      <div class="force-card-body">
+        <div class="force-metric"><span class="fm-label">大场CVR</span><span class="fm-value">5.26%</span></div>
+        <div class="force-metric"><span class="fm-label">非大场CVR</span><span class="fm-value">5.61%</span></div>
+        <div class="force-metric"><span class="fm-label">分销消耗</span><span class="fm-value">0.03万</span></div>
+        <div class="force-metric"><span class="fm-label">分销ROI</span><span class="fm-value">1.50</span></div>
+        <div class="force-tips">
+          <div class="tip-title">&#x1F3AF; 动作抓手</div>
+          <div class="tip-item">组合经营：大场+日常双线并行</div>
+          <div class="tip-item">大场创新：升级直播场景/货品/主播</div>
+          <div class="tip-item">政策放大：利用618补贴政策加持</div>
+          <div class="tip-item">分销拓展：当前分销仅303元，有较大增长空间</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:16px;margin:24px 0 8px;">3.2 二级流量分布对比（客户 vs 粮油调味速食行业大盘）</h3>
+  <div id="chart_flow" style="height:360px;"></div>
+  <div class="diagnosis-box">
+    <div class="diagnosis-item">&#x26A0;&#xFE0F; 视频号占比72.4%高度集中，行业大盘仅67.4% &mdash;&mdash; 客户对视频号依赖度高于行业</div>
+    <div class="diagnosis-item">&#x1F4CA; 朋友圈占比8.3% vs 行业2.5%，公众号占比9.1% vs 行业4.9%，这两个版位客户表现优于行业</div>
+    <div class="diagnosis-item">&#x26A0;&#xFE0F; 小程序占比7.5% vs 行业19.0%，PCAD占比2.4% vs 行业5.9% &mdash;&mdash; 这两个版位有较大拓展空间</div>
+  </div>
+  <div style="margin-top:8px;">
+    <span style="font-size:13px;color:#636e72;">当前消耗高度集中在视频号，建议增加不同创意规格的投入（如九图、大图、横版图片、横版视频等），主动追加朋友圈、公众号、PCAD等版位的占比，提升流量覆盖面</span>
+  </div>
+  <a class="doc-link" href="https://doc.weixin.qq.com/doc/w3_AaEAUgbuAPUCNjWuHgYUfSMK7aL86?scode=AJEAIQdfAAo1psaAKvAaEAUgbuAPU" target="_blank" style="margin-top:12px;">&#x1F4D6; 量体裁衣投放指南</a>
+
+  <h3 style="font-size:16px;margin:24px 0 8px;">3.3 经营力对比表</h3>
+  <table>
+    <thead><tr><th>维度</th><th>CTR</th><th>CVR</th><th>ROI</th><th>消耗(万)</th></tr></thead>
+    <tbody>
+      <tr><td>大场</td><td>1.29%</td><td>5.26%</td><td>-</td><td>60.11</td></tr>
+      <tr><td>非大场</td><td>1.14%</td><td>5.61%</td><td>-</td><td>26.53</td></tr>
+    </tbody>
+  </table>
+  <div style="font-size:12px;color:#636e72;margin-top:4px;">大场消耗占比69.3%，CVR略低于非大场，建议优化大场货品组合提升转化</div>
+  <table style="margin-top:12px;">
+    <thead><tr><th>维度</th><th>CTR</th><th>CVR</th><th>ROI</th><th>消耗(万)</th></tr></thead>
+    <tbody>
+      <tr><td>分销</td><td>1.21%</td><td>2.56%</td><td>1.50</td><td>0.03</td></tr>
+      <tr><td>自营</td><td>1.25%</td><td>5.42%</td><td>1.83</td><td>86.75</td></tr>
+    </tbody>
+  </table>
+  <div style="font-size:12px;color:#636e72;margin-top:4px;">分销消耗仅303元，占比极低，有较大增长空间</div>
+  <a class="doc-link" href="https://doc.weixin.qq.com/doc/w3_AaEAUgbuAPUCNM1b9bqvcQAmL45Oq?scode=AJEAIQdfAAobWzisohAaEAUgbuAPU" target="_blank" style="margin-top:12px;">&#x1F4D6; 经营力投放指南</a>
+</div>
+
+</div>
+
+<script>
+// 1.1 消耗趋势
+var dates = ['04/29','04/30','05/01','05/02','05/03','05/04','05/05','05/06','05/07','05/08','05/09','05/10','05/11','05/12','05/13','05/14','05/15','05/16','05/17','05/18','05/19','05/20','05/21','05/22','05/23','05/24','05/25','05/26','05/27','05/28'];
+var nonSmart = [2247,1009,997,674,865,364,692,1618,1005,3468,2141,492,668,1399,718,1010,1535,714,2065,2006,2211,1163,2381,2248,1237,1496,1448,1377,1187,677];
+var pushLive = [1022,377,171,86,308,158,133,240,536,558,324,921,774,1290,1936,17319,4719,5966,6369,7442,4868,6649,45463,1159,13592,9464,14923,18678,14476,9258];
+var storeManaged = [0,0,0,0,0,0,0,0,0,3,23,3,382,613,595,300,676,849,493,500,418,343,281,329,477];
+var shortLive = [963,2446,29,21,10,14,4687,2230,3980,2529,3308,72,1802,4465,6874,9519,2942,7016,4203,20208,47904,16961,84615,2051,34349,28237,74739,37221,62173,47845];
+var xdsLive = [1524,1920,0,0,0,0,0,3357,3702,1260,227,0,1093,428,837,1807,2276,4557,2851,2228,1705,424,164,0,0,0,0,0,0,0];
+var xdsDirect = [1410,1169,316,249,279,172,300,732,1693,3694,1858,1365,1363,1412,1672,2565,1795,1543,1666,2188,1172,5178,5942,3731,6543,4528,7577,6926,10166,7276];
+
+var types = ['非智投','单链路·推直播','全店托管','短直双开','小店广告·直播','小店广告·直购'];
+var colors = ['#636e72','#74b9ff','#a29bfe','#0984e3','#55efc4','#00b894'];
+var allSeries = [nonSmart, pushLive, storeManaged, shortLive, xdsLive, xdsDirect];
+
+var trendTraces = [];
+for(var i=0; i<types.length; i++){
+  trendTraces.push({
+    x: dates, y: allSeries[i], name: types[i], type: 'scatter', mode: 'lines',
+    stackgroup: 'one', line: {color: colors[i], width: 1},
+    hovertemplate: types[i] + ': %{y:,.0f}元<extra></extra>'
+  });
+}
+
+Plotly.newPlot('chart_trend', trendTraces, {
+  title: {text: '消耗趋势（近30天·按智投类型）', font: {size: 14}},
+  xaxis: {title: '日期'},
+  yaxis: {title: '消耗(元)', tickformat: ','},
+  hovermode: 'x unified',
+  legend: {orientation: 'h', y: -0.15},
+  margin: {t: 40, b: 60}
+});
+
+// 1.3 素材基建
+var matVals = [681,696,332,243,216,230,536,595,649,654,626,260,586,552,637,967,999,1082,1076,1219,1319,1213,1369,660,1331,1275,1309,1169,1074,1022];
+Plotly.newPlot('chart_material', [{
+  x: dates, y: matVals, type: 'bar', marker: {color: '#0984e3'}
+}], {
+  title: {text: '去重素材数趋势', font: {size: 14}},
+  xaxis: {title: '日期'},
+  yaxis: {title: '素材数(去重)', tickformat: ','},
+  margin: {t: 40, b: 40}
+});
+
+// 2.1 理想结构
+Plotly.newPlot('chart_structure', [
+  {x: ['理想','实际'], y: [49, 81.8], name: '智投', type: 'bar', marker: {color: '#0984e3'}, text: ['49%','81.8%'], textposition: 'outside'},
+  {x: ['理想','实际'], y: [21, 4.7], name: '非智投', type: 'bar', marker: {color: '#636e72'}, text: ['21%','4.7%'], textposition: 'outside'},
+  {x: ['理想','实际'], y: [30, 13.5], name: '小店广告', type: 'bar', marker: {color: '#00b894'}, text: ['30%','13.5%'], textposition: 'outside'}
+], {
+  title: {text: '投流结构：理想 vs 实际', font: {size: 14}},
+  barmode: 'stack',
+  yaxis: {title: '占比(%)', range: [0, 120]},
+  hovermode: 'x unified',
+  legend: {orientation: 'h', y: -0.15},
+  margin: {t: 40, b: 60},
+  height: 300
+});
+
+// 3.2 二级流量对比
+var flowNames = ['微信视频号','微信朋友圈','微信公众号','微信小程序','平台与内容广告','微信搜一搜','搜索广告','移动联盟'];
+var flowCust = [72.4, 8.3, 9.1, 7.5, 2.4, 0.2, 0.1, 0.0];
+var flowInd = [67.4, 2.5, 4.9, 19.0, 5.9, 0.4, 0.3, 0.1];
+
+Plotly.newPlot('chart_flow', [
+  {x: flowNames, y: flowCust, name: '空刻意面', type: 'bar', marker: {color: '#0984e3'}, text: flowCust.map(function(v){return v.toFixed(1)+'%';}), textposition: 'outside', textfont: {size: 10}},
+  {x: flowNames, y: flowInd, name: '粮油调味速食行业', type: 'bar', marker: {color: '#00b894'}, text: flowInd.map(function(v){return v.toFixed(1)+'%';}), textposition: 'outside', textfont: {size: 10}}
+], {
+  title: {text: '二级流量分布对比（客户 vs 行业大盘）', font: {size: 14}},
+  barmode: 'group',
+  yaxis: {title: '消耗占比(%)', range: [0, 85]},
+  xaxis: {tickangle: -30},
+  hovermode: 'x unified',
+  legend: {orientation: 'h', y: -0.25},
+  margin: {t: 40, b: 80}
+});
+</script>
+
+<script>(function(){var _h=0,_t;function s(){var h=document.documentElement.scrollHeight;if(h>0&&h!==_h){_h=h;window.parent.postMessage({type:"iframe-resize",height:h},"*")}}function d(){clearTimeout(_t);_t=setTimeout(s,150)}if(document.readyState==="complete")s();else window.addEventListener("load",s);if(typeof ResizeObserver!=="undefined")new ResizeObserver(d).observe(document.documentElement)})();</script></body>
+</html>
