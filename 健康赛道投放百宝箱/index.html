@@ -1,0 +1,2265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>健康膳食营养赛道腾讯广告投放百宝箱</title>
+
+<!-- 字体：Noto Serif SC + Noto Sans SC + Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;700;900&display=swap" rel="stylesheet">
+
+
+<style>
+/* ================ CSS 变量：Stencil & Tablet 配色适配 ================ */
+:root {
+  --bone: #E2DCC9;
+  --paper: #F4EFE0;
+  --ink: #0A0A0A;
+  --orange: #EE7A2E;
+  --magenta: #C73B7A;
+  --teal: #2D7E73;
+  --blue: #3F73B7;
+  --sienna: #A06A3C;
+  --mustard: #D8A93B;
+  --olive: #6F7A2E;
+
+  --radius-card: 22px;
+  --radius-lg: 26px;
+  --radius-pill: 999px;
+  --gap: 24px;
+  --max-w: 1080px;
+
+  --font-display: 'Noto Serif SC', serif;
+  --font-label: 'Noto Sans SC', sans-serif;
+  --font-body: 'Inter', 'Noto Serif SC', sans-serif;
+}
+
+/* ================ Reset & Base ================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ================ Layout ================ */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gap);
+}
+
+/* ================ Header + Formula（合并为一个紧凑黑底区域） ================ */
+.hero {
+  background: var(--ink);
+  padding: 28px var(--gap) 36px;
+  position: relative;
+}
+.hero .top-meta {
+  position: absolute;
+  top: 16px;
+  left: var(--gap);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.hero .top-meta .pill {
+  background: rgba(226, 220, 201, 0.12);
+  border: 1px solid rgba(226, 220, 201, 0.25);
+  color: rgba(226, 220, 201, 0.7);
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.04em;
+}
+.hero .hero-content {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-top: 14px;
+}
+.hero .eyebrow {
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mustard);
+  margin-bottom: 8px;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 900;
+  color: var(--bone);
+  line-height: 1.2;
+  margin-bottom: 18px;
+}
+
+/* ================ eCPM 公式区（小字号·辅助理解，让下方卡片成为视觉主角） ================ */
+.formula-bar {
+  background: rgba(226, 220, 201, 0.05);
+  border: 1px solid rgba(226, 220, 201, 0.1);
+  border-radius: var(--radius-card);
+  margin-bottom: 18px;
+  position: relative;
+  /* 向左延展 120px 容纳 eCPM=，右侧 .f-factors 内容区从 x=0 起算，与卡片网格严格对齐 */
+  margin-left: -120px;
+  padding: 10px 0 10px 120px;
+}
+/* eCPM= 放在左侧延展区，不挤占右侧四因子网格的列宽 */
+.formula-bar .f-head {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  white-space: nowrap;
+}
+.formula-bar .f-head .f-eyebrow {
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(226, 220, 201, 0.35);
+}
+.formula-bar .f-head .f-label {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 900;
+  color: rgba(226, 220, 201, 0.85);
+}
+.formula-bar .f-head .f-eq {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 900;
+  color: rgba(226, 220, 201, 0.35);
+}
+/* 四因子网格：4 列、列宽与下方 .factor-grid 完全一致（同 gap、同列数） */
+.formula-bar .f-factors {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.formula-bar .f-factor {
+  display: flex;
+  align-items: center;
+  justify-content: center;   /* 因子在自己这一列居中 → 与下方卡片中线对齐 */
+  position: relative;
+}
+/* 乘号：绝对定位在每列左侧间隙居中，不挤占列宽（保证因子严格居中对齐卡片） */
+.formula-bar .f-factor .f-op {
+  position: absolute;
+  left: -9px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 900;
+  color: rgba(226, 220, 201, 0.3);
+}
+.formula-bar .f-highlight {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 900;
+  padding: 2px 8px;
+  border-radius: 6px;
+  text-align: center;
+}
+.formula-bar .f-highlight.bid { color: var(--orange); background: rgba(238,122,46,0.14); }
+.formula-bar .f-highlight.ctr { color: var(--magenta); background: rgba(199,59,122,0.16); }
+.formula-bar .f-highlight.cvr { color: var(--teal); background: rgba(45,126,115,0.16); }
+.formula-bar .f-highlight.scale {
+  color: rgba(226, 220, 201, 0.8);
+  background: rgba(63,115,183,0.16);
+  font-size: 12px;
+}
+
+/* ================ 四因子卡片（可点击切换器） ================ */
+.factor-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.factor-card {
+  border-radius: var(--radius-card);
+  padding: 18px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  position: relative;
+  border: 3px solid transparent;
+  opacity: 0.62;
+}
+.factor-card:hover { transform: translateY(-3px); opacity: 0.88; }
+.factor-card.active {
+  opacity: 1;
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 3px var(--mustard), 0 10px 28px rgba(0,0,0,0.35);
+}
+.factor-card[data-accent="orange"] { background: var(--orange); color: var(--ink); }
+.factor-card[data-accent="magenta"] { background: var(--magenta); color: var(--bone); }
+.factor-card[data-accent="teal"] { background: var(--teal); color: var(--bone); }
+.factor-card[data-accent="blue"] { background: var(--blue); color: var(--bone); }
+
+.factor-card .fc-metric {
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  margin-bottom: 4px;
+}
+.factor-card .fc-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+/* ================ 吸顶导航栏（滚动超过 hero 卡片后出现） ================ */
+.sticky-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: var(--ink);
+  border-bottom: 2px solid rgba(226,220,201,0.15);
+  transform: translateY(-100%);
+  transition: transform 0.28s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+.sticky-nav.show { transform: translateY(0); }
+.sticky-nav .sn-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gap);
+  display: flex;
+  gap: 10px;
+}
+.sticky-nav button {
+  flex: 1;
+  font-family: var(--font-label);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: rgba(226,220,201,0.55);
+  background: none;
+  border: none;
+  padding: 14px 8px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.sticky-nav button:hover { color: var(--bone); }
+.sticky-nav button .sn-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: currentColor; opacity: 0.5;
+}
+.sticky-nav button.active { color: var(--bone); }
+.sticky-nav button.active[data-accent="orange"] { border-bottom-color: var(--orange); }
+.sticky-nav button.active[data-accent="magenta"] { border-bottom-color: var(--magenta); }
+.sticky-nav button.active[data-accent="teal"] { border-bottom-color: var(--teal); }
+.sticky-nav button.active[data-accent="blue"] { border-bottom-color: var(--blue); }
+.sticky-nav button.active[data-accent="orange"] .sn-dot { background: var(--orange); opacity: 1; }
+.sticky-nav button.active[data-accent="magenta"] .sn-dot { background: var(--magenta); opacity: 1; }
+.sticky-nav button.active[data-accent="teal"] .sn-dot { background: var(--teal); opacity: 1; }
+.sticky-nav button.active[data-accent="blue"] .sn-dot { background: var(--blue); opacity: 1; }
+
+/* ================ 四大板块内容区（连续平铺，可滚动浏览） ================ */
+.pillar-section {
+  padding: 44px 0;
+  scroll-margin-top: 64px;   /* 吸顶导航高度，锚点跳转时留出空间 */
+  border-top: 1px solid rgba(10,10,10,0.07);
+}
+.pillar-section:first-of-type { border-top: none; }
+
+.pillar-header {
+  margin-bottom: 28px;
+}
+.pillar-header .ph-accent {
+  display: inline-block;
+  width: 40px;
+  height: 5px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+.pillar-header h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+.pillar-header .ph-tagline {
+  font-size: 14px;
+  color: rgba(10,10,10,0.6);
+  max-width: 700px;
+}
+
+/* 模块列表（空态） */
+.module-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--gap);
+}
+.module-placeholder {
+  background: var(--paper);
+  border-radius: var(--radius-card);
+  padding: 28px 20px;
+  border: 2px dashed rgba(10,10,10,0.12);
+  text-align: center;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.module-placeholder .mp-icon { font-size: 28px; }
+.module-placeholder .mp-title {
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.module-placeholder .mp-freq {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(10,10,10,0.07);
+}
+.module-placeholder .mp-status {
+  font-size: 11px;
+  color: rgba(10,10,10,0.4);
+}
+
+/* ================ 子模块（板块内分区） ================ */
+.submodule { margin-bottom: 40px; }
+.submodule:last-child { margin-bottom: 0; }
+.submodule .sm-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.submodule .sm-icon { font-size: 22px; }
+.submodule .sm-title {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 900;
+}
+.submodule .sm-badge {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
+  background: rgba(10,10,10,0.07);
+  color: rgba(10,10,10,0.55);
+}
+.submodule .sm-desc {
+  font-size: 13px;
+  color: rgba(10,10,10,0.6);
+  margin-bottom: 18px;
+  max-width: 1000px;
+}
+
+/* 报告卡片 */
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+/* 三张报告卡：统一暖纸底 + 左侧主题色条，通过强调色区分（协调、有设计感） */
+.report-card {
+  background: var(--paper);
+  border-radius: var(--radius-card);
+  padding: 16px 18px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  border-left: 5px solid var(--c, var(--sienna));
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: var(--ink);
+  position: relative;
+}
+.report-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(10,10,10,0.12); }
+
+/* 各卡主题色（--c 控制色条/标题点缀，--cs 控制柔和底） */
+.report-card.c-feature { --c: var(--mustard); --cs: rgba(216,169,59,0.16); }
+.report-card.c-autumn  { --c: var(--orange);  --cs: rgba(238,122,46,0.14); }
+.report-card.c-winter  { --c: var(--blue);    --cs: rgba(63,115,183,0.14); }
+
+/* 主推卡片：额外加金色描边，最醒目 */
+.report-card.c-feature {
+  box-shadow: inset 0 0 0 1.5px rgba(216,169,59,0.4);
+}
+.report-card.c-feature:hover { box-shadow: inset 0 0 0 1.5px rgba(216,169,59,0.5), 0 8px 22px rgba(10,10,10,0.12); }
+
+/* 头部一行：标签 + 右上角"查看"链接 */
+.report-card .rc-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.report-card .rc-tag {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
+  background: var(--c);
+  color: #fff;
+}
+.report-card.c-feature .rc-tag { color: var(--ink); }
+.report-card .rc-link {
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--c);
+  white-space: nowrap;
+  opacity: 0.85;
+}
+.report-card .rc-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 2px;
+}
+.report-card .rc-period {
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(10,10,10,0.45);
+  margin-bottom: 12px;
+}
+/* 标签化摘要：一组小 chip，可视化更强 */
+.report-card .rc-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.report-card .rc-chip {
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: rgba(10,10,10,0.055);
+  color: rgba(10,10,10,0.68);
+  line-height: 1.4;
+}
+/* 关键 chip：用本卡主题柔和底 + 主题色字，强调 */
+.report-card .rc-chip.key {
+  background: var(--cs);
+  color: var(--c);
+  font-weight: 700;
+}
+
+/* 数据榜单空态 */
+.data-empty {
+  background: var(--paper);
+  border: 2px dashed rgba(10,10,10,0.12);
+  border-radius: var(--radius-card);
+  padding: 28px 24px;
+  margin-bottom: 16px;
+}
+.data-empty .de-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+.data-empty .de-fields {
+  font-size: 12px;
+  color: rgba(10,10,10,0.5);
+  line-height: 1.6;
+}
+.data-empty .de-status {
+  display: inline-block;
+  margin-top: 12px;
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(216,169,59,0.2);
+  color: var(--sienna);
+}
+
+/* 数据表格（爆品榜填充后用） */
+.rank-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: var(--paper);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.rank-table th {
+  font-family: var(--font-label);
+  font-weight: 700;
+  text-align: left;
+  padding: 12px 14px;
+  background: var(--ink);
+  color: var(--bone);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.rank-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid rgba(10,10,10,0.08);
+}
+.rank-table tr:last-child td { border-bottom: none; }
+.rank-table .rt-rank {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: var(--orange);
+}
+
+/* ================ 赛道切换 Tab（爆品榜内） ================ */
+.track-tabs {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(10,10,10,0.06);
+  border-radius: var(--radius-pill);
+  margin-bottom: 18px;
+}
+.track-tabs button {
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgba(10,10,10,0.55);
+  background: none;
+  border: none;
+  padding: 7px 18px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.track-tabs button:hover { color: var(--ink); }
+.track-tabs button.active {
+  background: var(--ink);
+  color: var(--bone);
+}
+
+/* 赛道面板：默认隐藏，激活显示 */
+.track-panel { display: none; }
+.track-panel.active { display: block; animation: fadeIn 0.25s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(6px);} to { opacity:1; transform:translateY(0);} }
+
+/* 赛道大盘小结条 */
+.track-summary {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(10,10,10,0.7);
+  background: var(--paper);
+  border-left: 4px solid var(--orange);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+}
+.track-panel[data-track="haibao"] .track-summary { border-left-color: var(--blue); }
+
+/* 榜单小标题 */
+.rank-subtitle {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 900;
+  margin: 20px 0 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.rank-subtitle .rs-icon { font-size: 16px; }
+
+/* 表格横向滚动容器（移动端） */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 8px; }
+.table-scroll .rank-table { min-width: 920px; margin-bottom: 0; font-size: 12px; }
+.table-scroll .rank-table th,
+.table-scroll .rank-table td { padding: 9px 10px; white-space: nowrap; }
+.table-scroll .rank-table td.rt-cat { font-weight: 700; }
+.table-scroll .rank-table td.rt-good { font-family: var(--font-label); white-space: normal; min-width: 160px; max-width: 220px; }
+/* 主要版位列：一行最多三个版位，超出换行（限宽触发 wrap） */
+.table-scroll .rank-table td.rt-slot { white-space: normal; min-width: 150px; max-width: 190px; line-height: 1.5; }
+/* 同品类次行（〃）淡化——颜色加深以保证可读 */
+.rank-table tr.sub td { color: rgba(10,10,10,0.72); background: rgba(10,10,10,0.025); }
+.rank-table tr.sub td.rt-rank { color: transparent; }
+.rank-table tr.sub td.rt-cat::before { content: "〃"; color: rgba(10,10,10,0.4); }
+/* 增速正负色 */
+.rt-up { color: var(--teal); font-weight: 700; }
+.rt-down { color: rgba(10,10,10,0.45); }
+.rt-note { white-space: normal !important; min-width: 200px; font-size: 11px; color: rgba(10,10,10,0.6); }
+
+/* ================ 更新日志 ================ */
+.changelog-section {
+  padding: 32px 0 48px;
+  border-top: 1px solid rgba(10,10,10,0.08);
+}
+.changelog-section h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+.changelog-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.changelog-table th {
+  font-family: var(--font-label);
+  font-weight: 700;
+  text-align: left;
+  padding: 6px 10px;
+  border-bottom: 2px solid var(--ink);
+  letter-spacing: 0.04em;
+}
+.changelog-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(10,10,10,0.08);
+}
+
+/* ================ Footer ================ */
+.footer {
+  background: var(--ink);
+  padding: 24px var(--gap);
+  text-align: center;
+  font-family: var(--font-label);
+  font-size: 11px;
+  color: rgba(226,220,201,0.4);
+  letter-spacing: 0.06em;
+}
+
+
+
+/* ================ 响应式 ================ */
+@media (max-width: 768px) {
+  /* 移动端：取消左延展，eCPM= 回到正常文档流、四因子改 2 列与卡片对齐 */
+  .formula-bar { margin-left: 0; padding: 14px 16px; display: block; }
+  .formula-bar .f-head { position: static; transform: none; justify-content: center; margin-bottom: 10px; }
+  .formula-bar .f-factors { grid-template-columns: repeat(2, 1fr); }
+  .formula-bar .f-head .f-label, .formula-bar .f-highlight { font-size: 15px; }
+  .formula-bar .f-highlight.scale { font-size: 12px; }
+  .factor-grid { grid-template-columns: repeat(2, 1fr); }
+  /* 吸顶导航：移动端横向铺满、可点，文字略小，隐藏圆点节省空间 */
+  .sticky-nav .sn-inner { gap: 4px; padding: 0 12px; }
+  .sticky-nav button { font-size: 12px; padding: 12px 4px; gap: 4px; }
+  .sticky-nav button .sn-dot { width: 6px; height: 6px; }
+  .pillar-section { scroll-margin-top: 56px; }
+}
+@media (max-width: 480px) {
+  .factor-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .report-grid { grid-template-columns: 1fr; }
+  .sticky-nav button .sn-dot { display: none; }
+  .sticky-nav button { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============== Hero: Header + Formula + Factor Cards ============== -->
+<section class="hero">
+  <!-- 左上角：版本 + 更新时间 -->
+  <div class="top-meta">
+    <span class="pill">v1.0</span>
+    <span class="pill">2026.06.22</span>
+  </div>
+
+  <div class="hero-content">
+    <div class="eyebrow">膳食健康赛道 · 经营指引</div>
+    <h1>健康膳食营养赛道腾讯广告投放百宝箱</h1>
+
+    <!-- eCPM 公式（eCPM= 左外延，四因子与下方卡片严格一一居中对齐） -->
+    <div class="formula-bar">
+      <div class="f-head">
+        <span class="f-eyebrow">广告竞争力</span>
+        <span class="f-label">eCPM</span>
+        <span class="f-eq">=</span>
+      </div>
+      <div class="f-factors">
+        <div class="f-factor"><span class="f-highlight bid">Bid</span></div>
+        <div class="f-factor"><span class="f-op">×</span><span class="f-highlight ctr">CTR</span></div>
+        <div class="f-factor"><span class="f-op">×</span><span class="f-highlight cvr">CVR</span></div>
+        <div class="f-factor"><span class="f-op">×</span><span class="f-highlight scale">流量（×1000）</span></div>
+      </div>
+    </div>
+
+    <!-- 四因子卡片（可点击切换器，直接切换下方内容） -->
+    <div class="factor-grid">
+      <div class="factor-card active" data-accent="orange" onclick="switchTab('选品')">
+        <div class="fc-metric">Bid · 出价</div>
+        <div class="fc-name">选品</div>
+      </div>
+      <div class="factor-card" data-accent="magenta" onclick="switchTab('创意素材')">
+        <div class="fc-metric">CTR · 点击率</div>
+        <div class="fc-name">创意素材</div>
+      </div>
+      <div class="factor-card" data-accent="teal" onclick="switchTab('直播间转化')">
+        <div class="fc-metric">CVR · 转化率</div>
+        <div class="fc-name">直播间转化</div>
+      </div>
+      <div class="factor-card" data-accent="blue" onclick="switchTab('投放')">
+        <div class="fc-metric">流量规模</div>
+        <div class="fc-name">投放</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 吸顶导航栏（滚动超过 hero 卡片后出现） ============== -->
+<nav class="sticky-nav" id="stickyNav">
+  <div class="sn-inner">
+    <button data-accent="orange" data-pillar="选品"><span class="sn-dot"></span>选品</button>
+    <button data-accent="magenta" data-pillar="创意素材"><span class="sn-dot"></span>创意素材</button>
+    <button data-accent="teal" data-pillar="直播间转化"><span class="sn-dot"></span>直播间转化</button>
+    <button data-accent="blue" data-pillar="投放"><span class="sn-dot"></span>投放</button>
+  </div>
+</nav>
+
+<!-- ============== 选品 ============== -->
+<section class="pillar-section container" data-pillar="选品" id="pillar-选品">
+  <div class="pillar-header">
+    <div class="ph-accent" style="background: var(--orange)"></div>
+    <h2>选品</h2>
+    <p class="ph-tagline">选品决定出价上限——选对品、配好盘，广告竞争力的起点就高。</p>
+  </div>
+  <!-- 子模块①：小店全域·商品洞察（报告卡片） -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🧭</span>
+      <span class="sm-title">小店全域 · 商品洞察</span>
+      <span class="sm-badge">月度 / 时令更新</span>
+    </div>
+    <p class="sm-desc">从"全网在卖什么、什么时令卖什么"的视角选品定盘。点击卡片查看完整报告。</p>
+    <div class="report-grid">
+      <a class="report-card c-feature" href="https://going0917.github.io/ad-guide/nutrition-insights-2025may.html" target="_blank" rel="noopener">
+        <div class="rc-top">
+          <span class="rc-tag">⭐ 赛道自有洞察</span>
+          <span class="rc-link">查看 →</span>
+        </div>
+        <div class="rc-title">膳食营养补充食品 · 选品洞察</div>
+        <div class="rc-period">2025.05 月度</div>
+        <div class="rc-chips">
+          <span class="rc-chip key">维矿/钙铁锌硒 占 46.5%</span>
+          <span class="rc-chip">TOP3 品类占 77% 热度</span>
+          <span class="rc-chip">高增长词 学生 / 原装进口 / 冻干</span>
+          <span class="rc-chip">打法 引流 / 标准 / 升级 三款矩阵</span>
+        </div>
+      </a>
+      <a class="report-card c-autumn" href="https://winglee777.github.io/q3-category-trend/longimage.html" target="_blank" rel="noopener">
+        <div class="rc-top">
+          <span class="rc-tag">时令 · 秋</span>
+          <span class="rc-link">查看 →</span>
+        </div>
+        <div class="rc-title">秋令 Q3 · 保健营养补充趋势</div>
+        <div class="rc-period">2025 Q3 · 该类目 1.75 亿 GMV / 1438 SKU</div>
+        <div class="rc-chips">
+          <span class="rc-chip key">益生菌+维生素+胶原蛋白 占 50%</span>
+          <span class="rc-chip">营养补充 + 益生菌 合计 37%</span>
+          <span class="rc-chip">补钙健骨：骨胶原/钙片（健身+中老年）</span>
+          <span class="rc-chip">代餐减脂：左旋肉碱 / 白芸豆</span>
+          <span class="rc-chip">卖点 有机无添加 · 高蛋白低脂 · 大牌平替</span>
+        </div>
+      </a>
+      <a class="report-card c-winter" href="https://winglee777.github.io/q4-category-trend/longimage.html" target="_blank" rel="noopener">
+        <div class="rc-top">
+          <span class="rc-tag">时令 · 冬</span>
+          <span class="rc-link">查看 →</span>
+        </div>
+        <div class="rc-title">冬令 Q4 · 保健营养补充趋势</div>
+        <div class="rc-period">2025 Q4 · 该类目 3.16 亿 GMV / 2004 SKU</div>
+        <div class="rc-chips">
+          <span class="rc-chip key">乳酸菌+虾青素 双引擎驱动</span>
+          <span class="rc-chip">四大爆款 乳酸菌 / 虾青素 / 蛋白粉 / 叶黄素</span>
+          <span class="rc-chip">中老年补钙：液体钙 / 钙铁锌 大单品</span>
+          <span class="rc-chip">已进入"大单品时代"</span>
+          <span class="rc-chip">打法 明确功能定位 + 明星达人推荐</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 子模块②：小店广告域·爆品榜（数据，支持赛道切换） -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🔥</span>
+      <span class="sm-title">小店广告域 · 爆品榜</span>
+      <span class="sm-badge">每周更新 · 近双周 06.07–06.20</span>
+    </div>
+    <p class="sm-desc">基于小店广告域近双周投放数据，看清"什么品在跑、跑得怎么样、谁在涨"。指标为脱敏区间（视频号版位口径），日耗仅披露量级，供对比参考。</p>
+
+    <!-- 赛道切换 -->
+    <div class="track-tabs">
+      <button class="active" data-track="shanshi" onclick="switchTrack('shanshi')">膳食营养</button>
+      <button data-track="haibao" onclick="switchTrack('haibao')">海外保健食品</button>
+    </div>
+
+    <!-- ===== 膳食营养赛道 ===== -->
+    <div class="track-panel active" data-track="shanshi">
+      <div class="track-summary">益生菌、代餐粉/食补粉、复合维生素稳居跑量头部；B族维生素、DHA/EPA 增速亮眼。直播链路 CTR 偏低但 CVR 更高，直购链路反之。</div>
+
+      <div class="rank-subtitle"><span class="rs-icon">🏆</span>爆品榜 · 当前跑量 TOP（按品类）</div>
+      <div class="table-scroll">
+        <table class="rank-table">
+          <thead><tr>
+            <th>#</th><th>一级品类</th><th>代表商品</th><th>链路</th><th>日耗量级</th><th>主要版位</th><th>CTR</th><th>CVR</th><th>下单ROI</th><th>客单价</th><th>eCPM</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="rt-rank">1</td><td class="rt-cat">益生菌</td><td class="rt-good">早蓝晚绿双循环14株活菌养好菌群</td><td>小店直播</td><td>60–80万</td><td class="rt-slot">视频号信息流 / 公众号 / 朋友圈 / 小程序 / 优量汇</td><td>1.3%–1.8%</td><td>12.1%–12.6%</td><td>1.76–2.16</td><td>851–861</td><td>192–202</td></tr>
+            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">益生菌</td><td class="rt-good">小胶囊益生菌</td><td>小店直购</td><td>5–10万</td><td class="rt-slot">视频号信息流</td><td>1.7%–2.2%</td><td>5.4%–5.9%</td><td>1.52–1.92</td><td>335–345</td><td>183–193</td></tr>
+            <tr><td class="rt-rank">2</td><td class="rt-cat">代餐粉/食补粉</td><td class="rt-good">七日膳食套餐营养代餐粉固体饮料</td><td>小店直播</td><td>40–60万</td><td class="rt-slot">视频号信息流 / 小程序 / 公众号 / 优量汇 / 朋友圈</td><td>1.8%–2.3%</td><td>7.9%–8.4%</td><td>1.16–1.56</td><td>264–274</td><td>168–178</td></tr>
+            <tr><td class="rt-rank">3</td><td class="rt-cat">复合维生素/矿物质</td><td class="rt-good">骨胶原蛋白+钙+维D片</td><td>小店直播</td><td>20–40万</td><td class="rt-slot">视频号信息流 / 小程序 / 朋友圈</td><td>1.3%–1.8%</td><td>7.9%–8.4%</td><td>1.77–2.17</td><td>130–140</td><td>73–83</td></tr>
+            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">复合维生素/矿物质</td><td class="rt-good">骨胶原蛋白+钙+维D片</td><td>小店直购</td><td>5–10万</td><td class="rt-slot">视频号信息流 / 小程序</td><td>1.4%–1.9%</td><td>10.8%–11.3%</td><td>2.44–2.84</td><td>88–98</td><td>49–59</td></tr>
+            <tr><td class="rt-rank">4</td><td class="rt-cat">B族维生素</td><td class="rt-good">维生素B族咀嚼片复配8大B族</td><td>小店直播</td><td>10–20万</td><td class="rt-slot">视频号信息流 / 优量汇 / 小程序</td><td>2.1%–2.6%</td><td>8.7%–9.2%</td><td>1.56–1.96</td><td>73–83</td><td>75–85</td></tr>
+            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">B族维生素</td><td class="rt-good">维生素B族咀嚼片复配8大B族</td><td>小店直购</td><td>5–10万</td><td class="rt-slot">视频号信息流</td><td>2.1%–2.6%</td><td>12.2%–12.7%</td><td>2.10–2.50</td><td>43–53</td><td>46–56</td></tr>
+            <tr><td class="rt-rank">5</td><td class="rt-cat">叶黄素/叶黄素酯</td><td class="rt-good">5D超视界蓝莓叶黄素酯软胶囊</td><td>小店直播</td><td>5–10万</td><td class="rt-slot">视频号信息流 / 小程序</td><td>1.4%–1.9%</td><td>14.2%–14.7%</td><td>1.65–2.05</td><td>93–103</td><td>54–64</td></tr>
+            <tr><td class="rt-rank">6</td><td class="rt-cat">其他普通膳食营养</td><td class="rt-good">鱼磷虾油水蛭素纳豆激酶</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>4.1%–4.6%</td><td>2.1%–2.6%</td><td>1.97–2.37</td><td>1038–1048</td><td>373–383</td></tr>
+            <tr><td class="rt-rank">7</td><td class="rt-cat">软糖</td><td class="rt-good">儿童营养包软糖21重营养独立包装</td><td>小店直购</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>1.5%–2.0%</td><td>9.7%–10.2%</td><td>1.59–1.99</td><td>354–364</td><td>292–302</td></tr>
+            <tr><td class="rt-rank">8</td><td class="rt-cat">其他药食同源</td><td class="rt-good">高原沙棘原浆</td><td>小店直播</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>2.2%–2.7%</td><td>4.0%–4.5%</td><td>0.95–1.35</td><td>199–209</td><td>142–152</td></tr>
+            <tr><td class="rt-rank">9</td><td class="rt-cat">GABA/氨基丁酸</td><td class="rt-good">氨基丁酸水解蛋黄骨肽钙饮</td><td>小店直播</td><td>3–5万</td><td class="rt-slot">视频号信息流</td><td>0.9%–1.4%</td><td>6.9%–7.4%</td><td>1.73–2.13</td><td>694–704</td><td>234–244</td></tr>
+            <tr><td class="rt-rank">10</td><td class="rt-cat">虾青素</td><td class="rt-good">左旋虾青素白番茄凝胶脂溶性</td><td>小店直播</td><td>3–5万</td><td class="rt-slot">视频号信息流</td><td>1.2%–1.7%</td><td>11.0%–11.5%</td><td>1.38–1.78</td><td>207–217</td><td>169–179</td></tr>
+            <tr><td class="rt-rank">11</td><td class="rt-cat">钙镁</td><td class="rt-good">骨胶原蛋白+钙+维D片</td><td>小店直播</td><td>3–5万</td><td class="rt-slot">小程序</td><td>2.3%–2.8%</td><td>8.7%–9.2%</td><td>1.63–2.03</td><td>88–98</td><td>89–99</td></tr>
+            <tr><td class="rt-rank">12</td><td class="rt-cat">DHA/EPA/DPA</td><td class="rt-good">神经酸DHA藻油复合营养饮</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>2.3%–2.8%</td><td>7.8%–8.3%</td><td>1.82–2.22</td><td>452–462</td><td>262–272</td></tr>
+            <tr><td class="rt-rank">13</td><td class="rt-cat">铁锌硒</td><td class="rt-good">植物硒蛋白多维补硒片</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>2.6%–3.1%</td><td>8.7%–9.2%</td><td>1.77–2.17</td><td>64–74</td><td>68–78</td></tr>
+            <tr><td class="rt-rank">14</td><td class="rt-cat">胶原蛋白肽</td><td class="rt-good">胶原蛋白肽透明质酸钠EGCG饮</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>3.3%–3.8%</td><td>1.1%–1.6%</td><td>1.32–1.72</td><td>908–918</td><td>251–261</td></tr>
+            <tr><td class="rt-rank">15</td><td class="rt-cat">骨胶原蛋白</td><td class="rt-good">骨胶原蛋白+钙+维D片</td><td>小店直购</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>2.4%–2.9%</td><td>6.5%–7.0%</td><td>1.65–2.05</td><td>103–113</td><td>91–101</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rank-subtitle"><span class="rs-icon">🚀</span>潜力增速榜 · 近双周增速 TOP（日耗 &gt; 100元）</div>
+      <div class="table-scroll">
+        <table class="rank-table">
+          <thead><tr>
+            <th>#</th><th>一级品类</th><th>代表商品</th><th>链路</th><th>日耗量级</th><th>环比增速</th><th>CTR</th><th>CVR</th><th>下单ROI</th><th>客单价</th><th>说明</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="rt-rank">1</td><td class="rt-cat">DHA/EPA/DPA</td><td class="rt-good">神经酸DHA藻油复合营养饮</td><td>小店直播</td><td>1–3万</td><td class="rt-up">+50554%</td><td>2.3%–2.8%</td><td>7.8%–8.3%</td><td>1.82–2.22</td><td>452–462</td><td class="rt-note">小店直播需求爆发，新增量级显著</td></tr>
+            <tr><td class="rt-rank">2</td><td class="rt-cat">蛋白质品</td><td class="rt-good">蛋白粉分离乳清蛋白</td><td>小店直购</td><td>0–1万</td><td class="rt-up">+1769%</td><td>3.2%–3.7%</td><td>4.5%–5.0%</td><td>1.86–2.26</td><td>97–107</td><td class="rt-note">小店直购需求爆发</td></tr>
+            <tr><td class="rt-rank">3</td><td class="rt-cat">骨骼健康</td><td class="rt-good">氨糖硫酸软骨素钙片</td><td>加粉</td><td>0–1万</td><td class="rt-up">+621%</td><td>6.8%–7.3%</td><td>6.8%–7.3%</td><td>—</td><td>—</td><td class="rt-note">加粉链路需求爆发</td></tr>
+            <tr><td class="rt-rank">4</td><td class="rt-cat">磷虾油</td><td class="rt-good">磷虾油叶黄素酯DHA</td><td>小店直购</td><td>0–1万</td><td class="rt-up">+323%</td><td>1.5%–2.0%</td><td>—</td><td>—</td><td>—</td><td class="rt-note">小店直购新起量</td></tr>
+            <tr><td class="rt-rank">5</td><td class="rt-cat">其他饮料</td><td class="rt-good">烟酰胺胶原蛋白肽巴西莓饮</td><td>小店直购</td><td>0–1万</td><td class="rt-up">+185%</td><td>0.5%–1.0%</td><td>6.9%–7.4%</td><td>2.37–2.77</td><td>420–430</td><td class="rt-note">消耗环比翻倍</td></tr>
+            <tr><td class="rt-rank">6</td><td class="rt-cat">B族维生素</td><td class="rt-good">维生素B族咀嚼片8大B族</td><td>小店直播</td><td>10–20万</td><td class="rt-up">+185%</td><td>2.1%–2.6%</td><td>8.7%–9.2%</td><td>1.56–1.96</td><td>73–83</td><td class="rt-note">高基数仍翻倍，强势放量</td></tr>
+            <tr><td class="rt-rank">7</td><td class="rt-cat">DHA/EPA/DPA</td><td class="rt-good">通用胶囊DHA/EPA/DPA</td><td>小程序直购</td><td>0–1万</td><td class="rt-up">+140%</td><td>1.2%–1.7%</td><td>5.2%–5.7%</td><td>1.07–1.47</td><td>252–262</td><td class="rt-note">小程序直购翻倍</td></tr>
+            <tr><td class="rt-rank">8</td><td class="rt-cat">钙镁</td><td class="rt-good">骨胶原蛋白+钙+维D片</td><td>小店直购</td><td>0–1万</td><td class="rt-up">+132%</td><td>0.2%–0.7%</td><td>13.3%–13.8%</td><td>5.77–6.17</td><td>84–94</td><td class="rt-note">高 CVR/ROI，小盘高效</td></tr>
+            <tr><td class="rt-rank">9</td><td class="rt-cat">其他普通膳食营养</td><td class="rt-good">五黑芝麻乳</td><td>小程序直购</td><td>5–10万</td><td class="rt-up">+110%</td><td>2.5%–3.0%</td><td>5.5%–6.0%</td><td>1.06–1.46</td><td>230–240</td><td class="rt-note">小程序直购放量</td></tr>
+            <tr><td class="rt-rank">10</td><td class="rt-cat">虾青素</td><td class="rt-good">左旋虾青素白番茄凝胶</td><td>小店直播</td><td>3–5万</td><td class="rt-up">+81%</td><td>1.2%–1.7%</td><td>11.0%–11.5%</td><td>1.38–1.78</td><td>207–217</td><td class="rt-note">小店直播稳步增长</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== 海外保健食品赛道 ===== -->
+    <div class="track-panel" data-track="haibao">
+      <div class="track-summary">心脑血管、增强免疫力仍为主力品类；骨骼健康品类增速显著；小程序直购链路新品类正在起量。链路以 CID / 小程序直购为主。</div>
+
+      <div class="rank-subtitle"><span class="rs-icon">🏆</span>爆品榜 · 当前跑量 TOP（按品类）</div>
+      <div class="table-scroll">
+        <table class="rank-table">
+          <thead><tr>
+            <th>#</th><th>一级品类</th><th>代表商品</th><th>链路</th><th>日耗量级</th><th>主要版位</th><th>CTR</th><th>CVR</th><th>下单ROI</th><th>客单价</th><th>eCPM</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="rt-rank">1</td><td class="rt-cat">心脑血管</td><td class="rt-good">深海鱼油</td><td>CID</td><td>3–5万</td><td class="rt-slot">视频号信息流</td><td>1.0%–1.5%</td><td>4.5%–5.0%</td><td>0.58–0.98</td><td>259–269</td><td>164–174</td></tr>
+            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">心脑血管</td><td class="rt-good">女性每日营养包</td><td>小程序直购</td><td>1–3万</td><td class="rt-slot">公众号</td><td>2.3%–2.8%</td><td>3.9%–4.4%</td><td>0.84–1.24</td><td>424–434</td><td>350–360</td></tr>
+            <tr><td class="rt-rank">2</td><td class="rt-cat">增强免疫力</td><td class="rt-good">辅酶Q10胶囊</td><td>小程序直购</td><td>3–5万</td><td class="rt-slot">视频号信息流 / 公众号</td><td>6.4%–6.9%</td><td>3.8%–4.3%</td><td>0.77–1.17</td><td>470–480</td><td>1129–1139</td></tr>
+            <tr><td class="rt-rank">3</td><td class="rt-cat">健脑益智</td><td class="rt-good">脑力素</td><td>小程序直购</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>3.3%–3.8%</td><td>4.7%–5.2%</td><td>0.95–1.35</td><td>519–529</td><td>662–672</td></tr>
+            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">健脑益智</td><td class="rt-good">神经营养素</td><td>CID</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>3.2%–3.7%</td><td>2.6%–3.1%</td><td>1.05–1.45</td><td>392–402</td><td>245–255</td></tr>
+            <tr><td class="rt-rank">4</td><td class="rt-cat">养肝护肝</td><td class="rt-good">水飞蓟Q10</td><td>CID</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>1.1%–1.6%</td><td>5.3%–5.8%</td><td>0.87–1.27</td><td>367–377</td><td>214–224</td></tr>
+            <tr><td class="rt-rank">5</td><td class="rt-cat">骨骼健康</td><td class="rt-good">关节功能营养素</td><td>CID</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>2.2%–2.7%</td><td>3.5%–4.0%</td><td>0.86–1.26</td><td>443–453</td><td>327–337</td></tr>
+            <tr><td class="rt-rank">6</td><td class="rt-cat">控制体内脂肪</td><td class="rt-good">金装热控片</td><td>小程序直购</td><td>1–3万</td><td class="rt-slot">朋友圈</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td class="rt-rank">7</td><td class="rt-cat">美白/抗氧化</td><td class="rt-good">麦角硫因胶囊</td><td>小程序直购</td><td>1–3万</td><td class="rt-slot">公众号</td><td>3.3%–3.8%</td><td>6.8%–7.3%</td><td>0.64–1.04</td><td>496–506</td><td>1234–1244</td></tr>
+            <tr><td class="rt-rank">8</td><td class="rt-cat">补益安神</td><td class="rt-good">氨基丁酸睡眠片</td><td>小程序直购</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>1.2%–1.7%</td><td>10.6%–11.1%</td><td>1.09–1.49</td><td>470–480</td><td>453–463</td></tr>
+            <tr><td class="rt-rank">9</td><td class="rt-cat">维矿物质补充</td><td class="rt-good">骨胶原蛋白</td><td>CID</td><td>0–1万</td><td class="rt-slot">优量汇</td><td>0.9%–1.4%</td><td>7.1%–7.6%</td><td>0.86–1.26</td><td>329–339</td><td>192–202</td></tr>
+            <tr><td class="rt-rank">10</td><td class="rt-cat">肠胃养护</td><td class="rt-good">肠胃消化酶</td><td>CID</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>2.5%–3.0%</td><td>3.1%–3.6%</td><td>0.98–1.38</td><td>385–395</td><td>235–245</td></tr>
+            <tr><td class="rt-rank">11</td><td class="rt-cat">儿童营养补充</td><td class="rt-good">儿童益生元</td><td>CID</td><td>0–1万</td><td class="rt-slot">搜一搜</td><td>0.9%–1.4%</td><td>—</td><td>—</td><td>—</td><td>7–17</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rank-subtitle"><span class="rs-icon">🚀</span>潜力增速榜 · 近双周增速 TOP（日耗 &gt; 100元）</div>
+      <div class="table-scroll">
+        <table class="rank-table">
+          <thead><tr>
+            <th>#</th><th>一级品类</th><th>代表商品</th><th>链路</th><th>日耗量级</th><th>环比增速</th><th>CTR</th><th>CVR</th><th>下单ROI</th><th>客单价</th><th>说明</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="rt-rank">1</td><td class="rt-cat">骨骼健康</td><td class="rt-good">骨胶原蛋白</td><td>小程序直购</td><td>0–1万</td><td class="rt-up">+1801%</td><td>1.3%–1.8%</td><td>2.3%–2.8%</td><td>0.35–0.75</td><td>407–417</td><td class="rt-note">小程序直购需求爆发</td></tr>
+            <tr><td class="rt-rank">2</td><td class="rt-cat">补益安神</td><td class="rt-good">氨基丁酸睡眠片</td><td>小程序直购</td><td>0–1万</td><td class="rt-up">+148%</td><td>1.2%–1.7%</td><td>10.6%–11.1%</td><td>1.09–1.49</td><td>470–480</td><td class="rt-note">消耗环比翻倍，CVR 高</td></tr>
+            <tr><td class="rt-rank">3</td><td class="rt-cat">维矿物质补充</td><td class="rt-good">洱宝矿维胶囊</td><td>小程序直购</td><td>0–1万</td><td class="rt-up">+143%</td><td>1.3%–1.8%</td><td>3.6%–4.1%</td><td>0.68–1.08</td><td>337–347</td><td class="rt-note">小程序直购翻倍</td></tr>
+            <tr><td class="rt-rank">4</td><td class="rt-cat">增强免疫力</td><td class="rt-good">牛樟芝滴丸</td><td>CID</td><td>0–1万</td><td class="rt-up">+13%</td><td>0.1%–0.6%</td><td>—</td><td>—</td><td>—</td><td class="rt-note">CID 稳步增长</td></tr>
+            <tr><td class="rt-rank">5</td><td class="rt-cat">增强免疫力</td><td class="rt-good">辅酶Q10胶囊</td><td>小程序直购</td><td>3–5万</td><td class="rt-up">+1%</td><td>6.4%–6.9%</td><td>3.8%–4.3%</td><td>0.77–1.17</td><td>470–480</td><td class="rt-note">大盘稳定，高 CTR 主力</td></tr>
+            <tr><td class="rt-rank">6</td><td class="rt-cat">心脑血管</td><td class="rt-good">女性每日营养包</td><td>小程序直购</td><td>1–3万</td><td class="rt-up">+1%</td><td>2.3%–2.8%</td><td>3.9%–4.4%</td><td>0.84–1.24</td><td>424–434</td><td class="rt-note">小程序直购稳步增长</td></tr>
+            <tr><td class="rt-rank">7</td><td class="rt-cat">心脑血管</td><td class="rt-good">深海鱼油</td><td>CID</td><td>3–5万</td><td class="rt-down">−4%</td><td>1.0%–1.5%</td><td>4.5%–5.0%</td><td>0.58–0.98</td><td>259–269</td><td class="rt-note">CID 大盘平稳</td></tr>
+            <tr><td class="rt-rank">8</td><td class="rt-cat">健脑益智</td><td class="rt-good">脑力素</td><td>小程序直购</td><td>1–3万</td><td class="rt-down">−11%</td><td>3.3%–3.8%</td><td>4.7%–5.2%</td><td>0.95–1.35</td><td>519–529</td><td class="rt-note">小幅回落</td></tr>
+            <tr><td class="rt-rank">9</td><td class="rt-cat">健脑益智</td><td class="rt-good">神经营养素</td><td>CID</td><td>1–3万</td><td class="rt-down">−13%</td><td>3.2%–3.7%</td><td>2.6%–3.1%</td><td>1.05–1.45</td><td>392–402</td><td class="rt-note">小幅回落</td></tr>
+            <tr><td class="rt-rank">10</td><td class="rt-cat">骨骼健康</td><td class="rt-good">关节功能营养素</td><td>CID</td><td>1–3万</td><td class="rt-down">−14%</td><td>2.2%–2.7%</td><td>3.5%–4.0%</td><td>0.86–1.26</td><td>443–453</td><td class="rt-note">小幅回落</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 创意素材 ============== -->
+<section class="pillar-section container" data-pillar="创意素材" id="pillar-创意素材">
+  <!-- 创意素材板块专属组件样式（ct- 前缀作用域，置于 section 内，避免改动骨架 base.html，保证多窗口零冲突） -->
+  <style>
+    /* —— 通用：重点关键词高亮 —— */
+    .ct-hl {
+      background: rgba(199,59,122,0.16); color: var(--magenta);
+      font-weight: 800; padding: 0 4px; border-radius: 4px;
+      box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    }
+    /* 分人群卡：高亮跟随卡片主题色 */
+    .ct-aud-card .ct-hl { background: color-mix(in srgb, var(--c) 18%, transparent); color: var(--c); }
+
+    /* —— 共性规律：紧凑网格（每行并列多张，左视频截图 · 右重点样式） —— */
+    .ct-law-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 11px; margin-bottom: 16px; }
+    .ct-law-row {
+      display: flex; gap: 11px; align-items: stretch;
+      background: var(--paper); border-radius: 14px;
+      padding: 11px 13px 11px 11px;
+      border-left: 5px solid var(--magenta);
+    }
+    .ct-law-shot {
+      flex: none; width: 80px;
+      border-radius: 9px; overflow: hidden;
+      background: #000; align-self: center;
+    }
+    .ct-law-shot img { width: 100%; height: auto; display: block; }
+    .ct-law-body { flex: 1; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+    .ct-law-head { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; }
+    .ct-law-no {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 6px;
+      background: var(--magenta); color: #fff;
+      font-family: var(--font-display); font-size: 12.5px; font-weight: 900; flex: none;
+    }
+    .ct-law-title { font-family: var(--font-display); font-size: 14.5px; font-weight: 900; line-height: 1.2; }
+    .ct-law-def { font-size: 11.5px; color: rgba(10,10,10,0.6); line-height: 1.45; margin-bottom: 5px; }
+    .ct-law-style {
+      font-size: 12px; line-height: 1.55; color: rgba(10,10,10,0.82);
+      background: rgba(199,59,122,0.05); border-radius: 8px;
+      padding: 6px 9px;
+    }
+    .ct-law-style .cls-label {
+      font-family: var(--font-label); font-size: 10.5px; font-weight: 800;
+      color: var(--magenta); margin-right: 3px;
+    }
+
+    /* —— 高转化创意公式条 —— */
+    .ct-formula { background: var(--ink); border-radius: var(--radius-card); padding: 16px 20px; margin-bottom: 16px; }
+    .ct-formula-label {
+      font-family: var(--font-label); font-size: 11px; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--mustard); margin-bottom: 10px;
+    }
+    .ct-formula-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .ct-formula-chips .ctf-item {
+      font-family: var(--font-label); font-size: 13px; font-weight: 700;
+      padding: 7px 13px; border-radius: var(--radius-pill);
+      background: rgba(199,59,122,0.18); color: #f3b8d2;
+    }
+    .ct-formula-chips .ctf-op { font-family: var(--font-display); font-size: 16px; font-weight: 900; color: rgba(226,220,201,0.45); }
+
+    /* —— 素材类型矩阵：占比条 —— */
+    .ct-type-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+    .ct-type-card { background: var(--paper); border-radius: 14px; padding: 13px 15px; border-top: 4px solid var(--c, var(--magenta)); }
+    .ct-type-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
+    .ct-type-name { font-family: var(--font-display); font-size: 14px; font-weight: 900; line-height: 1.25; }
+    .ct-type-pct { font-family: var(--font-display); font-size: 20px; font-weight: 900; color: var(--c, var(--magenta)); line-height: 1; }
+    .ct-type-bar { height: 6px; border-radius: 999px; background: rgba(10,10,10,0.08); overflow: hidden; margin-bottom: 7px; }
+    .ct-type-bar i { display: block; height: 100%; background: var(--c, var(--magenta)); border-radius: 999px; }
+    .ct-type-note { font-size: 12px; color: rgba(10,10,10,0.62); line-height: 1.5; }
+
+    /* —— 分人群创意策略：4 张人群卡 —— */
+    .ct-aud-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(248px, 1fr)); gap: 13px; }
+    .ct-aud-card {
+      background: var(--paper); border-radius: var(--radius-card);
+      padding: 16px 17px; border-top: 5px solid var(--c, var(--magenta));
+      display: flex; flex-direction: column;
+    }
+    .ct-aud-card.a-old   { --c: var(--sienna); }
+    .ct-aud-card.a-mom   { --c: var(--orange); }
+    .ct-aud-card.a-young { --c: var(--magenta); }
+    .ct-aud-card.a-mass  { --c: var(--teal); }
+    .ct-aud-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .ct-aud-emoji { font-size: 20px; }
+    .ct-aud-name { font-family: var(--font-display); font-size: 17px; font-weight: 900; }
+    .ct-aud-drive {
+      font-size: 12.5px; line-height: 1.55; color: rgba(10,10,10,0.78);
+      background: color-mix(in srgb, var(--c) 12%, transparent);
+      border-radius: 9px; padding: 8px 11px; margin-bottom: 11px;
+    }
+    .ct-aud-drive .cad-k { font-family: var(--font-label); font-size: 10.5px; font-weight: 800; color: var(--c); display: block; margin-bottom: 2px; }
+    .ct-aud-meta { display: flex; flex-direction: column; gap: 7px; margin-top: auto; }
+    .ct-aud-meta .cam-row { display: flex; gap: 8px; align-items: baseline; font-size: 12px; line-height: 1.45; }
+    .ct-aud-meta .cam-t {
+      flex: none; width: 52px; font-family: var(--font-label);
+      font-size: 10.5px; font-weight: 800; color: rgba(10,10,10,0.45);
+    }
+    .ct-aud-meta .cam-v { color: rgba(10,10,10,0.8); font-weight: 600; }
+    .ct-aud-meta .cam-v .ct-hl { font-weight: 800; }
+
+    /* —— 分品类：高转化开场金句 —— */
+    .ct-hooks { background: var(--paper); border-radius: var(--radius-card); padding: 16px 18px; margin-bottom: 16px; }
+    .ct-hooks-label {
+      font-family: var(--font-label); font-size: 11.5px; font-weight: 800;
+      letter-spacing: 0.03em; color: var(--magenta); margin-bottom: 10px;
+    }
+    .ct-hooks-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 9px; }
+    .ct-hook-q {
+      display: flex; gap: 9px; align-items: flex-start;
+      font-size: 13px; line-height: 1.5; color: var(--ink);
+    }
+    .ct-hook-q .chq-type {
+      flex: none; font-family: var(--font-label); font-size: 10px; font-weight: 800;
+      padding: 3px 8px; border-radius: var(--radius-pill);
+      background: var(--magenta); color: #fff; white-space: nowrap; margin-top: 1px;
+    }
+    .ct-hook-q .chq-text { font-weight: 600; }
+
+    /* —— 分品类打法表（复用 rank-table，magenta 化品类列） —— */
+    .ct-cat-table td.ct-cat { font-family: var(--font-label); font-weight: 800; color: var(--magenta); white-space: normal; min-width: 124px; max-width: 150px; line-height: 1.4; }
+    .ct-cat-table td.ct-col { white-space: normal; min-width: 150px; max-width: 220px; line-height: 1.55; font-size: 12px; }
+    .ct-cat-table .rank-table th { background: var(--magenta); }
+
+    /* —— 人群决定风格 —— */
+    .ct-persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 11px; }
+    /* 人群×版位小标题（紧凑） */
+    .ct-sub-h3 { font-family: var(--font-display); font-size: 14.5px; font-weight: 900; margin-bottom: 9px; }
+    .ct-persona-card { background: var(--paper); border-radius: 16px; padding: 13px 15px; border-top: 4px solid var(--c, var(--magenta)); }
+    .ct-persona-card.p-silver { --c: var(--sienna); }
+    .ct-persona-card.p-young  { --c: var(--magenta); }
+    .ct-persona-head { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
+    .ct-persona-emoji { font-size: 19px; }
+    .ct-persona-name { font-family: var(--font-display); font-size: 16px; font-weight: 900; }
+    .ct-persona-sub { font-family: var(--font-label); font-size: 11px; font-weight: 700; color: var(--c); margin-bottom: 9px; }
+    .ct-persona-block { margin-bottom: 8px; }
+    .ct-persona-block:last-child { margin-bottom: 0; }
+    .ct-persona-bt { font-family: var(--font-label); font-size: 11px; font-weight: 800; letter-spacing: 0.03em; color: rgba(10,10,10,0.5); margin-bottom: 5px; }
+    .ct-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ct-chips span { font-family: var(--font-label); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 7px; background: rgba(10,10,10,0.055); color: rgba(10,10,10,0.72); line-height: 1.4; }
+    .ct-persona-card .ct-chips span.key { background: var(--c); color: #fff; font-weight: 700; }
+    .ct-persona-card.p-silver .ct-chips span.key { color: var(--bone); }
+
+    /* —— 版位决定内容侧重 —— */
+    .ct-slot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .ct-slot-card { background: var(--paper); border-radius: 15px; padding: 12px 14px; display: flex; flex-direction: column; border-top: 4px solid var(--c, var(--magenta)); }
+    .ct-slot-card.s-channels { --c: #07C160; }
+    .ct-slot-card.s-moments  { --c: var(--blue); }
+    .ct-slot-card.s-multi    { --c: var(--magenta); }
+    .ct-slot-head { display: flex; align-items: center; gap: 7px; margin-bottom: 2px; }
+    .ct-slot-emoji { font-size: 17px; }
+    .ct-slot-name { font-family: var(--font-display); font-size: 15px; font-weight: 900; }
+    .ct-slot-env { font-family: var(--font-label); font-size: 10.5px; font-weight: 800; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); align-self: flex-start; padding: 3px 8px; border-radius: 6px; margin-bottom: 8px; }
+    .ct-slot-points { list-style: none; padding: 0; margin: 0; }
+    .ct-slot-points li { position: relative; padding-left: 15px; font-size: 12px; color: rgba(10,10,10,0.72); line-height: 1.5; margin-bottom: 3px; }
+    .ct-slot-points li:last-child { margin-bottom: 0; }
+    .ct-slot-points li::before { content: '·'; position: absolute; left: 4px; color: var(--c); font-weight: 900; font-size: 15px; top: -1px; }
+    .ct-ps { margin-top: 11px; font-family: var(--font-label); font-size: 12px; font-weight: 700; color: var(--sienna); background: rgba(160,106,60,0.1); border-radius: 9px; padding: 8px 13px; line-height: 1.5; }
+    .ct-ps::before { content: '📌 '; }
+
+    /* —— 产品化工具：创意机会（含截图 + 使用指南 CTA） —— */
+    .ct-tool { background: var(--paper); border-radius: var(--radius-lg); padding: 20px 22px; }
+    .ct-tool-rows { display: grid; gap: 9px; margin-bottom: 14px; }
+    .ct-tool-row { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.55; color: rgba(10,10,10,0.78); }
+    .ct-tool-row .ctr-tag { flex: none; font-family: var(--font-label); font-size: 10.5px; font-weight: 800; letter-spacing: 0.02em; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--magenta); color: #fff; white-space: nowrap; margin-top: 1px; }
+    .ct-tool-row .ctr-tag.up { background: var(--mustard); color: var(--ink); }
+    .ct-tool-row .ctr-tag.path { background: rgba(199,59,122,0.14); color: var(--magenta); }
+    .ct-tool-row b { color: var(--ink); font-weight: 800; }
+    .ct-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 0; }
+    .ct-shot { display: flex; flex-direction: column; gap: 7px; margin: 0; }
+    .ct-shot img { width: 100%; height: auto; display: block; border-radius: 12px; border: 1.5px solid rgba(10,10,10,0.12); background: #fff; }
+    .ct-shot figcaption { font-family: var(--font-label); font-size: 11.5px; font-weight: 700; color: rgba(10,10,10,0.6); line-height: 1.45; text-align: center; }
+    .ct-shot figcaption b { color: var(--magenta); }
+    /* 产品化工具：右上角跳转按钮（节约空间） */
+    .ct-head-cta {
+      margin-left: auto;
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--font-label); font-size: 12px; font-weight: 800;
+      color: var(--bone); background: var(--magenta); text-decoration: none;
+      padding: 6px 13px; border-radius: 8px; white-space: nowrap;
+      transition: transform 0.18s, opacity 0.18s;
+    }
+    .ct-head-cta:hover { transform: translateY(-1px); opacity: 0.92; }
+
+    @media (max-width: 700px) {
+      .ct-law-shot { width: 96px; }
+      .ct-slot-grid { grid-template-columns: 1fr; }
+      .ct-shots { grid-template-columns: 1fr; }
+      .ct-formula-chips .ctf-op { display: none; }
+    }
+  </style>
+
+  <div class="pillar-header">
+    <div class="ph-accent" style="background: var(--magenta)"></div>
+    <h2>创意素材</h2>
+    <p class="ph-tagline">素材决定 CTR——好的创意让你用更低成本把人吸进来。下面是赛道跑量素材跑出来的"可抄作业"。</p>
+  </div>
+
+  <!-- 子模块①：跑量素材共性规律 -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🎬</span>
+      <span class="sm-title">跑量素材共性规律</span>
+      <span class="sm-badge">大盘 Top 素材拆解 · 月度更新</span>
+    </div>
+    <p class="sm-desc">基于赛道近月消耗 Top 素材的完整拆解，提炼出 5 条跨品类通用的"高转化共性"——不管你卖什么品，先把这 5 条做到。左侧为真实跑量素材画面参考。</p>
+
+    <div class="ct-law-list">
+      <!-- 规律1 -->
+      <div class="ct-law-row">
+        <div class="ct-law-shot"><img src="创意素材/1-真人出镜.png" alt="真人出镜口播素材画面" loading="lazy"></div>
+        <div class="ct-law-body">
+          <div class="ct-law-head"><span class="ct-law-no">1</span><span class="ct-law-title">真人出镜口播，是绝对主流</span></div>
+          <div class="ct-law-def">超八成跑量素材采用真人出镜口播，靠"人"建立信任、把广告做得像朋友推荐而非念广告词。</div>
+          <div class="ct-law-style"><span class="cls-label">重点样式</span>以 <span class="ct-hl">管理师</span>、<span class="ct-hl">营养师</span>、<span class="ct-hl">老用户</span> 等可信人设出镜；口播口语化、有人情味；真人讲解＞纯摆拍 B-roll。</div>
+        </div>
+      </div>
+      <!-- 规律2 -->
+      <div class="ct-law-row">
+        <div class="ct-law-shot"><img src="创意素材/2-痛点钩子.png" alt="前3秒痛点钩子素材画面" loading="lazy"></div>
+        <div class="ct-law-body">
+          <div class="ct-law-head"><span class="ct-law-no">2</span><span class="ct-law-title">前 3–5 秒"痛点钩子"，定生死</span></div>
+          <div class="ct-law-def">用户划走只在一瞬间，开头 3–5 秒能不能抓住注意力，直接决定这条素材跑不跑得起来。</div>
+          <div class="ct-law-style"><span class="cls-label">重点样式</span>开场即抛 <span class="ct-hl">痛点提问</span>、<span class="ct-hl">反差冲突</span>、<span class="ct-hl">悬念反转</span>；把 <span class="ct-hl">3 秒完播率 >50%</span> 当作转化的基础线来打。</div>
+        </div>
+      </div>
+      <!-- 规律3 -->
+      <div class="ct-law-row">
+        <div class="ct-law-shot"><img src="创意素材/3-促销机制.png" alt="限时促销数字锚定素材画面" loading="lazy"></div>
+        <div class="ct-law-body">
+          <div class="ct-law-head"><span class="ct-law-no">3</span><span class="ct-law-title">"限时促销 + 数字锚定"是转化核心</span></div>
+          <div class="ct-law-def">用清晰的价格阶梯与紧迫感，把"看一看"的用户推向"现在就下单"。</div>
+          <div class="ct-law-style"><span class="cls-label">重点样式</span>收口必含 <span class="ct-hl">买一送 N</span>、<span class="ct-hl">到手价</span>、<span class="ct-hl">活动马上结束</span>；用 <span class="ct-hl">价格阶梯锚定</span>（99→79→一折）放大"划算感"。</div>
+        </div>
+      </div>
+      <!-- 规律4 -->
+      <div class="ct-law-row">
+        <div class="ct-law-shot"><img src="创意素材/4-用户证言.png" alt="用户证言场景代入素材画面" loading="lazy"></div>
+        <div class="ct-law-body">
+          <div class="ct-law-head"><span class="ct-law-no">4</span><span class="ct-law-title">用户证言 / 场景代入 ＞ 硬科普</span></div>
+          <div class="ct-law-def">真实故事比成分罗列更能建立信任，让目标人群在画面里"看到自己"。</div>
+          <div class="ct-law-style"><span class="cls-label">重点样式</span>用 <span class="ct-hl">真人证言</span> + <span class="ct-hl">具体数字</span>（"7 天""76 岁"）增信；<span class="ct-hl">场景化代入</span> ＞ 参数堆砌。</div>
+        </div>
+      </div>
+      <!-- 规律5 -->
+      <div class="ct-law-row">
+        <div class="ct-law-shot"><img src="创意素材/5-bgm.png" alt="BGM情绪匹配素材画面" loading="lazy"></div>
+        <div class="ct-law-body">
+          <div class="ct-law-head"><span class="ct-law-no">5</span><span class="ct-law-title">BGM 情绪，匹配内容节奏</span></div>
+          <div class="ct-law-def">音乐是留人的隐形抓手，要与内容情绪同频——选错 BGM，再好的脚本也留不住人。</div>
+          <div class="ct-law-style"><span class="cls-label">重点样式</span>促销向用 <span class="ct-hl">欢快 / 紧迫</span>、科普向用 <span class="ct-hl">温暖 / 专业</span>、年轻向用 <span class="ct-hl">情绪化流行曲</span>；节奏与口播语速同步。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ct-formula">
+      <div class="ct-formula-label">高转化创意公式</div>
+      <div class="ct-formula-chips">
+        <span class="ctf-item">精准 Hook（前 3 秒留人）</span>
+        <span class="ctf-op">+</span>
+        <span class="ctf-item">痛点 / 需求精准匹配</span>
+        <span class="ctf-op">+</span>
+        <span class="ctf-item">信任体系（背书 / 证言）</span>
+        <span class="ctf-op">+</span>
+        <span class="ctf-item">促销紧迫感</span>
+        <span class="ctf-op">+</span>
+        <span class="ctf-item">短决策路径（小店直购）</span>
+      </div>
+    </div>
+
+    <div class="ct-type-grid">
+      <div class="ct-type-card" style="--c: var(--magenta)">
+        <div class="ct-type-head"><span class="ct-type-name">痛点场景 → 产品解决</span><span class="ct-type-pct">~40%</span></div>
+        <div class="ct-type-bar"><i style="width:40%"></i></div>
+        <div class="ct-type-note">先放大焦虑 / 痛点，再用产品"救赎"。适用：肠道、眼健康、骨骼等。</div>
+      </div>
+      <div class="ct-type-card" style="--c: var(--orange)">
+        <div class="ct-type-head"><span class="ct-type-name">促销优惠驱动</span><span class="ct-type-pct">~30%</span></div>
+        <div class="ct-type-bar"><i style="width:30%"></i></div>
+        <div class="ct-type-note">开头即抛促销钩子，全程围绕"划算"。适用：维生素、矿物质、代餐。</div>
+      </div>
+      <div class="ct-type-card" style="--c: var(--blue)">
+        <div class="ct-type-head"><span class="ct-type-name">知识科普 → 信任转化</span><span class="ct-type-pct">~15%</span></div>
+        <div class="ct-type-bar"><i style="width:15%"></i></div>
+        <div class="ct-type-note">先输出专业知识建立权威，再顺势导购。适用：眼健康、氨基酸 / 肽。</div>
+      </div>
+      <div class="ct-type-card" style="--c: var(--teal)">
+        <div class="ct-type-head"><span class="ct-type-name">情绪共鸣 / 生活方式</span><span class="ct-type-pct">~15%</span></div>
+        <div class="ct-type-bar"><i style="width:15%"></i></div>
+        <div class="ct-type-note">用生活方式 / 情绪共鸣引发认同，再自然带入。适用：美白抗氧、代餐。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子模块②：分人群创意策略 -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">👥</span>
+      <span class="sm-title">分人群创意策略</span>
+      <span class="sm-badge">先定人群 · 再定打法</span>
+    </div>
+    <p class="sm-desc">做素材前先想清楚"卖给谁"——同一款产品，面向不同核心人群，驱动点、Hook 类型、BGM 完全不同。先在这里对号你的核心人群。</p>
+    <div class="ct-aud-grid">
+      <div class="ct-aud-card a-old">
+        <div class="ct-aud-head"><span class="ct-aud-emoji">👵</span><span class="ct-aud-name">中老年（50+）</span></div>
+        <div class="ct-aud-drive"><span class="cad-k">核心驱动</span><span class="ct-hl">健康焦虑</span> + 权威信任 + 促销实惠</div>
+        <div class="ct-aud-meta">
+          <div class="cam-row"><span class="cam-t">最佳 Hook</span><span class="cam-v">真人证言 / 年龄故事</span></div>
+          <div class="cam-row"><span class="cam-t">BGM</span><span class="cam-v">温暖 / 无 BGM</span></div>
+          <div class="cam-row"><span class="cam-t">代表品类</span><span class="cam-v">叶黄素、骨胶原</span></div>
+        </div>
+      </div>
+      <div class="ct-aud-card a-mom">
+        <div class="ct-aud-head"><span class="ct-aud-emoji">🤱</span><span class="ct-aud-name">宝妈群体</span></div>
+        <div class="ct-aud-drive"><span class="cad-k">核心驱动</span><span class="ct-hl">孩子健康焦虑</span> + 专家推荐</div>
+        <div class="ct-aud-meta">
+          <div class="cam-row"><span class="cam-t">最佳 Hook</span><span class="cam-v">症状描述 / 专家人设</span></div>
+          <div class="cam-row"><span class="cam-t">BGM</span><span class="cam-v">温暖 / 轻快</span></div>
+          <div class="cam-row"><span class="cam-t">代表品类</span><span class="cam-v">钙铁锌、氨基酸</span></div>
+        </div>
+      </div>
+      <div class="ct-aud-card a-young">
+        <div class="ct-aud-head"><span class="ct-aud-emoji">💃</span><span class="ct-aud-name">年轻女性（25–40）</span></div>
+        <div class="ct-aud-drive"><span class="cad-k">核心驱动</span><span class="ct-hl">生活方式认同</span> + 颜值焦虑</div>
+        <div class="ct-aud-meta">
+          <div class="cam-row"><span class="cam-t">最佳 Hook</span><span class="cam-v">情绪共鸣 / 反转悬念</span></div>
+          <div class="cam-row"><span class="cam-t">BGM</span><span class="cam-v">英文流行曲 / 情绪化</span></div>
+          <div class="cam-row"><span class="cam-t">代表品类</span><span class="cam-v">美白抗氧化、代餐粉</span></div>
+        </div>
+      </div>
+      <div class="ct-aud-card a-mass">
+        <div class="ct-aud-head"><span class="ct-aud-emoji">🧑‍💻</span><span class="ct-aud-name">泛健康人群</span></div>
+        <div class="ct-aud-drive"><span class="cad-k">核心驱动</span><span class="ct-hl">知识获取</span> + 促销驱动</div>
+        <div class="ct-aud-meta">
+          <div class="cam-row"><span class="cam-t">最佳 Hook</span><span class="cam-v">症状自查 / 知识清单</span></div>
+          <div class="cam-row"><span class="cam-t">BGM</span><span class="cam-v">轻快 / 专业</span></div>
+          <div class="cam-row"><span class="cam-t">代表品类</span><span class="cam-v">维生素 B、益生菌</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子模块③：分品类素材打法 -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">📦</span>
+      <span class="sm-title">分品类素材打法对照</span>
+      <span class="sm-badge">对照你的品类抄作业</span>
+    </div>
+    <p class="sm-desc">定好人群后，再细到品类。找到你所在的品类，直接套用已被验证的"核心叙事 + 开场 Hook + 留转关键"。</p>
+
+    <div class="ct-hooks">
+      <div class="ct-hooks-label">📝 高转化开场金句参考（脱敏·可改写套用）</div>
+      <div class="ct-hooks-list">
+        <div class="ct-hook-q"><span class="chq-type">知识清单</span><span class="chq-text">"中年女性必须养成的几个习惯，第一个……"</span></div>
+        <div class="ct-hook-q"><span class="chq-type">人群分类</span><span class="chq-text">"上班久坐选这款，想控制体态选那款……"</span></div>
+        <div class="ct-hook-q"><span class="chq-type">症状自查</span><span class="chq-text">"你有这些症状吗？口腔溃疡、脱发、易疲劳……"</span></div>
+        <div class="ct-hook-q"><span class="chq-type">紧迫倒计时</span><span class="chq-text">"很遗憾地告诉大家，到手 N 瓶的活动马上结束了……"</span></div>
+        <div class="ct-hook-q"><span class="chq-type">可视化痛点</span><span class="chq-text">"孩子这个指甲，它是会说话的，它在告诉你缺了……"</span></div>
+        <div class="ct-hook-q"><span class="chq-type">认知冲突</span><span class="chq-text">"为什么有的人到七八十还在到处旅游？因为一直在做这件事……"</span></div>
+      </div>
+    </div>
+
+    <div class="table-scroll">
+      <table class="rank-table ct-cat-table" style="min-width: 880px;">
+        <thead>
+          <tr>
+            <th>品类（核心人群）</th>
+            <th>核心叙事 / 超级概念</th>
+            <th>高效开场 Hook</th>
+            <th>留人 & 转化关键</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="ct-cat">体重管理 · 代餐<br><span style="font-weight:600;color:rgba(10,10,10,0.5)">年轻 / 轻熟女性</span></td>
+            <td class="ct-col">把"减肥"升维成 <span class="ct-hl">生活方式概念</span>（周期膳食 / 轻断食），规避敏感词</td>
+            <td class="ct-col"><span class="ct-hl">知识清单体</span>（"必须养成的 N 个习惯"）／ 第一人称跟风分享</td>
+            <td class="ct-col">人设矩阵 + <span class="ct-hl">价格阶梯锚定</span>（99→79→一折）+ 限时紧迫</td>
+          </tr>
+          <tr>
+            <td class="ct-cat">肠道健康 · 益生菌<br><span style="font-weight:600;color:rgba(10,10,10,0.5)">久坐 / 泛健康</span></td>
+            <td class="ct-col"><span class="ct-hl">"肠道 + 体态"双线</span>，从久坐 / 饮食不规律切入</td>
+            <td class="ct-col"><span class="ct-hl">人群分类对号入座</span>（"久坐选 X、想瘦选 Y"）</td>
+            <td class="ct-col">研究院年限 + 活性数字（亿级菌株）信任链；<span class="ct-hl">精准锁人 ＞ 泛吸引</span></td>
+          </tr>
+          <tr>
+            <td class="ct-cat">维生素 B 族<br><span style="font-weight:600;color:rgba(10,10,10,0.5)">上班族 / 泛健康</span></td>
+            <td class="ct-col"><span class="ct-hl">症状自查</span> → 一粒补多种营养，缺啥补啥</td>
+            <td class="ct-col"><span class="ct-hl">症状清单</span>（"有这些症状吗？"）让人对号入座</td>
+            <td class="ct-col"><span class="ct-hl">小店直购短链路</span> + "活动倒计时"紧迫 = 超高 CVR</td>
+          </tr>
+          <tr>
+            <td class="ct-cat">叶黄素 · 眼健康<br><span style="font-weight:600;color:rgba(10,10,10,0.5)">中老年</span></td>
+            <td class="ct-col">中老年眼健康，<span class="ct-hl">俗语化表达</span>（"叶黄素当饭，神仙也不换"）</td>
+            <td class="ct-col"><span class="ct-hl">真人高龄出镜</span>讲日常保养 ／ "不吃的代价"恐惧诉求</td>
+            <td class="ct-col">真人证言 + 品牌历史信任；<span class="ct-hl">节奏放慢、长视频深度留人</span></td>
+          </tr>
+          <tr>
+            <td class="ct-cat">儿童营养 · 氨基酸 / 钙铁锌<br><span style="font-weight:600;color:rgba(10,10,10,0.5)">家长 / 宝妈</span></td>
+            <td class="ct-col">"看营养不看饭量"；<span class="ct-hl">类比话术</span>让成分可感知</td>
+            <td class="ct-col"><span class="ct-hl">权威人设</span>（营养师）开场 ／ 可视化症状（"指甲会说话"）</td>
+            <td class="ct-col"><span class="ct-hl">专家 + 妈妈双人设</span>；数量感知 + 价格锚定促销</td>
+          </tr>
+          <tr>
+            <td class="ct-cat">骨骼健康 · 骨胶原<br><span style="font-weight:600;color:rgba(10,10,10,0.5)">中老年</span></td>
+            <td class="ct-col"><span class="ct-hl">"不拖累子女"情感诉求</span> + 骨胶原概念植入</td>
+            <td class="ct-col"><span class="ct-hl">认知冲突</span>（中外生活方式对比）／ 情感化"告别倒计时"</td>
+            <td class="ct-col"><span class="ct-hl">亲切称呼</span>（"叔叔阿姨"）拉近距离 + 促销紧迫；情感 ＞ 硬科普</td>
+          </tr>
+          <tr>
+            <td class="ct-cat">美白 · 抗氧化<br><span style="font-weight:600;color:rgba(10,10,10,0.5)">年轻女性 25–40</span></td>
+            <td class="ct-col"><span class="ct-hl">生活方式认同</span> + 颜值焦虑，"情绪先行、产品后置"</td>
+            <td class="ct-col"><span class="ct-hl">情绪化 BGM</span>（英文流行曲）／ 网络流行语悬念</td>
+            <td class="ct-col">调性 / 情绪共鸣留人；<span class="ct-hl">忌纯报价短视频</span>（效果最差）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 子模块④：产品化工具 · 创意机会 -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🛠️</span>
+      <span class="sm-title">产品化工具 · 创意机会</span>
+      <span class="sm-badge">客户工作台 · 大盘脚本一键看</span>
+      <a class="ct-head-cta" href="https://doc.weixin.qq.com/doc/w3_ANMApgZ_ACcCNmdjf63zZSjmwdIa5?scode=AJEAIQdfAAoz0Mzd2cAGYAPQbmACg" target="_blank" rel="noopener">📖 操作手册 →</a>
+    </div>
+    <p class="sm-desc">不知道怎么写脚本？打开【客户工作台 · 创意机会】，直接看行业大盘的优质创意拆解——可切换不同行业赛道，查看跑量素材的【脚本和标签】分析，照着抄。</p>
+    <div class="ct-tool">
+      <div class="ct-tool-rows">
+        <div class="ct-tool-row"><span class="ctr-tag">产品定位</span><span>针对行业大盘的优质创意进行<b>爆点分析、脚本总结、案例指导</b>，激发创意制作灵感。</span></div>
+        <div class="ct-tool-row"><span class="ctr-tag up">功能上新</span><span>创意优质案例新增<b>【时序分析】</b>，提供点击 / 转化等互动数据的趋势图分析，帮你找到案例的高光片段。</span></div>
+        <div class="ct-tool-row"><span class="ctr-tag path">入口路径</span><span>【客户工作台】→ 顶部导航栏「机会」→「创意机会」（新功能标 New）。</span></div>
+      </div>
+      <div class="ct-shots">
+        <figure class="ct-shot">
+          <img src="创意素材/创意机会.png" alt="创意机会界面：热门标签云 + 脚本公式" loading="lazy">
+          <figcaption><b>创意机会主界面</b>：按行业看热门标签、跑量脚本公式</figcaption>
+        </figure>
+        <figure class="ct-shot">
+          <img src="创意素材/脚本细节-更新.png" alt="脚本和标签分析细节" loading="lazy">
+          <figcaption><b>脚本 & 标签细节</b>：单条优质案例的脚本拆解与互动趋势</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子模块⑤：人群 × 版位适配 -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🎯</span>
+      <span class="sm-title">人群 × 版位 · 素材适配</span>
+      <span class="sm-badge">腾讯生态特色 · 同素材多场景</span>
+    </div>
+    <p class="sm-desc">同一条素材，面向不同人群要换"风格"，投到不同版位要调"侧重"。先按人群定调性，再按版位调呈现，让素材在腾讯生态各场景都能跑得动。</p>
+
+    <!-- 人群决定风格 -->
+    <h3 class="ct-sub-h3">「人群」决定风格</h3>
+    <div class="ct-persona-grid" style="margin-bottom:16px;">
+      <div class="ct-persona-card p-silver">
+        <div class="ct-persona-head"><span class="ct-persona-emoji">👵</span><span class="ct-persona-name">银发族</span></div>
+        <div class="ct-persona-sub">健康焦虑 + 信任 + 实惠，慢节奏更吃香</div>
+        <div class="ct-persona-block">
+          <div class="ct-persona-bt">内容切入</div>
+          <div class="ct-chips"><span>家长里短</span><span>家国情怀</span><span>产地溯源</span><span>养生健康</span><span>物超所值</span></div>
+        </div>
+        <div class="ct-persona-block">
+          <div class="ct-persona-bt">样式风格</div>
+          <div class="ct-chips"><span class="key">语速不快</span><span class="key">大字幕鲜色突出重点</span><span class="key">真人口播更优</span></div>
+        </div>
+      </div>
+      <div class="ct-persona-card p-young">
+        <div class="ct-persona-head"><span class="ct-persona-emoji">🧑</span><span class="ct-persona-name">中青年</span></div>
+        <div class="ct-persona-sub">好吃好看方便 + 颜值 / 品质感优先</div>
+        <div class="ct-persona-block">
+          <div class="ct-persona-bt">切入角度</div>
+          <div class="ct-chips"><span>好吃好看方便</span><span>多赠品</span><span>强调明星 / 品牌</span><span>联名背书</span></div>
+        </div>
+        <div class="ct-persona-block">
+          <div class="ct-persona-bt">样式风格</div>
+          <div class="ct-chips"><span class="key">画面精致高清</span><span class="key">聚焦场景痛点</span><span class="key">真实商品展示</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 版位决定内容侧重 -->
+    <h3 class="ct-sub-h3">「版位」决定内容侧重</h3>
+    <div class="ct-slot-grid">
+      <div class="ct-slot-card s-channels">
+        <div class="ct-slot-head"><span class="ct-slot-emoji">📹</span><span class="ct-slot-name">视频号</span></div>
+        <span class="ct-slot-env">用户注意力短</span>
+        <ul class="ct-slot-points">
+          <li>前 3 秒一眼停留</li>
+          <li>前 11 秒激发兴趣</li>
+          <li>音效音乐不可忽视</li>
+        </ul>
+      </div>
+      <div class="ct-slot-card s-moments">
+        <div class="ct-slot-head"><span class="ct-slot-emoji">💬</span><span class="ct-slot-name">朋友圈</span></div>
+        <span class="ct-slot-env">无声小图环境</span>
+        <ul class="ct-slot-points">
+          <li>文案更重要：抛卖点 + 用组件引注意</li>
+          <li>图片玩法多</li>
+          <li>仿照原生"朋友圈"</li>
+        </ul>
+      </div>
+      <div class="ct-slot-card s-multi">
+        <div class="ct-slot-head"><span class="ct-slot-emoji">🔀</span><span class="ct-slot-name">多版位通用</span></div>
+        <span class="ct-slot-env">一素材适应多场景</span>
+        <ul class="ct-slot-points">
+          <li>字幕清晰亮眼</li>
+          <li>一个素材适应多版位</li>
+          <li>可用横版素材，适合信息流场景</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ct-ps">针对直播链路：外层素材的人、货、场，至少要有一个与直播间内有所呼应，承接才不跑偏。</div>
+  </div>
+</section>
+
+<!-- ============== 直播间转化 ============== -->
+<section class="pillar-section container" data-pillar="直播间转化" id="pillar-直播间转化">
+  <style>
+    .lv-hl { background: rgba(45,126,115,0.16); color: var(--teal); font-weight: 800; padding: 0 4px; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+    .lv-formula { background: var(--ink); border-radius: var(--radius-card); padding: 16px 20px; margin-bottom: 14px; }
+    .lv-formula-label { font-family: var(--font-label); font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mustard); margin-bottom: 10px; }
+    .lv-formula-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .lv-formula-chips .lvf-item { font-family: var(--font-label); font-size: 13px; font-weight: 700; padding: 7px 13px; border-radius: var(--radius-pill); background: rgba(45,126,115,0.2); color: #9ed6cd; }
+    .lv-formula-chips .lvf-op { font-family: var(--font-display); font-size: 16px; font-weight: 900; color: rgba(226,220,201,0.45); }
+    .lv-dim-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 14px; }
+    .lv-dim-card { background: var(--paper); border-radius: var(--radius-card); padding: 18px 20px; border-top: 5px solid var(--c, var(--teal)); display: flex; flex-direction: column; }
+    .lv-dim-card.d-ren { --c: var(--sienna); }
+    .lv-dim-card.d-huo { --c: var(--orange); }
+    .lv-dim-card.d-chang { --c: var(--teal); }
+    .lv-dim-card.d-hua { --c: var(--blue); }
+    .lv-dim-head { display: flex; align-items: center; gap: 9px; margin-bottom: 3px; }
+    .lv-dim-emoji { font-size: 22px; }
+    .lv-dim-name { font-family: var(--font-display); font-size: 19px; font-weight: 900; }
+    .lv-dim-sub { font-family: var(--font-label); font-size: 11.5px; font-weight: 700; color: var(--c); margin-bottom: 13px; }
+    .lv-dim-block { margin-bottom: 12px; }
+    .lv-dim-block:last-child { margin-bottom: 0; }
+    .lv-dim-bt { font-family: var(--font-label); font-size: 11.5px; font-weight: 800; letter-spacing: 0.03em; color: rgba(10,10,10,0.5); margin-bottom: 6px; }
+    .lv-dim-key { font-size: 12.5px; line-height: 1.55; color: rgba(10,10,10,0.82); background: color-mix(in srgb, var(--c) 9%, transparent); border-radius: 9px; padding: 9px 12px; }
+    .lv-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .lv-chips span { font-family: var(--font-label); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 7px; background: rgba(10,10,10,0.055); color: rgba(10,10,10,0.72); line-height: 1.4; }
+    .lv-chips span.key { background: var(--c); color: #fff; font-weight: 700; }
+    .lv-dim-card.d-ren .lv-chips span.key { color: var(--bone); }
+    .lv-acts { list-style: none; padding: 0; margin: 0; }
+    .lv-acts li { position: relative; padding-left: 17px; font-size: 12.5px; color: rgba(10,10,10,0.78); line-height: 1.6; margin-bottom: 5px; }
+    .lv-acts li:last-child { margin-bottom: 0; }
+    .lv-acts li::before { content: '\2713'; position: absolute; left: 0; color: var(--c); font-weight: 900; }
+    .lv-loop { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: 4px; }
+    .lv-loop .lvl-step { font-family: var(--font-label); font-size: 11.5px; font-weight: 700; padding: 5px 10px; border-radius: 7px; background: rgba(63,115,183,0.14); color: var(--blue); }
+    .lv-loop .lvl-step b { display: block; font-size: 9.5px; font-weight: 600; opacity: 0.7; }
+    .lv-loop .lvl-arr { color: rgba(10,10,10,0.3); font-weight: 900; font-size: 13px; }
+    .lv-quotes { background: var(--paper); border-radius: var(--radius-card); padding: 16px 18px; margin-bottom: 16px; }
+    .lv-quotes-label { font-family: var(--font-label); font-size: 11.5px; font-weight: 800; color: var(--teal); margin-bottom: 10px; }
+    .lv-quotes-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 9px; }
+    .lv-quote { display: flex; gap: 9px; align-items: flex-start; font-size: 13px; line-height: 1.5; color: var(--ink); }
+    .lv-quote .lvq-type { flex: none; font-family: var(--font-label); font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: var(--radius-pill); background: var(--teal); color: #fff; white-space: nowrap; margin-top: 1px; }
+    .lv-quote .lvq-text { font-weight: 600; }
+    .lv-cat-table td.lv-cat { font-family: var(--font-label); font-weight: 800; color: var(--teal); white-space: normal; min-width: 120px; max-width: 150px; line-height: 1.4; }
+    .lv-cat-table td.lv-col { white-space: normal; min-width: 130px; max-width: 210px; line-height: 1.55; font-size: 12px; }
+    .lv-cat-table .rank-table th { background: var(--teal); }
+    .lv-bigshow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .lv-bs-card { background: var(--paper); border-radius: 18px; padding: 16px 17px; display: flex; flex-direction: column; border-top: 4px solid var(--c, var(--teal)); }
+    .lv-bs-card.b-ren { --c: var(--olive); }
+    .lv-bs-card.b-huo { --c: var(--orange); }
+    .lv-bs-card.b-chang { --c: var(--mustard); }
+    .lv-bs-head { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+    .lv-bs-emoji { font-size: 19px; }
+    .lv-bs-name { font-family: var(--font-display); font-size: 16px; font-weight: 900; }
+    .lv-bs-role { font-family: var(--font-label); font-size: 11px; font-weight: 800; color: var(--c); background: color-mix(in srgb, var(--c) 16%, transparent); align-self: flex-start; padding: 3px 9px; border-radius: 7px; margin-bottom: 10px; }
+    .lv-bs-do, .lv-bs-dont { font-size: 12.5px; line-height: 1.55; margin-bottom: 6px; }
+    .lv-bs-do { color: rgba(10,10,10,0.78); }
+    .lv-bs-do b, .lv-bs-dont b { font-family: var(--font-label); font-size: 10px; font-weight: 800; margin-right: 5px; }
+    .lv-bs-do b { color: var(--teal); }
+    .lv-bs-dont { color: rgba(10,10,10,0.5); }
+    .lv-bs-dont b { color: rgba(10,10,10,0.4); }
+    .lv-bigshow-formula { margin-top: 14px; font-family: var(--font-label); font-size: 12.5px; font-weight: 700; color: var(--sienna); background: rgba(160,106,60,0.1); border-radius: 10px; padding: 10px 14px; line-height: 1.55; }
+    .lv-tools { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .lv-tool { background: var(--paper); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; flex-direction: column; }
+    .lv-tool-head { display: flex; align-items: center; gap: 9px; margin-bottom: 4px; }
+    .lv-tool-emoji { font-size: 20px; }
+    .lv-tool-name { font-family: var(--font-display); font-size: 17px; font-weight: 900; }
+    .lv-tool-sub { font-family: var(--font-label); font-size: 11.5px; font-weight: 700; color: var(--teal); margin-bottom: 12px; }
+    .lv-tool-shot { margin: 0 0 12px; }
+    .lv-tool-shot img { width: 100%; height: auto; display: block; border-radius: 12px; border: 1.5px solid rgba(10,10,10,0.12); background: #fff; }
+    .lv-tool-rows { display: grid; gap: 8px; margin-bottom: 14px; }
+    .lv-tool-row { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.6; color: rgba(10,10,10,0.8); }
+    .lv-tool-row > span:last-child { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+    .lv-tool-row .lvtr-tag { flex: none; min-width: 54px; justify-content: center; display: inline-flex; font-family: var(--font-label); font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: var(--radius-pill); background: var(--teal); color: #fff; white-space: nowrap; margin-top: 1px; }
+    .lv-tool-row b { color: var(--ink); font-weight: 800; }
+    .lv-tool-cta { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; margin-top: auto; font-family: var(--font-label); font-size: 13px; font-weight: 800; color: var(--bone); background: var(--teal); text-decoration: none; padding: 10px 16px; border-radius: 12px; transition: transform 0.18s, opacity 0.18s; }
+    .lv-tool-cta:hover { transform: translateY(-2px); opacity: 0.92; }
+    @media (max-width: 760px) { .lv-bigshow { grid-template-columns: 1fr; } .lv-tools { grid-template-columns: 1fr; } .lv-formula-chips .lvf-op { display: none; } }
+    .lv-dim-card.d-hua { grid-column: 1 / -1; }
+    .lv-hua-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 14px 22px; align-items: start; }
+    .lv-hua-grid .lv-dim-block { margin-bottom: 0; }
+    @media (max-width: 760px) { .lv-hua-grid { grid-template-columns: 1fr; gap: 12px; } }
+  </style>
+
+  <div class="pillar-header">
+    <div class="ph-accent" style="background: var(--teal)"></div>
+    <h2>直播间转化</h2>
+    <p class="ph-tagline">这里拆解的人货场话术，本质是教你<b>怎么把直播间内容做得更好</b>——而做好的直播间内容，既能直接拉高 CVR，更是你产出优质直播素材（直播切片 / 预热短视频 / 口播脚本）的现成灵感库。照着做，直播间内容和投放素材一起变强。</p>
+  </div>
+
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🎪</span>
+      <span class="sm-title">高转化直播间内容公式</span>
+      <span class="sm-badge">做好内容 · 同时产出好素材</span>
+    </div>
+    <p class="sm-desc">膳食营养品要"边教育边成交"，直播间是最重的转化场。下面这条公式拆出的四件事，既是把直播间内容做好的方法，也是你产出优质直播素材的四个发力点——内容做扎实了，切片、预热、口播素材自然有料。</p>
+    <div class="lv-formula">
+      <div class="lv-formula-label">高转化直播间内容公式</div>
+      <div class="lv-formula-chips">
+        <span class="lvf-item">科学人设建信任</span><span class="lvf-op">×</span>
+        <span class="lvf-item">货品可视化</span><span class="lvf-op">×</span>
+        <span class="lvf-item">品类场景造沉浸</span><span class="lvf-op">×</span>
+        <span class="lvf-item">数据话术促成交</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🧩</span>
+      <span class="sm-title">人 · 货 · 场 · 话术 四维拆解</span>
+      <span class="sm-badge">逐维照做 · 可抄作业</span>
+    </div>
+    <p class="sm-desc">把直播间内容拆成四个可独立打磨的维度——每一维做好，既提升 CVR，也是你剪直播切片、做预热口播素材的现成脚手架。先看你缺哪一维，照着 ✓ 清单补齐。</p>
+    <div class="lv-dim-grid">
+      <div class="lv-dim-card d-ren">
+        <div class="lv-dim-head"><span class="lv-dim-emoji">🎭</span><span class="lv-dim-name">人 · 主播人设</span></div>
+        <div class="lv-dim-sub">可信人设是素材里最强的"信任钩子"</div>
+        <div class="lv-dim-block">
+          <div class="lv-dim-bt">四种高转化人设（按品类选）</div>
+          <div class="lv-chips"><span class="key">专业顾问型</span><span class="key">知识专家型</span><span class="key">管理师/顾问型</span><span class="key">品牌代言型</span></div>
+        </div>
+        <div class="lv-dim-block">
+          <div class="lv-dim-bt">信任五要素（出镜就把这些"亮"出来）</div>
+          <div class="lv-dim-key">①品牌/平台背书 → ②数据/检测证书 → ③销量/复购数据 → ④主播/用户证言 → ⑤明星/权威人物</div>
+        </div>
+        <div class="lv-dim-block">
+          <div class="lv-dim-bt">主播 + 助播配合</div>
+          <ul class="lv-acts">
+            <li>助播定位是<span class="lv-hl">信息确认器</span>＋<span class="lv-hl">紧迫感制造机</span></li>
+            <li>逼单环节助播负责库存播报＋倒计时「54321」</li>
+          </ul>
+        </div>
+      </div>
+      <div class="lv-dim-card d-huo">
+        <div class="lv-dim-head"><span class="lv-dim-emoji">📦</span><span class="lv-dim-name">货 · 货品呈现</span></div>
+        <div class="lv-dim-sub">把"卖什么"在画面里讲清楚、秀出来</div>
+        <div class="lv-dim-block">
+          <div class="lv-dim-bt">货品怎么"秀"进画面（素材抓手）</div>
+          <div class="lv-chips"><span class="key">实物堆叠出量感</span><span class="key">手持近景展示</span><span class="key">服用/使用演示</span><span class="key">成分可视化道具</span></div>
+        </div>
+        <div class="lv-dim-block">
+          <div class="lv-dim-bt">卖点可视化（让用户一眼记住）</div>
+          <div class="lv-dim-key">把成分含量换算成<span class="lv-hl">日常食物</span>、用对比图 / 检测报告 / 数字浮层把"好在哪"做成<span class="lv-hl">看得见的画面</span>——这些镜头剪出来就是高转化素材，远胜口播念参数。</div>
+        </div>
+        <div class="lv-dim-block">
+          <div class="lv-dim-bt">选品 & 价格呈现（辅 · 经营）</div>
+          <ul class="lv-acts">
+            <li>单品聚焦讲透 1 个品＞多品分散，主播有时间走完"塑品→成交"</li>
+            <li>价格拆解到<span class="lv-hl">日均成本</span>更有感（"每天 0.6 元"）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="lv-dim-card d-chang">
+        <div class="lv-dim-head"><span class="lv-dim-emoji">🎬</span><span class="lv-dim-name">场 · 画面与场景</span></div>
+        <div class="lv-dim-sub">直播间画面＝你最现成的素材底料</div>
+        <div class="lv-dim-block">
+          <div class="lv-dim-bt">品类定制配色（一眼识别"卖什么"）</div>
+          <div class="lv-chips"><span class="key">睡眠·紫</span><span class="key">骨骼·蓝</span><span class="key">儿童·绿</span><span class="key">女性美容·粉</span><span class="key">银发·银蓝</span></div>
+        </div>
+        <div class="lv-dim-block">
+          <div class="lv-dim-bt">关键画面五要素（剪素材可直接复用）</div>
+          <div class="lv-dim-key">①配色匹配品类 ②主播/明星小窗 ③信息浮层(3-5条核心卖点) ④产品实物堆叠＋手持 ⑤场景化道具</div>
+        </div>
+        <div class="lv-dim-block">
+          <div class="lv-dim-bt">信息密度匹配定位</div>
+          <ul class="lv-acts">
+            <li>高端定位 → <span class="lv-hl">极简留白</span>传品质感</li>
+            <li>性价比/数据驱动 → <span class="lv-hl">高密度标注</span>传"物超所值"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="lv-dim-card d-hua">
+        <div class="lv-dim-head"><span class="lv-dim-emoji">🎤</span><span class="lv-dim-name">话术 · 口播脚本</span></div>
+        <div class="lv-dim-sub">这些话术剪成口播，就是现成的短视频素材脚本</div>
+        <div class="lv-hua-grid">
+        <div class="lv-dim-block">
+          <div class="lv-dim-bt">标准话术循环（单次 5-7 分钟）</div>
+          <div class="lv-loop">
+            <span class="lvl-step">痛点放大<b>1-2min</b></span><span class="lvl-arr">→</span>
+            <span class="lvl-step">科学塑品<b>2-3min</b></span><span class="lvl-arr">→</span>
+            <span class="lvl-step">品牌背书<b>1min</b></span><span class="lvl-arr">→</span>
+            <span class="lvl-step">开价促销<b>1min</b></span><span class="lvl-arr">→</span>
+            <span class="lvl-step">逼单催付<b>30s-1min</b></span><span class="lvl-arr">↺</span>
+          </div>
+        </div>
+        <div class="lv-dim-block">
+          <div class="lv-dim-bt">三大塑品武器（可直接写进口播）</div>
+          <div class="lv-chips"><span class="key">食物量类比</span><span class="key">三阶段理论</span><span class="key">零添加轰炸</span></div>
+        </div>
+        <div class="lv-dim-block">
+          <div class="lv-dim-bt">五大逼单武器</div>
+          <div class="lv-chips"><span>限量库存</span><span>恢复原价</span><span>物流截单</span><span>早吃比晚吃好</span><span>前功尽弃</span></div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">📦</span>
+      <span class="sm-title">分品类直播间素材打法</span>
+      <span class="sm-badge">对照你的品类·照着拍/剪</span>
+    </div>
+    <p class="sm-desc">不同品类的人设、画面、话术钩子完全不同。找到你所在的品类，直接照着这套"怎么拍、怎么呈现、怎么说"去做直播间内容和切片素材。</p>
+    <div class="lv-quotes">
+      <div class="lv-quotes-label">📝 高转化话术金句参考（脱敏 · 可直接改写进口播素材）</div>
+      <div class="lv-quotes-list">
+        <div class="lv-quote"><span class="lvq-type">塑品·类比</span><span class="lvq-text">"2 粒 = 几千克豆浆＋几千克瘦肉，谁一天能吃这么多？"</span></div>
+        <div class="lv-quote"><span class="lvq-type">塑品·周期</span><span class="lvq-text">"第一个月有益菌 PK 有害菌，第二个月占上风，第三个月才扎根定植"</span></div>
+        <div class="lv-quote"><span class="lvq-type">信任·反问</span><span class="lvq-text">"没用的东西能卖到全国第一吗？销量决定数据，数据决定品质"</span></div>
+        <div class="lv-quote"><span class="lvq-type">逼单·价值</span><span class="lvq-text">"花小钱办大事，花一份钱三份营养"</span></div>
+        <div class="lv-quote"><span class="lvq-type">逼单·损失</span><span class="lvq-text">"只吃一个月有害菌会反扑，前面的努力前功尽弃"</span></div>
+        <div class="lv-quote"><span class="lvq-type">逼单·锚定</span><span class="lvq-text">"这个价格比去年双 11 还便宜，出了直播间就买不到了"</span></div>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="rank-table lv-cat-table" style="min-width: 900px;">
+        <thead>
+          <tr>
+            <th>品类</th>
+            <th>人设呈现</th>
+            <th>画面 / 场景</th>
+            <th>高转化话术钩子</th>
+            <th>货品呈现要点</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="lv-cat">肠道健康 · 益生菌</td>
+            <td class="lv-col"><span class="lv-hl">知识专家型</span>（白大褂 / 检测报告出镜）</td>
+            <td class="lv-col">蓝 / 绿，活菌数据浮层无处不在</td>
+            <td class="lv-col"><span class="lv-hl">三阶段理论</span>＋食物量类比；"先修后补"差异化开场</td>
+            <td class="lv-col">活菌数 / 菌株数字可视化，手持菌粉演示</td>
+          </tr>
+          <tr>
+            <td class="lv-cat">骨骼健康 · 骨胶原</td>
+            <td class="lv-col"><span class="lv-hl">专业顾问型</span>＋真人高龄出镜</td>
+            <td class="lv-col">蓝，沉稳信任感，慢节奏</td>
+            <td class="lv-col">年龄焦虑＋"不拖累子女"情感诉求＞硬科普</td>
+            <td class="lv-col">实物特写＋"不吃的代价"对比画面</td>
+          </tr>
+          <tr>
+            <td class="lv-cat">儿童营养 · 钙铁锌 / 氨基酸</td>
+            <td class="lv-col"><span class="lv-hl">营养师＋妈妈</span>双人设</td>
+            <td class="lv-col">绿 / 暖色，亲和无压力</td>
+            <td class="lv-col">调研数据恐吓（"100 个孩子 99 个缺…"）＋可视化症状（"指甲会说话"）</td>
+            <td class="lv-col">数量感知堆叠＋成分换算图</td>
+          </tr>
+          <tr>
+            <td class="lv-cat">眼健康 · 叶黄素</td>
+            <td class="lv-col"><span class="lv-hl">专业顾问型</span>＋真人高龄出镜</td>
+            <td class="lv-col">暖色 / 沉稳，慢节奏长镜头</td>
+            <td class="lv-col">俗语化表达＋"不吃的代价"恐惧诉求</td>
+            <td class="lv-col">真人服用演示＋品牌历史背书画面</td>
+          </tr>
+          <tr>
+            <td class="lv-cat">体重管理 · 代餐</td>
+            <td class="lv-col"><span class="lv-hl">管理师 / 顾问型</span>（整套方案感）</td>
+            <td class="lv-col">森系 / 生活方式化，情感共鸣</td>
+            <td class="lv-col">升维成"生活方式概念"规避敏感词；错误方法批判</td>
+            <td class="lv-col">冲泡 / 食用演示＋身材对比画面</td>
+          </tr>
+          <tr>
+            <td class="lv-cat">女性美容 · 美白抗氧</td>
+            <td class="lv-col"><span class="lv-hl">品牌代言型</span>（明星矩阵 / 闺蜜型）</td>
+            <td class="lv-col">粉，品质感＋强调性 BGM</td>
+            <td class="lv-col">"情绪先行、产品后置"，颜值焦虑＋生活方式认同</td>
+            <td class="lv-col">精致质感特写，忌纯报价（效果最差）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🚀</span>
+      <span class="sm-title">大场时·直播间内容怎么升级</span>
+      <span class="sm-badge">人稳 · 货重 · 场辅</span>
+    </div>
+    <p class="sm-desc">大场不是推倒重来。头部大场的共性是"人保持稳定、货加码、场叠加节日主题"——其中"场的视觉升级"最出素材：节日换装、活动横幅、氛围画面，剪出来就是大场预热/返场素材。</p>
+    <div class="lv-bigshow">
+      <div class="lv-bs-card b-ren">
+        <div class="lv-bs-head"><span class="lv-bs-emoji">🧍</span><span class="lv-bs-name">人 · 稳定（兜底）</span></div>
+        <span class="lv-bs-role">优先级 ★★★</span>
+        <div class="lv-bs-do"><b>该做</b>保持日常主播班底＋创始人/主播小窗；穿着微调呼应节日</div>
+        <div class="lv-bs-dont"><b>别做</b>临时换主播 / 外请陌生面孔 / 大改主播形象</div>
+        <div class="lv-bs-do" style="margin-top:auto"><b>原因</b>老粉信任不断裂，画面一致性＞新鲜感</div>
+      </div>
+      <div class="lv-bs-card b-chang">
+        <div class="lv-bs-head"><span class="lv-bs-emoji">🎏</span><span class="lv-bs-name">场 · 视觉升级（最出素材）</span></div>
+        <span class="lv-bs-role">优先级 ★★★★</span>
+        <div class="lv-bs-do"><b>该做</b>日常装修上叠加节日主题横幅＋折扣标识；强化氛围画面与观看人数展示</div>
+        <div class="lv-bs-dont"><b>别做</b>大场重新装修 / 隐藏观看人数</div>
+        <div class="lv-bs-do" style="margin-top:auto"><b>原因</b>成本低＋一眼识别"今天有活动"，氛围画面可直接剪成预热素材</div>
+      </div>
+      <div class="lv-bs-card b-huo">
+        <div class="lv-bs-head"><span class="lv-bs-emoji">🎁</span><span class="lv-bs-name">货 · 加码（辅 · 经营）</span></div>
+        <span class="lv-bs-role">优先级 ★★★★★</span>
+        <div class="lv-bs-do"><b>该做</b>大场专属组合套餐＋全场折扣＋有辨识度的专属赠品</div>
+        <div class="lv-bs-dont"><b>别做</b>仍卖单品 / 仅靠降价 / 赠品和平播一样</div>
+        <div class="lv-bs-do" style="margin-top:auto"><b>原因</b>专属赠品是用户"今天必买"的触发器，也是素材里的钩子</div>
+      </div>
+    </div>
+    <div class="lv-bigshow-formula">大场内容 = 日常主播班底（信任稳定器）× 节日换装＋氛围画面（最出素材的视觉升级）× 组合套餐/专属赠品（成交钩子）× 观看人数爆发（从众放大器）</div>
+  </div>
+
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🛠️</span>
+      <span class="sm-title">产品化工具 · 直播经营 & 复盘</span>
+      <span class="sm-badge">官方百宝箱＋客户工作台</span>
+    </div>
+    <p class="sm-desc">两个官方工具配套用：一份《直播百宝箱》补齐开播到复盘的全流程认知，一个《客户工作台·直播分析》看自己直播间的广告域数据、把人货场拆到场次级，找到该优化哪场内容。</p>
+    <div class="lv-tools">
+      <div class="lv-tool">
+        <div class="lv-tool-head"><span class="lv-tool-emoji">📦</span><span class="lv-tool-name">食饮行业视频号直播百宝箱 2.0</span></div>
+        <div class="lv-tool-sub">开播到复盘的全流程认知手册 · 减少直播信息差</div>
+        <figure class="lv-tool-shot"><img src="直播间转化/直播百宝箱2.0.png" alt="食饮行业视频号直播百宝箱 2.0 界面" loading="lazy"></figure>
+        <div class="lv-tool-rows">
+          <div class="lv-tool-row"><span class="lvtr-tag">Part 1</span><span>如何<b>构建优势直播间</b>：平台特点、流量逻辑、前期筹备、开店指引</span></div>
+          <div class="lv-tool-row"><span class="lvtr-tag">Part 2</span><span>如何<b>提升直播成交量</b>：起量原理、五大起量方式、广告搭建指引</span></div>
+          <div class="lv-tool-row"><span class="lvtr-tag">Part 3</span><span>直播<b>复盘与优化</b>：四大看板、话术画面/节奏/工具实战指引</span></div>
+        </div>
+        <a class="lv-tool-cta" href="https://doc.weixin.qq.com/doc/w3_AY8AIQZXAAwGWLcwWT4Q4ypkDBbFr?scode=AJEAIQdfAAoUcSmWd0AGYAPQbmACg" target="_blank" rel="noopener">📖 查看《直播百宝箱 2.0》→</a>
+      </div>
+      <div class="lv-tool">
+        <div class="lv-tool-head"><span class="lv-tool-emoji">📊</span><span class="lv-tool-name">客户工作台 · 直播分析</span></div>
+        <div class="lv-tool-sub">广告域直播数据一体化聚合 · 复盘到场次级</div>
+        <figure class="lv-tool-shot"><img src="直播间转化/直播分析操作手册.png" alt="客户工作台 直播分析界面" loading="lazy"></figure>
+        <div class="lv-tool-rows">
+          <div class="lv-tool-row"><span class="lvtr-tag">入口</span><span>客户工作台 → 顶部导航<b>「分析」→「场景分析」→「直播分析」</b></span></div>
+          <div class="lv-tool-row"><span class="lvtr-tag">看什么</span><span>Top 视频号 / Top 直播场次<b>按花费排序</b>，定位哪场最值钱</span></div>
+          <div class="lv-tool-row"><span class="lvtr-tag">拆到底</span><span>单场次下钻：<b>点击率 / 成交转化率 / 进入率 / 千次成交</b>，逐场对比找问题</span></div>
+        </div>
+        <a class="lv-tool-cta" href="https://doc.weixin.qq.com/doc/w3_AVoAWwb1ABACNZkxxjQLZQ4mY084v?scode=AJEAIQdfAAoaTbOTq3AGYAPQbmACg" target="_blank" rel="noopener">📖 查看《直播分析操作手册》→</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 投放 ============== -->
+<section class="pillar-section container" data-pillar="投放" id="pillar-投放">
+  <!-- 投放板块专属组件样式（ad- 前缀作用域，置于 section 内，避免改动骨架 base.html，保证多窗口零冲突） -->
+  <style>
+    /* —— 新能力 & 扶持：双高亮卡 —— */
+    .ad-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .ad-feature-card {
+      background: var(--paper);
+      border-radius: var(--radius-card);
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: var(--ink);
+      border-top: 5px solid var(--c, var(--blue));
+      box-shadow: inset 0 0 0 1.5px rgba(63,115,183,0.18);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .ad-feature-card:hover { transform: translateY(-3px); box-shadow: inset 0 0 0 1.5px rgba(63,115,183,0.3), 0 10px 26px rgba(10,10,10,0.12); }
+    .ad-feature-card.f-support { --c: var(--mustard); box-shadow: inset 0 0 0 1.5px rgba(216,169,59,0.35); }
+    .ad-feature-card.f-support:hover { box-shadow: inset 0 0 0 1.5px rgba(216,169,59,0.5), 0 10px 26px rgba(10,10,10,0.12); }
+    .ad-feature-card.f-effect { --c: var(--blue); }
+    .afc-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+    .afc-kicker {
+      font-family: var(--font-label); font-size: 11px; font-weight: 800;
+      letter-spacing: 0.05em; padding: 3px 11px; border-radius: var(--radius-pill);
+      background: var(--c); color: #fff;
+    }
+    .ad-feature-card.f-support .afc-kicker { color: var(--ink); }
+    .afc-hot { font-family: var(--font-label); font-size: 11px; font-weight: 800; color: var(--c); white-space: nowrap; }
+    .afc-title { font-family: var(--font-display); font-size: 18px; font-weight: 900; line-height: 1.3; margin-bottom: 6px; }
+    .afc-desc { font-size: 13px; color: rgba(10,10,10,0.68); line-height: 1.6; margin-bottom: 12px; }
+    .afc-stats { display: flex; gap: 10px; margin-bottom: 12px; }
+    .afc-stat {
+      flex: 1; background: rgba(63,115,183,0.1); border-radius: 12px;
+      padding: 10px 8px; text-align: center;
+    }
+    .afc-stat b { display: block; font-family: var(--font-display); font-size: 22px; font-weight: 900; color: var(--blue); line-height: 1; }
+    .afc-stat span { font-family: var(--font-label); font-size: 10px; font-weight: 600; color: rgba(10,10,10,0.55); }
+    .afc-points { list-style: none; padding: 0; margin: 0 0 14px; }
+    .afc-points li {
+      position: relative; padding-left: 16px; font-size: 12.5px;
+      color: rgba(10,10,10,0.72); line-height: 1.6; margin-bottom: 4px;
+    }
+    .afc-points li::before { content: '·'; position: absolute; left: 4px; color: var(--c); font-weight: 900; }
+    .afc-link { margin-top: auto; font-family: var(--font-label); font-size: 13px; font-weight: 800; color: var(--c); }
+
+    /* —— 基础能力指引：大组配色变量（默认蓝；小店艾米组改 teal 以与 3.0 广告区分） —— */
+    .ad-group {
+      margin-bottom: 26px;
+      --gc: var(--blue);
+      --gc-soft: rgba(63,115,183,0.1);
+      --gc-line: rgba(63,115,183,0.42);
+      --gc-line2: rgba(63,115,183,0.25);
+    }
+    .ad-group.g-amind {
+      --gc: var(--teal);
+      --gc-soft: rgba(45,126,115,0.12);
+      --gc-line: rgba(45,126,115,0.48);
+      --gc-line2: rgba(45,126,115,0.28);
+    }
+    .ad-group:last-child { margin-bottom: 0; }
+    .ad-group-label {
+      display: flex; align-items: center; gap: 9px;
+      font-family: var(--font-display); font-size: 17px; font-weight: 900;
+      margin-bottom: 12px; padding-bottom: 8px;
+      border-bottom: 2px solid var(--gc-line2);
+    }
+    .ad-group-label .agl-no {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 7px;
+      background: var(--gc); color: var(--bone);
+      font-size: 14px; font-weight: 900; flex: none;
+    }
+    .agl-cap {
+      margin-left: auto; font-family: var(--font-label);
+      font-size: 11.5px; font-weight: 700; letter-spacing: 0.02em;
+      color: var(--gc); opacity: 0.78; white-space: nowrap;
+    }
+    .ad-subgroup-title {
+      font-family: var(--font-label); font-size: 13px; font-weight: 800;
+      letter-spacing: 0.04em; color: var(--gc);
+      margin: 16px 0 10px;
+    }
+    .ad-doc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+      gap: 12px;
+    }
+    .ad-doc-card {
+      background: var(--paper); border-radius: 16px;
+      padding: 14px 16px; display: flex; flex-direction: column;
+      text-decoration: none; color: var(--ink);
+      border-left: 4px solid var(--gc-line);
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+    }
+    .ad-doc-card:hover { transform: translateY(-2px); box-shadow: 0 7px 18px rgba(10,10,10,0.1); border-left-color: var(--gc); }
+    .adc-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
+    .adc-badge {
+      font-family: var(--font-label); font-size: 9.5px; font-weight: 800;
+      letter-spacing: 0.04em; padding: 2px 8px; border-radius: var(--radius-pill);
+      background: rgba(10,10,10,0.07); color: rgba(10,10,10,0.6);
+    }
+    .adc-badge.primary { background: var(--gc); color: var(--bone); }
+    .adc-badge.amind  { background: var(--gc-soft); color: var(--gc); }
+    .adc-go { font-family: var(--font-label); font-size: 11px; font-weight: 700; color: var(--gc); opacity: 0.8; white-space: nowrap; }
+    .adc-title { font-family: var(--font-display); font-size: 14.5px; font-weight: 900; line-height: 1.32; margin-bottom: 8px; }
+    /* 用途标签：客户一眼知道"什么情况下用 / 优化什么"（小一号，尽量一行内呈现） */
+    .adc-use {
+      font-family: var(--font-label); font-size: 11px; font-weight: 800;
+      color: var(--gc); background: var(--gc-soft);
+      padding: 4px 9px; border-radius: 7px; line-height: 1.4;
+      align-self: flex-start; margin-top: auto;
+    }
+    .adc-use::before { content: '👉 '; }
+
+    /* —— 小店直播：上下结构（主指引在上·满宽，4 分版位横排在下） —— */
+    .ad-live-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+    .ad-live-item2 {
+      display: flex; flex-direction: column; gap: 3px;
+      background: var(--paper); border-radius: 13px; padding: 11px 13px;
+      text-decoration: none; color: var(--ink);
+      border-left: 4px solid var(--gc-line);
+      transition: transform 0.16s, box-shadow 0.16s, border-color 0.16s;
+    }
+    .ad-live-item2:hover { transform: translateY(-2px); box-shadow: 0 5px 14px rgba(10,10,10,0.09); border-left-color: var(--gc); }
+    .ali-title { font-family: var(--font-display); font-size: 13px; font-weight: 900; line-height: 1.3; }
+    .ali-note { font-family: var(--font-label); font-size: 10.5px; font-weight: 700; color: var(--gc); line-height: 1.4; }
+    .ali-go2 { margin-top: 4px; font-family: var(--font-label); font-size: 10.5px; font-weight: 800; color: var(--gc); opacity: 0.85; }
+
+    /* —— 直播大场 —— */
+    .ad-bigshow { background: var(--paper); border-radius: var(--radius-lg); padding: 22px 24px; }
+    .abs-value-title, .abs-six-title {
+      font-family: var(--font-display); font-size: 15px; font-weight: 900;
+      margin-bottom: 12px;
+    }
+    .abs-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 22px; }
+    .abs-stat { background: var(--ink); border-radius: 14px; padding: 14px 10px; text-align: center; }
+    .abs-stat b { display: block; font-family: var(--font-display); font-size: 26px; font-weight: 900; color: var(--mustard); line-height: 1; margin-bottom: 5px; }
+    .abs-stat span { font-family: var(--font-label); font-size: 10.5px; font-weight: 600; color: rgba(226,220,201,0.7); line-height: 1.4; }
+    .abs-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .abs-chips span {
+      font-family: var(--font-label); font-size: 12.5px; font-weight: 700;
+      padding: 6px 13px; border-radius: var(--radius-pill);
+      background: rgba(63,115,183,0.12); color: var(--blue);
+    }
+    .abs-link {
+      display: inline-block; font-family: var(--font-label); font-size: 13.5px; font-weight: 800;
+      color: var(--bone); background: var(--blue); text-decoration: none;
+      padding: 11px 18px; border-radius: 12px; transition: transform 0.18s, opacity 0.18s;
+    }
+    .abs-link:hover { transform: translateY(-2px); opacity: 0.92; }
+
+    @media (max-width: 600px) {
+      .abs-stats { grid-template-columns: repeat(2, 1fr); }
+      .afc-stats { flex-direction: column; }
+      .ad-live-row { grid-template-columns: repeat(2, 1fr); }
+      .agl-cap { display: none; }
+    }
+  </style>
+
+  <div class="pillar-header">
+    <div class="ph-accent" style="background: var(--blue)"></div>
+    <h2>投放</h2>
+    <p class="ph-tagline">投放是放大器——用对工具和策略，把前面做扎实的竞争力成规模放出去。</p>
+  </div>
+
+  <!-- 子模块①：近期新能力 & 专项扶持 -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🆕</span>
+      <span class="sm-title">近期新能力上线 & 专项扶持</span>
+      <span class="sm-badge">持续更新 · 卷基建享扶持 · 提效果</span>
+    </div>
+    <p class="sm-desc">投放放大器的"新弹药"——抓住平台新上线能力与限时腾飞扶持，先人一步把竞争力放大。</p>
+    <div class="ad-feature-grid">
+      <!-- 卡1：商品聚合页（卷基建·享扶持） -->
+      <a class="ad-feature-card f-support" href="https://doc.weixin.qq.com/doc/w3_AN0ARwawACgCNgNOzKDrjR00Ewj0F?scode=AJEAIQdfAAoLW9MoaVAGYAPQbmACg" target="_blank" rel="noopener">
+        <div class="afc-head">
+          <span class="afc-kicker">卷基建 · 享扶持</span>
+          <span class="afc-hot">🔥 限时腾飞扶持中</span>
+        </div>
+        <div class="afc-title">闭环链路 · 商品聚合页（多品组合）</div>
+        <p class="afc-desc">把多个活动商品打包成集合，在节点内重点宣推（直播间内挂多商品）。当前能力已全量，无需白名单即可应用。</p>
+        <ul class="afc-points">
+          <li>支持链路：一期直播链路已支持，直购链路预计 6/30 上线</li>
+          <li>限时腾飞扶持：6/10–6/30（21 天），范围为直播链路 × 商品聚合页</li>
+          <li>巡查规则：每账户【商品聚合页】广告数 ≥ 5 条，每周三巡查，不达标即清退</li>
+        </ul>
+        <span class="afc-link">查看创编流程 SOP →</span>
+      </a>
+      <!-- 卡2：潜客优投（提效果） -->
+      <a class="ad-feature-card f-effect" href="https://doc.weixin.qq.com/doc/w3_ARoAPgaoANUCNtB1LB501QBW0Ij24?scode=AJEAIQdfAAoEhOS9UzAGYAPQbmACg" target="_blank" rel="noopener">
+        <div class="afc-head">
+          <span class="afc-kicker">提效果 · 双率提升</span>
+          <span class="afc-hot">需加白</span>
+        </div>
+        <div class="afc-title">小店「潜客优投」· 智能触达高购意向潜客</div>
+        <p class="afc-desc">系统识别近期浏览过商品 / 看过直播间的高购意向潜客，可自主设置提价系数，对这部分潜客加大竞争力、提升转化。</p>
+        <div class="afc-stats">
+          <div class="afc-stat"><b>+15%</b><span>下单 ROI</span></div>
+          <div class="afc-stat"><b>+10%</b><span>全链路转化 CTCVR</span></div>
+        </div>
+        <ul class="afc-points">
+          <li>适用：AIM+智能投放 & 竞价投放的小店客户</li>
+          <li>用法：出价与预算 → 探索策略 → 潜客优投，提价系数 1.1–2.0</li>
+          <li>操作建议：系数从 1.05 起步，逐步扩展到 1.3</li>
+        </ul>
+        <span class="afc-link">查看能力说明 →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- 子模块②：基础产品能力使用指引 -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🧰</span>
+      <span class="sm-title">基础产品能力使用指引</span>
+      <span class="sm-badge">投放工具全集 · 对客可发</span>
+    </div>
+    <p class="sm-desc">从 3.0 广告到小店艾米 / 智投、全域通——按"投什么链路、用什么工具"快速定位对应操作指引。</p>
+
+    <!-- 大组1：3.0 广告 -->
+    <div class="ad-group">
+      <div class="ad-group-label">
+        <span class="agl-no">1</span>
+        <span class="agl-main">3.0 广告 · 按链路投放</span>
+        <span class="agl-cap">适用于精细化的投放拿量</span>
+      </div>
+
+      <div class="ad-subgroup-title">A · 小店直播链路</div>
+      <!-- 主指引（满宽·在上） -->
+      <a class="ad-doc-card" href="https://doc.weixin.qq.com/doc/w3_APwAnQbDAK4yOFbDU1PSJKwFv0xWX?scode=AJEAIQdfAAo2bUQ2sPAGYAPQbmACg" target="_blank" rel="noopener">
+        <div class="adc-top"><span class="adc-badge primary">主指引 · 汇总</span><span class="adc-go">查看 →</span></div>
+        <div class="adc-title">直播 & 视频号广告推广 · 投放操作指引【汇总版】</div>
+        <div class="adc-use">投直播 / 视频号的总纲，开投先看这份</div>
+      </a>
+      <!-- 4 个分流量版位指引（横排·在下） -->
+      <div class="ad-live-row">
+        <a class="ad-live-item2" href="https://docs.qq.com/doc/DUFBseUJ1YlNzQlVp?nlc=1" target="_blank" rel="noopener">
+          <span class="ali-title">公众号 & 订阅号 推直播</span>
+          <span class="ali-note">公众号 / 订阅号流量 → 直播间</span>
+          <span class="ali-go2">查看 →</span>
+        </a>
+        <a class="ad-live-item2" href="https://doc.weixin.qq.com/doc/w3_AZ0AAQbUAOMdXS6DlO7S0C57aR0VI?scode=AJEAIQdfAAozwVWGpJAGYAPQbmACg" target="_blank" rel="noopener">
+          <span class="ali-title">小程序激励广告位 推直播</span>
+          <span class="ali-note">激励位（910 规格）→ 直播间</span>
+          <span class="ali-go2">查看 →</span>
+        </a>
+        <a class="ad-live-item2" href="https://docs.qq.com/doc/DUERlbXV0aWRMdXFh?nlc=1" target="_blank" rel="noopener">
+          <span class="ali-title">激励视频 二跳直播间</span>
+          <span class="ali-note">二跳筛精准用户，提直播间 CVR</span>
+          <span class="ali-go2">查看 →</span>
+        </a>
+        <a class="ad-live-item2" href="https://doc.weixin.qq.com/slide/p3_ALQAWgYyACkLSZOPZk0TOidQgVS16?scode=AJEAIQdfAAopVK4BvoAGYAPQbmACg" target="_blank" rel="noopener">
+          <span class="ali-title">PCAD 流量投直播链路</span>
+          <span class="ali-note">PCAD 流量 → 直播链路（含案例）</span>
+          <span class="ali-go2">查看 →</span>
+        </a>
+      </div>
+
+      <div class="ad-subgroup-title">B · 小店直购链路</div>
+      <div class="ad-doc-grid">
+        <a class="ad-doc-card" href="https://docs.qq.com/doc/DUFpxRUNoWWZOVkVD?nlc=1" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge primary">主指引</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">微信小店链路广告投放指引</div>
+          <div class="adc-use">投小店商品 / 直购的总纲，下单自动归因</div>
+        </a>
+        <a class="ad-doc-card" href="https://doc.weixin.qq.com/doc/w3_AO4AXQbdAFw8Y6SKLzNSGygdRSDdC?scode=AJEAIQdfAAo7tSC0GyAGYAPQbmACg" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge">持续更新</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">小程序连接小店 · 测试方案</div>
+          <div class="adc-use">布局小程序连接小店、公私域联动时用</div>
+        </a>
+        <a class="ad-doc-card" href="https://docs.qq.com/doc/DUHhqaWhxdUlLRUVh?nlc=1" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge">营销玩法</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">小店送礼广告能力专题汇总</div>
+          <div class="adc-use">想做"送朋友"送礼营销玩法时用</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 大组2：小店艾米 / 智投工具（teal 配色区分） -->
+    <div class="ad-group g-amind">
+      <div class="ad-group-label">
+        <span class="agl-no">2</span>
+        <span class="agl-main">小店艾米 / 智投工具 · 智能拿量</span>
+        <span class="agl-cap">适用于一键智能拿量 · 跑量突破</span>
+      </div>
+      <div class="ad-doc-grid">
+        <a class="ad-doc-card" href="https://doc.weixin.qq.com/doc/w3_AN0ARwawACgCNrMSgvto1QbaRTUCL?scode=AJEAIQdfAAoutr9a8dAGYAPQbmACg" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge primary">总览 · 首选</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">【AIM+智投】投放功能指南一览表</div>
+          <div class="adc-use">选工具前先看：哪个智投工具适合你</div>
+        </a>
+        <a class="ad-doc-card" href="https://doc.weixin.qq.com/doc/w3_AZ4A1wZyAN4kVfpjIilTZibAoWwCr?scode=AJEAIQdfAAoQ6Z1ip0AGYAPQbmACg" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge amind">产品介绍</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">小店艾米 · 产品介绍</div>
+          <div class="adc-use">先了解小店艾米能帮你做什么</div>
+        </a>
+        <a class="ad-doc-card" href="https://doc.weixin.qq.com/doc/w3_Ae0A8QavANwCNaPmfNE2lTdms663J?scode=AJEAIQdfAAoGh0y06pAGYAPQbmACg" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge amind">操作手册</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">小店智投 · 极简投放产品手册</div>
+          <div class="adc-use">想 4 步快速上手智投投放时用</div>
+        </a>
+        <a class="ad-doc-card" href="https://doc.weixin.qq.com/doc/w3_AfQAdgYeABoCNwJ9oFeITRB0yNw30?scode=AJEAIQdfAAonikGaiCAGYAPQbmACg" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge amind">全店托管</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">小店艾米 · 全店托管使用手册</div>
+          <div class="adc-use">多品类客户在小店直购链路拿量</div>
+        </a>
+        <a class="ad-doc-card" href="https://doc.weixin.qq.com/doc/w3_AKIApgbdAFwCNF4Igxc9lT9e1L6yr?scode=AJEAIQdfAAo0fzK0MxAGYAPQbmACg" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge amind">拿量助手</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">小店艾米 ·「直播快推」使用指南</div>
+          <div class="adc-use">直播起量 / 跑量慢时，加速冷启提速</div>
+        </a>
+        <a class="ad-doc-card" href="https://doc.weixin.qq.com/doc/w3_AVgAVQb0AAwCNWK7PIEnaRCKVBXxY?scode=AJEAIQdfAAohxsKmcsAGYAPQbmACg" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge amind">拿量助手</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">小店艾米 · 直播「专场放量」使用指南</div>
+          <div class="adc-use">大场冲量：新品 / 明星 / 展会专场</div>
+        </a>
+        <a class="ad-doc-card" href="https://doc.weixin.qq.com/doc/w3_AYcAwgbwAKMCNRN4tgAs9S16fyasy?scode=AJEAIQdfAAoO8eRKbnAGYAPQbmACg" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge amind">创意工具</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">创意优投 · 产品说明文档</div>
+          <div class="adc-use">已跑量素材，提升拿量竞争力</div>
+        </a>
+        <a class="ad-doc-card" href="https://doc.weixin.qq.com/doc/w3_ATUA8wYpAC4CN1uxEG0i1R1GG4jmF?scode=AJEAIQdfAAoHfnKLX4AGYAPQbmACg" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge amind">出价能力</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">小店艾米 ·「净成交」出价能力</div>
+          <div class="adc-use">退货率高时，优化净成交 GMV</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 大组3：全域通 / 小店广告 -->
+    <div class="ad-group">
+      <div class="ad-group-label">
+        <span class="agl-no">3</span>
+        <span class="agl-main">全域通 / 小店广告 · 极简投放</span>
+        <span class="agl-cap">适用于小店商家极简投放</span>
+      </div>
+      <div class="ad-doc-grid">
+        <a class="ad-doc-card" href="https://docs.qq.com/doc/DUGtpRU5xU1RJTXhj?nlc=1" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge primary">电脑端</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">小店投放 ｜ 电脑端使用指南</div>
+          <div class="adc-use">想极简投放、无转化不扣费时用</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子模块③：直播大场指引 -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🔥</span>
+      <span class="sm-title">直播大场指引</span>
+      <span class="sm-badge">大场策划 · 经营六盘</span>
+    </div>
+    <p class="sm-desc">大场是放大器里的"涡轮"——通过"人货场"升级与放量工具，撬动远超日播的 GMV 与人群破圈。</p>
+    <div class="ad-bigshow">
+      <div class="abs-value-title">为什么做大场？</div>
+      <div class="abs-stats">
+        <div class="abs-stat"><b>×1.6</b><span>30w+ 大场带动平播 GMV 膨胀率</span></div>
+        <div class="abs-stat"><b>+272%</b><span>促进单场曝光</span></div>
+        <div class="abs-stat"><b>+25%</b><span>新客占比</span></div>
+        <div class="abs-stat"><b>+3 倍</b><span>新客转化率 vs 日播</span></div>
+      </div>
+      <div class="abs-six-title">经营六盘 · 大场作战方法论</div>
+      <div class="abs-chips">
+        <span>🎯 盘主题</span>
+        <span>📦 盘货品</span>
+        <span>🎬 盘素材</span>
+        <span>📋 盘规则</span>
+        <span>📣 盘营销</span>
+        <span>🚀 盘投放</span>
+      </div>
+      <a class="abs-link" href="https://doc.weixin.qq.com/doc/w3_AY8AIQZXAAw0kJ8lDUaThG4VipnZm?scode=AJEAIQdfAAorYFdXN0AGYAPQbmACg" target="_blank" rel="noopener">📖 查看《食品饮料 · 直播专场营销 SOP》（投前 / 投中 / 投后全流程）→</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 更新日志 ============== -->
+<section class="changelog-section container">
+  <h3>更新日志</h3>
+  <table class="changelog-table">
+    <thead>
+      <tr><th>日期</th><th>版本</th><th>说明</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>2026-06-23</td><td>v1.0</td><td>首次输出完整版「健康膳食营养赛道腾讯广告投放百宝箱」HTML，涵盖选品 / 创意素材 / 直播间转化 / 投放四大板块。</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============== Footer ============== -->
+<footer class="footer">
+  膳食健康赛道 · 广告竞争力提升全景指引 · 数据已脱敏
+</footer>
+
+  <div class="tb-status" id="tbStatus">点击任意文字即可编辑<br />Cmd/Ctrl+S 原地保存到源文件</div>
+  <button onclick="saveToSourceFile()">⚡ 保存到源文件（原地生效）</button>
+  <button onclick="exportHTML()">💾 另存为新 HTML</button>
+  <button class="btn-reset" onclick="resetContent()">↩️ 清除本地改动</button>
+</div>
+
+
+<!-- ============== 锚点滚动 + 吸顶导航 + 滚动高亮联动 ============== -->
+<script>
+(function(){
+  const factorCards = document.querySelectorAll('.factor-card');
+  const stickyNav = document.getElementById('stickyNav');
+  const navBtns = stickyNav.querySelectorAll('button');
+  const sections = Array.from(document.querySelectorAll('.pillar-section'));
+  const heroCards = document.querySelector('.factor-grid');
+
+  // 点击 hero 因子卡片 或 吸顶导航 → 平滑滚动到对应板块
+  window.switchTab = function(pillarName) {
+    const target = document.getElementById('pillar-' + pillarName);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.pillar));
+  });
+
+  // 1. 滚动超过 hero 卡片底部 → 显示吸顶导航
+  function onScroll() {
+    if (!heroCards) return;
+    const threshold = heroCards.getBoundingClientRect().bottom;
+    stickyNav.classList.toggle('show', threshold < 0);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // 2. 滚动高亮联动：当前视口中部所在板块高亮
+  function setActive(pillarName) {
+    navBtns.forEach(b => b.classList.toggle('active', b.dataset.pillar === pillarName));
+    factorCards.forEach(c => {
+      const n = c.querySelector('.fc-name');
+      c.classList.toggle('active', n && n.textContent.trim() === pillarName);
+    });
+  }
+  const observer = new IntersectionObserver((entries) => {
+    // 取与视口中线最接近的可见板块
+    let best = null, bestRatio = 0;
+    entries.forEach(e => { if (e.isIntersecting && e.intersectionRatio > bestRatio) { best = e.target; bestRatio = e.intersectionRatio; } });
+    if (best) setActive(best.dataset.pillar);
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 1] });
+  sections.forEach(s => observer.observe(s));
+
+  // 初始高亮第一个
+  setActive('选品');
+})();
+</script>
+
+<!-- ============== 赛道切换（爆品榜：膳食营养 / 海外保健食品） ============== -->
+<script>
+(function(){
+  window.switchTrack = function(track) {
+    document.querySelectorAll('.track-tabs button').forEach(b =>
+      b.classList.toggle('active', b.dataset.track === track));
+    document.querySelectorAll('.track-panel').forEach(p =>
+      p.classList.toggle('active', p.dataset.track === track));
+  };
+})();
+</script>
+
+
+
+</body>
+</html>
