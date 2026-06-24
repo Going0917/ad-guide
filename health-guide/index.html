@@ -687,8 +687,8 @@ body {
 <section class="hero">
   <!-- 左上角：版本 + 更新时间 -->
   <div class="top-meta">
-    <span class="pill">v1.0</span>
-    <span class="pill">2026.06.22</span>
+    <span class="pill">v1.2</span>
+    <span class="pill">2026.06.23</span>
   </div>
 
   <div class="hero-content">
@@ -1948,11 +1948,68 @@ body {
     }
     .abs-link:hover { transform: translateY(-2px); opacity: 0.92; }
 
+    /* —— 常见问题自查 · Tab 切换 —— */
+    .qa-formula { background: var(--paper); border-radius: 16px; padding: 15px 18px; margin-bottom: 16px; border-left: 5px solid var(--ink); }
+    .qaf-eq { font-size: 13px; line-height: 1.6; color: rgba(10,10,10,0.72); margin-bottom: 11px; padding-bottom: 11px; border-bottom: 1px solid rgba(10,10,10,0.08); }
+    .qaf-eq b { font-family: var(--font-label); font-weight: 800; color: var(--ink); }
+    .qaf-lines { display: flex; flex-direction: column; gap: 8px; }
+    .qaf-line { font-size: 12.5px; color: rgba(10,10,10,0.72); line-height: 1.5; }
+    .qaf-tag { display: inline-block; font-family: var(--font-label); font-size: 12px; font-weight: 800; padding: 2px 11px; border-radius: var(--radius-pill); margin-right: 8px; }
+    .qaf-tag.t-blue { background: rgba(63,115,183,0.14); color: var(--blue); }
+    .qaf-tag.t-red { background: rgba(197,68,58,0.12); color: #C5443A; }
+
+    .qa-tabs { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+    .qa-tab { font-family: var(--font-label); font-size: 14px; font-weight: 800; padding: 9px 18px; border-radius: var(--radius-pill); background: var(--paper); color: rgba(10,10,10,0.55); border: 2px solid transparent; cursor: pointer; transition: background 0.18s, color 0.18s; }
+    .qa-tab:hover { color: var(--ink); }
+    .qa-tab.active { background: var(--blue); color: var(--bone); }
+    .qa-tab[data-qa="超成本"].active { background: #C5443A; color: #fff; }
+    .qa-tab[data-qa="不起量"].active { background: var(--sienna); color: var(--bone); }
+
+    /* 每个面板主题色（门槛底/序号/highlight 跟随） */
+    .qa-panel { display: none; --qc: var(--blue); --qc-soft: rgba(63,115,183,0.13); }
+    .qa-panel[data-qa="超成本"] { --qc: #C5443A; --qc-soft: rgba(197,68,58,0.1); }
+    .qa-panel[data-qa="不起量"] { --qc: var(--sienna); --qc-soft: rgba(160,106,60,0.12); }
+    .qa-panel[data-qa="掉量"] { --qc: var(--blue); --qc-soft: rgba(63,115,183,0.12); }
+    .qa-panel.active { display: block; animation: qaFade 0.25s ease; }
+    @keyframes qaFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    .qa-cols { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 12px; margin-bottom: 12px; }
+    .qa-box { background: var(--paper); border-radius: 16px; padding: 15px 17px; box-shadow: inset 0 0 0 1px rgba(10,10,10,0.05); }
+    .qa-box-h { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 13.5px; font-weight: 900; margin-bottom: 11px; }
+    .qa-box-h::before { content: ''; width: 4px; height: 15px; border-radius: 2px; background: var(--qc); flex: none; }
+    .qa-threshold { background: var(--qc-soft); box-shadow: none; }
+    .qa-box ul { list-style: none; padding: 0; margin: 0; }
+    .qa-box li { position: relative; padding-left: 16px; font-size: 12px; line-height: 1.7; color: rgba(10,10,10,0.8); margin-bottom: 6px; }
+    .qa-box li::before { content: '·'; position: absolute; left: 5px; font-weight: 900; color: var(--qc); }
+    .qa-reason p { font-size: 12px; line-height: 1.7; color: rgba(10,10,10,0.72); margin: 0 0 8px; }
+    .qa-reason p:last-child { margin-bottom: 0; }
+    .qa-check li { font-size: 12.5px; padding-left: 0; margin-bottom: 9px; }
+    .qa-check li::before { content: none; }
+    .qa-check li b { color: var(--ink); font-weight: 800; }
+    /* 关键数据 / 内容 highlight（跟随面板主题色） */
+    .hl { background: var(--qc-soft); color: var(--qc); font-weight: 800; padding: 0 5px; border-radius: 4px; }
+    .qa-key { color: #C5443A; font-weight: 800; }
+    .qa-num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--qc); color: #fff; font-size: 10px; font-weight: 900; margin-right: 7px; vertical-align: 1px; font-family: var(--font-label); flex: none; }
+
+    /* 诊断模板（左右结构 · 浅底） */
+    .qa-template { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 20px; align-items: stretch; background: var(--paper); border-radius: var(--radius-lg); padding: 20px 22px; margin-top: 18px; border-left: 5px solid var(--blue); }
+    .qa-tpl-left { display: flex; flex-direction: column; }
+    .qa-tpl-h { font-family: var(--font-display); font-size: 15.5px; font-weight: 900; color: var(--ink); margin-bottom: 6px; line-height: 1.35; }
+    .qa-tpl-sub { font-size: 12px; color: rgba(10,10,10,0.55); margin-bottom: 12px; line-height: 1.6; }
+    .qa-gate { display: flex; flex-direction: column; gap: 9px; }
+    .qa-gate-item { position: relative; padding-left: 26px; font-size: 12.5px; font-weight: 700; color: rgba(10,10,10,0.8); line-height: 1.5; }
+    .qa-gate-item::before { content: '✓'; position: absolute; left: 0; top: 0; width: 18px; height: 18px; background: rgba(45,126,115,0.16); color: var(--teal); border-radius: 50%; font-size: 11px; font-weight: 900; text-align: center; line-height: 18px; }
+    .qa-tpl-box { background: var(--bone); border: 1px solid rgba(10,10,10,0.12); border-radius: 12px; padding: 14px 16px 14px; position: relative; }
+    .qa-tpl-fields { font-family: var(--font-label); font-size: 12px; line-height: 1.95; color: rgba(10,10,10,0.82); white-space: pre-wrap; margin: 0; }
+    .qa-copy { position: absolute; top: 12px; right: 12px; font-family: var(--font-label); font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: var(--radius-pill); background: var(--mustard); color: var(--ink); border: none; cursor: pointer; transition: opacity 0.15s; }
+    .qa-copy:hover { opacity: 0.88; }
+
     @media (max-width: 600px) {
       .abs-stats { grid-template-columns: repeat(2, 1fr); }
       .afc-stats { flex-direction: column; }
       .ad-live-row { grid-template-columns: repeat(2, 1fr); }
       .agl-cap { display: none; }
+      .qa-cols { grid-template-columns: 1fr; }
+      .qa-template { grid-template-columns: 1fr; }
     }
   </style>
 
@@ -2144,7 +2201,148 @@ body {
     </div>
   </div>
 
-  <!-- 子模块③：直播大场指引 -->
+  <!-- 子模块③：投放常见问题 · 自查与诊断 -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🩺</span>
+      <span class="sm-title">投放常见问题 · 自查与诊断</span>
+      <span class="sm-badge">腰尾部高频 · 超成本 / 不起量 / 掉量</span>
+    </div>
+    <p class="sm-desc">投放最常踩的三个坑——先按对应清单逐项自查；确认满足"操作建议达标 + 无负向操作 + 过保障期"仍未解决，再按底部模板找运营经理诊断。</p>
+
+    <!-- ECPM 失衡总览 -->
+    <div class="qa-formula">
+      <div class="qaf-eq">竞价广告的本质是 ECPM 竞争：<b>ECPM = 出价 Bid × 预估点击率 pCTR × 预估转化率 pCVR × 1000</b>。所有投放问题都源于公式失衡 ——</div>
+      <div class="qaf-lines">
+        <div class="qaf-line"><span class="qaf-tag t-blue">不起量 / 掉量</span>本质是 ECPM 竞争力不足、竞不过别人。</div>
+        <div class="qaf-line"><span class="qaf-tag t-red">超成本</span>本质是实际双率低于系统预估、双率下滑，导致单次转化成本被拉高。</div>
+      </div>
+    </div>
+
+    <!-- Tab 切换 -->
+    <div class="qa-tabs">
+      <button class="qa-tab active" data-qa="超成本" type="button">🔴 超成本</button>
+      <button class="qa-tab" data-qa="不起量" type="button">⚪ 不起量 / 0曝光</button>
+      <button class="qa-tab" data-qa="掉量" type="button">📉 掉量</button>
+    </div>
+
+    <!-- 面板：超成本（优先） -->
+    <div class="qa-panel active" data-qa="超成本">
+      <div class="qa-cols">
+        <div class="qa-box qa-threshold">
+          <div class="qa-box-h">📏 排查门槛（满足才算超成本）</div>
+          <ul>
+            <li>超成本幅度：实际达成成本 ÷ 出价 − 1 <span class="hl">&gt; 20%</span></li>
+            <li>已过保障期：广告创建满 <span class="hl">3 天</span></li>
+            <li>消耗达门槛：出价&lt;300 → 转化<span class="hl">≥10</span> 或 消耗≥10×出价；300–1000 → 转化<span class="hl">≥6</span> 或 消耗≥6×出价；≥1000 → 转化<span class="hl">≥4</span> 或 消耗≥4×出价</li>
+          </ul>
+        </div>
+        <div class="qa-box qa-reason">
+          <div class="qa-box-h">💡 原因解读</div>
+          <p>成本达成以「天」为维度，<b>分时超成本是正常的</b>（小时间转化不均带来随机波动），全天单广告严重超成本才需处理。</p>
+          <p>分时严重超成本时，系统会对广告打压（在出价基础上调降系数）以避免亏损扩大；一键起量会解除该降权、给更大超成本空间，但也带来<span class="qa-key">持续超成本风险</span>。</p>
+        </div>
+      </div>
+      <div class="qa-box qa-check">
+        <div class="qa-box-h">✅ 自查内容清单（按顺序排查）</div>
+        <ul>
+          <li><span class="qa-num">1</span><b>是否假性超成本：</b>转化&lt;6 的新广告属正常波动（冷启期 pCTR/pCVR 预估不准）；转化≥6 且创建&lt;3 天有 <span class="hl">赔付兜底</span>；超成本大的广告可先关停、次日再看。</li>
+          <li><span class="qa-num">2</span><b>是否有负向操作：</b><span class="qa-key">单日降价≤2 次、单次 5–10%</span>；人群定向勿收窄；勿频繁清空 / 关停创意，保持稳定投放并持续新增创意。</li>
+          <li><span class="qa-num">3</span><b>双率是否大幅波动：</b>点击率 → 自查创意状态是否正常；转化率 → 自查小店商品价格、库存是否充足、直播间主播是否有调整。</li>
+          <li><span class="qa-num">4</span><b>一键起量影响：</b>减少一键起量的开启频率与预算。</li>
+          <li><span class="qa-num">5</span><b>下单 / 组件成本：</b>针对性关停超成本的创意 / 组件。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 面板：不起量 / 0曝光 -->
+    <div class="qa-panel" data-qa="不起量">
+      <div class="qa-cols">
+        <div class="qa-box qa-threshold">
+          <div class="qa-box-h">📏 排查门槛（满足才算不起量）</div>
+          <ul>
+            <li>直播场景：投放后 1h 曝光量 <span class="hl">&lt; 200</span></li>
+            <li>非直播场景：投放后 6h 曝光量 <span class="hl">&lt; 200</span></li>
+            <li>冷启动定义：新广告单日转化 <span class="hl">&lt;6 个</span>；账户 3 天内转化 <span class="hl">&lt;110 个</span></li>
+          </ul>
+        </div>
+        <div class="qa-box qa-reason">
+          <div class="qa-box-h">💡 原因解读</div>
+          <p>启动期无数据积累，模型仍在"找人"探索，预估双率偏低；需要用<b>更高出价 + 更多创意</b>帮助广告快速过冷启动。</p>
+        </div>
+      </div>
+      <div class="qa-box qa-check">
+        <div class="qa-box-h">✅ 自查内容清单（按顺序排查）</div>
+        <ul>
+          <li><span class="qa-num">1</span><b>余额 / 预算：</b>账户余额 &gt;3w，保持前日消耗的 3–5 倍；账户 / 广告单日预算别设太低。</li>
+          <li><span class="qa-num">2</span><b>定向勿过窄：</b>非智能人群尽量放宽、不做过多限制，起量后再优化定向。</li>
+          <li><span class="qa-num">3</span><b>基建充足：</b>1 个账户 ≥6 条广告，1 条广告 ≥6 个创意，并保持上新频率。</li>
+          <li><span class="qa-num">4</span><span class="qa-key">‼️出价是否过低（最重要）：</span>冷启动阶段按客单价的 <span class="hl">1–2 倍</span>出价。</li>
+          <li><span class="qa-num">5</span><b>点击率是否过低：</b>视频号版位建议 ≥2%（约大盘均值 2 倍）。</li>
+          <li><span class="qa-num">6</span><b>投放时长：</b>至少连续投放 3 天，别一天就下判断。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 面板：掉量 -->
+    <div class="qa-panel" data-qa="掉量">
+      <div class="qa-cols">
+        <div class="qa-box qa-threshold">
+          <div class="qa-box-h">📏 排查门槛（无负向操作 & 预算充足时）</div>
+          <ul>
+            <li>前日消耗 ≥4w：当日消耗下跌 <span class="hl">≥30%</span></li>
+            <li>前日消耗 &lt;4w：当日消耗下跌 <span class="hl">≥50%</span></li>
+          </ul>
+        </div>
+        <div class="qa-box qa-reason">
+          <div class="qa-box-h">💡 原因解读</div>
+          <p>竞价广告无法无限期放量——竞争环境实时变化、素材新鲜度也影响竞争力。</p>
+          <p>单广告按客单价波动属日常正常现象，建议放到<b>整个商品 / 直播间维度</b>看量级是否平稳。</p>
+        </div>
+      </div>
+      <div class="qa-box qa-check">
+        <div class="qa-box-h">✅ 自查内容清单（按顺序排查）</div>
+        <ul>
+          <li><span class="qa-num">1</span><b>是否超成本：</b>超成本会被系统调价打压、影响拿量；已过 3 天的超成本广告建议关停并新建。</li>
+          <li><span class="qa-num">2</span><b>是否有负向操作：</b><span class="qa-key">单日降价≤2 次、单次 5–10%</span>；人群勿收窄；预算放开且余额保持前日消耗 3 倍；勿频繁清空 / 关停创意，保持稳定 + 持续新增。</li>
+          <li><span class="qa-num">3</span><b>当天分时双率是否下降：</b>①提高出价约 5% ②高峰开启一键起量（预算 <span class="hl">5–10 个转化成本、不超 2000</span>）；可拉长周期观测，模型会自行调回。</li>
+          <li><span class="qa-num">4</span><b>持续无转化（&gt;48h）且低 / 无曝光的广告：</b>可关停休息，避免同质化广告互相挤压；调整无效则属正常衰退，上新创意续命即可。</li>
+          <li><span class="qa-num">5</span><b>审核问题：</b>积极配合整改 + 储备过审广告。</li>
+          <li><span class="qa-num">6</span><b>整体性判断：</b>若同商品 / 同直播间其他广告无明显掉量、仅单广告受影响，属正常。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 诊断模板（左右结构：左·前置门槛，右·模板） -->
+    <div class="qa-template">
+      <div class="qa-tpl-left">
+        <div class="qa-tpl-h">🛠️ 仍无法解决？<br />按模板联系运营经理诊断</div>
+        <div class="qa-tpl-sub">请务必先完成上方自查，确认同时满足以下 3 个前置条件后再提报：</div>
+        <div class="qa-gate">
+          <div class="qa-gate-item">已满足对应问题的操作建议，且无明显负向操作</div>
+          <div class="qa-gate-item">已满足对应问题的排查门槛</div>
+          <div class="qa-gate-item">为非成本保障期内的广告（创建满 3 天）⚠️</div>
+        </div>
+      </div>
+      <div class="qa-tpl-box">
+        <button class="qa-copy" type="button" onclick="copyQaTemplate(this)">📋 复制模板</button>
+        <div class="qa-tpl-fields" id="qaTplText">【主体名称】：
+【账户ID】：
+【是否智投】：
+【智投项目ID / 3.0广告ID】：
+【是否3天内新广告（仍在成本保障期）】：
+【问题类型】：不起量 / 掉量 / 超成本 / 空耗
+【定向版位】：
+【问题发生时间】：
+【账户及广告预算设置情况】：
+【问题发生日下调出价 / 预算情况】：
+【广告数】（如为不起量问题需提供）：
+【需求补充】：</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子模块④：直播大场指引 -->
   <div class="submodule">
     <div class="sm-head">
       <span class="sm-icon">🔥</span>
@@ -2172,6 +2370,35 @@ body {
       <a class="abs-link" href="https://doc.weixin.qq.com/doc/w3_AY8AIQZXAAw0kJ8lDUaThG4VipnZm?scode=AJEAIQdfAAorYFdXN0AGYAPQbmACg" target="_blank" rel="noopener">📖 查看《食品饮料 · 直播专场营销 SOP》（投前 / 投中 / 投后全流程）→</a>
     </div>
   </div>
+
+  <!-- 常见问题自查 · Tab 切换 + 复制模板（作用域脚本，仅本板块使用） -->
+  <script>
+  (function(){
+    const tabs = document.querySelectorAll('.qa-tab');
+    const panels = document.querySelectorAll('.qa-panel');
+    tabs.forEach(t => t.addEventListener('click', () => {
+      const k = t.dataset.qa;
+      tabs.forEach(x => x.classList.toggle('active', x.dataset.qa === k));
+      panels.forEach(p => p.classList.toggle('active', p.dataset.qa === k));
+    }));
+    window.copyQaTemplate = function(btn){
+      const tpl = document.getElementById('qaTplText');
+      if(!tpl) return;
+      const text = tpl.innerText;
+      const done = () => { const o = btn.textContent; btn.textContent = '✓ 已复制'; setTimeout(() => btn.textContent = o, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(() => fallback(text, done));
+      } else { fallback(text, done); }
+    };
+    function fallback(text, done){
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch(e){}
+      document.body.removeChild(ta);
+    }
+  })();
+  </script>
 </section>
 
 <!-- ============== 更新日志 ============== -->
@@ -2182,6 +2409,8 @@ body {
       <tr><th>日期</th><th>版本</th><th>说明</th></tr>
     </thead>
     <tbody>
+      <tr><td>2026-06-23</td><td>v1.2</td><td>"常见问题·自查与诊断"视觉优化：ECPM 总览改浅底+换行分句；门槛/原因/自查三栏改浅底卡+主题色标题条+关键数据 highlight；诊断模板改左右结构（左·前置门槛/右·模板）、去黑底改浅底，降低视觉重量</td></tr>
+      <tr><td>2026-06-23</td><td>v1.1</td><td>投放板块新增"常见问题·自查与诊断"子模块（投放工具后/直播大场前）：超成本 / 不起量 / 掉量 三问题 Tab 切换（超成本优先），各含排查门槛 + 原因解读 + 按序自查清单；底部附前置自查门槛 + 一键复制诊断模板。</td></tr>
       <tr><td>2026-06-23</td><td>v1.0</td><td>首次输出完整版「健康膳食营养赛道腾讯广告投放百宝箱」HTML，涵盖选品 / 创意素材 / 直播间转化 / 投放四大板块。</td></tr>
     </tbody>
   </table>
