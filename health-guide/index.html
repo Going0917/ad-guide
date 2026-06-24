@@ -10,6 +10,26 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;700;900&display=swap" rel="stylesheet">
 
+<!-- html2canvas CDN fallback -->
+<script>
+(function(){
+  const cdns = [
+    'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js',
+    'https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'
+  ];
+  let i = 0;
+  function load() {
+    if (i >= cdns.length) { console.warn('html2canvas 加载失败'); return; }
+    const s = document.createElement('script');
+    s.src = cdns[i++];
+    s.onerror = load;
+    document.head.appendChild(s);
+  }
+  load();
+})();
+</script>
+
 <style>
 /* ================ CSS 变量：Stencil & Tablet 配色适配 ================ */
 :root {
@@ -654,6 +674,133 @@ body {
   color: rgba(226,220,201,0.4);
   letter-spacing: 0.06em;
 }
+
+/* ================ 编辑模式 · 三件套样式 ================ */
+.edit-toolbar {
+  position: fixed;
+  top: 20px; right: 20px;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(216, 169, 59, 0.4);
+  border-radius: 10px;
+  padding: 14px 16px;
+  z-index: 9999;
+  min-width: 230px;
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+.edit-toolbar .tb-title {
+  color: var(--mustard);
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.edit-toolbar .tb-status {
+  font-size: 11px; color: #b9c5d6;
+  margin-bottom: 10px; padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  line-height: 1.5;
+}
+.edit-toolbar .tb-status.saved { color: #4ade80; }
+.edit-toolbar button {
+  background: var(--mustard);
+  color: var(--ink);
+  border: none; border-radius: 6px;
+  padding: 8px 12px; font-size: 12px;
+  font-weight: 700; font-family: inherit;
+  cursor: pointer; width: 100%;
+  margin-bottom: 6px; letter-spacing: 0.05em;
+  transition: transform 0.1s ease, opacity 0.15s ease;
+}
+.edit-toolbar button:hover { transform: translateY(-1px); opacity: 0.9; }
+.edit-toolbar button:active { transform: translateY(0); }
+.edit-toolbar button.btn-reset {
+  background: rgba(255,255,255,0.1); color: #fff;
+  font-size: 11px; padding: 6px 10px; margin-bottom: 0;
+}
+.edit-toolbar button.btn-reset:hover { background: rgba(255,255,255,0.2); }
+
+[contenteditable="true"] {
+  transition: box-shadow 0.15s, background 0.15s;
+  border-radius: 3px; outline: none;
+}
+[contenteditable="true"]:hover {
+  box-shadow: 0 0 0 2px rgba(216, 169, 59, 0.55);
+  background: rgba(216, 169, 59, 0.08);
+  cursor: text;
+}
+[contenteditable="true"]:focus {
+  box-shadow: 0 0 0 2px rgba(238, 122, 46, 0.7);
+  background: rgba(238, 122, 46, 0.05);
+}
+body.editing a { pointer-events: none; }
+
+/* ================ 图片导出 · 工具栏样式 ================ */
+.export-toolbar {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(216, 169, 59, 0.4);
+  border-radius: 10px;
+  padding: 12px 14px;
+  z-index: 9998;
+  min-width: 220px;
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+.export-toolbar .et-title {
+  color: var(--mustard);
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.export-toolbar .et-status {
+  font-size: 11px; color: #b9c5d6;
+  margin-bottom: 10px; padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  line-height: 1.5;
+  min-height: 16px;
+}
+.export-toolbar .et-status.success { color: #4ade80; }
+.export-toolbar .et-status.error   { color: #ff6b6b; }
+.export-toolbar button {
+  background: linear-gradient(135deg, var(--teal), #1a6b5f);
+  color: var(--bone);
+  border: none; border-radius: 6px;
+  padding: 8px 12px; font-size: 12px;
+  font-weight: 700; font-family: inherit;
+  cursor: pointer; width: 100%;
+  margin-bottom: 6px; letter-spacing: 0.05em;
+  transition: transform 0.1s, opacity 0.15s;
+  text-align: left;
+}
+.export-toolbar button:hover { transform: translateY(-1px); opacity: 0.92; }
+.export-toolbar button:active { transform: translateY(0); }
+.export-toolbar button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.export-toolbar .et-scale {
+  display: flex; gap: 4px;
+  margin-bottom: 8px;
+  padding: 6px; background: rgba(255,255,255,0.06); border-radius: 6px;
+}
+.export-toolbar .et-scale-label {
+  font-size: 10px; color: #8a96aa;
+  align-self: center; margin-right: 4px;
+}
+.export-toolbar .et-scale button {
+  flex: 1; margin: 0;
+  background: transparent;
+  color: #b9c5d6;
+  font-size: 11px; padding: 4px 0;
+  text-align: center;
+}
+.export-toolbar .et-scale button.active {
+  background: var(--mustard); color: var(--ink);
+}
+body.exporting .export-toolbar,
+body.exporting .edit-toolbar { visibility: hidden !important; }
 
 /* ================ 响应式 ================ */
 @media (max-width: 768px) {
@@ -2418,6 +2565,32 @@ body {
   膳食健康赛道 · 广告竞争力提升全景指引 · 数据已脱敏
 </footer>
 
+<!-- ============== 浮动编辑工具栏 ============== -->
+<div class="edit-toolbar" id="editToolbar">
+  <div class="tb-title">✏️ 编辑模式</div>
+  <div class="tb-status" id="tbStatus">点击任意文字即可编辑<br />Cmd/Ctrl+S 原地保存到源文件</div>
+  <button onclick="saveToSourceFile()">⚡ 保存到源文件（原地生效）</button>
+  <button onclick="exportHTML()">💾 另存为新 HTML</button>
+  <button class="btn-reset" onclick="resetContent()">↩️ 清除本地改动</button>
+</div>
+
+<!-- ============== 浮动图片导出工具栏 ============== -->
+<div class="export-toolbar" id="exportToolbar"
+     data-section-selector=".pillar-section"
+     data-target-selector="body">
+  <div class="et-title">🖼️ 图片导出</div>
+  <div class="et-status" id="etStatus">选择导出模式</div>
+  <div class="et-scale">
+    <span class="et-scale-label">分辨率</span>
+    <button data-scale="1">1x</button>
+    <button data-scale="2" class="active">2x</button>
+    <button data-scale="3">3x</button>
+  </div>
+  <button onclick="exportFullPage()">📜 整页长图</button>
+  <button onclick="exportCurrentSection()">📸 当前可见页</button>
+  <button onclick="exportAllSections()">📚 批量每页 PNG</button>
+</div>
+
 <!-- ============== 锚点滚动 + 吸顶导航 + 滚动高亮联动 ============== -->
 <script>
 (function(){
@@ -2474,6 +2647,281 @@ body {
       b.classList.toggle('active', b.dataset.track === track));
     document.querySelectorAll('.track-panel').forEach(p =>
       p.classList.toggle('active', p.dataset.track === track));
+  };
+})();
+</script>
+
+<!-- ============== 可编辑三件套 JS ============== -->
+<script>
+(function(){
+  const STORAGE_KEY = 'onepage-edit:health-ads-fullguide_v18';
+  const status = document.getElementById('tbStatus');
+
+  const editableSelectors = [
+    'h1', 'h2', 'h3', 'p', 'li',
+    '.eyebrow',
+    '.pill',
+    '.f-eyebrow', '.f-label', '.f-highlight',
+    '.fc-metric', '.fc-name',
+    '.ph-tagline',
+    '.mp-title', '.mp-freq', '.mp-status',
+    '.sm-title', '.sm-badge', '.sm-desc',
+    '.rc-tag', '.rc-title', '.rc-period', '.rc-chip', '.rc-link',
+    '.de-title', '.de-fields', '.de-status',
+    '.track-summary', '.rank-subtitle',
+    '.afc-kicker', '.afc-hot', '.afc-title', '.afc-desc', '.afc-stat b', '.afc-stat span', '.afc-link',
+    '.agl-main', '.agl-cap', '.ad-subgroup-title',
+    '.adc-badge', '.adc-title', '.adc-desc', '.adc-use', '.adc-go',
+    '.ali-title', '.ali-note', '.ali-go2',
+    '.qaf-eq', '.qaf-line', '.qa-box-h', '.qa-tpl-h', '.qa-tpl-sub', '.qa-gate-item',
+    '.abs-value-title', '.abs-six-title', '.abs-stat b', '.abs-stat span', '.abs-chips span', '.abs-link',
+    '.ct-law-title', '.ct-law-def', '.ct-law-style', '.cls-label',
+    '.ctf-item', '.ct-type-name', '.ct-type-pct', '.ct-type-note',
+    '.ct-aud-name', '.ct-aud-drive', '.cad-k', '.cam-t', '.cam-v',
+    '.ct-hooks-label', '.chq-type', '.chq-text',
+    '.ct-cat', '.ct-col',
+    '.ctr-tag', '.ct-tool-cta',
+    '.ct-slot-name', '.ct-slot-env', '.ct-ps',
+    '.lv-formula-label', '.lvf-item',
+    '.lv-dim-name', '.lv-dim-sub', '.lv-dim-bt', '.lv-dim-key', '.lv-chips span', '.lv-acts li',
+    '.lvl-step', '.lv-quotes-label', '.lvq-type', '.lvq-text',
+    '.lv-cat', '.lv-col',
+    '.lv-bs-name', '.lv-bs-role', '.lv-bs-do', '.lv-bs-dont', '.lv-bigshow-formula',
+    '.lv-tool-name', '.lv-tool-sub', '.lvtr-tag', '.lv-tool-cta',
+    '.rank-table td',
+    '.changelog-table td',
+    '.footer'
+  ];
+  const editableSet = new Set();
+  editableSelectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => {
+      if (!editableSet.has(el)) {
+        el.setAttribute('contenteditable', 'true');
+        el.setAttribute('spellcheck', 'false');
+        editableSet.add(el);
+      }
+    });
+  });
+
+  const editables = Array.from(document.querySelectorAll('[contenteditable="true"]'));
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const data = JSON.parse(saved);
+      if (Array.isArray(data) && data.length === editables.length) {
+        editables.forEach((el, i) => { if (data[i] !== undefined) el.innerHTML = data[i]; });
+        status.innerHTML = '✓ 已加载本地改动<br /><span style="opacity:.65">改动后会自动保存</span>';
+        status.classList.add('saved');
+      } else {
+        status.innerHTML = '⚠️ 本地改动与新版本不匹配<br /><span style="opacity:.65">建议先点"清除本地改动"</span>';
+      }
+    }
+  } catch (err) { console.warn('恢复失败：', err); }
+
+  let saveTimer = null;
+  function autoSave() {
+    document.body.classList.add('editing');
+    status.textContent = '⏳ 编辑中…';
+    status.classList.remove('saved');
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      const data = editables.map(el => el.innerHTML);
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        status.textContent = '✓ 已自动保存到本地';
+        status.classList.add('saved');
+      } catch (err) { status.textContent = '⚠️ 保存失败（容量超限）'; }
+    }, 500);
+  }
+  document.addEventListener('input', e => {
+    if (e.target.closest('[contenteditable="true"]')) autoSave();
+  });
+
+  // 构建当前页面的完整 HTML 字符串（去掉工具栏的临时 display）
+  function buildCurrentHTML() {
+    const toolbar = document.getElementById('editToolbar');
+    const exportTb = document.getElementById('exportToolbar');
+    const d1 = toolbar.style.display, d2 = exportTb.style.display;
+    toolbar.style.display = 'none';
+    exportTb.style.display = 'none';
+    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    toolbar.style.display = d1;
+    exportTb.style.display = d2;
+    return html;
+  }
+
+  // ⚡ 原地保存到源文件（File System Access API，浏览器直接写回同一个 HTML 文件）
+  let fileHandle = null;
+  window.saveToSourceFile = async function () {
+    try {
+      if (!window.showSaveFilePicker) {
+        status.innerHTML = '⚠️ 当前浏览器不支持原地保存<br /><span style="opacity:.65">请用 Chrome/Edge，或点"另存为新 HTML"</span>';
+        return;
+      }
+      // 首次保存：选中本文件（之后复用 handle，免去再次选择）
+      if (!fileHandle) {
+        fileHandle = await window.showSaveFilePicker({
+          suggestedName: '健康赛道四力ARPU全景指引_可编辑版.html',
+          types: [{ description: 'HTML', accept: { 'text/html': ['.html'] } }]
+        });
+      }
+      const writable = await fileHandle.createWritable();
+      await writable.write(buildCurrentHTML());
+      await writable.close();
+      status.textContent = '✓ 已原地保存到源文件（直接生效）';
+      status.classList.add('saved');
+    } catch (err) {
+      if (err && err.name === 'AbortError') { status.textContent = '已取消保存'; return; }
+      status.innerHTML = '⚠️ 保存失败：' + (err && err.message || err);
+    }
+  };
+
+  window.exportHTML = function () {
+    const ts = new Date().toISOString().slice(0,16).replace(/[-T:]/g, '').slice(0,12);
+    const blob = new Blob([buildCurrentHTML()], {type: 'text/html;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `健康膳食营养赛道腾讯广告投放百宝箱_edited_${ts}.html`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    status.textContent = '✓ 已另存为新 HTML 到 Downloads';
+    status.classList.add('saved');
+  };
+
+  // 快捷键 Cmd/Ctrl+S → 优先原地保存（支持时），否则另存为
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+      e.preventDefault();
+      if (window.showSaveFilePicker) window.saveToSourceFile();
+      else window.exportHTML();
+    }
+  });
+
+  window.resetContent = function () {
+    if (!confirm('确定要清除本地所有改动并恢复到原始版本吗？\n此操作不可撤销。')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  };
+})();
+</script>
+
+<!-- ============== 图片导出 JS ============== -->
+<script>
+(function(){
+  const STATUS = document.getElementById('etStatus');
+  const TOOLBAR = document.getElementById('exportToolbar');
+  const FILE_PREFIX = '健康赛道广告竞争力指引';
+  let currentScale = 2;
+
+  TOOLBAR.querySelectorAll('.et-scale button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      TOOLBAR.querySelectorAll('.et-scale button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentScale = parseInt(btn.dataset.scale, 10) || 2;
+      setStatus(`分辨率：${currentScale}x（${currentScale === 1 ? '标准' : currentScale === 2 ? '高清 4K' : '极清海报'}）`);
+    });
+  });
+
+  function setStatus(text, type) {
+    STATUS.textContent = text;
+    STATUS.classList.remove('success', 'error');
+    if (type) STATUS.classList.add(type);
+  }
+
+  async function waitForHtml2Canvas() {
+    let waited = 0;
+    while (typeof html2canvas === 'undefined' && waited < 10000) {
+      await new Promise(r => setTimeout(r, 200));
+      waited += 200;
+    }
+    if (typeof html2canvas === 'undefined') throw new Error('html2canvas 未加载（请检查网络）');
+  }
+
+  async function captureElement(el, scale) {
+    const canvas = await html2canvas(el, {
+      scale: scale, useCORS: true, backgroundColor: '#E2DCC9',
+      logging: false, windowWidth: el.scrollWidth, windowHeight: el.scrollHeight
+    });
+    return new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+  }
+
+  function downloadBlob(blob, filename) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }
+
+  function ts() { return new Date().toISOString().slice(0,16).replace(/[-T:]/g, '').slice(0,12); }
+
+  function flushEditableIfPresent() {
+    if (document.querySelector('[contenteditable="true"]')) {
+      document.body.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  }
+
+  window.exportFullPage = async function () {
+    try {
+      flushEditableIfPresent();
+      setStatus('⏳ 加载渲染引擎…');
+      await waitForHtml2Canvas();
+      const target = document.querySelector(TOOLBAR.dataset.targetSelector || 'body') || document.body;
+      setStatus('⏳ 正在生成整页长图…');
+      document.body.classList.add('exporting');
+      const blob = await captureElement(target, currentScale);
+      document.body.classList.remove('exporting');
+      downloadBlob(blob, `${FILE_PREFIX}_整页_${currentScale}x_${ts()}.png`);
+      setStatus(`✓ 已导出整页长图（${currentScale}x）`, 'success');
+    } catch (err) { document.body.classList.remove('exporting'); setStatus(`✗ ${err.message}`, 'error'); }
+  };
+
+  window.exportCurrentSection = async function () {
+    try {
+      flushEditableIfPresent();
+      setStatus('⏳ 加载渲染引擎…');
+      await waitForHtml2Canvas();
+      const sectionSel = TOOLBAR.dataset.sectionSelector || '.pillar-section';
+      const sections = Array.from(document.querySelectorAll(sectionSel));
+      if (!sections.length) throw new Error(`没找到 ${sectionSel}`);
+      const vh = window.innerHeight, center = window.scrollY + vh / 2;
+      let target = sections[0], minDist = Infinity;
+      sections.forEach(sec => {
+        const r = sec.getBoundingClientRect();
+        const d = Math.abs(window.scrollY + r.top + r.height / 2 - center);
+        if (d < minDist) { minDist = d; target = sec; }
+      });
+      const idx = sections.indexOf(target) + 1;
+      setStatus(`⏳ 正在导出第 ${idx} 页…`);
+      document.body.classList.add('exporting');
+      const blob = await captureElement(target, currentScale);
+      document.body.classList.remove('exporting');
+      downloadBlob(blob, `${FILE_PREFIX}_P${String(idx).padStart(2,'0')}_${currentScale}x_${ts()}.png`);
+      setStatus(`✓ 已导出第 ${idx} 页（${currentScale}x）`, 'success');
+    } catch (err) { document.body.classList.remove('exporting'); setStatus(`✗ ${err.message}`, 'error'); }
+  };
+
+  window.exportAllSections = async function () {
+    try {
+      flushEditableIfPresent();
+      setStatus('⏳ 加载渲染引擎…');
+      await waitForHtml2Canvas();
+      const sectionSel = TOOLBAR.dataset.sectionSelector || '.pillar-section';
+      const sections = Array.from(document.querySelectorAll(sectionSel));
+      if (!sections.length) throw new Error(`没找到 ${sectionSel}`);
+      document.body.classList.add('exporting');
+      const btns = TOOLBAR.querySelectorAll('button');
+      btns.forEach(b => b.disabled = true);
+      for (let i = 0; i < sections.length; i++) {
+        setStatus(`⏳ ${i + 1} / ${sections.length}…`);
+        const blob = await captureElement(sections[i], currentScale);
+        downloadBlob(blob, `${FILE_PREFIX}_P${String(i+1).padStart(2,'0')}_${currentScale}x_${ts()}.png`);
+        await new Promise(r => setTimeout(r, 300));
+      }
+      btns.forEach(b => b.disabled = false);
+      document.body.classList.remove('exporting');
+      setStatus(`✓ 已批量导出 ${sections.length} 张 PNG（${currentScale}x）`, 'success');
+    } catch (err) { document.body.classList.remove('exporting'); TOOLBAR.querySelectorAll('button').forEach(b => b.disabled = false); setStatus(`✗ ${err.message}`, 'error'); }
   };
 })();
 </script>
