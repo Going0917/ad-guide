@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!-- ===== HEAD ===== -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>万益蓝 · 益生菌素材深度分析报告（含竞品借鉴）</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        bg: '#FFFFFF', surface: '#F7F5F0', fg: '#1A1A1A', muted: '#6B6B66',
+        card: '#FFFFFF', border2: '#E5E2DA',
+        primary: '#B5482A', accent: '#1F4E5F', highlight: '#D4A24C',
+        good: '#3F7D5C', bad: '#B5482A',
+        wyl: '#B5482A', hda: '#1F4E5F', ntl: '#D4A24C', hbz: '#5C3B7A', jzc: '#3F7D5C'
+      },
+      fontFamily: {
+        sans: ['Inter','PingFang SC','Microsoft YaHei','sans-serif'],
+        serif: ['Noto Serif SC','Source Han Serif SC','serif'],
+        mono: ['JetBrains Mono','SF Mono','monospace']
+      }
+    }
+  }
+}
+</script>
+</head>
+<body class="bg-bg text-fg font-sans overflow-x-hidden">
+
+<!-- ===== HTML ===== -->
+<!-- FILE:index.html -->
+<div class="mx-auto" style="max-width:1440px">
+
+  <!-- HERO -->
+  <header class="px-6 md:px-12 pt-10 pb-6 border-b border-border2">
+    <div class="flex items-center gap-3 text-xs tracking-[0.3em] text-muted uppercase">
+      <span class="inline-block w-8 h-px bg-primary"></span>
+      <span>WONDERLAB · COMPETITIVE INTELLIGENCE REPORT</span>
+    </div>
+    <h1 class="font-serif font-black text-4xl md:text-6xl leading-tight mt-5">
+      万益蓝 益生菌素材<br>
+      <span class="text-primary">深度分析报告</span>
+      <span class="text-muted font-normal text-2xl md:text-3xl">· 含竞品借鉴</span>
+    </h1>
+    <p class="mt-5 text-muted max-w-3xl leading-relaxed text-[15px]">
+      不止于复盘自身，更聚焦从某科研背书、某性价比、某国货药企、某老字号四大品牌竞品的素材打法中，提炼出可被万益蓝直接落地的优化方向。<br>
+      <span class="text-xs">数据周期 2025.06.05 – 2025.06.25 ｜ 样本 25 条头部消耗素材 ｜ 5 大品牌横向对比</span>
+    </p>
+    <div class="mt-8 flex flex-wrap gap-x-10 gap-y-3 text-xs text-muted font-mono">
+      <span>① 大盘概览</span><span>② 竞品玩法深度解析</span><span>③ 万益蓝自身素材诊断</span><span>④ 借鉴优化建议</span>
+    </div>
+  </header>
+
+  <!-- 大盘概览 -->
+  <section class="px-6 md:px-12 py-16 bg-bg">
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <div class="text-xs tracking-[0.3em] text-primary font-mono">01 · OVERVIEW</div>
+        <h2 class="font-serif text-3xl md:text-4xl font-bold mt-2">益生菌类目大盘 · 五品牌核心指标</h2>
+      </div>
+      <div class="hidden md:block text-xs text-muted">单位：万元 / % ｜ 数据来源：六大品牌Top6素材</div>
+    </div>
+
+    <div id="brandCards" class="grid grid-cols-2 md:grid-cols-5 gap-4"></div>
+
+    <div class="grid md:grid-cols-2 gap-6 mt-10">
+      <div class="bg-surface rounded p-5 border border-border2">
+        <div class="text-sm font-semibold mb-2">总消耗 vs ROI 对比</div>
+        <div id="chartConsumeRoi" style="height:340px"></div>
+      </div>
+      <div class="bg-surface rounded p-5 border border-border2">
+        <div class="text-sm font-semibold mb-2">CTR vs CVR 效率矩阵</div>
+        <div id="chartEfficiency" style="height:340px"></div>
+      </div>
+    </div>
+
+    <div class="bg-surface rounded p-5 border border-border2 mt-6">
+      <div class="text-sm font-semibold mb-2">五品牌综合能力雷达</div>
+      <div id="chartRadar" style="height:380px"></div>
+    </div>
+
+    <!-- 大盘洞察 -->
+    <div class="grid md:grid-cols-3 gap-4 mt-8">
+      <div class="insight-card border-l-4 border-hda">
+        <div class="text-xs text-muted">某科研背书品牌益生菌</div>
+        <div class="font-serif text-lg font-bold mt-1">消耗王者，CTR最低</div>
+        <p class="text-sm text-fg/80 mt-2 leading-relaxed"><mark class="hl">80~90万</mark>消耗领跑全场，但 CTR 仅 <mark class="hl">1.5~2%</mark>，"以量换质"特征明显。</p>
+      </div>
+      <div class="insight-card border-l-4 border-ntl">
+        <div class="text-xs text-muted">某性价比品牌益生菌</div>
+        <div class="font-serif text-lg font-bold mt-1">小店链路双高效</div>
+        <p class="text-sm text-fg/80 mt-2 leading-relaxed">ROI <mark class="hl">2.0~2.1</mark> + CTR <mark class="hl">4~4.5%</mark> 双双登顶，客单 ~185 元的性价比模型。</p>
+      </div>
+      <div class="insight-card border-l-4 border-hbz">
+        <div class="text-xs text-muted">某国货药企品牌益生菌</div>
+        <div class="font-serif text-lg font-bold mt-1">CVR 全场最高 <mark class="hl">6~7%</mark></div>
+        <p class="text-sm text-fg/80 mt-2 leading-relaxed">"恐惧+解决方案"话术+营养师人设构建极强信任转化闭环。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 模块一 · 竞品玩法解析 -->
+  <section class="px-6 md:px-12 py-16 bg-surface border-y border-border2">
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <div class="text-xs tracking-[0.3em] text-primary font-mono">02 · COMPETITOR PLAYBOOK</div>
+        <h2 class="font-serif text-3xl md:text-4xl font-bold mt-2">竞品玩法深度解析</h2>
+        <p class="text-muted text-sm mt-2">点击切换品牌，查看话术原文、画面特点、核心策略与对万益蓝的借鉴价值</p>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div id="compTabs" class="flex flex-wrap gap-2 mb-6"></div>
+    <div id="compPanel" class="bg-bg rounded border border-border2"></div>
+  </section>
+
+  <!-- 模块二 · 万益蓝自身素材分析 -->
+  <section class="px-6 md:px-12 py-16 bg-bg">
+    <div class="mb-8">
+      <div class="text-xs tracking-[0.3em] text-primary font-mono">03 · WONDERLAB SELF DIAGNOSIS</div>
+      <h2 class="font-serif text-3xl md:text-4xl font-bold mt-2">万益蓝自身素材分析</h2>
+      <p class="text-muted text-sm mt-2">5 个直播间 × 多维度指标 ｜ 谁是流量陷阱，谁是真金白银</p>
+    </div>
+
+    <div id="wylRooms" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+    <!-- 活力直播间问题诊断 -->
+    <div class="grid md:grid-cols-3 gap-0 mt-10 border border-primary rounded overflow-hidden">
+      <div class="bg-primary text-white p-6 md:col-span-1">
+        <div class="text-xs tracking-[0.2em] opacity-70">CASE STUDY</div>
+        <div class="font-serif text-2xl font-bold mt-2">活力直播间<br>"高CTR陷阱"诊断</div>
+        <div class="mt-6 grid grid-cols-2 gap-3 text-center">
+          <div><div class="text-3xl font-mono font-bold">3~3.5<span class="text-base">%</span></div><div class="text-xs opacity-80 mt-1">CTR · 高</div></div>
+          <div><div class="text-3xl font-mono font-bold">1.5~2<span class="text-base">%</span></div><div class="text-xs opacity-80 mt-1">CVR · 低</div></div>
+        </div>
+      </div>
+      <div class="md:col-span-2 p-6 bg-bg">
+        <div class="font-semibold mb-3">问题诊断 · 流量进来了，但留不住</div>
+        <ul class="space-y-3 text-sm leading-relaxed">
+          <li class="flex gap-3"><span class="text-primary font-bold">①</span><span><b>钩子过强而承接弱</b>：开场以"惊喜砍价"激发好奇心，但进入直播间后承接的促销话术与画面强度断层。</span></li>
+          <li class="flex gap-3"><span class="text-primary font-bold">②</span><span><b>明星密度过高，挤占产品讲解</b>：多明星轮播削弱了 99.99% 存活率、专利菌等硬核卖点的可见度。</span></li>
+          <li class="flex gap-3"><span class="text-primary font-bold">③</span><span><b>缺少"信任递进"链路</b>：缺某国货药企品牌式的揭秘 → 焦虑 → 解决方案节奏，用户停留但下单决策被拉长。</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 核心话术墙 -->
+    <div class="mt-12">
+      <div class="text-sm font-semibold mb-4">万益蓝 · 核心素材话术墙</div>
+      <div id="wylQuotes" class="grid md:grid-cols-3 gap-4"></div>
+    </div>
+  </section>
+
+  <!-- 模块三 · 借鉴优化建议 -->
+  <section class="px-6 md:px-12 py-16 bg-surface border-t border-border2">
+    <div class="mb-8">
+      <div class="text-xs tracking-[0.3em] text-primary font-mono">04 · ACTIONABLE LEARNINGS</div>
+      <h2 class="font-serif text-3xl md:text-4xl font-bold mt-2">竞品借鉴 · 万益蓝优化建议</h2>
+      <p class="text-muted text-sm mt-2">从每个竞品身上拆出 1-2 个可立即落地的动作</p>
+    </div>
+
+    <div id="learnings" class="space-y-3"></div>
+
+    <!-- 可落地动作清单 -->
+    <div class="mt-12 bg-bg border border-border2 rounded p-6">
+      <div class="font-serif text-2xl font-bold mb-4">📋 可落地动作清单 · 4 周冲刺方案</div>
+      <div id="actionList" class="grid md:grid-cols-2 gap-3"></div>
+    </div>
+  </section>
+
+  <footer class="px-6 md:px-12 py-10 border-t border-border2 text-xs text-muted flex flex-wrap items-center justify-between gap-3">
+    <div>© 2026 WONDERLAB Insight ｜ 益生菌素材深度分析报告（含竞品借鉴）</div>
+    <div class="font-mono">DATA RANGE 2025.06.05 – 06.25 ｜ N = 25 SAMPLES</div>
+  </footer>
+
+</div>
+<!-- /FILE:index.html -->
+
+<style>
+/* ===== STYLE ===== */
+/* FILE:style.css */
+html{scroll-behavior:smooth}
+body{font-feature-settings:"tnum"}
+.num{font-family:'JetBrains Mono','SF Mono',monospace;font-variant-numeric:tabular-nums}
+/* Brand pill */
+.brand-card{background:#FFF;border:1px solid #E5E2DA;padding:18px;border-radius:4px;position:relative;overflow:hidden}
+.brand-card .bar{position:absolute;top:0;left:0;height:3px;width:100%}
+.brand-card .name{font-family:'Noto Serif SC',serif;font-weight:700;font-size:18px}
+.brand-card .kpi{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:14px}
+.brand-card .kpi div .v{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:20px}
+.brand-card .kpi div .l{font-size:11px;color:#6B6B66;letter-spacing:.1em;text-transform:uppercase}
+.tab-btn{padding:10px 18px;border:1px solid #E5E2DA;background:#FFF;font-size:14px;cursor:pointer;transition:all .2s;border-radius:2px;display:flex;align-items:center;gap:8px}
+.tab-btn:hover{border-color:#1A1A1A}
+.tab-btn.active{background:#1A1A1A;color:#FFF;border-color:#1A1A1A}
+.tab-btn .dot{width:8px;height:8px;border-radius:99px;display:inline-block}
+.quote-card{background:#FFF;border:1px solid #E5E2DA;padding:18px;border-left:3px solid #B5482A}
+.quote-card .q{font-family:'Noto Serif SC',serif;font-size:16px;line-height:1.6;color:#1A1A1A}
+.quote-card .meta{font-size:11px;color:#6B6B66;margin-top:10px;letter-spacing:.1em}
+.accordion-item{background:#FFF;border:1px solid #E5E2DA;border-radius:4px;overflow:hidden}
+.accordion-head{padding:18px 22px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:12px}
+.accordion-head:hover{background:#FAF8F3}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.accordion-body.open{max-height:1200px}
+.accordion-body-inner{padding:0 22px 22px;border-top:1px solid #E5E2DA;padding-top:18px}
+.chip{display:inline-block;padding:3px 10px;font-size:11px;border:1px solid #E5E2DA;border-radius:99px;color:#6B6B66;margin-right:6px;margin-bottom:6px}
+.chip.solid{background:#1A1A1A;color:#FFF;border-color:#1A1A1A}
+.kbd{font-family:'JetBrains Mono',monospace;background:#F7F5F0;padding:2px 6px;border-radius:3px;font-size:12px;border:1px solid #E5E2DA}
+.section-divider{height:1px;background:#E5E2DA;margin:0}
+/* === HIGHLIGHT 强调样式 === */
+mark.hl{background:linear-gradient(180deg,transparent 55%,#FFE9A8 55%);color:#1A1A1A;padding:0 3px;font-weight:700;border-radius:2px}
+mark.hl-red{background:#FCE6DF;color:#8E2F18;padding:1px 6px;font-weight:700;border-radius:3px}
+mark.hl-green{background:#E0EFE6;color:#2E6347;padding:1px 6px;font-weight:700;border-radius:3px}
+.insight-card{padding:18px 18px 18px 20px;background:#FFFCF2;border:1px solid #F0E6C8;border-radius:4px;position:relative}
+.key-callout{background:linear-gradient(135deg,#FFF7E5 0%,#FFF1D2 100%);border:1.5px solid #D4A24C;border-radius:6px;padding:16px 18px;position:relative;box-shadow:0 2px 8px rgba(212,162,76,.12)}
+.key-callout::before{content:"★ 核心结论";position:absolute;top:-10px;left:14px;background:#D4A24C;color:#fff;font-size:10px;letter-spacing:.15em;padding:2px 8px;border-radius:2px;font-weight:700}
+.learn-pill{display:inline-block;background:#FFE9A8;color:#5C3F00;font-size:11px;font-weight:700;letter-spacing:.1em;padding:2px 8px;border-radius:2px;margin-right:8px}
+.action-priority{background:linear-gradient(135deg,#FFEFE9 0%,#FFE0D2 100%) !important;border-color:#B5482A !important}
+.action-priority .kbd{background:#B5482A;color:#fff;border-color:#B5482A}
+.comp-screenshot{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:4px;border:2px solid rgba(255,255,255,.35);box-shadow:0 6px 18px rgba(0,0,0,.25);background:#000}
+/* /FILE:style.css */
+</style>
+
+<script>
+/* ===== DATA ===== */
+// FILE:data.js
+const SHOT_BASE='https://venus-vedas-1258344701.cos-internal.ap-guangzhou.tencentcos.cn//formal/20260629/vedas-formal-pod-20260629080130-375d42/';
+window.appData = {
+  brands: [
+    { key:'hda', name:'某科研背书品牌益生菌',     color:'#1F4E5F', consume:87.33, roi:1.87, cvr:4.18, ctr:1.78, consumeLabel:'80~90万', roiLabel:'1.8~1.9', cvrLabel:'4~5%', ctrLabel:'1.5~2%', tag:'消耗王者' },
+    { key:'wyl', name:'万益蓝',       color:'#B5482A', consume:43.23, roi:1.92, cvr:4.59, ctr:2.08, consumeLabel:'40~45万', roiLabel:'1.9~2.0', cvrLabel:'4.5~5%', ctrLabel:'2~2.5%', tag:'明星矩阵', highlight:true },
+    { key:'hbz', name:'某国货药企品牌益生菌',     color:'#5C3B7A', consume:24.45, roi:1.64, cvr:6.88, ctr:3.46, consumeLabel:'20~25万', roiLabel:'1.6~1.7', cvrLabel:'6~7%', ctrLabel:'3~3.5%', tag:'CVR最高' },
+    { key:'ntl', name:'某性价比品牌益生菌',     color:'#D4A24C', consume:11.15, roi:2.01, cvr:5.48, ctr:4.04, consumeLabel:'10~15万', roiLabel:'2.0~2.1', cvrLabel:'5~6%', ctrLabel:'4~4.5%', tag:'ROI/CTR双高' },
+    { key:'jzc', name:'某老字号品牌益生菌',   color:'#3F7D5C', consume:9.68,  roi:1.43, cvr:3.99, ctr:2.25, consumeLabel:'8~10万', roiLabel:'1.4~1.5', cvrLabel:'3.5~4%', ctrLabel:'2~2.5%', tag:'国民老品牌' }
+  ],
+  competitors: [
+    {
+      key:'hda', name:'某科研背书品牌益生菌', color:'#1F4E5F',
+      screenshot: SHOT_BASE+'1c9e24e2-ddb5-426f-81ab-f1310310e9b4-v1.jpg',
+      subtitle:'科研权威型 · 双博士天团',
+      kpi:[['消耗','80~90万'],['ROI','1.8~1.9'],['CVR','4~5%'],['CTR','1.5~2%']],
+      strategy:'科研权威背书 · 创始人博士IP · "全基因组测序发现专利减脂菌" · 睡眠+益生菌蓝海赛道',
+      visual:[
+        '尹烨（CEO/生物学博士）+ 肖亮（首席科学家）双博士同框出镜',
+        '3D动画演示益生菌进入肠道 + 显微镜下活菌动态展示',
+        '专利证书 ZL201811514219.8 实物特写、模拟胃酸环境实验',
+        '色调明亮专业 ＋ 黄色高亮关键词："500亿活菌" "肠-脑轴" "GABA"'
+      ],
+      quotes:[
+        '"看着很瘦，你就要担心了，你的内脏脂肪高，四肢反而纤细，那这个时候我们光说BMI没有意义。"',
+        '"发现了这一株专利减脂菌，我们把它命名为格氏乳杆菌TF08-1，它产短链脂肪酸的通路非常完整。"',
+        '"和我们另外自研的五大王牌菌，居然可以相互合作，产生1+1大于2的效果。"'
+      ],
+      core:[
+        '【人设】CEO+首席科学家"双博士"，区别于明星/网红，建立国家队级权威',
+        '【话术】"专利菌株号+肠脑轴+中国人肠道菌群数据库" 制造认知壁垒',
+        '【蓝海】率先布局"睡眠+益生菌"赛道，开辟 GABA 助眠新场景'
+      ],
+      learn:[
+        '科研背书要"具象化"：专利号、菌株名、SCI论文实物上屏，而非空喊"专利"',
+        '科学家亲讲 > 明星代言（针对硬核卖点）；可在万益蓝素材中引入"实验室真人科学家"角色',
+        '开辟"睡眠+益生菌"作为差异化场景，与现有"早蓝晚绿"形成晨/夜双场景占位'
+      ]
+    },
+    {
+      key:'ntl', name:'某性价比品牌益生菌', color:'#D4A24C',
+      screenshot: SHOT_BASE+'f96ff52c-3673-47cd-aa0d-3def776c1ec9-v1.jpg',
+      subtitle:'极致性价比 · 小店链路王',
+      kpi:[['消耗','10~15万'],['ROI','2.0~2.1 👑'],['CVR','5~6%'],['CTR','4~4.5% 👑']],
+      strategy:'极致性价比（客单 ~185 元 vs 万益蓝 ~1500 元）· 小店链路 4 条贡献高CTR · "后悔体"反转钩子',
+      visual:[
+        '工厂实拍：检测中心门头 + 自动化生产线 + 成堆检验报告',
+        '展会现场红色充气拱门"拍1发10盒"视觉冲击',
+        '中年男+中年女双明星同框（黑毛衣/浅蓝衬衫 + 灰亮片针织衫）',
+        '蓝白主包装+红色促销标签强对比，独立条装"≥1200亿"标注'
+      ],
+      quotes:[
+        '"这个益生菌，我才吃了半年就后悔了。"  —— 反转钩子',
+        '"一条就有1200亿的活菌量，搭配益生元，五层包埋+冻干工艺，独立包装锁活性。"',
+        '"拍一单发十盒，一盒只要十来块，平均每天只要一块钱，怎么吃都不心疼。"'
+      ],
+      core:[
+        '【链路】4/6 是小店链路，商品详情页极短决策路径，撑起 CTR 4.04% 全场最高',
+        '【钩子】"我才吃了半年就后悔了" —— 用反转制造点击好奇心',
+        '【价格】客单 ~185 元，"每天 1 元"瞄准中老年家庭囤货需求'
+      ],
+      learn:[
+        '万益蓝 6 条全直播链路，缺失小店链路 —— 应为小蓝瓶开发专属小店素材测试',
+        '"后悔体"反转钩子可直接复用：替换为"这个益生菌我才吃了一瓶就后悔了 —— 后悔买少了"',
+        '低客单 SKU 测试：用小袋/分装版瞄准 100 元以内价格段，打破万益蓝高价心智天花板'
+      ]
+    },
+    {
+      key:'hbz', name:'某国货药企品牌益生菌', color:'#5C3B7A',
+      screenshot: SHOT_BASE+'06764140-e35e-46c1-84fd-6171ae494dd9-v1.jpg',
+      subtitle:'药企专业 · 恐惧营销',
+      kpi:[['消耗','20~25万'],['ROI','1.6~1.7'],['CVR','6~7% 👑'],['CTR','3~3.5%']],
+      strategy:'70+年老药企背书 · 营养师专业人设 · "恐惧+解决方案"话术 · CVR 全场最高',
+      visual:[
+        '营养师（深蓝西装+手持麦克风）模拟发布会讲座感',
+        '工厂实拍：不锈钢发酵罐 + 自动化包装流水线 + 无菌操作车间',
+        '满地钞票夸张场景制造视觉冲击',
+        '3D 动画：益生菌穿过胃酸到达肠道全过程演示'
+      ],
+      quotes:[
+        '"别再花几百块买益生菌了，没有这层防护，活菌在胃酸里10秒就全军覆没，你喝进去的就是一碗昂贵的糖水。"',
+        '"我们老药企，自己做的这款益生菌，不是为了砸招牌，我们就实打实把成本用在菌和工艺上。"',
+        '"二三十块一盒，大厂直发的就完全够了。一盒就是大半个月的量，算下来一天才几毛钱。"'
+      ],
+      core:[
+        '【话术】"恐惧+揭秘" 双轮驱动："10秒全军覆没"+"昂贵的糖水" 形成认知反转',
+        '【人设】"营养师 + 药企老牌"组合，比明星代言更具专业性',
+        '【信任】"不联合中间商吸老百姓的血" —— 利益对立姿态建立强信任'
+      ],
+      learn:[
+        '万益蓝可借鉴"恐惧+解决方案"话术结构：放大"市面 90% 益生菌活菌死在胃酸里"恐惧 → 解决方案承接 99.99% 存活率',
+        '在多明星矩阵基础上，新增"科学家/营养师"角色形成"权威+亲和力"互补',
+        '信任递进节奏：揭秘行业 → 暴露成本 → 给出技术解决方案 → 价格锚点 → 售后承诺'
+      ]
+    },
+    {
+      key:'jzc', name:'某老字号品牌益生菌', color:'#3F7D5C',
+      screenshot: SHOT_BASE+'06ebc233-94ce-42ef-8fed-962de394c430-v1.jpg',
+      subtitle:'国民老品牌 · 专家人设',
+      kpi:[['消耗','8~10万'],['ROI','1.4~1.5'],['CVR','3.5~4%'],['CTR','2~2.5%']],
+      strategy:'50年国民老字号信任 · "科研机构联合研发"双背书 · 25-35岁邻家姐姐人设 · 黄金4段式话术',
+      visual:[
+        '居家生活场景（餐桌/厨房/办公工位）+ 浅色系居家服',
+        '益生菌粉末入水慢动作特写 + 干吃口感演示',
+        '蓝白/蓝绿暖白色调，"左下角领券"悬浮贴纸常驻',
+        '品牌Logo常驻 + 顶尖科研机构战略合作标识'
+      ],
+      quotes:[
+        '"肚子鼓鼓的，上厕所费劲的，总感觉排不出来的，一定要试试这款益生菌！"',
+        '"我们是大品牌，老字号了，品质有保障。这一盒里面足足添加了500亿活性益生菌。"',
+        '"今天厂家冲销量，平时一盒就要几十块，现在直播间下单，拍一发六，最后30单！"'
+      ],
+      core:[
+        '【信任】"老字号50年" + "顶尖科研机构联合研发" 双重背书',
+        '【话术】黄金4段式：0-3s痛点共鸣 → 3-10s信任建立 → 10-15s价值锚点 → 15-20s强力促单',
+        '【人设】邻家姐姐/精致宝妈，亲和力降低用户防备'
+      ],
+      learn:[
+        '高密度信息 + 短视频（20-25秒）适合做信息流广告，万益蓝可测试短版本素材',
+        '"领券贴纸常驻"提升点击转化，万益蓝信息流素材可叠加固定 CTA 元素',
+        '与传统老品牌联名（如"万益蓝×中科院"）形成新国民品牌心智'
+      ]
+    }
+  ],
+  wylRooms:[
+    { name:'营养膳食直播间', star:'秦海璐/李若彤', ctr:1.92, cvr:5.21, roi:2.10, consume:15.0, badge:'good', hl:'明星矩阵+高客单经典款' },
+    { name:'官方食品直播间', star:'梅婷/程雷',     ctr:2.04, cvr:4.88, roi:1.98, consume:18.27, badge:'good', hl:'消耗最高，主力直播间' },
+    { name:'活力直播间',     star:'年轻达人',       ctr:3.24, cvr:1.71, roi:1.42, consume:8.98, badge:'warn', hl:'⚠️ 高CTR陷阱：流量进来留不住' },
+    { name:'膳食官方直播间', star:'专家人设',       ctr:1.84, cvr:4.32, roi:1.85, consume:8.89, badge:'mid',  hl:'专家讲解稳健，但缺爆点' },
+    { name:'女性益生菌',     star:'女性达人',       ctr:2.36, cvr:5.04, roi:2.05, consume:13.30, badge:'good', hl:'女性私护场景潜力大' }
+  ],
+  wylQuotes:[
+    { q:'"告诉大家一个不好的消息……"', meta:'开场紧迫感 · 万益蓝Top1', tone:'悬念' },
+    { q:'"小小的一瓶，里面有400亿个活菌，专利屏障菌 Gold Gut M520，存活率做到大于 99.99%。"', meta:'核心卖点 · 高存活率', tone:'硬核' },
+    { q:'"拍一发180的小蓝瓶益生菌活动，今天可能就要结束了！拍一次就能吃大半年。"', meta:'180瓶堆叠 · 视觉冲击', tone:'促销' },
+    { q:'"一直卖得好，靠的是有口碑的实力 —— 7亿瓶销量，认准正品万益蓝小粉瓶。"', meta:'7亿瓶销量 · 从众证言', tone:'证言' },
+    { q:'"程雷同款，每天都吃一点益生菌，这已经是我今年囤的第二桶了。"', meta:'程雷同款 · 复购心智', tone:'明星' },
+    { q:'"早蓝晚绿的宠粉福利来喽，买30瓶小蓝再给你30瓶小绿，搭配吃。"', meta:'早蓝晚绿 · 双效组合', tone:'组合' }
+  ],
+  learnings:[
+    {
+      from:'某科研背书品牌益生菌', color:'#1F4E5F', title:'学"科研背书的具象化表达"',
+      summary:'万益蓝拥有专利 ZL202211660794.5 与中科院微生物所收录，但素材中过度让位于明星，科技感不足。',
+      actions:[
+        '将"专利屏障菌 Gold Gut M520"做成 30 秒短动画：菌株命名故事 + 显微镜活菌 + 专利证书特写',
+        '增设"万益蓝实验室"真人镜头：邀请研发负责人或合作中科院专家出镜，弱化纯明星依赖',
+        '布局"睡眠+益生菌"赛道：开发夜配方小绿瓶 GABA 故事线，与现有早蓝形成日夜组合'
+      ]
+    },
+    {
+      from:'某性价比品牌益生菌', color:'#D4A24C', title:'学"小店链路 + 低客单测试"',
+      summary:'万益蓝 6 条素材全部为直播链路，缺失小店链路；客单 ~1500 元锁死中老年家庭囤货机会。',
+      actions:[
+        '为小蓝瓶开发专属小店素材模板：明星亲测 + 工厂实拍 + 买赠堆叠（"拍1发X瓶"视觉化）',
+        '测试低客单 SKU：30 瓶分装版/单月体验装控制在 200 元以内，瞄准首单决策',
+        '复用"后悔体"反转钩子：开发"我才喝了一瓶就后悔了 —— 后悔没早囤"系列短素材'
+      ]
+    },
+    {
+      from:'某国货药企品牌益生菌', color:'#5C3B7A', title:'学"恐惧+解决方案 话术结构"',
+      summary:'活力直播间高 CTR 低 CVR 的根本原因，是缺少某国货药企品牌式的信任递进闭环。',
+      actions:[
+        '重构开场 3 秒：替换"告诉大家一个不好的消息"为更具冲击力的"市面 90% 益生菌死在胃酸里"恐惧钩子',
+        '承接 5 秒立刻给出 99.99% 存活率技术解决方案，形成"焦虑—释放"情绪闭环',
+        '引入"营养师/专家"利益对立姿态："万益蓝 18 年只做一件事，不做白菜价但活菌打折"'
+      ]
+    },
+    {
+      from:'某老字号品牌益生菌', color:'#3F7D5C', title:'学"国民老品牌信任策略"',
+      summary:'某老字号品牌 ROI 虽低，但"50年老字号"心智值得万益蓝在品牌成熟期借鉴。',
+      actions:[
+        '强化"中国益生菌销售额第一 + 7亿瓶累计销量"国民数据，与"老字号"信任策略对位',
+        '常驻"左下角领券"等 CTA 贴纸元素，提升信息流素材转化效率',
+        '复用"黄金 4 段式"短视频结构（3+7+5+5秒），开发 20 秒短素材抢占信息流'
+      ]
+    }
+  ],
+  actions:[
+    { w:'Week 1', t:'素材重构', d:'活力直播间开场钩子 A/B 测试：3 版"恐惧+解决方案"开场 vs 现版"砍价惊喜"' },
+    { w:'Week 1', t:'小店链路', d:'上架小蓝瓶 30 瓶分装版（199 元档位），同步开发 3 条小店专属素材' },
+    { w:'Week 2', t:'科研可视化', d:'拍摄"专利屏障菌 Gold Gut M520"30 秒纪录片，含菌株命名故事/显微镜/专利证书' },
+    { w:'Week 2', t:'人设新增', d:'邀请中科院微生物所合作专家出镜，建立"科学家+明星"双背书' },
+    { w:'Week 3', t:'蓝海赛道', d:'夜配方小绿瓶 GABA 助眠场景拍摄，进入"睡眠益生菌"心智占位' },
+    { w:'Week 3', t:'话术钩子', d:'复用某性价比品牌"后悔体"开发 5 条短视频：聚焦"后悔没早囤"复购心智' },
+    { w:'Week 4', t:'信息流提效', d:'参考某老字号品牌 20 秒结构开发短版素材，常驻"领券/限时"贴纸提升 CTR' },
+    { w:'Week 4', t:'数据复盘', d:'目标：活力直播间 CVR 从 1.71% 提升至 3%+，整体 ROI 突破 2.0' }
+  ]
+};
+// /FILE:data.js
+</script>
+
+<script>
+/* ===== SCRIPT ===== */
+// FILE:charts.js
+const Charts = {
+  consumeRoi(){
+    const el = document.getElementById('chartConsumeRoi'); if(!el) return;
+    const bs = window.appData.brands;
+    const chart = echarts.init(el);
+    chart.setOption({
+      tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+      legend:{data:['总消耗(万元)','平均ROI'],top:0,textStyle:{fontSize:11}},
+      grid:{left:50,right:50,top:30,bottom:30},
+      xAxis:{type:'category',data:bs.map(b=>b.name),axisLine:{lineStyle:{color:'#999'}}},
+      yAxis:[
+        {type:'value',name:'消耗',axisLine:{show:false},splitLine:{lineStyle:{color:'#EEE'}}},
+        {type:'value',name:'ROI',axisLine:{show:false},splitLine:{show:false},min:1,max:2.5}
+      ],
+      series:[
+        {name:'总消耗(万元)',type:'bar',data:bs.map(b=>({value:b.consume,itemStyle:{color:b.color}})),barWidth:36},
+        {name:'平均ROI',type:'line',yAxisIndex:1,data:bs.map(b=>b.roi),smooth:true,symbol:'circle',symbolSize:10,lineStyle:{color:'#1A1A1A',width:2},itemStyle:{color:'#1A1A1A'}}
+      ]
+    });
+  },
+  efficiency(){
+    const el = document.getElementById('chartEfficiency'); if(!el) return;
+    const bs = window.appData.brands;
+    const chart = echarts.init(el);
+    chart.setOption({
+      tooltip:{formatter:p=>`${p.data[3]}<br>CTR ${p.data[0]}% / CVR ${p.data[1]}%`},
+      grid:{left:50,right:30,top:30,bottom:40},
+      xAxis:{name:'CTR (%)',type:'value',min:1,max:5,splitLine:{lineStyle:{color:'#EEE'}}},
+      yAxis:{name:'CVR (%)',type:'value',min:1,max:8,splitLine:{lineStyle:{color:'#EEE'}}},
+      series:[{
+        type:'scatter',
+        symbolSize: d => Math.max(20, Math.sqrt(d[2])*8),
+        data: bs.map(b=>[b.ctr,b.cvr,b.consume,b.name]),
+        itemStyle:{color: p => bs[p.dataIndex].color, opacity:.85},
+        label:{show:true,formatter:p=>p.data[3],position:'right',fontSize:11,color:'#1A1A1A'}
+      }]
+    });
+  },
+  radar(){
+    const el = document.getElementById('chartRadar'); if(!el) return;
+    const bs = window.appData.brands;
+    const chart = echarts.init(el);
+    // normalize each metric to 0-100
+    const max = { consume:90, roi:2.2, cvr:7, ctr:5 };
+    chart.setOption({
+      tooltip:{},
+      legend:{data:bs.map(b=>b.name),top:0,textStyle:{fontSize:11}},
+      radar:{
+        indicator:[
+          {name:'消耗',max:max.consume},{name:'ROI',max:max.roi},
+          {name:'CVR%',max:max.cvr},{name:'CTR%',max:max.ctr},
+          {name:'综合',max:10}
+        ],
+        radius:'62%',
+        axisName:{color:'#1A1A1A',fontSize:12},
+        splitArea:{areaStyle:{color:['#FAF8F3','#FFF']}}
+      },
+      series:[{type:'radar',data:bs.map(b=>({
+        name:b.name,
+        value:[b.consume,b.roi,b.cvr,b.ctr,(b.roi*2+b.cvr*0.6+b.ctr*0.5)],
+        lineStyle:{color:b.color,width:2},
+        itemStyle:{color:b.color},
+        areaStyle:{color:b.color,opacity:.10}
+      }))}]
+    });
+  },
+  initAll(){ this.consumeRoi(); this.efficiency(); this.radar(); window.addEventListener('resize',()=>{
+    [['chartConsumeRoi'],['chartEfficiency'],['chartRadar']].forEach(([id])=>{ const i=echarts.getInstanceByDom(document.getElementById(id)); i&&i.resize(); });
+  }); }
+};
+// /FILE:charts.js
+
+// FILE:interactions.js
+const UI = {
+  renderBrandCards(){
+    const wrap = document.getElementById('brandCards');
+    wrap.innerHTML = window.appData.brands.map(b => `
+      <div class="brand-card ${b.highlight?'ring-2 ring-primary':''}">
+        <div class="bar" style="background:${b.color}"></div>
+        <div class="flex items-center justify-between">
+          <div class="name" style="color:${b.color}">${b.name}</div>
+          ${b.highlight?'<span class="chip solid">本品</span>':''}
+        </div>
+        <div class="text-xs text-muted mt-1">${b.tag}</div>
+        <div class="kpi">
+          <div><div class="v">${b.consumeLabel||b.consume+'万'}</div><div class="l">消耗</div></div>
+          <div><div class="v">${b.roiLabel||b.roi.toFixed(2)}</div><div class="l">ROI</div></div>
+          <div><div class="v">${b.cvrLabel||b.cvr+'%'}</div><div class="l">CVR</div></div>
+          <div><div class="v">${b.ctrLabel||b.ctr+'%'}</div><div class="l">CTR</div></div>
+        </div>
+      </div>`).join('');
+  },
+  renderCompTabs(){
+    const tabs = document.getElementById('compTabs');
+    const panel = document.getElementById('compPanel');
+    const comps = window.appData.competitors;
+    tabs.innerHTML = comps.map((c,i)=>`
+      <button class="tab-btn ${i===0?'active':''}" data-idx="${i}">
+        <span class="dot" style="background:${c.color}"></span>
+        <span>${c.name}</span>
+        <span class="text-xs opacity-60 hidden md:inline">· ${c.subtitle.split(' · ')[0]}</span>
+      </button>`).join('');
+    const render = idx => {
+      const c = comps[idx];
+      panel.innerHTML = `
+        <div class="grid md:grid-cols-3 gap-0">
+          <div class="md:col-span-1 p-6 md:p-8 border-b md:border-b-0 md:border-r border-border2" style="background:${c.color};color:#fff">
+            <div class="text-xs tracking-[0.2em] opacity-70">COMPETITOR</div>
+            <div class="font-serif text-3xl font-black mt-2">${c.name}</div>
+            <div class="text-sm mt-1 opacity-85">${c.subtitle}</div>
+            ${c.screenshot?`<div class="mt-5"><div class="text-[10px] tracking-[0.2em] opacity-70 mb-2">📱 核心玩法素材截图</div><img src="${c.screenshot}" alt="${c.name}素材截图" class="comp-screenshot" loading="lazy"></div>`:''}
+            <div class="grid grid-cols-2 gap-3 mt-6">
+              ${c.kpi.map(([k,v])=>`<div><div class="num text-xl font-bold">${v}</div><div class="text-[11px] opacity-75 mt-1">${k}</div></div>`).join('')}
+            </div>
+            <div class="text-xs mt-6 leading-relaxed opacity-90 border-t border-white/30 pt-4">${c.strategy}</div>
+          </div>
+          <div class="md:col-span-2 p-6 md:p-8">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <div class="text-xs tracking-[0.2em] text-muted font-mono mb-3">📺 画面特点</div>
+                <ul class="space-y-2 text-sm leading-relaxed">${c.visual.map(v=>`<li class="flex gap-2"><span style="color:${c.color}">▎</span><span>${v}</span></li>`).join('')}</ul>
+              </div>
+              <div>
+                <div class="text-xs tracking-[0.2em] text-muted font-mono mb-3">🎯 核心策略</div>
+                <ul class="space-y-2 text-sm leading-relaxed">${c.core.map(v=>`<li class="flex gap-2"><span style="color:${c.color}">▎</span><span>${v}</span></li>`).join('')}</ul>
+              </div>
+            </div>
+            <div class="mt-6">
+              <div class="text-xs tracking-[0.2em] text-muted font-mono mb-3">💬 话术原文</div>
+              <div class="grid md:grid-cols-${c.quotes.length} gap-3">
+                ${c.quotes.map(q=>`<div class="quote-card" style="border-left-color:${c.color}"><div class="q">${q}</div></div>`).join('')}
+              </div>
+            </div>
+            <div class="mt-6 p-5 rounded" style="background:${c.color}0F;border:1px dashed ${c.color}">
+              <div class="text-xs tracking-[0.2em] font-mono mb-3" style="color:${c.color}">✨ 对万益蓝的借鉴价值</div>
+              <ol class="space-y-2 text-sm leading-relaxed">
+                ${c.learn.map((v,i)=>`<li class="flex gap-3"><span class="num font-bold" style="color:${c.color}">0${i+1}</span><span>${v}</span></li>`).join('')}
+              </ol>
+            </div>
+          </div>
+        </div>`;
+    };
+    tabs.querySelectorAll('.tab-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        tabs.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        render(+btn.dataset.idx);
+      });
+    });
+    render(0);
+  },
+  renderWylRooms(){
+    const wrap = document.getElementById('wylRooms');
+    const badgeMap = { good:{c:'#3F7D5C',t:'稳健型'}, mid:{c:'#D4A24C',t:'平均型'}, warn:{c:'#B5482A',t:'⚠ 待优化'} };
+    wrap.innerHTML = window.appData.wylRooms.map(r=>{
+      const b = badgeMap[r.badge];
+      return `<div class="bg-white border border-border2 rounded p-5 ${r.badge==='warn'?'ring-1 ring-primary':''}">
+        <div class="flex items-center justify-between">
+          <div class="font-serif font-bold text-lg">${r.name}</div>
+          <span class="chip" style="background:${b.c};color:#fff;border-color:${b.c}">${b.t}</span>
+        </div>
+        <div class="text-xs text-muted mt-1">主推 · ${r.star}</div>
+        <div class="grid grid-cols-4 gap-2 mt-4 text-center">
+          <div><div class="num font-bold text-base">${r.consume}<span class="text-[10px] text-muted">万</span></div><div class="text-[10px] text-muted">消耗</div></div>
+          <div><div class="num font-bold text-base">${r.roi.toFixed(2)}</div><div class="text-[10px] text-muted">ROI</div></div>
+          <div><div class="num font-bold text-base" style="color:${r.badge==='warn'?'#B5482A':'#1A1A1A'}">${r.ctr}%</div><div class="text-[10px] text-muted">CTR</div></div>
+          <div><div class="num font-bold text-base" style="color:${r.badge==='warn'?'#B5482A':'#1A1A1A'}">${r.cvr}%</div><div class="text-[10px] text-muted">CVR</div></div>
+        </div>
+        <div class="text-xs text-muted mt-3 pt-3 border-t border-border2">${r.hl}</div>
+      </div>`;
+    }).join('');
+  },
+  renderQuotes(){
+    document.getElementById('wylQuotes').innerHTML = window.appData.wylQuotes.map(q=>`
+      <div class="quote-card">
+        <div class="q">${q.q}</div>
+        <div class="meta">${q.meta} <span class="chip ml-2">${q.tone}</span></div>
+      </div>`).join('');
+  },
+  renderLearnings(){
+    const wrap = document.getElementById('learnings');
+    wrap.innerHTML = window.appData.learnings.map((l,i)=>`
+      <div class="accordion-item" style="border-left:4px solid ${l.color}">
+        <div class="accordion-head" data-idx="${i}">
+          <div class="flex items-center gap-4">
+            <span class="num text-3xl font-black" style="color:${l.color}">0${i+1}</span>
+            <div>
+              <div class="text-xs text-muted"><span class="learn-pill" style="background:${l.color}22;color:${l.color}">借鉴对象</span>${l.from}</div>
+              <div class="font-serif text-xl font-bold mt-1">${l.title}</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="hidden md:inline text-xs text-muted">展开 / 收起</span>
+            <span class="caret text-xl font-bold transition-transform" style="color:${l.color}">＋</span>
+          </div>
+        </div>
+        <div class="accordion-body ${i===0?'open':''}">
+          <div class="accordion-body-inner">
+            <div class="key-callout mb-4 mt-2"><p class="text-sm leading-relaxed">${l.summary}</p></div>
+            <div class="text-xs tracking-[0.2em] font-mono mb-2" style="color:${l.color}">▶ 可落地动作</div>
+            <div class="space-y-2">
+              ${l.actions.map((a,j)=>`<div class="flex gap-3 items-start text-sm p-2 rounded" style="background:${l.color}0A"><span class="kbd" style="color:${l.color};border-color:${l.color}55">A${j+1}</span><span class="leading-relaxed">${a}</span></div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>`).join('');
+    wrap.querySelectorAll('.accordion-head').forEach(h=>{
+      h.addEventListener('click',()=>{
+        const body = h.nextElementSibling;
+        const open = body.classList.toggle('open');
+        h.querySelector('.caret').textContent = open ? '－' : '＋';
+      });
+    });
+  },
+  renderActions(){
+    const priorityIdx = new Set([0,2,4,7]);
+    document.getElementById('actionList').innerHTML = window.appData.actions.map((a,i)=>`
+      <div class="flex gap-3 p-3 border border-border2 rounded bg-surface ${priorityIdx.has(i)?'action-priority':''}">
+        <span class="kbd shrink-0">${a.w}</span>
+        <div>
+          <div class="text-sm font-semibold">${priorityIdx.has(i)?'★ ':''}${a.t}</div>
+          <div class="text-xs text-muted leading-relaxed mt-1">${a.d}</div>
+        </div>
+      </div>`).join('');
+  }
+};
+// /FILE:interactions.js
+
+// FILE:main.js
+document.addEventListener('DOMContentLoaded',()=>{
+  UI.renderBrandCards();
+  UI.renderCompTabs();
+  UI.renderWylRooms();
+  UI.renderQuotes();
+  UI.renderLearnings();
+  UI.renderActions();
+  Charts.initAll();
+});
+// /FILE:main.js
+</script>
+</body>
+</html>
