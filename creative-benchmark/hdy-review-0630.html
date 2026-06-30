@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>华大营养 广告投放复盘报告</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--sw:240px;--cp:#5482F0;--cpd:#3D6CE5;--pos:#67C23A;--neg:#F56C6C;--warn:#E6A23C;--neu:#95A5A6;--bg:#f5f7fa;--card:#fff;--txt:#333;--txtl:#888;--brd:#e8e8e8}
+body{background:var(--bg);font-family:-apple-system,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;color:var(--txt);font-size:14px;line-height:1.6}
+html{scroll-behavior:smooth}
+.sidebar{position:fixed;top:0;left:0;width:var(--sw);height:100vh;background:#fff;border-right:1px solid #e8e8e8;padding:20px 0;overflow-y:auto;z-index:100;transition:transform .3s}
+.sidebar-header{padding:12px 20px 16px;border-bottom:1px solid #f0f0f0;margin-bottom:8px}
+.sidebar-header h2{font-size:14px;font-weight:700;color:var(--cp);margin:0}
+.sidebar-header .report-title{font-size:12px;color:var(--txtl);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar nav a{display:block;padding:8px 20px 8px 24px;font-size:13px;color:#555;text-decoration:none;border-left:3px solid transparent;transition:all .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar nav a:hover{color:var(--cp);background:#f8f9ff}
+.sidebar nav a.active{color:var(--cp);border-left-color:var(--cp);background:#f0f4ff;font-weight:600}
+.sidebar-toggle{display:none;position:fixed;top:12px;left:12px;z-index:200;width:36px;height:36px;border-radius:8px;background:var(--cp);color:#fff;border:none;cursor:pointer;font-size:18px;line-height:36px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.main-content{margin-left:var(--sw)}
+.container{max-width:1100px;margin:0 auto;padding:20px 24px}
+.header{background:linear-gradient(135deg,#5482F0,#3D6CE5);color:#fff;padding:32px 36px;border-radius:14px;margin-bottom:24px}
+.header h1{font-size:22px;font-weight:700;margin-bottom:6px}
+.header p{font-size:13px;opacity:.85}
+.card{background:var(--card);border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.06);padding:24px 28px;margin-bottom:20px;scroll-margin-top:20px}
+.card h2{font-size:18px;font-weight:700;color:var(--txt);padding-bottom:10px;margin-bottom:18px;border-bottom:2px solid var(--cp)}
+.card h3{font-size:15px;font-weight:700;color:#444;margin:16px 0 10px}
+.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.metric-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:14px 0}
+.metric-box{background:#f8f9fc;border-radius:10px;padding:16px;text-align:center}
+.metric-box .label{font-size:12px;color:var(--txtl);margin-bottom:6px}
+.metric-box .value{font-size:28px;font-weight:700;color:var(--txt)}
+.metric-box .sub{font-size:12px;color:#999;margin-top:4px}
+.blue-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+.blue-table th{background:#e8f0fe;color:#1a56db;font-weight:600;padding:10px 12px;text-align:center;border-bottom:2px solid #c6d9f7}
+.blue-table td{padding:9px 12px;border-bottom:1px solid #eee;text-align:center}
+.blue-table tr:hover{background:#f8f9ff}
+.blue-table .row-label{text-align:left;font-weight:600}
+.badge-green{display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:600;background:#e8f8e8;color:#2d9d2d}
+.badge-red{display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:600;background:#fde8e8;color:#d63031}
+.badge-orange{display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:600;background:#fff3e0;color:#e67e22}
+.badge-blue{display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:600;background:#e8f0fe;color:#1a56db}
+.red{color:#F56C6C}.green{color:#67C23A}.orange{color:#E6A23C}.blue{color:#5482F0}
+.up{color:#67C23A;font-weight:600}.down{color:#F56C6C;font-weight:600}.neutral{color:#95A5A6}
+.section-title{font-size:15px;font-weight:700;color:#444;margin:18px 0 8px;padding-left:10px;border-left:3px solid var(--cp)}
+.section-note{background:#fffbe6;border-left:4px solid var(--warn);padding:12px 16px;border-radius:6px;margin:12px 0;font-size:13px;color:#8a6d3b}
+.echart-container{width:100%;height:400px;margin:14px 0;border-radius:8px}
+.insight-box{background:#eef3ff;border-radius:8px;padding:14px 18px;margin:12px 0;font-size:14px;color:var(--txt);line-height:1.7;border-left:4px solid var(--cp)}
+.cell-up{background:#D5F5E3;color:#27AE60}.cell-down{background:#FADBD8;color:#E74C3C}
+.cell-warn{background:#FEF5E7;color:#E67E22}
+.footer{text-align:center;color:#999;font-size:12px;padding:20px 0 10px}
+.tab-btn{padding:6px 16px;border-radius:20px;border:1px solid var(--cp);background:#fff;color:var(--cp);cursor:pointer;font-size:13px;transition:all .2s;margin:0 4px 8px 0}
+.tab-btn.active{background:var(--cp);color:#fff}
+.sub-card{border:1px solid #e8f0fe;border-radius:10px;padding:18px;margin:14px 0}
+.sub-card h3{color:var(--cp);margin-bottom:12px}
+@media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0);box-shadow:2px 0 12px rgba(0,0,0,.1)}.sidebar-toggle{display:block}.main-content{margin-left:0}.metric-grid,.metric-grid-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.metric-grid,.metric-grid-4{grid-template-columns:1fr}.header{padding:20px}.header h1{font-size:18px}.card{padding:16px}}
+@media print{body{background:#fff}.sidebar,.sidebar-toggle{display:none!important}.main-content{margin-left:0!important}.container{max-width:100%;padding:0}.card{box-shadow:none;break-inside:avoid}}
+</style>
+</head>
+<body>
+<button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Toggle menu">☰</button>
+<aside class="sidebar">
+  <div class="sidebar-header"><h2>📑 目录导航</h2><div class="report-title">华大营养 广告投放复盘报告</div></div>
+  <nav>
+    <a href="#module-0">〇 核心总结</a>
+    <a href="#module-0a">〇A 618大促复盘</a>
+    <a href="#module-1">一、整体宏观概况</a>
+    <a href="#module-2">二、阶段划分与趋势</a>
+    <a href="#module-3">三、链路下钻分析</a>
+    <a href="#module-4">四、出价模式分析</a>
+    <a href="#module-5">五、直播间全景分析</a>
+    <a href="#module-6">六、版位深度诊断</a>
+    <a href="#module-7">七、智投工具分析</a>
+    <a href="#module-8">八、品类分析</a>
+    <a href="#module-9">九、整体竞品对标</a>
+    <a href="#module-actions">💡 行动建议</a>
+  </nav>
+</aside>
+<div class="main-content"><div class="container">
+<div class="header">
+  <h1>华大营养 广告投放复盘报告</h1>
+  <p>分析周期：2026-05-27 — 2026-06-25（30天）| 数据口径：竞价广告 | 报告日期：2026-06-29 | 投放主体：华大营养 + 华大精准营养（合并分析）</p>
+</div>
+
+<!-- 零、核心总结 -->
+<div class="card" id="module-0">
+  <h2>〇 核心总结</h2>
+  <div class="metric-grid">
+    <div class="metric-box"><div class="label">近30天日均消耗</div><div class="value">36.63万/日</div><div class="sub"><span class="up">↑+33.1%（Δ+9.12万/日）</span></div></div>
+    <div class="metric-box"><div class="label">整体ROI</div><div class="value">1.828</div><div class="sub"><span class="up">基准线1.5 ✅ 环比+2.7%</span></div></div>
+    <div class="metric-box"><div class="label">618峰值单日消耗</div><div class="value">86.91万</div><div class="sub"><span class="up">6月18日，均值2.37倍</span></div></div>
+    <div class="metric-box"><div class="label">整体CTR</div><div class="value">1.48%</div><div class="sub"><span class="down">⚠️ 低于行业基准约40%</span></div></div>
+    <div class="metric-box"><div class="label">整体CVR</div><div class="value">2.47%</div><div class="sub"><span class="up">↑+9.6% vs 环比</span></div></div>
+    <div class="metric-box"><div class="label">去重广告数（30天）</div><div class="value">791条</div><div class="sub"><span class="down">日均15条，单广告消耗24,098元</span></div></div>
+  </div>
+  <div class="insight-box">
+    <strong>五大核心发现：</strong><br>
+    ① <strong>618大促驱动消耗显著回升</strong>：日均36.63万/日（环比+33.1%），618峰值86.91万，大促后维持30~70万/日高位。<br>
+    ② <strong>ROI稳健，计价率改善</strong>：整体ROI 1.828（环比+2.7%），计价率从1.101降至1.072，成本达成向好。<br>
+    ③ <strong>CTR是核心短板</strong>：整体CTR 1.48%，低于行业基准约40%，视频号同版位CTR差距约27%，直接压制eCPM竞争力，是制约放量的核心效率瓶颈。<br>
+    ④ <strong>基建规模偏小，单广告效率极高</strong>：去重广告数791条（赛道头部3,000~5,000条），但单广告日均消耗24,098元，是赛道均值数倍，规模扩张空间极大。<br>
+    ⑤ <strong>三重政策红利充分吃到</strong>：双峰倍数1.95x（大盘1.53x），C类补贴券精排后占比97.4%，腾飞带来消耗130.5万（赛道第3）。
+  </div>
+  <div id="chart-overview" class="echart-container" style="height:340px"></div>
+</div>
+
+<!-- 零A、618大促复盘 -->
+<div class="card" id="module-0a">
+  <h2>〇A 618大促复盘：华大营养 VS 大盘</h2>
+  <div class="section-note">口径说明：竞价口径，直播+小店链路；分析周期2026年5月15日—6月25日。</div>
+  <div class="insight-box">
+    <strong>三大核心结论：</strong><br>
+    ① <strong>三重政策加持，618消耗增幅显著超越大盘</strong>：P5高潮期消耗增幅（+94.7% vs P3开门红）是大盘同期（+52.5%）的近2倍，双峰倍数达1.95x（大盘1.53x），充分吃到了大促爆发红利。<br>
+    ② <strong>C类补贴券深度绑定，精排扶持后几乎全量切入</strong>：精排扶持生效后（6.11起），C类消耗占比从43.1%飙升至97.4%，是赛道内C类渗透率最高的客户之一；腾飞带来消耗130.5万，赛道排名第3，撬动比15.4x与大盘基线持平。<br>
+    ③ <strong>基建效率优势突出，但广告数规模偏小是核心瓶颈</strong>：单广告日均消耗24,098元，远超赛道均值；但30天去重广告数仅791条，基建规模差距是制约消耗进一步放量的关键因素。
+  </div>
+  <div class="section-title">A. 618周期节奏（各阶段 vs 大盘基线）</div>
+  <div class="section-note">节奏系数 = 该阶段日均消耗 / 618全程日均消耗，系数&gt;1表示高于全程均值。</div>
+  <div id="chart-618rhythm" class="echart-container" style="height:360px"></div>
+  <table class="blue-table">
+    <thead><tr><th>阶段</th><th>客户节奏系数</th><th>大盘节奏系数</th><th>差距</th><th>客户ROI</th><th>客户CTR%</th><th>大盘CTR%</th><th>客户CVR%</th><th>大盘CVR%</th><th>客户CPM</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">P1 520冲刺</td><td>0.992</td><td>0.970</td><td>+0.022</td><td>1.825</td><td>1.53%</td><td>2.95%</td><td>2.18%</td><td>3.36%</td><td>152元</td></tr>
+      <tr><td class="row-label">P2 618蓄水</td><td>0.775</td><td>0.851</td><td class="down">-0.076</td><td>1.723</td><td>1.51%</td><td>3.08%</td><td>2.02%</td><td>3.14%</td><td>146元</td></tr>
+      <tr><td class="row-label">P3 开门红</td><td>0.690</td><td>0.810</td><td class="down">-0.121</td><td>1.838</td><td>1.71%</td><td>3.45%</td><td>2.01%</td><td>2.74%</td><td>154元</td></tr>
+      <tr><td class="row-label">P4 场景期</td><td>0.931</td><td>0.951</td><td>-0.020</td><td>1.803</td><td>1.56%</td><td>2.87%</td><td>2.37%</td><td>3.38%</td><td>169元</td></tr>
+      <tr><td class="row-label" style="color:#5482F0;font-weight:700">P5 高潮爆发</td><td class="cell-up">1.343</td><td>1.236</td><td class="cell-up">+0.107</td><td class="cell-up">1.914</td><td>1.36%</td><td>2.62%</td><td>2.93%</td><td>4.12%</td><td>189元</td></tr>
+      <tr><td class="row-label" style="color:#5482F0;font-weight:700">P6 返场</td><td class="cell-up">1.490</td><td>1.404</td><td class="cell-up">+0.087</td><td class="cell-up">1.846</td><td>1.38%</td><td>2.73%</td><td>2.66%</td><td>3.16%</td><td>185元</td></tr>
+      <tr><td class="row-label">P7 尾声</td><td>1.057</td><td>1.005</td><td>+0.052</td><td>1.772</td><td>1.29%</td><td>2.86%</td><td>2.55%</td><td>2.75%</td><td>164元</td></tr>
+    </tbody>
+  </table>
+  <div class="section-title">B. 补贴券效果（6.4-6.21，18天）</div>
+  <table class="blue-table">
+    <thead><tr><th>活动类型</th><th>客户占比</th><th>大盘占比</th><th>差距</th><th>客户ROI</th><th>客户CTR%</th><th>客户CVR%</th><th>客户计价率</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label" style="color:#d63031;font-weight:700">C类满减券</td><td class="cell-up">80.3%</td><td>38.4%</td><td class="cell-up">+41.9pp</td><td>1.844</td><td>1.39%</td><td>3.14%</td><td>1.078</td></tr>
+      <tr><td class="row-label">B类满减券</td><td>3.6%</td><td>29.3%</td><td class="cell-down">-25.7pp</td><td class="cell-up">2.631</td><td>1.81%</td><td>3.81%</td><td>1.053</td></tr>
+      <tr><td class="row-label">无活动</td><td>16.0%</td><td>32.3%</td><td class="cell-down">-16.3pp</td><td>1.756</td><td>1.60%</td><td>3.17%</td><td>1.072</td></tr>
+    </tbody>
+  </table>
+  <div class="section-note">精排扶持生效后（6.11起），C类占比从43.1%飙升至97.4%，策略执行极为彻底，超越大盘精排后C类占比（52.2%）约45pp。</div>
+  <div class="section-title">C. 赛道腾飞（6.9-6.22，14天）</div>
+  <div class="metric-grid">
+    <div class="metric-box"><div class="label">腾飞消耗占比</div><div class="value">50.2%</div><div class="sub"><span class="neutral">大盘54.1%，略低</span></div></div>
+    <div class="metric-box"><div class="label">平均撬动比</div><div class="value">15.4x</div><div class="sub"><span class="up">大盘15.3x ≈ 持平</span></div></div>
+    <div class="metric-box"><div class="label">腾飞带来消耗</div><div class="value">130.5万</div><div class="sub"><span class="up">赛道排名第3</span></div></div>
+  </div>
+  <div class="section-title">D. 整体数据概览（618 vs 环比）</div>
+  <table class="blue-table">
+    <thead><tr><th>指标</th><th>客户618全程</th><th>客户环比</th><th>变化幅度</th><th>大盘618基线</th><th>客户vs大盘差距</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">日均消耗</td><td><strong>35.28万/日</strong></td><td>27.51万/日</td><td class="up">+28.2%（Δ+7.77万/日）</td><td>—</td><td>—</td></tr>
+      <tr><td class="row-label">ROI</td><td>1.817</td><td>1.779</td><td class="up">+2.1%</td><td>1.826</td><td>-0.009</td></tr>
+      <tr><td class="row-label">CTR</td><td>1.48%</td><td>1.35%</td><td>+9.6%</td><td>2.90%</td><td class="down">-1.42pp</td></tr>
+      <tr><td class="row-label">CVR</td><td>2.73%</td><td>2.25%</td><td class="up">+21.3%</td><td>3.38%</td><td>-0.65pp</td></tr>
+      <tr><td class="row-label">计价率</td><td>1.074</td><td>1.101</td><td class="up">-2.5%（改善）</td><td>1.039</td><td>+0.035</td></tr>
+      <tr><td class="row-label">客单价</td><td>856元</td><td>829元</td><td class="up">+3.3%</td><td>169元</td><td class="up">+687元（高客单价品类）</td></tr>
+    </tbody>
+  </table>
+  <div class="section-title">E. 基建规模横向对比（近30天去重口径）</div>
+  <div class="section-note">广告数和TID数均为近30天去重口径（系统汇总行，跨天跨维度去重），确保各客户口径一致。</div>
+  <table class="blue-table">
+    <thead><tr><th>消耗排名</th><th>客户</th><th>日均消耗（万）</th><th>去重广告数</th><th>去重TID数</th><th>账户数</th><th>单广告日均消耗（元）</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="row-label">赛道客户A</td><td>50~60万区间</td><td>3,000~4,000区间</td><td>8,000~12,000区间</td><td>300~350区间</td><td>400~600区间</td></tr>
+      <tr><td>2</td><td class="row-label">赛道客户B</td><td>40~50万区间</td><td>4,000~5,000区间</td><td>6,000~8,000区间</td><td>50~60区间</td><td>300~400区间</td></tr>
+      <tr style="background:#f0f4ff"><td><strong>3</strong></td><td class="row-label"><strong>华大营养</strong></td><td><strong>36.63</strong></td><td class="cell-warn"><strong>791</strong></td><td><strong>5,802</strong></td><td><strong>53</strong></td><td class="cell-up"><strong>24,098</strong></td></tr>
+      <tr><td>4</td><td class="row-label">赛道客户D</td><td>30~35万区间</td><td>1,500~2,000区间</td><td>3,000~4,000区间</td><td>80~100区间</td><td>600~800区间</td></tr>
+      <tr><td>5</td><td class="row-label">赛道客户E</td><td>7~8万区间</td><td>500~700区间</td><td>1,500~2,000区间</td><td>50~60区间</td><td>400~600区间</td></tr>
+      <tr><td>6</td><td class="row-label">赛道客户F</td><td>5~6万区间</td><td>400~600区间</td><td>800~1,200区间</td><td>30~35区间</td><td>300~500区间</td></tr>
+    </tbody>
+  </table>
+  <div class="insight-box">华大营养去重广告数791条，是赛道头部客户（3,000~5,000条区间）的约15~25%，差距约4~6倍；但单广告日均消耗24,098元，是赛道均值的数倍，属于<strong>少量广告高效运转</strong>模式。若能将广告数扩展至3,000条以上，理论上消耗空间可提升数倍。</div>
+</div>
+<!-- 一、整体宏观概况 -->
+<div class="card" id="module-1">
+  <h2>一、整体宏观概况</h2>
+  <div class="insight-box">消耗增长主要由<strong>618大促节点驱动</strong>和<strong>CVR提升（+9.6%）</strong>共同推动，而非基建规模扩张（日均广告数15.2个，与环比16.7个基本持平）。单广告日均消耗从16,473元提升至24,098元（+46.3%），消耗增长是<strong>单广告效率提升</strong>而非广告数量扩张。</div>
+  <div class="section-title">核心指标对照表</div>
+  <table class="blue-table">
+    <thead><tr><th>指标</th><th>整体（30天）</th><th>前半段（5/27-6/10）</th><th>后半段（6/11-6/25）</th><th>环比（4/27-5/26）</th><th>当期vs环比</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">日均消耗（万）</td><td><strong>36.63</strong></td><td>28.65</td><td>44.60</td><td>27.51</td><td class="up">+33.1%（Δ+9.12万/日）</td></tr>
+      <tr><td class="row-label">日耗峰值/日期</td><td>86.91 / 6-18</td><td>37.84 / 6-10</td><td>86.91 / 6-18</td><td>43.94 / 4-27</td><td>—</td></tr>
+      <tr><td class="row-label">ROI（系统汇总行）</td><td><strong>1.828</strong></td><td>1.734</td><td>1.801</td><td>1.779</td><td class="up">+2.7%</td></tr>
+      <tr><td class="row-label">ROI出价（ROI广告）</td><td>2.004</td><td>1.988</td><td>2.012</td><td>2.053</td><td class="up">-2.4%（ROI要求降低，竞争力增强）</td></tr>
+      <tr><td class="row-label">CPA出价（元）</td><td>396.15</td><td>389.0</td><td>403.0</td><td>399.49</td><td>-0.8%</td></tr>
+      <tr><td class="row-label">计价率</td><td>1.072</td><td>1.280</td><td>1.354</td><td>1.101</td><td class="up">-2.6%（改善）</td></tr>
+      <tr><td class="row-label">CPM（元）</td><td>172.81</td><td>158.38</td><td>183.55</td><td>141.90</td><td class="down">+21.8%</td></tr>
+      <tr><td class="row-label">CTR（%）</td><td class="cell-warn">1.477</td><td>1.626</td><td>1.366</td><td>1.353</td><td>+9.2%</td></tr>
+      <tr><td class="row-label">CVR（%）</td><td class="cell-up">2.466</td><td>2.162</td><td>2.735</td><td>2.251</td><td class="up">+9.6% ✅</td></tr>
+      <tr><td class="row-label">客单价（元）</td><td><strong>867</strong></td><td>790</td><td>852</td><td>829</td><td>+4.6%</td></tr>
+      <tr><td class="row-label">30天去重广告数</td><td><strong>791</strong></td><td>—</td><td>—</td><td>728</td><td>+8.7%</td></tr>
+      <tr><td class="row-label">日均广告数（天max均值）</td><td>15.2</td><td>14.7</td><td>15.7</td><td>16.7</td><td class="down">-9.0%</td></tr>
+      <tr><td class="row-label">单广告日均消耗（元）</td><td class="cell-up"><strong>24,098</strong></td><td>—</td><td>—</td><td>16,473</td><td class="up">+46.3%</td></tr>
+    </tbody>
+  </table>
+  <div class="section-note">📌 ROI口径说明：系统汇总行下单ROI口径（下单金额/消耗）。前后半段ROI为明细行消耗加权ROI，与汇总行口径存在约3%差异，仅供趋势参考。</div>
+</div>
+
+<!-- 二、阶段划分与趋势 -->
+<div class="card" id="module-2">
+  <h2>二、阶段划分与趋势分析</h2>
+  <div class="insight-box">近30天消耗走势呈<strong>"618大促驱动型双峰结构"</strong>：5/27-6/7为低位震荡期（20~40万/日），6/8-6/14为稳步上升期（30~45万/日），6/15-6/17健康展期间小幅回落（26.89万/日），6/18 618大促节点单日峰值86.91万，此后逐步回落至30~70万/日区间。</div>
+  <div id="chart-daily" class="echart-container" style="height:400px"></div>
+  <div class="section-title">阶段划分对比</div>
+  <table class="blue-table">
+    <thead><tr><th>阶段</th><th>日期</th><th>日均消耗（万）</th><th>ROI</th><th>CTR（%）</th><th>CVR（%）</th><th>CPM（元）</th><th>计价率</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">预热期</td><td>5/27-5/31</td><td>24.45</td><td>1.699</td><td>1.825</td><td>1.811</td><td>154.82</td><td>1.358</td></tr>
+      <tr><td class="row-label">618前期</td><td>6/1-6/14</td><td>33.12</td><td>1.735</td><td>1.495</td><td>2.462</td><td>170.37</td><td>1.273</td></tr>
+      <tr><td class="row-label" style="color:#5482F0;font-weight:700">618爆发期</td><td>6/15-6/18</td><td class="cell-up">51.50</td><td class="cell-up">1.899</td><td>1.408</td><td>2.881</td><td>189.75</td><td>1.361</td></tr>
+      <tr><td class="row-label">618后期</td><td>6/19-6/25</td><td>43.84</td><td>1.782</td><td>1.336</td><td>2.604</td><td>174.21</td><td>1.369</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 三、链路下钻分析 -->
+<div class="card" id="module-3">
+  <h2>三、链路下钻分析</h2>
+  <div class="insight-box">华大营养以直播链路为绝对主体（<strong>86.3%</strong>），小店链路占比13.7%。直播链路ROI（1.818）高于小店链路ROI（1.501）。<strong>表达商品能力是最大结构性短板</strong>：竞品A表达商品消耗占比约75%，华大营养仅8.6%，这是CVR差距的核心原因。</div>
+  <div class="metric-grid">
+    <div class="metric-box"><div class="label">直播链路消耗占比</div><div class="value">86.3%</div><div class="sub"><span class="up">ROI=1.818</span></div></div>
+    <div class="metric-box"><div class="label">小店链路消耗占比</div><div class="value">13.7%</div><div class="sub"><span class="neutral">ROI=1.501</span></div></div>
+    <div class="metric-box"><div class="label">表达商品占比</div><div class="value">8.6%</div><div class="sub"><span class="down">⚠️ 竞品A约75%</span></div></div>
+  </div>
+  <div class="section-title">链路消耗结构对比</div>
+  <table class="blue-table">
+    <thead><tr><th>链路类型</th><th>日均消耗（万）</th><th>消耗占比</th><th>ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">直播链路（合计）</td><td>31.62</td><td>86.3%</td><td>1.818</td><td>1.527%</td><td>2.275%</td><td>183.82</td><td>1.346</td></tr>
+      <tr><td class="row-label">小店链路</td><td>5.01</td><td>13.7%</td><td>1.501</td><td>1.259%</td><td>3.466%</td><td>125.38</td><td>1.359</td></tr>
+    </tbody>
+  </table>
+  <div class="section-title">直播链路能力类型拆解</div>
+  <div id="chart-linktype" class="echart-container" style="height:320px"></div>
+  <table class="blue-table">
+    <thead><tr><th>能力类型</th><th>日均消耗（万）</th><th>占比</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>客单价（元）</th><th>竞品A占比</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">普通直播间</td><td>28.62</td><td>81.1%</td><td>1.476%</td><td>2.624%</td><td>192.8</td><td>1.346</td><td>876</td><td>约18%</td></tr>
+      <tr style="background:#fff8e1"><td class="row-label"><strong>表达商品（直播4+M）</strong></td><td class="cell-warn"><strong>3.03</strong></td><td class="cell-warn"><strong>8.6%</strong></td><td>1.321%</td><td class="cell-up">2.867%</td><td>241.7</td><td>1.463</td><td class="cell-up">972</td><td class="cell-down"><strong>约75%</strong></td></tr>
+      <tr><td class="row-label">小店商品聚合页</td><td>3.59</td><td>10.2%</td><td>1.259%</td><td>3.466%</td><td>125.4</td><td>1.359</td><td>418</td><td>约5%</td></tr>
+    </tbody>
+  </table>
+  <div class="section-title">各直播间 × 推广类型下钻明细</div>
+  <div class="sub-card">
+    <h3>华大营养益生菌官方店（日均17.58万，最大直播间）</h3>
+    <table class="blue-table">
+      <thead><tr><th>推广类型</th><th>日均消耗（万）</th><th>占比</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>客单价（元）</th><th>日均广告数</th><th>日均TID数</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">普通直播间</td><td>14.03</td><td>79.8%</td><td>1.443%</td><td>1.916%</td><td>131.5</td><td>1.390</td><td>760</td><td>9.7</td><td>97.2</td></tr>
+        <tr style="background:#fff8e1"><td class="row-label"><strong>表达商品（直播4+M）</strong></td><td class="cell-warn"><strong>3.03</strong></td><td class="cell-warn"><strong>17.2%</strong></td><td>1.321%</td><td class="cell-up"><strong>2.867%</strong></td><td>241.7</td><td>1.463</td><td class="cell-up">972</td><td>6.0</td><td>73.0</td></tr>
+        <tr><td class="row-label">小店商品聚合页</td><td>0.52</td><td>3.0%</td><td>1.914%</td><td>2.950%</td><td>202.1</td><td>1.431</td><td>496</td><td>13.0</td><td>20.0</td></tr>
+      </tbody>
+    </table>
+    <div class="insight-box">表达商品CVR（2.867%）比普通直播间（1.916%）高<strong>49.6%</strong>，客单价也高出28%（972 vs 760元），但消耗占比仅17.2%，广告数仅6条/日，<strong>规模严重不足</strong>。</div>
+  </div>
+  <div class="sub-card">
+    <h3>华大营养益生菌膳食（日均10.15万，第二大直播间）</h3>
+    <table class="blue-table">
+      <thead><tr><th>推广类型</th><th>日均消耗（万）</th><th>占比</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>客单价（元）</th><th>日均广告数</th><th>日均TID数</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">普通直播间</td><td>10.15</td><td>100%</td><td>1.356%</td><td class="cell-up">3.967%</td><td>344.4</td><td>1.276</td><td class="cell-up">1,124</td><td>11.2</td><td>144.7</td></tr>
+        <tr><td class="row-label" style="color:#999">表达商品（直播4+M）</td><td colspan="9" style="text-align:left;color:#d63031;font-weight:600">⚠️ 尚未开通表达商品能力 — 该直播间CVR最高（3.967%）、客单价最高（1,124元），是全账户效率最优的直播间，叠加表达商品能力后CVR和eCPM均有望进一步提升</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sub-card">
+    <h3>华大营养官方店（日均4.42万）</h3>
+    <table class="blue-table">
+      <thead><tr><th>推广类型</th><th>日均消耗（万）</th><th>占比</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>客单价（元）</th><th>日均广告数</th><th>日均TID数</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">普通直播间</td><td>4.42</td><td>100%</td><td class="cell-up">2.241%</td><td>1.850%</td><td>189.3</td><td>1.174</td><td>740</td><td>4.3</td><td>38.5</td></tr>
+      </tbody>
+    </table>
+    <div class="section-note">官方店CTR最高（2.241%），素材吸引力较强，但CVR偏低（1.850%），成交转化环节有优化空间。</div>
+  </div>
+  <div class="sub-card">
+    <h3>优美达益生菌（日均2.67万）</h3>
+    <table class="blue-table">
+      <thead><tr><th>推广类型</th><th>日均消耗（万）</th><th>占比</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>客单价（元）</th><th>日均广告数</th><th>日均TID数</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">小店商品聚合页</td><td>2.67</td><td>100%</td><td>1.118%</td><td class="cell-up">3.768%</td><td class="cell-up">115.5</td><td>1.359</td><td>383</td><td>14.8</td><td>33.9</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 四、出价模式分析 -->
+<div class="card" id="module-4">
+  <h2>四、出价模式分析</h2>
+  <div class="insight-box">华大营养为<strong>ROI广告主导型</strong>（ROI广告消耗占比66.7%），CPA广告占比33.0%。ROI广告ROI（1.777）与CPA广告ROI（1.771）基本持平，但CPA广告CPM更低（105.99元 vs 251.66元），获量成本更优。ROI出价从2.053下调至2.004（-2.4%），竞争力小幅增强。</div>
+  <div id="chart-bidmode" class="echart-container" style="height:300px"></div>
+  <div class="section-title">出价模式效率对比（当期）</div>
+  <table class="blue-table">
+    <thead><tr><th>出价模式</th><th>日均消耗（万）</th><th>占比</th><th>ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>出价</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">ROI广告（下单ROI）</td><td>24.45</td><td>66.7%</td><td>1.777</td><td>1.432%</td><td>3.224%</td><td>251.66</td><td class="cell-warn">1.409</td><td>ROI出价 1.944</td></tr>
+      <tr><td class="row-label">CPA广告（下单）</td><td>12.09</td><td>33.0%</td><td>1.771</td><td>1.521%</td><td>1.856%</td><td class="cell-up">105.99</td><td class="cell-up">1.147</td><td>CPA出价 414.57元</td></tr>
+    </tbody>
+  </table>
+  <div class="section-title">各直播间出价模式下钻</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px" id="bid-tabs">
+    <button class="tab-btn active" onclick="showBidTab('gfzs')">益生菌官方店</button>
+    <button class="tab-btn" onclick="showBidTab('sc')">益生菌膳食</button>
+    <button class="tab-btn" onclick="showBidTab('gfc')">官方店</button>
+    <button class="tab-btn" onclick="showBidTab('ymd')">优美达益生菌</button>
+  </div>
+  <div id="bid-gfzs">
+    <table class="blue-table">
+      <thead><tr><th>出价模式</th><th>日均消耗（万）</th><th>占比</th><th>ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>出价</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">CPA广告</td><td>7.34</td><td>50.5%</td><td class="cell-up">1.876</td><td>1.514%</td><td>1.557%</td><td class="cell-up">101.7</td><td class="cell-up">1.114</td><td>CPA出价 454.9元</td></tr>
+        <tr><td class="row-label">ROI广告</td><td>7.21</td><td>49.5%</td><td>1.809</td><td>1.338%</td><td>2.810%</td><td>194.3</td><td class="cell-down">1.667 ⚠️</td><td>ROI出价 2.014</td></tr>
+      </tbody>
+    </table>
+    <div class="insight-box">益生菌官方店CPA广告ROI（1.876）高于ROI广告（1.809），计价率（1.114）显著优于ROI广告（1.667）。<strong>ROI广告计价率1.667严重偏高</strong>，建议适当降低ROI广告出价或压缩ROI广告预算，向CPA广告倾斜。</div>
+  </div>
+  <div id="bid-sc" style="display:none">
+    <table class="blue-table">
+      <thead><tr><th>出价模式</th><th>日均消耗（万）</th><th>占比</th><th>ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>出价</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">ROI广告</td><td>10.00</td><td>98.5%</td><td>1.808</td><td>1.343%</td><td>4.089%</td><td class="cell-down">352.3</td><td>1.277</td><td>ROI出价 2.032</td></tr>
+        <tr><td class="row-label">CPA广告</td><td>0.06</td><td>0.6%</td><td class="cell-up">2.275</td><td>3.978%</td><td>0.814%</td><td>170.0</td><td class="cell-up">0.959 ✅</td><td>CPA出价 436.4元</td></tr>
+      </tbody>
+    </table>
+    <div class="insight-box">益生菌膳食直播间几乎全部为ROI广告（98.5%），CPM高达352.3元（全矩阵最高）。少量CPA广告ROI=2.275、计价率0.959，效率远优于ROI广告，说明<strong>该直播间有引入更多CPA广告的空间</strong>，可降低整体CPM和计价率。</div>
+  </div>
+  <div id="bid-gfc" style="display:none">
+    <table class="blue-table">
+      <thead><tr><th>出价模式</th><th>日均消耗（万）</th><th>占比</th><th>ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>出价</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">ROI广告</td><td>3.03</td><td>68.7%</td><td>1.784</td><td>2.081%</td><td>2.627%</td><td>256.1</td><td>1.187</td><td>ROI出价 2.001</td></tr>
+        <tr><td class="row-label">CPA广告</td><td>1.38</td><td>31.3%</td><td class="cell-up">1.839</td><td>2.406%</td><td>1.157%</td><td class="cell-up">120.5</td><td class="cell-up">1.145</td><td>CPA出价 400.6元</td></tr>
+      </tbody>
+    </table>
+    <div class="insight-box">官方店CPA广告ROI（1.839）略优于ROI广告（1.784），CPM更低（120.5 vs 256.1），建议适当提升CPA广告占比至40%+。</div>
+  </div>
+  <div id="bid-ymd" style="display:none">
+    <table class="blue-table">
+      <thead><tr><th>出价模式</th><th>日均消耗（万）</th><th>占比</th><th>ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>出价</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">CPA广告</td><td>1.69</td><td>63.4%</td><td>1.528</td><td>1.054%</td><td>3.557%</td><td>99.8</td><td class="cell-warn">1.246</td><td>CPA出价 244.8元</td></tr>
+        <tr><td class="row-label">ROI广告</td><td>0.98</td><td>36.6%</td><td>1.385</td><td>1.295%</td><td>4.242%</td><td>158.7</td><td class="cell-down">1.554 ⚠️</td><td>ROI出价 1.654</td></tr>
+      </tbody>
+    </table>
+    <div class="insight-box">优美达益生菌整体ROI偏低（1.475），两种出价模式ROI均低于1.5基准线，ROI广告计价率1.554严重偏高。建议重点排查该直播间的商品力和素材质量。</div>
+  </div>
+</div>
+<!-- 五、直播间全景分析 -->
+<div class="card" id="module-5">
+  <h2>五、直播间全景分析</h2>
+  <div class="insight-box">
+    <strong>直播间矩阵核心结论：</strong><br>
+    • <strong>华大营养益生菌官方店</strong>：消耗最大（14.03万/日），ROI 1.847，是全矩阵消耗主力，但ROI广告计价率1.667严重偏高 ⚠️<br>
+    • <strong>华大营养益生菌膳食（镜脂）</strong>：第二大直播间（10.15万/日），环比增幅最大（+135.7%），CVR最高（3.97%），客单价最高（1,124元），CPM偏高（344元）<br>
+    • <strong>华大营养官方店</strong>：CTR最高（2.24%），ROI 1.801，计价率最低（1.174），消耗增幅+84.5%<br>
+    • <strong>微信小店表达商品</strong>：新增能力（3.03万/日），CVR 2.87%，是结构性提升方向
+  </div>
+  <div id="chart-livestream" class="echart-container" style="height:360px"></div>
+  <div class="section-title">直播间全景表（直播链路，当期 vs 环比）</div>
+  <table class="blue-table">
+    <thead><tr><th>直播间</th><th>主推品类</th><th>当期日耗（万）</th><th>占比</th><th>消耗变化</th><th>当期ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>客单价（元）</th><th>日均广告</th><th>日均TID</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">华大营养益生菌官方店</td><td>益畅益生菌</td><td><strong>14.03</strong></td><td>44.4%</td><td>-3.5%</td><td>1.847</td><td>1.443%</td><td>1.916%</td><td>131.49</td><td class="cell-warn">1.390</td><td>760</td><td>9.7</td><td>97.2</td></tr>
+      <tr><td class="row-label">华大营养益生菌膳食</td><td>镜脂轻益生菌</td><td><strong>10.15</strong></td><td>32.1%</td><td class="cell-up">+135.7%</td><td>1.810</td><td>1.356%</td><td class="cell-up">3.967%</td><td class="cell-down">344.44</td><td>1.276</td><td class="cell-up">1,124</td><td>11.2</td><td>144.7</td></tr>
+      <tr><td class="row-label">华大营养官方店</td><td>综合营养品</td><td>4.42</td><td>14.0%</td><td class="cell-up">+84.5%</td><td>1.801</td><td class="cell-up">2.241%</td><td>1.850%</td><td>189.32</td><td class="cell-up">1.174</td><td>740</td><td>4.3</td><td>38.5</td></tr>
+      <tr><td class="row-label">微信小店（表达商品）</td><td>多品类</td><td>3.03</td><td>9.6%</td><td class="cell-up">新增</td><td>1.736</td><td>1.321%</td><td>2.867%</td><td>241.72</td><td>1.463</td><td>972</td><td>6.0</td><td>73.0</td></tr>
+    </tbody>
+  </table>
+  <div class="section-note">📌 优美达益生菌直播间（日耗2.67万/日，占比7.3%，ROI=1.475）归属小店链路，不在直播间全景表中体现。</div>
+</div>
+
+<!-- 六、版位深度诊断 -->
+<div class="card" id="module-6">
+  <h2>六、版位深度诊断</h2>
+  <div class="insight-box">华大营养版位布局以微信视频号为主（<strong>65.9%</strong>），非视频号版位合计约28.5%，版位多元化程度高于竞品万益蓝（非视频号约21.6%）。<strong>各直播间公众号版位ROI均高于视频号</strong>，但消耗占比偏低，是明确的扩量洼地。⚠️ 移动联盟ROI=0.613严重低于基准线，建议关停。</div>
+  <div class="section-title">整体版位消耗全景表</div>
+  <div id="chart-position" class="echart-container" style="height:320px"></div>
+  <table class="blue-table">
+    <thead><tr><th>版位</th><th>当期日均消耗（万）</th><th>当期占比</th><th>消耗变化</th><th>当期ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">微信视频号</td><td>24.15</td><td>65.9%</td><td class="up">+36.9%（Δ+6.52万/日）</td><td>1.774</td><td>1.264%</td><td>3.915%</td><td>225.58</td><td class="cell-warn">1.224</td></tr>
+      <tr><td class="row-label">微信公众号</td><td>4.16</td><td>11.4%</td><td>+27.6%（Δ+0.90万/日）</td><td class="cell-up"><strong>1.999</strong></td><td>0.950%</td><td>2.619%</td><td class="cell-up">112.20</td><td>1.496</td></tr>
+      <tr><td class="row-label">微信朋友圈</td><td>3.87</td><td>10.6%</td><td>+4.6%（Δ+0.17万/日）</td><td>1.685</td><td>0.664%</td><td>3.033%</td><td class="cell-up">107.78</td><td>1.721</td></tr>
+      <tr><td class="row-label">微信小程序</td><td>2.40</td><td>6.5%</td><td>+34.6%（Δ+0.62万/日）</td><td>1.652</td><td>1.921%</td><td>1.863%</td><td>211.98</td><td>1.503</td></tr>
+      <tr><td class="row-label">平台与内容广告</td><td>1.69</td><td>4.6%</td><td>+81.8%（Δ+0.76万/日）</td><td>1.761</td><td>5.050%</td><td>0.380%</td><td class="cell-up">104.31</td><td>1.562</td></tr>
+      <tr><td class="row-label">微信搜一搜</td><td>0.20</td><td>0.6%</td><td>+59.3%</td><td>1.002</td><td>6.826%</td><td>1.876%</td><td>761.58</td><td>1.074</td></tr>
+      <tr><td class="row-label" style="color:#d63031">移动联盟</td><td>0.07</td><td>0.2%</td><td>+139.4%</td><td class="cell-down">0.613 ⚠️</td><td>6.795%</td><td>0.131%</td><td>58.00</td><td>1.525</td></tr>
+    </tbody>
+  </table>
+  <div class="section-title">Top4直播间 × 版位 效果矩阵</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+    <button class="tab-btn active" onclick="showVpTab('vp-gfzs')">益生菌官方店</button>
+    <button class="tab-btn" onclick="showVpTab('vp-sc')">益生菌膳食</button>
+    <button class="tab-btn" onclick="showVpTab('vp-gfc')">官方店</button>
+    <button class="tab-btn" onclick="showVpTab('vp-ymd')">优美达益生菌</button>
+  </div>
+  <div id="vp-gfzs">
+    <table class="blue-table">
+      <thead><tr><th>版位</th><th>日耗（万）</th><th>占比</th><th>ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>潜力评级</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">微信视频号</td><td>8.82</td><td>60.6%</td><td>1.843</td><td>1.198%</td><td>3.256%</td><td>175.1</td><td>1.233</td><td><span class="badge-blue">主力</span></td></tr>
+        <tr><td class="row-label">微信朋友圈</td><td>2.11</td><td>14.5%</td><td>1.808</td><td>0.623%</td><td>3.172%</td><td>100.5</td><td class="cell-warn">1.792 ⚠️</td><td><span class="badge-orange">待优化</span></td></tr>
+        <tr><td class="row-label">微信公众号</td><td>1.81</td><td>12.4%</td><td class="cell-up">2.041</td><td>0.906%</td><td>2.288%</td><td class="cell-up">95.4</td><td class="cell-warn">1.883 ⚠️</td><td><span class="badge-green">高潜力</span></td></tr>
+        <tr><td class="row-label">微信小程序</td><td>0.89</td><td>6.1%</td><td>1.658</td><td>1.856%</td><td>1.470%</td><td>155.8</td><td>1.535</td><td><span class="badge-orange">可扩量</span></td></tr>
+        <tr><td class="row-label">平台与内容广告</td><td>0.76</td><td>5.2%</td><td>1.886</td><td>4.749%</td><td>0.297%</td><td class="cell-up">73.2</td><td>1.157</td><td><span class="badge-blue">参考</span></td></tr>
+      </tbody>
+    </table>
+    <div class="insight-box">公众号版位ROI=2.041（全直播间最高），但计价率1.883偏高，建议优化出价降低计价率至1.2以下后扩量；视频号版位是消耗主力，计价率1.233相对健康。</div>
+  </div>
+  <div id="vp-sc" style="display:none">
+    <table class="blue-table">
+      <thead><tr><th>版位</th><th>日耗（万）</th><th>占比</th><th>ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>潜力评级</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">微信视频号</td><td>7.12</td><td>70.2%</td><td>1.813</td><td>1.287%</td><td>5.090%</td><td class="cell-down">413.5</td><td>1.197</td><td><span class="badge-blue">主力</span></td></tr>
+        <tr><td class="row-label">微信公众号</td><td>0.92</td><td>9.1%</td><td class="cell-up">2.159</td><td>1.260%</td><td>4.193%</td><td>296.5</td><td class="cell-up">1.065 ✅</td><td><span class="badge-green">高潜力 🔴</span></td></tr>
+        <tr><td class="row-label">微信小程序</td><td>0.90</td><td>8.9%</td><td>1.716</td><td>1.987%</td><td>2.546%</td><td>349.4</td><td>1.515</td><td><span class="badge-orange">可扩量</span></td></tr>
+        <tr><td class="row-label">微信朋友圈</td><td>0.82</td><td>8.0%</td><td>1.568</td><td>0.514%</td><td>4.145%</td><td>162.0</td><td class="cell-warn">1.682 ⚠️</td><td><span class="badge-orange">待优化</span></td></tr>
+        <tr><td class="row-label" style="color:#d63031">平台与内容广告</td><td>0.35</td><td>3.4%</td><td>1.695</td><td>4.035%</td><td>1.018%</td><td>286.4</td><td class="cell-down">2.188 ⚠️</td><td><span class="badge-red">建议暂停</span></td></tr>
+      </tbody>
+    </table>
+    <div class="insight-box">公众号版位ROI=2.159、计价率1.065，是全矩阵最优的版位组合之一，建议从0.92万/日扩量至2万/日以上；<strong>平台与内容广告计价率2.188严重超标，建议立即暂停</strong>；视频号CPM高达413.5元，建议适当降低ROI出价。</div>
+  </div>
+  <div id="vp-gfc" style="display:none">
+    <table class="blue-table">
+      <thead><tr><th>版位</th><th>日耗（万）</th><th>占比</th><th>ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>潜力评级</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">微信视频号</td><td>2.90</td><td>65.6%</td><td>1.791</td><td>1.541%</td><td>4.144%</td><td>289.3</td><td>1.186</td><td><span class="badge-blue">主力</span></td></tr>
+        <tr><td class="row-label">微信公众号</td><td>0.67</td><td>15.1%</td><td class="cell-up">2.113</td><td>1.070%</td><td>2.513%</td><td class="cell-up">110.2</td><td class="cell-up">1.061 ✅</td><td><span class="badge-green">高潜力 🔴</span></td></tr>
+        <tr><td class="row-label">微信朋友圈</td><td>0.33</td><td>7.5%</td><td>1.494</td><td>1.030%</td><td>1.708%</td><td class="cell-up">96.8</td><td>1.459</td><td><span class="badge-orange">待优化</span></td></tr>
+        <tr><td class="row-label">平台与内容广告</td><td>0.31</td><td>7.0%</td><td>1.795</td><td class="cell-up">9.115%</td><td>0.287%</td><td>123.1</td><td class="cell-up">1.033 ✅</td><td><span class="badge-green">高潜力</span></td></tr>
+        <tr><td class="row-label">微信小程序</td><td>0.17</td><td>3.8%</td><td>1.550</td><td>2.484%</td><td>1.643%</td><td>212.3</td><td>1.087</td><td><span class="badge-orange">可扩量</span></td></tr>
+      </tbody>
+    </table>
+    <div class="insight-box">公众号版位ROI=2.113、计价率1.061，是全直播间中公众号版位效率最优的组合，建议从0.67万/日扩量至1.5万/日；朋友圈版位ROI=1.494低于基准线，建议优化素材后再扩量。</div>
+  </div>
+  <div id="vp-ymd" style="display:none">
+    <table class="blue-table">
+      <thead><tr><th>版位</th><th>日耗（万）</th><th>占比</th><th>ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th><th>潜力评级</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">微信视频号</td><td>2.06</td><td>77.1%</td><td>1.469</td><td>1.314%</td><td>4.628%</td><td>162.5</td><td>1.299</td><td><span class="badge-blue">主力</span></td></tr>
+        <tr><td class="row-label" style="color:#d63031">微信公众号</td><td>0.23</td><td>8.6%</td><td>1.427</td><td>0.595%</td><td>2.356%</td><td class="cell-up">39.6</td><td class="cell-down">2.357 ⚠️</td><td><span class="badge-red">建议暂停</span></td></tr>
+        <tr><td class="row-label">微信朋友圈</td><td>0.20</td><td>7.5%</td><td>1.483</td><td>0.760%</td><td>2.816%</td><td class="cell-up">66.5</td><td>1.303</td><td><span class="badge-orange">可扩量</span></td></tr>
+        <tr><td class="row-label">微信小程序</td><td>0.07</td><td>2.5%</td><td class="cell-up">1.710</td><td>1.767%</td><td>2.364%</td><td>113.5</td><td class="cell-up">0.917 ✅</td><td><span class="badge-green">高潜力</span></td></tr>
+        <tr><td class="row-label">平台与内容广告</td><td>0.04</td><td>1.4%</td><td class="cell-up">1.789</td><td>1.806%</td><td>0.918%</td><td class="cell-up">46.8</td><td class="cell-up">0.752 ✅</td><td><span class="badge-green">高潜力</span></td></tr>
+      </tbody>
+    </table>
+    <div class="insight-box">优美达益生菌整体ROI偏低（1.475），公众号版位计价率2.357严重超标，建议暂停。小程序（ROI=1.710，计价率0.917）和平台与内容广告（ROI=1.789，计价率0.752）效率相对较好，但消耗极低。建议优先排查整体ROI偏低的根本原因。</div>
+  </div>
+  <div class="section-title">微信视频号同版位核心指标对比</div>
+  <table class="blue-table">
+    <thead><tr><th>直播间</th><th>华大营养视频号日耗（万）</th><th>华大营养ROI</th><th>华大营养CTR%</th><th>华大营养CVR%</th><th>华大营养CPM（元）</th><th>行业基准CTR%</th><th>行业基准CVR%</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">益生菌官方店</td><td>8.82</td><td>1.843</td><td class="cell-warn">1.198%</td><td>3.256%</td><td>175.1</td><td>约1.7~1.9%区间</td><td>约10~11%区间</td></tr>
+      <tr><td class="row-label">益生菌膳食</td><td>7.12</td><td>1.813</td><td class="cell-warn">1.287%</td><td>5.090%</td><td class="cell-down">413.5</td><td>约1.6~1.8%区间</td><td>约5~6%区间</td></tr>
+      <tr><td class="row-label">官方店</td><td>2.90</td><td>1.791</td><td>1.541%</td><td>4.144%</td><td>289.3</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <div class="insight-box">⚠️ <strong>CTR是华大营养在视频号版位的核心劣势</strong>：益生菌官方店视频号CTR仅1.198%，低于行业基准约30~40%；益生菌膳食CTR 1.287%，同样低于基准水平。CTR偏低直接压制eCPM竞争力，是制约消耗进一步放量的核心效率瓶颈。<br><strong>行动建议</strong>：针对视频号版位启动素材丰富度专项——目标单直播间TID数从当前97个提升至200个+，重点测试高互动率的短视频钩子，目标CTR提升至1.6%+。</div>
+</div>
+
+<!-- 七、智投工具分析 -->
+<div class="card" id="module-7">
+  <h2>七、智投工具分析</h2>
+  <div class="insight-box">华大营养当前智投工具以<strong>单链路智投（3002）</strong>为主，整体智投渗透率约<strong>17.7%</strong>，ROI（1.933）高于非智投（1.793），计价率（1.103）显著低于非智投（1.421）。与竞品万益蓝（智投渗透率约34.5%）相比，华大营养整体智投渗透率仍有较大差距。</div>
+  <div class="metric-grid">
+    <div class="metric-box"><div class="label">整体智投渗透率</div><div class="value">17.7%</div><div class="sub"><span class="down">vs 竞品万益蓝34.5%</span></div></div>
+    <div class="metric-box"><div class="label">智投ROI</div><div class="value">1.933</div><div class="sub"><span class="up">vs 非智投1.793 ✅</span></div></div>
+    <div class="metric-box"><div class="label">智投计价率</div><div class="value">1.103</div><div class="sub"><span class="up">vs 非智投1.421 ✅</span></div></div>
+  </div>
+  <div class="section-title">整体智投 vs 非智投对比</div>
+  <table class="blue-table">
+    <thead><tr><th>工具类型</th><th>日均消耗（万）</th><th>占比</th><th>ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>计价率</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">单链路智投</td><td>6.49</td><td>17.7%</td><td class="cell-up">1.933</td><td>2.277%</td><td>1.063%</td><td class="cell-up">131.7</td><td class="cell-up">1.103 ✅</td></tr>
+      <tr><td class="row-label">全店托管</td><td>0.84</td><td>2.3%</td><td>1.683</td><td>1.197%</td><td>2.905%</td><td class="cell-up">98.0</td><td>1.157</td></tr>
+      <tr><td class="row-label">非智投广告</td><td>29.30</td><td>79.9%</td><td>1.793</td><td>1.360%</td><td>3.000%</td><td>181.7</td><td class="cell-warn">1.421 ⚠️</td></tr>
+    </tbody>
+  </table>
+  <div class="section-note">⚠️ 非智投广告计价率高达1.421，是整体计价率偏高的主要来源。建议将部分非智投广告迁移至智投模式，降低整体计价率风险。</div>
+  <div class="section-title">各直播间智投工具综合建议</div>
+  <table class="blue-table">
+    <thead><tr><th>直播间</th><th>当前智投渗透率</th><th>竞品对标渗透率</th><th>智投工具建议</th><th>优先级</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">益生菌官方店</td><td>29.4%</td><td>约25~35%区间</td><td>智投计价率1.103，效果已验证；建议将智投渗透率从29.4%提升至50%+；同时扩充TID数（当前162个，目标500+）</td><td><span class="badge-red">🔴 高</span></td></tr>
+      <tr><td class="row-label">益生菌膳食</td><td class="cell-warn">3.4%</td><td>约2~4%区间</td><td>智投基建严重不足（4条广告/49个TID）；先大幅扩充智投广告基建，再逐步提升渗透率至30%+</td><td><span class="badge-red">🔴 高</span></td></tr>
+      <tr><td class="row-label">官方店</td><td>15.4%</td><td>—</td><td>智投计价率1.074健康，但ROI偏低；扩充广告数至30条+，给系统更多探索空间</td><td><span class="badge-orange">🟡 中</span></td></tr>
+      <tr><td class="row-label">优美达益生菌</td><td>19.5%（全店托管）</td><td>—</td><td>全店托管效果好（ROI=1.817，计价率1.132），建议继续扩大占比；排查非智投广告低效原因</td><td><span class="badge-orange">🟡 中</span></td></tr>
+    </tbody>
+  </table>
+  <div class="insight-box">关于其他智投工具：华大营养目前仅应用了单链路智投（3002）和全店托管（3003），建议积极测试<strong>全域通（4002）</strong>工具，覆盖微信生态全渠道流量，有助于降低整体CPM，特别适合益生菌膳食直播间（当前视频号CPM高达413.5元）。</div>
+</div>
+
+<!-- 八、品类分析 -->
+<div class="card" id="module-8">
+  <h2>八、品类分析</h2>
+  <div class="insight-box">华大营养当期消耗分布在两大品类：<strong>益生菌类目</strong>（日耗19.57万/日，占比53.4%）和<strong>GABA/氨基丁酸类目</strong>（日耗14.02万/日，占比38.3%）。环比期间几乎全部消耗集中在益生菌类目（99.9%），当期GABA类目消耗大幅增长，说明618大促期间华大营养在GABA/氨基丁酸品类上有显著扩量。</div>
+  <div id="chart-category" class="echart-container" style="height:300px"></div>
+  <table class="blue-table">
+    <thead><tr><th>品类</th><th>当期日均消耗（万）</th><th>当期占比</th><th>环比日均消耗（万）</th><th>环比占比</th><th>消耗变化</th><th>当期ROI</th><th>CTR%</th><th>CVR%</th><th>CPM（元）</th><th>客单价（元）</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">益生菌</td><td>19.57</td><td>53.4%</td><td>27.49</td><td>99.9%</td><td class="cell-down">-28.8%</td><td>1.729</td><td>1.537%</td><td>3.041%</td><td>211.04</td><td>854</td></tr>
+      <tr><td class="row-label">GABA/氨基丁酸</td><td>14.02</td><td>38.3%</td><td>0.02</td><td>0.1%</td><td class="cell-up">新增</td><td class="cell-up">1.848</td><td>1.443%</td><td>1.891%</td><td class="cell-up">131.47</td><td>760</td></tr>
+      <tr><td class="row-label">其他（小店/多品类）</td><td>3.03</td><td>8.3%</td><td>—</td><td>—</td><td>—</td><td>1.736</td><td>1.321%</td><td>2.867%</td><td>241.72</td><td>972</td></tr>
+    </tbody>
+  </table>
+  <div class="section-note">📌 GABA/氨基丁酸类目对应华大营养益生菌官方店（益畅益生菌等产品），益生菌类目对应华大营养益生菌膳食（镜脂轻益生菌等产品）。</div>
+</div>
+
+<!-- 九、整体竞品对标分析 -->
+<div class="card" id="module-9">
+  <h2>九、整体竞品对标分析（竞品A）</h2>
+  <div class="section-note">口径说明：竞品A（益生菌赛道同类竞品）数据均以范围值呈现，不披露精确数值。</div>
+  <div class="insight-box">
+    <strong>四大核心结论：</strong><br>
+    ① <strong>消耗规模相当</strong>：华大营养益生菌官方店（14.55万/日）与竞品A营养膳食直播间（15~17万区间）规模相当，益生菌膳食（10.15万/日）高于竞品A官方食品直播间（5~6万区间）。<br>
+    ② <strong>效率差距主要来自CVR</strong>：竞品A ROI约1.9~2.0区间，与华大营养差距约0.1~0.2，核心原因是竞品A表达商品消耗占比高（约75%），链路更短，CVR更高。<br>
+    ③ <strong>智投渗透率差距显著</strong>：竞品A官方食品直播间智投渗透率（50~60%）远高于华大营养益生菌膳食（3.4%），是最大的结构性差距。<br>
+    ④ <strong>基建规模华大营养领先</strong>：华大营养整体广告数791条是竞品A（150~200条区间）的4~5倍，TID数5,798个是竞品A（700~800个区间）的7~8倍。
+  </div>
+  <div class="section-title">肠道益生菌对标组</div>
+  <div class="section-note">对标关系：竞品A营养膳食直播间 VS 竞品A活力直播间 VS 华大营养益生菌官方店</div>
+  <table class="blue-table">
+    <thead><tr><th>指标</th><th>华大营养益生菌官方店</th><th>竞品A营养膳食直播间</th><th>竞品A活力直播间</th><th>对标结论</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">日均消耗（万）</td><td><strong>14.55</strong></td><td>15~17万区间</td><td>3~4万区间</td><td>≈ 华大营养规模与竞品A营养膳食相当</td></tr>
+      <tr><td class="row-label">ROI</td><td>1.843</td><td>1.9~2.1区间</td><td>1.9~2.1区间</td><td class="cell-warn">⬇️ 华大营养ROI略低</td></tr>
+      <tr><td class="row-label">CTR（%）</td><td class="cell-warn">1.454%</td><td>2.5~2.7%区间</td><td>2.5~2.6%区间</td><td class="cell-down">⬇️ CTR落后竞品约+70%</td></tr>
+      <tr><td class="row-label">CVR（%）</td><td class="cell-warn">1.948%</td><td>5~6%区间</td><td>7~9%区间</td><td class="cell-down">⬇️ CVR落后竞品2~4倍</td></tr>
+      <tr><td class="row-label">CPM（元）</td><td class="cell-up">133.2</td><td>180~190区间</td><td>90~100区间</td><td class="cell-up">✅ 华大营养CPM更低</td></tr>
+      <tr><td class="row-label">计价率</td><td class="cell-warn">1.391</td><td>1.1~1.2区间</td><td>1.2~1.3区间</td><td class="cell-warn">⚠️ 华大营养计价率明显偏高</td></tr>
+      <tr><td class="row-label">广告数</td><td class="cell-warn">17条</td><td>40~50条区间</td><td>45~55条区间</td><td class="cell-down">⬇️ 广告数落后竞品2~3倍</td></tr>
+      <tr><td class="row-label">智投渗透率</td><td>29.4%</td><td>30~35%区间</td><td>3~5%区间</td><td>≈ 与竞品A营养膳食相当</td></tr>
+    </tbody>
+  </table>
+  <div class="section-title">体重管理对标组</div>
+  <div class="section-note">对标关系：竞品A官方食品直播间 VS 竞品A膳食官方直播间 VS 华大营养益生菌膳食</div>
+  <table class="blue-table">
+    <thead><tr><th>指标</th><th>华大营养益生菌膳食</th><th>竞品A官方食品直播间</th><th>竞品A膳食官方直播间</th><th>对标结论</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">日均消耗（万）</td><td class="cell-up"><strong>10.15</strong></td><td>5~6万区间</td><td>1~2万区间</td><td class="cell-up">✅ 华大营养消耗规模领先</td></tr>
+      <tr><td class="row-label">ROI</td><td>1.810</td><td>1.9~2.0区间</td><td>1.5~1.7区间</td><td>⬇️ 低于竞品A官方食品；高于竞品A膳食官方</td></tr>
+      <tr><td class="row-label">CVR（%）</td><td class="cell-up">3.967%</td><td>2.5~2.7%区间</td><td>1.4~1.6%区间</td><td class="cell-up">✅ CVR领先竞品A两个直播间</td></tr>
+      <tr><td class="row-label">CPM（元）</td><td class="cell-down">344.4</td><td>185~195区间</td><td>160~170区间</td><td class="cell-warn">⚠️ 华大营养CPM高出竞品约1.8~2倍</td></tr>
+      <tr><td class="row-label">客单价（元）</td><td class="cell-up">1,124</td><td>700~800区间</td><td>600~700区间</td><td class="cell-up">✅ 华大营养客单价领先</td></tr>
+      <tr><td class="row-label">智投渗透率</td><td class="cell-warn">3.4%</td><td>50~60%区间</td><td>45~55%区间</td><td class="cell-down">⬇️ 智投渗透率严重落后竞品（差距约50pct）</td></tr>
+    </tbody>
+  </table>
+  <div class="section-title">基建维度综合对比</div>
+  <table class="blue-table">
+    <thead><tr><th>指标</th><th>华大营养整体</th><th>竞品A整体</th><th>差距</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">整体广告数（30天去重）</td><td class="cell-up"><strong>791条</strong></td><td>150~200条区间</td><td class="cell-up">✅ 华大营养广告数是竞品A的4~5倍</td></tr>
+      <tr><td class="row-label">整体TID数（30天去重）</td><td class="cell-up"><strong>5,798个</strong></td><td>700~800个区间</td><td class="cell-up">✅ 华大营养TID数是竞品A的7~8倍</td></tr>
+      <tr><td class="row-label">有消耗账户数</td><td class="cell-up"><strong>53个</strong></td><td>10~15个区间</td><td class="cell-up">✅ 华大营养账户数是竞品A的3~5倍</td></tr>
+      <tr><td class="row-label">整体智投渗透率</td><td class="cell-warn">17.7%</td><td>30~40%区间</td><td class="cell-warn">⬇️ 华大营养智投渗透率落后约15~20pct</td></tr>
+      <tr><td class="row-label">整体ROI</td><td>1.828</td><td>1.9~2.0区间</td><td>≈ 两者ROI基本持平</td></tr>
+      <tr><td class="row-label">整体计价率</td><td class="cell-warn">1.317</td><td>1.1~1.3区间</td><td class="cell-warn">⚠️ 华大营养计价率偏高</td></tr>
+    </tbody>
+  </table>
+  <div class="insight-box">华大营养在广告数、TID数、账户数等基建规模上均大幅领先竞品A，但智投渗透率落后，导致计价率偏高。<strong>基建规模不是瓶颈，智投工具的深度应用是当前最关键的提升方向。</strong></div>
+</div>
+
+<!-- 行动建议 -->
+<div class="card" id="module-actions">
+  <h2>💡 优先级行动建议</h2>
+  <div class="section-title" style="color:#d63031">🔴 立即执行</div>
+  <table class="blue-table">
+    <thead><tr><th>优先级</th><th>方向</th><th>具体行动</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge-red">🔴 立即</span></td><td class="row-label">扩大广告基建规模</td><td>当前30天去重广告数仅791个，日均广告数约15个，低于赛道头部客户约4~6倍。以现有高效广告为模板系统性复制扩量，目标将广告数提升至3,000条以上；重点方向：益生菌官方店（ROI 1.847，是最优质的扩量阵地）。</td></tr>
+      <tr><td><span class="badge-red">🔴 立即</span></td><td class="row-label">提升CTR，启动素材丰富度专项</td><td>整体CTR 1.48%，低于行业基准约30~40%。立即启动视频号版位素材丰富度专项：目标益生菌官方店日均TID数从97个提升至200个+，益生菌膳食从145个提升至250个+；多样化素材风格，优化前3秒钩子；目标CTR提升至1.6%+。</td></tr>
+      <tr><td><span class="badge-red">🔴 立即</span></td><td class="row-label">镜脂膳食直播间持续跟踪</td><td>镜脂封号事件后，膳食直播间计价率1.276偏高，CPM高达344元。持续排查镜脂商品链路状态，关注计价率是否有超成本风险，必要时主动调整出价策略。</td></tr>
+    </tbody>
+  </table>
+  <div class="section-title" style="color:#e67e22">🟡 本周内</div>
+  <table class="blue-table">
+    <thead><tr><th>优先级</th><th>方向</th><th>具体行动</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge-orange">🟡 本周</span></td><td class="row-label">扩大表达商品投放规模</td><td>当前表达商品占比9.6%，而竞品A高达约75%，这是CVR差距的根本原因。本周内扩大表达商品广告的搭建和测试，优先在益生菌官方店扩大表达商品投放，目标将表达商品消耗占比提升至20%+，长期目标30%+。</td></tr>
+      <tr><td><span class="badge-orange">🟡 本周</span></td><td class="row-label">提升智投渗透率</td><td>当前智投渗透率17.8%，低于竞品A约17pct。在益生菌官方店大幅扩充单链路智投广告数和创意数，目标智投渗透率提升至30%+；同时积极扩大全店托管规模（当期ROI 1.737，效率改善显著）。</td></tr>
+      <tr><td><span class="badge-orange">🟡 本周</span></td><td class="row-label">益生菌官方店扩量攻坚</td><td>益生菌官方店ROI=1.847，是全矩阵消耗最大的直播间，也是最优质的扩量阵地。本周内重点扩充该直播间的广告数和创意数，同时拓展非视频号版位（公众号/朋友圈）的消耗占比，目标日耗提升至20万+/日。</td></tr>
+    </tbody>
+  </table>
+  <div class="section-title" style="color:#27ae60">🟢 持续观察</div>
+  <table class="blue-table">
+    <thead><tr><th>优先级</th><th>方向</th><th>具体行动</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge-green">🟢 持续</span></td><td class="row-label">C类补贴券策略延续性</td><td>618期间C类深度绑定（97.4%）效果良好，Q3如有类似活动应优先跟进；关注B类满减券的适用场景（618期间B类ROI 2.631，高于C类1.844），可在非大促期间作为补充工具。</td></tr>
+      <tr><td><span class="badge-green">🟢 持续</span></td><td class="row-label">618后消耗恢复跟踪</td><td>618后华大营养日耗回落至30~70万/日，需持续观察是否能恢复至40万+/日的新平台期；同时关注视频号版位竞争格局的变化。</td></tr>
+      <tr><td><span class="badge-green">🟢 持续</span></td><td class="row-label">腾飞政策延续性</td><td>Q3是否有新一轮腾飞策略，需持续关注策略ID变化，及时调整账户配置；腾飞扶持结束会造成账户竞争力系统性回落，影响量级可达当期消耗的10%~20%，需提前预判。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="footer">报告生成时间：2026年6月29日 | 数据口径：竞价，直播+小店链路，2026/5/27-6/25（近30天）/ 2026/4/27-5/26（环比）/ 2026/5/15-6/25（618全程）<br>竞品数据：竞品A（益生菌赛道同类竞品），仅用于对标分析，竞品精确数值不对外披露</div>
+</div></div>
+<script src="https://unpkg.com/echarts@5.4.3/dist/echarts.min.js"></script>
+<script>
+// 侧边栏高亮
+const sections = document.querySelectorAll('.card');
+const navLinks = document.querySelectorAll('.sidebar nav a');
+function updateNav(){
+  let cur='';
+  sections.forEach(s=>{
+    if(window.scrollY>=s.offsetTop-60) cur=s.id;
+  });
+  navLinks.forEach(a=>{
+    a.classList.toggle('active', a.getAttribute('href')==='#'+cur);
+  });
+}
+window.addEventListener('scroll',updateNav);
+updateNav();
+
+// Tab切换
+function showBidTab(id){
+  var fullId='bid-'+id;
+  ['bid-gfzs','bid-sc','bid-gfc','bid-ymd'].forEach(t=>{
+    document.getElementById(t).style.display=t===fullId?'block':'none';
+  });
+  document.querySelectorAll('#bid-tabs .tab-btn').forEach((b,i)=>{
+    b.classList.toggle('active',['bid-gfzs','bid-sc','bid-gfc','bid-ymd'][i]===fullId);
+  });
+}
+function showVpTab(id){
+  ['vp-gfzs','vp-sc','vp-gfc','vp-ymd'].forEach(t=>{
+    document.getElementById(t).style.display=t===id?'block':'none';
+  });
+  document.querySelectorAll('#module-6 .tab-btn').forEach((b,i)=>{
+    b.classList.toggle('active',['vp-gfzs','vp-sc','vp-gfc','vp-ymd'][i]===id);
+  });
+}
+
+// 图表1：核心指标对比（环比）
+(function(){
+  var c=echarts.init(document.getElementById('chart-overview'));
+  c.setOption({
+    title:{text:'核心指标环比变化',left:'center',textStyle:{fontSize:14}},
+    tooltip:{trigger:'axis'},
+    legend:{bottom:0,data:['当期','环比']},
+    xAxis:{type:'category',data:['日均消耗(万)','ROI','CTR(%)','CVR(%)','CPM(元)','计价率']},
+    yAxis:{type:'value'},
+    series:[
+      {name:'当期',type:'bar',data:[36.63,1.828,1.477,2.466,172.81,1.072],
+       itemStyle:{color:'#5482F0'},label:{show:true,position:'top',fontSize:11}},
+      {name:'环比',type:'bar',data:[27.51,1.779,1.353,2.251,141.90,1.101],
+       itemStyle:{color:'#95A5A6'},label:{show:true,position:'top',fontSize:11}}
+    ]
+  });
+})();
+
+// 图表2：618节奏系数
+(function(){
+  var c=echarts.init(document.getElementById('chart-618rhythm'));
+  var stages=['P1 520冲刺','P2 618蓄水','P3 开门红','P4 场景期','P5 高潮爆发','P6 返场','P7 尾声'];
+  var client=[0.992,0.775,0.690,0.931,1.343,1.490,1.057];
+  var market=[0.970,0.851,0.810,0.951,1.236,1.404,1.005];
+  c.setOption({
+    title:{text:'618各阶段节奏系数（客户 vs 大盘）',left:'center',textStyle:{fontSize:14}},
+    tooltip:{trigger:'axis',formatter:function(p){
+      return p[0].name+'<br>'+p.map(s=>s.seriesName+': '+s.value+'x').join('<br>');
+    }},
+    legend:{bottom:0,data:['华大营养','大盘基线']},
+    xAxis:{type:'category',data:stages,axisLabel:{rotate:15}},
+    yAxis:{type:'value',min:0.5,max:1.7,name:'节奏系数'},
+    series:[
+      {name:'华大营养',type:'bar',data:client,
+       itemStyle:{color:function(p){return p.value>=1?'#5482F0':'#95A5A6'}},
+       label:{show:true,position:'top',fontSize:11,formatter:'{c}x'}},
+      {name:'大盘基线',type:'line',data:market,
+       lineStyle:{color:'#E6A23C',width:2},
+       itemStyle:{color:'#E6A23C'},
+       symbol:'circle',symbolSize:6,
+       label:{show:true,position:'top',fontSize:10,color:'#E6A23C',formatter:'{c}x'}}
+    ],
+    markLine:{data:[{yAxis:1,name:'均值线',lineStyle:{color:'#ddd',type:'dashed'}}]}
+  });
+})();
+
+// 图表3：日耗趋势
+(function(){
+  var c=echarts.init(document.getElementById('chart-daily'));
+  var dates=['5/27','5/28','5/29','5/30','5/31','6/1','6/2','6/3','6/4','6/5','6/6','6/7','6/8','6/9','6/10','6/11','6/12','6/13','6/14','6/15','6/16','6/17','6/18','6/19','6/20','6/21','6/22','6/23','6/24','6/25'];
+  var cost=[31.24,20.36,21.78,24.84,24.01,24.13,23.82,21.39,26.86,27.43,36.76,41.00,32.15,36.17,37.84,39.03,38.93,33.15,45.09,37.12,39.43,42.53,86.91,66.37,52.79,38.55,42.53,38.47,35.35,32.84];
+  var roi=[1.573,1.711,1.568,1.877,1.790,1.660,1.609,1.727,1.774,1.637,1.695,1.606,2.365,1.673,1.715,1.561,1.761,1.799,1.727,1.790,1.854,1.941,1.946,1.767,1.895,1.779,1.720,1.763,1.798,1.723];
+  c.setOption({
+    title:{text:'近30天日耗趋势（万元）',left:'center',textStyle:{fontSize:14}},
+    tooltip:{trigger:'axis',axisPointer:{type:'cross'}},
+    legend:{bottom:0,data:['日均消耗（万）','ROI']},
+    xAxis:{type:'category',data:dates,axisLabel:{rotate:45,fontSize:10}},
+    yAxis:[
+      {type:'value',name:'消耗（万）',min:0,max:100},
+      {type:'value',name:'ROI',min:1.4,max:2.5,splitLine:{show:false}}
+    ],
+    series:[
+      {name:'日均消耗（万）',type:'bar',data:cost,
+       itemStyle:{color:function(p){
+         if(p.dataIndex===22) return '#d63031';
+         if(p.value>=40) return '#5482F0';
+         return '#a8c4f8';
+       }},
+       markLine:{data:[{type:'average',name:'均值',lineStyle:{color:'#5482F0',type:'dashed'}}]}},
+      {name:'ROI',type:'line',yAxisIndex:1,data:roi,
+       lineStyle:{color:'#67C23A',width:2},
+       itemStyle:{color:'#67C23A'},symbol:'circle',symbolSize:4}
+    ]
+  });
+})();
+
+// 图表4：出价模式占比
+(function(){
+  var c=echarts.init(document.getElementById('chart-bidmode'));
+  c.setOption({
+    title:{text:'出价模式消耗占比',left:'center',textStyle:{fontSize:14}},
+    tooltip:{trigger:'item',formatter:'{b}: {c}万/日 ({d}%)'},
+    legend:{bottom:0},
+    series:[{
+      type:'pie',radius:['40%','70%'],
+      data:[
+        {value:24.45,name:'ROI广告（66.7%）',itemStyle:{color:'#5482F0'}},
+        {value:12.09,name:'CPA广告（33.0%）',itemStyle:{color:'#67C23A'}},
+        {value:0.09,name:'其他（0.3%）',itemStyle:{color:'#95A5A6'}}
+      ],
+      label:{formatter:'{b}\n{c}万/日'},
+      emphasis:{itemStyle:{shadowBlur:10,shadowOffsetX:0,shadowColor:'rgba(0,0,0,0.5)'}}
+    }]
+  });
+})();
+
+// 图表5：链路类型占比
+(function(){
+  var c=echarts.init(document.getElementById('chart-linktype'));
+  c.setOption({
+    title:{text:'直播链路能力类型消耗占比 vs 竞品A',left:'center',textStyle:{fontSize:14}},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+    legend:{bottom:0,data:['华大营养','竞品A（参考）']},
+    xAxis:{type:'category',data:['普通直播间','表达商品（直播4+M）','小店商品聚合页']},
+    yAxis:{type:'value',name:'消耗占比(%)',max:100},
+    series:[
+      {name:'华大营养',type:'bar',data:[81.1,8.6,10.2],
+       itemStyle:{color:function(p){return p.dataIndex===1?'#E6A23C':'#5482F0'}},
+       label:{show:true,position:'top',formatter:'{c}%'}},
+      {name:'竞品A（参考）',type:'bar',data:[18,75,5],
+       itemStyle:{color:'#95A5A6'},
+       label:{show:true,position:'top',formatter:'{c}%'}}
+    ]
+  });
+})();
+
+// 图表6：直播间消耗对比
+(function(){
+  var c=echarts.init(document.getElementById('chart-livestream'));
+  c.setOption({
+    title:{text:'各直播间日均消耗 & ROI对比',left:'center',textStyle:{fontSize:14}},
+    tooltip:{trigger:'axis',axisPointer:{type:'cross'}},
+    legend:{bottom:0,data:['日均消耗（万）','ROI']},
+    xAxis:{type:'category',data:['益生菌官方店','益生菌膳食','官方店','表达商品']},
+    yAxis:[
+      {type:'value',name:'消耗（万）',min:0,max:20},
+      {type:'value',name:'ROI',min:1.5,max:2.0,splitLine:{show:false}}
+    ],
+    series:[
+      {name:'日均消耗（万）',type:'bar',data:[14.03,10.15,4.42,3.03],
+       itemStyle:{color:'#5482F0'},
+       label:{show:true,position:'top',formatter:'{c}万'}},
+      {name:'ROI',type:'line',yAxisIndex:1,data:[1.847,1.810,1.801,1.736],
+       lineStyle:{color:'#67C23A',width:2},
+       itemStyle:{color:'#67C23A'},symbol:'circle',symbolSize:8,
+       label:{show:true,position:'top',fontSize:11,color:'#27ae60',formatter:'{c}'}}
+    ]
+  });
+})();
+
+// 图表7：版位消耗结构
+(function(){
+  var c=echarts.init(document.getElementById('chart-position'));
+  c.setOption({
+    title:{text:'整体版位消耗结构',left:'center',textStyle:{fontSize:14}},
+    tooltip:{trigger:'item',formatter:'{b}: {c}万/日 ({d}%)'},
+    legend:{right:0,orient:'vertical',top:'middle'},
+    series:[{
+      type:'pie',radius:['35%','65%'],center:['40%','50%'],
+      data:[
+        {value:24.15,name:'微信视频号 65.9%',itemStyle:{color:'#5482F0'}},
+        {value:4.16,name:'微信公众号 11.4%',itemStyle:{color:'#67C23A'}},
+        {value:3.87,name:'微信朋友圈 10.6%',itemStyle:{color:'#E6A23C'}},
+        {value:2.40,name:'微信小程序 6.5%',itemStyle:{color:'#9B59B6'}},
+        {value:1.69,name:'平台与内容广告 4.6%',itemStyle:{color:'#1ABC9C'}},
+        {value:0.35,name:'其他 1.0%',itemStyle:{color:'#95A5A6'}}
+      ],
+      label:{formatter:'{b}\n{c}万/日'},
+      emphasis:{itemStyle:{shadowBlur:10}}
+    }]
+  });
+})();
+
+// 图表8：品类消耗
+(function(){
+  var c=echarts.init(document.getElementById('chart-category'));
+  c.setOption({
+    title:{text:'品类消耗结构（当期 vs 环比）',left:'center',textStyle:{fontSize:14}},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+    legend:{bottom:0,data:['当期','环比']},
+    xAxis:{type:'category',data:['益生菌','GABA/氨基丁酸','其他（小店/多品类）']},
+    yAxis:{type:'value',name:'日均消耗（万）'},
+    series:[
+      {name:'当期',type:'bar',data:[19.57,14.02,3.03],
+       itemStyle:{color:'#5482F0'},
+       label:{show:true,position:'top',formatter:'{c}万'}},
+      {name:'环比',type:'bar',data:[27.49,0.02,0],
+       itemStyle:{color:'#95A5A6'},
+       label:{show:true,position:'top',formatter:function(p){return p.value>0?p.value+'万':'—'}}}
+    ]
+  });
+})();
+
+window.addEventListener('resize',function(){
+  ['chart-overview','chart-618rhythm','chart-daily','chart-bidmode','chart-linktype','chart-livestream','chart-position','chart-category'].forEach(id=>{
+    var el=document.getElementById(id);
+    if(el) echarts.getInstanceByDom(el)&&echarts.getInstanceByDom(el).resize();
+  });
+});
+</script>
+<script>(function(){var _h=0,_t;function m(){var b=document.body;if(!b)return 0;return Math.max(b.scrollHeight,b.offsetHeight,Math.ceil(b.getBoundingClientRect().height))}function s(){var h=m();if(h>0&&h!==_h){_h=h;window.parent.postMessage({type:"iframe-resize",height:h},"*")}}function d(){clearTimeout(_t);_t=setTimeout(s,150)}if(document.readyState==="complete")s();else window.addEventListener("load",s);window.addEventListener("resize",d);if(typeof ResizeObserver!=="undefined"){var ro=new ResizeObserver(d);ro.observe(document.documentElement);if(document.body)ro.observe(document.body)}})();</script><style id="__adata_wm_style__">.__adata_wm__{position:fixed;inset:0;pointer-events:none;z-index:2147483647;background-repeat:repeat;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='160'><text x='50%' y='50%' fill='rgba(0,0,0,0.08)' font-size='14' font-family='-apple-system,Segoe UI,sans-serif' text-anchor='middle' transform='rotate(-25 120 80)'>goinglin</text></svg>")}</style><div class="__adata_wm__" aria-hidden="true"></div></body>
+</html>
