@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>保元德 · 近30天竞价广告复盘报告</title>
+<script src="https://unpkg.com/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+:root{--blue:#2563EB;--blue-light:#EFF6FF;--blue-mid:#BFDBFE;--green:#16A34A;--green-light:#F0FDF4;--orange:#D97706;--orange-light:#FFFBEB;--red:#DC2626;--red-light:#FEF2F2;--gray:#6B7280;--gray-light:#F9FAFB;--border:#E5E7EB;--text:#111827;--text-sub:#6B7280;--navy:#1E3A5F;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#F3F4F6;color:var(--text);font-size:14px;}
+.page{max-width:1100px;margin:0 auto;padding:24px 16px;}
+.cover{background:linear-gradient(135deg,#1E3A5F 0%,#2563EB 60%,#3B82F6 100%);border-radius:16px;padding:48px 40px;color:#fff;margin-bottom:28px;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;right:-60px;top:-60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.06);}
+.cover-badge{display:inline-block;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:4px 14px;font-size:12px;margin-bottom:16px;}
+.cover-title{font-size:32px;font-weight:800;margin-bottom:8px;letter-spacing:-0.5px;}
+.cover-sub{font-size:15px;opacity:0.85;margin-bottom:24px;}
+.cover-meta{display:flex;gap:32px;flex-wrap:wrap;}
+.cover-meta-item{font-size:12px;opacity:0.75;}
+.cover-meta-item strong{display:block;font-size:15px;opacity:1;font-weight:700;margin-top:2px;}
+.section{background:#fff;border-radius:12px;padding:24px 28px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #F3F4F6;}
+.section-title{font-size:17px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;}
+.section-title::before{content:'';display:inline-block;width:4px;height:18px;background:var(--blue);border-radius:2px;}
+.section-sub{font-size:12px;color:var(--gray);}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
+.kpi-card{background:var(--gray-light);border-radius:10px;padding:16px;border:1px solid var(--border);}
+.kpi-label{font-size:11px;color:var(--gray);margin-bottom:6px;}
+.kpi-value{font-size:22px;font-weight:800;color:var(--text);line-height:1.2;}
+.kpi-compare{font-size:11px;margin-top:4px;}
+.kpi-card.highlight{background:var(--blue-light);border-color:var(--blue-mid);}
+.kpi-card.highlight .kpi-value{color:var(--blue);}
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead tr{background:var(--navy);color:#fff;}
+thead th{padding:10px 12px;text-align:left;font-weight:600;font-size:12px;}
+tbody tr:nth-child(even){background:#FAFAFA;}
+.chart-box{height:280px;}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.chart-half{height:240px;}
+.chart-title{font-size:13px;font-weight:600;color:#374151;margin-bottom:8px;}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;}
+.tag-green{background:#DCFCE7;color:#166534;}
+.tag-orange{background:#FEF3C7;color:#92400E;}
+.tag-red{background:#FEE2E2;color:#991B1B;}
+.tag-blue{background:#DBEAFE;color:#1E40AF;}
+.comp-table{width:100%;border-collapse:collapse;font-size:13px;}
+.comp-table th{background:var(--navy);color:#fff;padding:10px 14px;text-align:center;font-size:12px;}
+.comp-table td{padding:10px 14px;border-bottom:1px solid var(--border);text-align:center;}
+.comp-table .self{background:#EFF6FF;font-weight:700;}
+.comp-table .comp-a{background:#F0FDF4;}
+.comp-table .comp-b{background:#FFFBEB;}
+.comp-table .row-label{text-align:left;font-weight:600;color:var(--navy);}
+.action-list{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.action-item{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-radius:10px;background:var(--gray-light);border:1px solid var(--border);}
+.action-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.action-title{font-weight:700;font-size:14px;margin-bottom:4px;color:var(--text);}
+.action-desc{font-size:13px;color:var(--gray);line-height:1.7;}
+.bal-ok{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:16px 20px;}
+.insight-box{background:linear-gradient(135deg,#EFF6FF,#fff);border:1px solid #BFDBFE;border-radius:10px;padding:16px 20px;margin-bottom:16px;}
+.insight-box p{font-size:13px;color:#374151;line-height:1.8;}
+.sub-section{background:#F8FAFC;border-radius:8px;padding:16px 20px;margin-bottom:14px;border:1px solid #E2E8F0;}
+.sub-section-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #E2E8F0;}
+.footer{text-align:center;color:var(--gray);font-size:11px;padding:20px 0 8px;line-height:1.8;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="cover">
+  <div class="cover-badge">腾讯广告 · 竞价广告综合复盘报告</div>
+  <div class="cover-title">保元德 竞价广告复盘</div>
+  <div class="cover-sub">618大促复盘 · 近30天消耗增长归因 · 效率诊断 · 竞品对标 · 优化建议</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">618大促周期<strong>2026.5.15–6.25</strong></div>
+    <div class="cover-meta-item">近30天周期<strong>2026-05-25 ~ 2026-06-23</strong></div>
+    <div class="cover-meta-item">618日均消耗<strong>4.32 万/日</strong></div>
+    <div class="cover-meta-item">近30天日均<strong>5.11 万/日</strong></div>
+    <div class="cover-meta-item">竞品对标<strong>竞品A · 竞品B</strong></div>
+    <div class="cover-meta-item">报告日期<strong>2026年6月29日</strong></div>
+  </div>
+</div>
+
+<div class="section" id="sec-618" style="margin-bottom:24px;">
+  <div class="section-header">
+    <div class="section-title">🎯 618大促复盘（2026.5.15–6.25）</div>
+  </div>
+
+  <!-- 核心结论 -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;">
+    <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:12px;font-weight:700;color:#1D4ED8;margin-bottom:6px;">📈 消耗稳健增长 · ROI超越大盘</div>
+      <div style="font-size:12px;color:#374151;line-height:1.7;">618日均 <strong>4.32万/日</strong>（环比+6.6%），ROI <strong>1.867</strong>（大盘1.826），CVR <strong>6.52%</strong>（大盘3.38%），效率指标全面优于大盘。</div>
+    </div>
+    <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:12px;font-weight:700;color:#15803D;margin-bottom:6px;">🚀 腾飞扶持突出 · 赛道第6</div>
+      <div style="font-size:12px;color:#374151;line-height:1.7;">腾飞带来消耗 <strong>17.2万</strong>，腾飞占比 <strong>58.8%</strong>（大盘54.1%），撬动比 <strong>15.6x</strong>（大盘15.3x），赛道排名<strong>第6位</strong>。</div>
+    </div>
+    <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:12px;font-weight:700;color:#92400E;margin-bottom:6px;">⚠️ 未参与补贴券 · 节奏后置</div>
+      <div style="font-size:12px;color:#374151;line-height:1.7;">C类/B类消耗均为0（大盘C类占38.4%），错失精排扶持红利；双峰倍数 <strong>0.96x</strong>（大盘1.53x），P6/P7反超P5，呈后置型节奏。</div>
+    </div>
+  </div>
+
+  <!-- 一、周期节奏 -->
+  <div style="margin-bottom:18px;">
+    <div style="font-size:14px;font-weight:700;color:#1E3A5F;margin-bottom:10px;padding-left:8px;border-left:3px solid #2563EB;">一、618周期节奏 — 客户 vs 大盘</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px;">
+      <div style="background:#F8FAFF;border:1px solid #DBEAFE;border-radius:8px;padding:12px 14px;text-align:center;">
+        <div style="font-size:11px;color:#6B7280;margin-bottom:4px;">双峰倍数 P5/P3</div>
+        <div style="font-size:22px;font-weight:700;color:#DC2626;">0.96x</div>
+        <div style="font-size:11px;color:#9CA3AF;">大盘 1.53x</div>
+      </div>
+      <div style="background:#F8FAFF;border:1px solid #DBEAFE;border-radius:8px;padding:12px 14px;text-align:center;">
+        <div style="font-size:11px;color:#6B7280;margin-bottom:4px;">P6留存率</div>
+        <div style="font-size:22px;font-weight:700;color:#16A34A;">159%</div>
+        <div style="font-size:11px;color:#9CA3AF;">大盘 113.5%</div>
+      </div>
+      <div style="background:#F8FAFF;border:1px solid #DBEAFE;border-radius:8px;padding:12px 14px;text-align:center;">
+        <div style="font-size:11px;color:#6B7280;margin-bottom:4px;">P7尾声率</div>
+        <div style="font-size:22px;font-weight:700;color:#16A34A;">165%</div>
+        <div style="font-size:11px;color:#9CA3AF;">大盘 81.3%</div>
+      </div>
+      <div style="background:#F8FAFF;border:1px solid #DBEAFE;border-radius:8px;padding:12px 14px;text-align:center;">
+        <div style="font-size:11px;color:#6B7280;margin-bottom:4px;">618全程日均</div>
+        <div style="font-size:22px;font-weight:700;color:#1E3A5F;">4.32万</div>
+        <div style="font-size:11px;color:#9CA3AF;">大盘 211.4万/日</div>
+      </div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead>
+          <tr style="background:#1E3A5F;color:#fff;">
+            <th style="padding:8px 10px;text-align:left;font-weight:600;border-bottom:2px solid #E5E7EB;">阶段</th>
+            <th style="padding:8px 10px;text-align:right;font-weight:600;border-bottom:2px solid #E5E7EB;">节奏系数<br><span style="color:#9CA3AF;font-weight:400;">客户/大盘</span></th>
+            <th style="padding:8px 10px;text-align:right;font-weight:600;border-bottom:2px solid #E5E7EB;">ROI<br><span style="color:#9CA3AF;font-weight:400;">客户/大盘</span></th>
+            <th style="padding:8px 10px;text-align:right;font-weight:600;border-bottom:2px solid #E5E7EB;">CTR<br><span style="color:#9CA3AF;font-weight:400;">客户/大盘</span></th>
+            <th style="padding:8px 10px;text-align:right;font-weight:600;border-bottom:2px solid #E5E7EB;">CVR<br><span style="color:#9CA3AF;font-weight:400;">客户/大盘</span></th>
+            <th style="padding:8px 10px;text-align:right;font-weight:600;border-bottom:2px solid #E5E7EB;">CPM</th>
+            <th style="padding:8px 10px;text-align:left;font-weight:600;border-bottom:2px solid #E5E7EB;">节奏评价</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;">P1 520冲刺<br><span style="font-size:10px;color:#9CA3AF;font-weight:400;">5.15–5.20</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">0.51 / <span style="color:#9CA3AF;">0.97</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">1.964 / <span style="color:#9CA3AF;">1.985</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">4.15% / <span style="color:#9CA3AF;">2.95%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">3.59% / <span style="color:#9CA3AF;">3.36%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">64元</td><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;color:#D97706;">蓄水不足</td></tr>
+          <tr><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;">P2 618蓄水<br><span style="font-size:10px;color:#9CA3AF;font-weight:400;">5.21–5.29</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">0.64 / <span style="color:#9CA3AF;">0.85</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">1.850 / <span style="color:#9CA3AF;">1.864</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">3.01% / <span style="color:#9CA3AF;">3.08%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">5.73% / <span style="color:#9CA3AF;">3.14%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">65元</td><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;color:#D97706;">偏低</td></tr>
+          <tr><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;">P3 开门红<br><span style="font-size:10px;color:#9CA3AF;font-weight:400;">5.30–6.1</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">1.06 / <span style="color:#9CA3AF;">0.81</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">1.837 / <span style="color:#9CA3AF;">1.857</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">2.40% / <span style="color:#9CA3AF;">3.45%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">8.19% / <span style="color:#9CA3AF;">2.74%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">72元</td><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;color:#16A34A;">超越大盘</td></tr>
+          <tr><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;">P4 场景期<br><span style="font-size:10px;color:#9CA3AF;font-weight:400;">6.2–6.12</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">1.13 / <span style="color:#9CA3AF;">0.95</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">1.843 / <span style="color:#9CA3AF;">1.741</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">3.29% / <span style="color:#9CA3AF;">2.87%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">6.21% / <span style="color:#9CA3AF;">3.38%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">76元</td><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;color:#16A34A;">全面领先</td></tr>
+          <tr style="background:#FEF2F2;"><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;font-weight:700;">P5 高潮爆发 ⚠️<br><span style="font-size:10px;color:#9CA3AF;font-weight:400;">6.13–6.18</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#DC2626;font-weight:700;">1.01 / <span style="color:#9CA3AF;">1.24</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">1.967 / <span style="color:#9CA3AF;">1.826</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">3.49% / <span style="color:#9CA3AF;">2.62%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">4.67% / <span style="color:#9CA3AF;">4.12%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">60元</td><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;color:#DC2626;font-weight:700;">消耗未爆发</td></tr>
+          <tr style="background:#F0FDF4;"><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;font-weight:700;">P6 返场 ✅<br><span style="font-size:10px;color:#9CA3AF;font-weight:400;">6.19–6.21</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:700;">1.61 / <span style="color:#9CA3AF;">1.40</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">1.841 / <span style="color:#9CA3AF;">1.731</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">2.79% / <span style="color:#9CA3AF;">2.73%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">7.48% / <span style="color:#9CA3AF;">3.16%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">77元</td><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:700;">大幅超越</td></tr>
+          <tr style="background:#F0FDF4;"><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;font-weight:700;">P7 尾声 ✅<br><span style="font-size:10px;color:#9CA3AF;font-weight:400;">6.22–6.25</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:700;">1.67 / <span style="color:#9CA3AF;">1.01</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">1.821 / <span style="color:#9CA3AF;">1.739</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">2.94% / <span style="color:#9CA3AF;">2.86%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">8.06% / <span style="color:#9CA3AF;">2.75%</span></td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">86元</td><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:700;">持续走高</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#FEF3C7;border-left:4px solid #D97706;padding:10px 14px;border-radius:0 6px 6px 0;margin-top:10px;font-size:12px;line-height:1.7;">
+      <strong>⚠️ P5高潮期消耗增幅仅-4.4%（大盘+52.5%）</strong>，CVR大幅下滑-42.9%（大盘+50.4%），是全程最大异常点。P6/P7消耗反超P5，呈现罕见的"尾声强于高潮"形态，与大盘节奏明显背离。
+    </div>
+  </div>
+
+  <!-- 二、补贴券 -->
+  <div style="margin-bottom:18px;">
+    <div style="font-size:14px;font-weight:700;color:#1E3A5F;margin-bottom:10px;padding-left:8px;border-left:3px solid #2563EB;">二、补贴券效果 — 618全程未参与</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead>
+          <tr style="background:#1E3A5F;color:#fff;">
+            <th style="padding:8px 10px;text-align:left;border-bottom:2px solid #E5E7EB;">活动类型</th>
+            <th style="padding:8px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">客户占比</th>
+            <th style="padding:8px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">大盘整体占比</th>
+            <th style="padding:8px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">大盘精排后占比</th>
+            <th style="padding:8px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">客户ROI</th>
+            <th style="padding:8px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">客户CVR</th>
+            <th style="padding:8px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">客户计价率</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#FEE2E2;">
+            <td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;"><span style="background:#FEE2E2;color:#991B1B;padding:2px 7px;border-radius:10px;font-size:11px;font-weight:600;">C类满减券</span></td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#DC2626;font-weight:700;">0%</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">38.4%</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;font-weight:700;">52.2%</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">—</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">—</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">—</td>
+          </tr>
+          <tr style="background:#FEF3C7;">
+            <td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;"><span style="background:#FEF3C7;color:#92400E;padding:2px 7px;border-radius:10px;font-size:11px;font-weight:600;">B类满减券</span></td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#DC2626;font-weight:700;">0%</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">29.3%</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">22.3%</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">—</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">—</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">—</td>
+          </tr>
+          <tr style="background:#F0FDF4;">
+            <td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;"><span style="background:#DCFCE7;color:#15803D;padding:2px 7px;border-radius:10px;font-size:11px;font-weight:600;">无活动</span></td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;font-weight:700;">100%</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">32.3%</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">25.5%</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;font-weight:600;">1.887</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;font-weight:600;">6.61%</td>
+            <td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;font-weight:600;">1.021</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#EFF6FF;border-left:4px solid #2563EB;padding:10px 14px;border-radius:0 6px 6px 0;margin-top:10px;font-size:12px;line-height:1.7;">
+      <strong>💡 Q3机会</strong>：无活动ROI 1.887，效率本身健康。若Q3大促接入C类满减券，叠加精排扶持（大盘精排后C类占比52.2%），预计可带来显著的消耗规模提升，是下阶段最值得优先落地的补贴工具。
+    </div>
+  </div>
+
+  <!-- 三、腾飞 -->
+  <div style="margin-bottom:18px;">
+    <div style="font-size:14px;font-weight:700;color:#1E3A5F;margin-bottom:10px;padding-left:8px;border-left:3px solid #2563EB;">三、赛道腾飞 — 赛道第6，效果超越大盘</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px;">
+      <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:12px 14px;text-align:center;">
+        <div style="font-size:11px;color:#6B7280;margin-bottom:4px;">腾飞带来消耗</div>
+        <div style="font-size:20px;font-weight:700;color:#16A34A;">17.2万</div>
+        <div style="font-size:11px;color:#9CA3AF;">赛道第6位</div>
+      </div>
+      <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:12px 14px;text-align:center;">
+        <div style="font-size:11px;color:#6B7280;margin-bottom:4px;">腾飞消耗占比</div>
+        <div style="font-size:20px;font-weight:700;color:#16A34A;">58.8%</div>
+        <div style="font-size:11px;color:#9CA3AF;">大盘 54.1%</div>
+      </div>
+      <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:12px 14px;text-align:center;">
+        <div style="font-size:11px;color:#6B7280;margin-bottom:4px;">撬动比</div>
+        <div style="font-size:20px;font-weight:700;color:#16A34A;">15.6x</div>
+        <div style="font-size:11px;color:#9CA3AF;">大盘 15.3x</div>
+      </div>
+      <div style="background:#F8FAFF;border:1px solid #DBEAFE;border-radius:8px;padding:12px 14px;text-align:center;">
+        <div style="font-size:11px;color:#6B7280;margin-bottom:4px;">6.11精排后撬动比</div>
+        <div style="font-size:20px;font-weight:700;color:#2563EB;">16~17x</div>
+        <div style="font-size:11px;color:#9CA3AF;">初期 7~8x</div>
+      </div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead>
+          <tr style="background:#1E3A5F;color:#fff;">
+            <th style="padding:7px 10px;text-align:center;border-bottom:2px solid #E5E7EB;">排名</th>
+            <th style="padding:7px 10px;text-align:left;border-bottom:2px solid #E5E7EB;">客户梯队</th>
+            <th style="padding:7px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">腾飞带来消耗</th>
+            <th style="padding:7px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">腾飞占比</th>
+            <th style="padding:7px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">撬动比</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:6px 10px;text-align:center;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">1-3</td><td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">赛道头部（前3名）</td><td style="padding:6px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">130~204万</td><td style="padding:6px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">50~58%</td><td style="padding:6px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">15.1~15.4x</td></tr>
+          <tr><td style="padding:6px 10px;text-align:center;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">4-5</td><td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">赛道腰部（第4-5名）</td><td style="padding:6px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">23~122万</td><td style="padding:6px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">54~55%</td><td style="padding:6px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">15.1~15.3x</td></tr>
+          <tr style="background:#EFF6FF;font-weight:700;"><td style="padding:6px 10px;text-align:center;border-bottom:1px solid #F3F4F6;color:#2563EB;">⭐ 6</td><td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;color:#2563EB;">保元德</td><td style="padding:6px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#2563EB;">17.2万</td><td style="padding:6px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#2563EB;">58.8%</td><td style="padding:6px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#2563EB;">15.6x</td></tr>
+          <tr><td style="padding:6px 10px;text-align:center;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">7-10</td><td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">赛道尾部（第7-10名）</td><td style="padding:6px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">3~16万</td><td style="padding:6px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">45~58%</td><td style="padding:6px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">15.1~16.5x</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 四、整体概览 -->
+  <div style="margin-bottom:18px;">
+    <div style="font-size:14px;font-weight:700;color:#1E3A5F;margin-bottom:10px;padding-left:8px;border-left:3px solid #2563EB;">四、整体数据概览 — 效率指标全面优于大盘</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead>
+          <tr style="background:#1E3A5F;color:#fff;">
+            <th style="padding:8px 10px;text-align:left;border-bottom:2px solid #E5E7EB;">指标</th>
+            <th style="padding:8px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">客户618全程</th>
+            <th style="padding:8px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">环比基准(4.7-5.14)</th>
+            <th style="padding:8px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">变化</th>
+            <th style="padding:8px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">大盘618基线</th>
+            <th style="padding:8px 10px;text-align:right;border-bottom:2px solid #E5E7EB;">客户vs大盘</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;">日均消耗</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;font-weight:700;">4.32万/日</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">4.06万/日</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">+6.6%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">211.4万/日</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">占比≈2%</td></tr>
+          <tr><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;">下单ROI</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;font-weight:700;color:#16A34A;">1.867</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">1.871</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#DC2626;">-0.2%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">1.826</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">+0.041 ✅</td></tr>
+          <tr><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;">CPM</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;font-weight:700;color:#16A34A;">71.7元</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">78.8元</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;">-9.0%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">90.6元</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">-18.9元 ✅</td></tr>
+          <tr><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;">CTR</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;font-weight:700;color:#16A34A;">3.18%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">3.37%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#DC2626;">-5.6%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">2.90%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">+0.28pp ✅</td></tr>
+          <tr><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;">CVR</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;font-weight:700;color:#16A34A;">6.52%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">5.73%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;">+13.8%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">3.38%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">+3.13pp ✅</td></tr>
+          <tr><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;">计价率</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;font-weight:700;">1.030</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">0.993</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#DC2626;">+3.7%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">1.039</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#16A34A;font-weight:600;">-0.009 ✅</td></tr>
+          <tr><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;">客单价</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;font-weight:700;color:#DC2626;">70元</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">85元</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#DC2626;">-18.1%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">169元</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#DC2626;font-weight:600;">-99元 ⚠️</td></tr>
+          <tr><td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;">直播链路占比</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;font-weight:700;">92.0%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">—</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;">—</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#9CA3AF;">82.9%</td><td style="padding:7px 10px;text-align:right;border-bottom:1px solid #F3F4F6;color:#D97706;">小店偏低</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#EFF6FF;border-left:4px solid #2563EB;padding:10px 14px;border-radius:0 6px 6px 0;margin-top:10px;font-size:12px;line-height:1.7;">
+      <strong>💡 核心洞察</strong>：效率指标（ROI/CTR/CVR/CPM/计价率）全面优于大盘，说明投放质量健康；但<strong>单广告日均消耗793元（赛道最高），广告数仅545条</strong>，基建规模严重不足是制约消耗放量的核心瓶颈。客单价70元（大盘169元），提升客单价是改善ROI结构的关键方向。
+    </div>
+  </div>
+
+  <!-- 五、Q3行动清单 -->
+  <div>
+    <div style="font-size:14px;font-weight:700;color:#1E3A5F;margin-bottom:10px;padding-left:8px;border-left:3px solid #2563EB;">五、Q3优先行动清单</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;gap:12px;padding:12px 14px;border-radius:8px;border:1px solid #FECACA;background:#FEF2F2;">
+        <div style="font-size:18px;flex-shrink:0;">🔴</div>
+        <div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:4px;">【立即执行】接入C类满减券</div>
+          <div style="font-size:12px;color:#374151;line-height:1.6;">618全程未参与任何补贴券，是赛道内极少数完全缺席的客户。大盘精排后C类占比52.2%，Q3如有类似活动应优先接入，预计可带来显著的消耗规模提升。</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;padding:12px 14px;border-radius:8px;border:1px solid #FDE68A;background:#FFFBEB;">
+        <div style="font-size:18px;flex-shrink:0;">🟡</div>
+        <div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:4px;">【本月内】大幅扩充广告基建</div>
+          <div style="font-size:12px;color:#374151;line-height:1.6;">单广告日均消耗793元是赛道最高，每条广告效率极佳但数量严重不足（仅545条）。建议以现有高效广告为模板批量复制，目标广告数提升至2,000条以上。</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;padding:12px 14px;border-radius:8px;border:1px solid #BBF7D0;background:#F0FDF4;">
+        <div style="font-size:18px;flex-shrink:0;">🟢</div>
+        <div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:4px;">【持续跟踪】排查P5高潮期节奏异常根因 · 提升客单价</div>
+          <div style="font-size:12px;color:#374151;line-height:1.6;">P5消耗增幅-4.4%（大盘+52.5%），CVR下滑-42.9%，需排查P5期间出价/素材/商品问题，避免Q3大促重蹈覆辙。同时推广高客单价商品组合，目标客单价提升至100元以上。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- 近30天分析分隔 -->
+<div class="section" style="background:linear-gradient(135deg,#EFF6FF,#F8FAFF);border:1px solid #BFDBFE;padding:16px 28px;">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div style="width:4px;height:24px;background:var(--blue);border-radius:2px;flex-shrink:0;"></div>
+    <div>
+      <div style="font-size:16px;font-weight:700;color:var(--navy);">近30天投放分析（2026-05-25 ~ 2026-06-23）</div>
+      <div style="font-size:12px;color:var(--gray);margin-top:2px;">竞价口径 · 系统汇总行ROI · 含竞品对标</div>
+    </div>
+  </div>
+</div>
+
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">一、核心摘要</div>
+  </div>
+  <div class="insight-box">
+    <p>近30天保元德竞价广告总消耗 <strong>153.36万元</strong>，日均 <strong>5.11万/日</strong>，
+    较前30天（2.55万/日）大幅增长 <strong style="color:#16A34A;">+100.3%</strong>，消耗规模实现翻倍扩张。
+    整体ROI <strong>1.860</strong>，较前期（1.931）小幅回落 <strong style="color:#DC2626;">-3.7%</strong>，仍处于达标区间。
+    计价率 <strong style="color:#D97706;">1.033</strong>（正常），成本管控整体可控。</p>
+    <p style="margin-top:8px;">流量结构上，<strong>微信视频号占比69.1%</strong>，是核心投放阵地；
+    链路以<strong>直播链路为主（89.1%）</strong>，小店链路占比10.9%。
+    智投渗透率仅 <strong>1.5%</strong>，单链路智投ROI（2.395）显著高于非智投（1.853），提升空间明确。
+    与竞品相比，保元德日均消耗（5.11万/日）显著低于竞品A（53.9~63.3万/日），规模差距主要来自基建体量不足。</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">二、整体消耗概览</div>
+    <div class="section-sub">近30天 vs 前30天 · 竞价口径 · 系统汇总行ROI</div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card highlight">
+      <div class="kpi-label">日均消耗</div>
+      <div class="kpi-value">5.11<span style="font-size:14px;font-weight:400;">万/日</span></div>
+      <div class="kpi-compare">前期 2.55万/日 &nbsp;<span style="color:#16A34A;font-weight:600;">+100.3%</span></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">下单ROI（汇总行）</div>
+      <div class="kpi-value">1.860</div>
+      <div class="kpi-compare">前期 1.931 &nbsp;<span style="color:#DC2626;font-weight:600;">-3.7%</span></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CTR 点击率</div>
+      <div class="kpi-value">3.09<span style="font-size:14px;font-weight:400;">%</span></div>
+      <div class="kpi-compare">前期 3.60% &nbsp;<span style="color:#DC2626;font-weight:600;">-14.2%</span></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CVR 转化率</div>
+      <div class="kpi-value">7.03<span style="font-size:14px;font-weight:400;">%</span></div>
+      <div class="kpi-compare">前期 4.64% &nbsp;<span style="color:#16A34A;font-weight:600;">+51.6%</span></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CPM 千次曝光成本</div>
+      <div class="kpi-value">74.0<span style="font-size:14px;font-weight:400;">元</span></div>
+      <div class="kpi-compare">前期 63.0元 &nbsp;<span style="color:#DC2626;font-weight:600;">+17.4%</span></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">计价率</div>
+      <div class="kpi-value" style="color:#D97706;">1.033</div>
+      <div class="kpi-compare">前期 0.996 &nbsp;<span style="color:#DC2626;font-weight:600;">+3.7%</span></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">下单客单价</div>
+      <div class="kpi-value">68.2<span style="font-size:14px;font-weight:400;">元</span></div>
+      <div class="kpi-compare">下单次数 41849次</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">下单金额</div>
+      <div class="kpi-value">285.2<span style="font-size:14px;font-weight:400;">万元</span></div>
+      <div class="kpi-compare">ROI = 下单金额 / 消耗 = 1.860</div>
+    </div>
+  </div>
+  <div class="insight-box">
+    <p><strong>关键洞察：</strong>消耗翻倍增长（+100.3%）的同时，ROI仅小幅回落3.7%，
+    说明放量过程中效率基本稳定。CTR下降14.2%（3.09% vs 前期3.60%），
+    但CVR大幅提升51.6%（7.03% vs 前期4.64%），两者相互抵消，整体ROI保持稳定。
+    CPM上涨17.4%，反映竞价环境趋紧，流量成本有所提升。</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">三、消耗趋势（近30天逐日）</div>
+  </div>
+  <div class="chart-box" id="chart-trend"></div>
+  <div class="chart-row" style="margin-top:16px;">
+    <div>
+      <div class="chart-title">ROI &amp; CTR 趋势</div>
+      <div class="chart-half" id="chart-roi-ctr"></div>
+    </div>
+    <div>
+      <div class="chart-title">CVR &amp; CPM 趋势</div>
+      <div class="chart-half" id="chart-cvr-cpm"></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">四、版位结构分析</div>
+    <div class="section-sub">微信视频号占比69.1% · 微信小程序23.7%</div>
+  </div>
+  <div class="chart-row">
+    <div>
+      <div class="chart-title">二级流量消耗分布</div>
+      <div class="chart-half" id="chart-pos-pie"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;">
+      <div class="insight-box" style="margin-bottom:0;">
+        <p>
+          <strong>微信视频号</strong>是核心流量来源（69.1%），ROI 1.899，CVR高达10.40%，是主力阵地。
+          <strong>微信小程序</strong>占比23.7%，CPM高达165元，计价率1.101，流量成本偏高，需关注成本控制。
+          <strong>微信公众号</strong>占比3.3%，ROI 2.073，计价率0.926，成本控制良好，可适度扩量。
+          <strong>微信搜一搜</strong>消耗占比仅0.16%，但ROI高达2.311，计价率0.851，属于<span class="tag tag-blue">高潜力流量</span>，建议加大探索。
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="tbl-wrap" style="margin-top:16px;">
+    <table>
+      <thead><tr>
+        <th>流量来源</th><th style="text-align:right;">消耗</th><th style="text-align:right;">占比</th>
+        <th style="text-align:right;">ROI</th><th style="text-align:right;">CTR</th>
+        <th style="text-align:right;">CVR</th><th style="text-align:right;">CPM</th><th style="text-align:right;">计价率</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">微信视频号</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">105.93万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">69.1%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);font-weight:600;">1.899</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">2.68%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">10.40%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">86.4元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.013</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">微信小程序</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">36.30万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">23.7%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);font-weight:600;">1.747</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">5.20%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">8.08%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">165.5元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.101</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">微信公众号</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">5.13万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3.3%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);font-weight:600;">2.073</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.69%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">6.24%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">12.8元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);">0.926</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">平台与内容广告</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3.21万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">2.1%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);font-weight:600;">1.549</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">15.28%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.48%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">34.9元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.174</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">微信朋友圈</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">2.44万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">1.6%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);font-weight:600;">1.774</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">1.55%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3.39%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">21.4元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.074</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">微信搜一搜<span style="font-size:10px;color:#2563EB;margin-left:4px;">高潜力</span></td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.25万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.2%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);font-weight:600;">2.311</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">9.10%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">9.96%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">282.9元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);">0.851</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">搜索广告</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.05万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--red);font-weight:600;">0.815</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">5.07%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.15%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">6.4元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--red);">2.299</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">移动联盟</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.05万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--red);font-weight:600;">1.292</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">5.40%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.11%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3.4元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--red);">1.472</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <p style="font-size:11px;color:#9CA3AF;margin-top:8px;">⚠️ 二级流量仅作分析参考，「平台与内容广告」等流量无法单独选择，不作为扩量建议依据。</p>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">五、链路结构分析</div>
+    <div class="section-sub">直播链路 89.1% · 小店链路 10.9%</div>
+  </div>
+
+  <!-- 链路汇总 -->
+  <div class="sub-section">
+    <div class="sub-section-title">▌ 直播 vs 小店 链路对比</div>
+    <div class="chart-row" style="margin-bottom:0;">
+      <div>
+        <div class="chart-title">链路消耗分布</div>
+        <div class="chart-half" id="chart-link-pie"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;">
+        <div class="insight-box" style="margin-bottom:0;">
+          <p>
+            <strong>直播链路</strong>贡献89.1%消耗，ROI 1.874，
+            广告数355条，单广告日均消耗128元，是核心投放链路。
+            <strong>小店链路</strong>占比10.9%，ROI 1.742，
+            广告数47条，单广告日均消耗119元，
+            计价率1.087，具备扩量潜力，建议逐步提升占比。
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="tbl-wrap" style="margin-top:14px;">
+      <table>
+        <thead><tr>
+          <th>链路</th><th style="text-align:right;">消耗</th><th style="text-align:right;">占比</th>
+          <th style="text-align:right;">ROI</th><th style="text-align:right;">CTR</th>
+          <th style="text-align:right;">CVR</th><th style="text-align:right;">CPM</th>
+          <th style="text-align:right;">计价率</th><th style="text-align:right;">广告数</th>
+          <th style="text-align:right;">单广告日均</th>
+        </tr></thead>
+        <tbody>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-weight:600;">直播链路</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">136.63万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">89.1%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);font-weight:600;">1.874</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">2.98%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">7.02%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">71.2元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.027</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">355</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">128元</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-weight:600;">小店链路</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">16.73万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">10.9%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);font-weight:600;">1.742</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">4.40%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">7.13%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">107.8元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.087</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">47</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">119元</td>
+        </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 直播链路子类型 -->
+  <div class="sub-section">
+    <div class="sub-section-title">▌ 直播链路细分：推广产品库类型</div>
+    <div class="chart-row" style="margin-bottom:0;">
+      <div style="grid-column:1/-1;">
+        <div class="chart-title">直播链路子类型消耗与ROI对比</div>
+        <div style="height:200px;" id="chart-lt-bar"></div>
+      </div>
+    </div>
+    <div class="tbl-wrap" style="margin-top:14px;">
+      <table>
+        <thead><tr>
+          <th>广告类型</th><th style="text-align:right;">消耗</th><th style="text-align:right;">占比</th>
+          <th style="text-align:right;">ROI</th><th style="text-align:right;">CTR</th>
+          <th style="text-align:right;">CVR</th><th style="text-align:right;">CPM</th>
+          <th style="text-align:right;">计价率</th><th style="text-align:right;">广告数</th>
+          <th style="text-align:right;">创意数</th><th style="text-align:right;">单广告日均</th>
+        </tr></thead>
+        <tbody>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">普通直播广告</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">115.23万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">84.3%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);font-weight:600;">1.891</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3.00%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">7.42%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">74.1元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.015</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">314</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">24688</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">122元</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">表达商品聚合</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">21.39万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">15.7%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);font-weight:600;">1.785</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">2.90%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">5.30%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">59.0元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.097</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">41</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">6057</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">174元</td>
+        </tr></tbody>
+      </table>
+    </div>
+    <div class="insight-box" style="margin-top:14px;">
+      <p>
+        <strong>普通直播广告</strong>（视频号直播）占直播链路84.3%，ROI 1.891，
+        CVR 7.42%，广告数314条，单广告日均122元，是主力形式。
+        <strong>表达商品聚合</strong>占15.7%，ROI 1.785，
+        CPM仅59元（低于普通直播），但计价率1.097偏高，
+        单广告日均174元，跑量效率高于普通直播，建议加大投入。
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">六、智投结构分析</div>
+    <div class="section-sub">智投渗透率 1.5% · 非智投占98.5%</div>
+  </div>
+  <div class="chart-row">
+    <div>
+      <div class="chart-title">智投类型消耗分布</div>
+      <div class="chart-half" id="chart-zt-pie"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;">
+      <div class="insight-box" style="margin-bottom:0;">
+        <p>
+          智投渗透率仅 <strong>1.5%</strong>，非智投广告占据 <strong>98.5%</strong> 消耗。
+          <strong>单链路智投</strong>ROI 2.395，显著高于非智投（1.853），
+          计价率0.772，成本控制优秀，效率优势明确。
+          但单链路智投单广告日均仅9元，远低于非智投（168元），
+          说明智投广告尚未充分起量，需加大预算支持。
+          <strong>短直双开</strong>广告数20条，仍处于初步探索阶段。
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="tbl-wrap" style="margin-top:16px;">
+    <table>
+      <thead><tr>
+        <th>智投类型</th><th style="text-align:right;">消耗</th><th style="text-align:right;">占比</th>
+        <th style="text-align:right;">ROI</th><th style="text-align:right;">CTR</th>
+        <th style="text-align:right;">CVR</th><th style="text-align:right;">CPM</th>
+        <th style="text-align:right;">计价率</th><th style="text-align:right;">广告数</th>
+        <th style="text-align:right;">创意数</th><th style="text-align:right;">单广告日均</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">非智投</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">151.07万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">98.5%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);font-weight:600;">1.853</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3.11%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">7.08%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">75.2元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.037</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">299</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">30909</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">168元</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">单链路智投</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">1.97万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">1.3%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);font-weight:600;">2.395</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">2.77%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">5.21%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">41.9元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);">0.772</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">77</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3563</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">9元</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">短直双开</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.26万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.2%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);font-weight:600;">1.820</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">1.05%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">4.06%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">16.9元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.089</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">20</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">584</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">4元</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;">全店托管</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.05万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--red);font-weight:600;">0.999</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">2.26%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3.24%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">47.0元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--red);">1.982</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">7</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">351</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">2元</td>
+        </tr></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">七、基建情况</div>
+    <div class="section-sub">近30天整体去重口径</div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">有消耗账户数</div>
+      <div class="kpi-value">14</div>
+      <div class="kpi-compare">近30天去重</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">有消耗广告数</div>
+      <div class="kpi-value">402</div>
+      <div class="kpi-compare">近30天去重</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">有效创意数</div>
+      <div class="kpi-value">35,400</div>
+      <div class="kpi-compare">TID级别整体去重</div>
+    </div>
+    <div class="kpi-card highlight">
+      <div class="kpi-label">单广告日均消耗</div>
+      <div class="kpi-value">127<span style="font-size:14px;font-weight:400;">元</span></div>
+      <div class="kpi-compare">日均消耗 / 广告数</div>
+    </div>
+  </div>
+  <div class="insight-box">
+    <p>
+      保元德近30天有消耗广告数 <strong>402条</strong>，单广告日均消耗 <strong>127元</strong>。
+      与竞品A（广告数8143~9560条）相比，广告数差距悬殊，
+      <strong>扩账户、扩广告数是提升消耗规模的核心路径</strong>。
+      创意数 <strong>35,400个</strong>，素材储备相对充足。
+    </p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">八、营销对象分析</div>
+    <div class="section-sub">直播链路按直播间 · 小店链路按商品 · 分别独立分析</div>
+  </div>
+
+  <!-- 直播间 -->
+  <div class="sub-section">
+    <div class="sub-section-title">▌ 直播链路 — TOP直播间（按推广标的物ID）</div>
+    <div style="height:240px;" id="chart-live-bar"></div>
+    <div class="tbl-wrap" style="margin-top:14px;">
+      <table>
+        <thead><tr>
+          <th>直播间</th><th style="text-align:right;">消耗</th><th style="text-align:right;">占比</th>
+          <th style="text-align:right;">ROI</th><th style="text-align:right;">CTR</th>
+          <th style="text-align:right;">CVR</th><th style="text-align:right;">CPM</th>
+          <th style="text-align:right;">计价率</th><th style="text-align:right;">广告数</th>
+          <th style="text-align:right;">单广告日均</th>
+        </tr></thead>
+        <tbody>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">保元德植物硒厂家直发</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">71.21万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">52.1%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);font-weight:600;">1.924</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3.47%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">9.35%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">99.0元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.019</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">74</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">321元</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">保元德滋补甄选</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">50.24万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">36.8%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);font-weight:600;">1.860</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3.08%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">4.93%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">58.0元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.022</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">194</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">86元</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">保元德滋补膳食店</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">11.56万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">8.5%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);font-weight:600;">1.669</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">1.46%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">6.47%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">39.2元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.078</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">67</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">58元</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">保元德营养健康</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3.61万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">2.6%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);font-weight:600;">1.751</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3.41%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">8.29%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">98.1元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.110</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">19</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">63元</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">保元德健康好物</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.00万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--red);font-weight:600;">0.000</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">2.50%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.00%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.1元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);">nan</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">1</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0元</td>
+        </tr></tbody>
+      </table>
+    </div>
+    <div class="insight-box" style="margin-top:14px;">
+      <p>
+        <strong>保元德植物硒厂家直发</strong>是第一大直播间，消耗占比52.1%，
+        ROI 1.924，CVR高达9.35%，
+        广告数仅74条但单广告日均321元，效率极高，建议持续加大投入并扩充广告数。
+        <strong>保元德滋补甄选</strong>消耗占比36.8%，ROI 1.860，
+        但CVR仅4.93%，广告数194条，单广告日均86元，
+        转化效率偏低，建议排查直播间承接能力，优化话术与商品卡展示。
+        <strong>保元德滋补膳食店</strong>ROI 1.669，计价率1.078，
+        成本偏高，需关注出价策略。
+      </p>
+    </div>
+  </div>
+
+  <!-- 小店商品 -->
+  <div class="sub-section">
+    <div class="sub-section-title">▌ 小店链路 — TOP商品（按微信小店商品ID）</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th>商品名称</th><th style="text-align:right;">消耗</th><th style="text-align:right;">占比</th>
+          <th style="text-align:right;">ROI</th><th style="text-align:right;">CTR</th>
+          <th style="text-align:right;">CVR</th><th style="text-align:right;">CPM</th>
+          <th style="text-align:right;">计价率</th><th style="text-align:right;">广告数</th>
+          <th style="text-align:right;">单广告日均</th>
+        </tr></thead>
+        <tbody>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">保元德植物硒蛋白 硒片 1260微克植物硒+5大</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">11.38万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">68.0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);font-weight:600;">1.666</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">5.25%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">7.52%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">132.8元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.111</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">15</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">253元</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">保元德磷虾油叶黄素酯软胶囊（无糖型）真添加磷虾油</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">4.60万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">27.5%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);font-weight:600;">1.931</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3.53%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">6.75%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">83.8元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);">1.014</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">17</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">90元</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">保元德磷虾油叶黄素酯DHA藻油凝胶糖果 高含量叶</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.46万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">2.8%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--green);font-weight:600;">1.828</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">2.18%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">4.00%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">37.0元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--red);">1.224</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">8</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">19元</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">保元德植物硒蛋白 硒片 1260微克植物硒+5大</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0.29万</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">1.7%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--orange);font-weight:600;">1.587</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">6.31%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">6.74%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">171.7元</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:var(--red);">1.252</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">4</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">24元</td>
+        </tr></tbody>
+      </table>
+    </div>
+    <div class="insight-box" style="margin-top:14px;">
+      <p>
+        小店链路以<strong>植物硒蛋白硒片</strong>为主力商品（占小店消耗68.0%），
+        CPM高达133元，计价率1.111，成本偏高，建议优化出价。
+        <strong>磷虾油叶黄素酯软胶囊</strong>ROI 1.931，计价率1.014，
+        效率表现最优，建议加大该商品的小店广告投入。
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">九、竞品对标分析</div>
+    <div class="section-sub">竞品数据以 ±8% 区间脱敏展示 · 基建指标为近30天整体去重口径</div>
+  </div>
+  <div class="tbl-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th style="text-align:left;min-width:120px;">指标</th>
+          <th>保元德（本客户）</th>
+          <th>竞品A</th>
+          <th>竞品B</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-label">日均消耗</td><td class="self">5.11万/日</td><td class="comp-a">53.9~63.3万/日</td><td class="comp-b">17.0~20.0万/日</td></tr>
+        <tr><td class="row-label">下单ROI</td><td class="self" style="color:#2563EB;font-weight:700;">1.860</td><td class="comp-a">1.94~2.28</td><td class="comp-b">1.40~1.65</td></tr>
+        <tr><td class="row-label">CTR 点击率</td><td class="self">3.09%</td><td class="comp-a">3.32~3.89%</td><td class="comp-b">2.27~2.66%</td></tr>
+        <tr><td class="row-label">CVR 转化率</td><td class="self">7.03%</td><td class="comp-a">3.01~3.53%</td><td class="comp-b">3.63~4.26%</td></tr>
+        <tr><td class="row-label">CPM</td><td class="self">74元</td><td class="comp-a">46~54元</td><td class="comp-b">89~105元</td></tr>
+        <tr><td class="row-label">计价率</td><td class="self">1.033</td><td class="comp-a">0.877~1.030</td><td class="comp-b">0.961~1.128</td></tr>
+        <tr><td class="row-label">下单客单价</td><td class="self">68元</td><td class="comp-a">88~104元</td><td class="comp-b">158~185元</td></tr>
+        <tr><td class="row-label">有消耗账户数（30天去重）</td><td class="self">14</td><td class="comp-a">265~312</td><td class="comp-b">46~54</td></tr>
+        <tr><td class="row-label">有消耗广告数（30天去重）</td><td class="self">402</td><td class="comp-a">8143~9560</td><td class="comp-b">2067~2426</td></tr>
+        <tr><td class="row-label">有效创意数（30天去重）</td><td class="self">35,400</td><td class="comp-a">339~398万</td><td class="comp-b">91~107万</td></tr>
+        <tr style="background:#FFFBEB;">
+          <td class="row-label">单账户广告数<span style="font-size:10px;font-weight:400;color:#6B7280;margin-left:4px;">广告数÷账户数</span></td>
+          <td class="self" style="color:#D97706;font-weight:700;">29 条/账户</td>
+          <td class="comp-a">28~33 条/账户</td>
+          <td class="comp-b" style="color:#16A34A;font-weight:700;">41~49 条/账户</td>
+        </tr>
+        <tr style="background:#FEF2F2;">
+          <td class="row-label">单广告创意数<span style="font-size:10px;font-weight:400;color:#6B7280;margin-left:4px;">创意数÷广告数</span></td>
+          <td class="self" style="color:#DC2626;font-weight:700;">88 个/广告</td>
+          <td class="comp-a" style="color:#16A34A;font-weight:700;">383~450 个/广告</td>
+          <td class="comp-b" style="color:#16A34A;font-weight:700;">405~476 个/广告</td>
+        </tr>
+      </tbody>
+    </table>
+<!-- 智投类型消耗占比对比 -->
+<div style="margin-top:28px;">
+  <h4 style="font-size:15px;font-weight:700;color:#1a1a2e;margin-bottom:14px;padding-left:10px;border-left:4px solid #e74c3c;">
+    广告智投类型消耗占比对比
+  </h4>
+  <p style="font-size:13px;color:#555;margin-bottom:14px;line-height:1.7;">
+    智投产品（推直播/单链路智投/推直购单品等）以<strong>项目维度</strong>搭建，系统自动衍生广告，是规模化扩量的核心路径。
+    保元德618期间智投消耗占比仅 <strong style="color:#e74c3c;">3.7%</strong>，与竞品差距显著。
+  </p>
+
+  <!-- 占比对比表 -->
+  <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:18px;">
+    <thead>
+      <tr style="background:#f0f4ff;">
+        <th style="padding:9px 12px;text-align:left;border:1px solid #dde3f0;font-weight:700;color:#1a1a2e;">智投类型</th>
+        <th style="padding:9px 12px;text-align:center;border:1px solid #dde3f0;font-weight:700;color:#2563eb;">保元德</th>
+        <th style="padding:9px 12px;text-align:center;border:1px solid #dde3f0;font-weight:700;color:#7c3aed;">竞品A</th>
+        <th style="padding:9px 12px;text-align:center;border:1px solid #dde3f0;font-weight:700;color:#059669;">竞品B</th>
+        <th style="padding:9px 12px;text-align:left;border:1px solid #dde3f0;font-weight:700;color:#1a1a2e;">说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#fff8f8;">
+        <td style="padding:8px 12px;border:1px solid #dde3f0;font-weight:700;color:#e74c3c;">非智投广告</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;font-weight:700;color:#e74c3c;">96.3%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;">25.9%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;">75.1%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;color:#888;font-size:12px;">手动创建广告，依赖人工运营</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;">推直播（3004）</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;color:#aaa;">0.0%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;font-weight:700;color:#7c3aed;">34.0%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;color:#aaa;">0.0%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;color:#888;font-size:12px;">直播链路智投，系统自动出价拉量</td>
+      </tr>
+      <tr style="background:#f9fafb;">
+        <td style="padding:8px 12px;border:1px solid #dde3f0;">单链路智投（3002）</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;color:#888;">3.4%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;font-weight:700;color:#7c3aed;">23.7%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;font-weight:700;color:#059669;">21.3%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;color:#888;font-size:12px;">单链路智能投放，适合直播/小店</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;">推直购单品（3005）</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;color:#aaa;">0.0%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;font-weight:700;color:#7c3aed;">13.9%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;color:#aaa;">0.0%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;color:#888;font-size:12px;">小店直购链路，商品级智投</td>
+      </tr>
+      <tr style="background:#f9fafb;">
+        <td style="padding:8px 12px;border:1px solid #dde3f0;">全域通直播（4001）</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;color:#aaa;">0.0%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;">1.4%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;">3.5%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;color:#888;font-size:12px;">全域通直播智投</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;">短直双开（3001）</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;color:#888;">0.3%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;color:#aaa;">0.0%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;text-align:center;color:#aaa;">0.0%</td>
+        <td style="padding:8px 12px;border:1px solid #dde3f0;color:#888;font-size:12px;">短视频+直播双开</td>
+      </tr>
+      <tr style="background:#f0f4ff;font-weight:700;">
+        <td style="padding:9px 12px;border:1px solid #dde3f0;">🤖 智投合计</td>
+        <td style="padding:9px 12px;border:1px solid #dde3f0;text-align:center;color:#e74c3c;">3.7%</td>
+        <td style="padding:9px 12px;border:1px solid #dde3f0;text-align:center;color:#7c3aed;">74.1%</td>
+        <td style="padding:9px 12px;border:1px solid #dde3f0;text-align:center;color:#059669;">24.9%</td>
+        <td style="padding:9px 12px;border:1px solid #dde3f0;color:#555;font-size:12px;font-weight:400;">智投广告消耗占总消耗比例</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 洞察框 -->
+  <div style="background:#fff8e1;border-left:4px solid #f59e0b;padding:14px 16px;border-radius:0 6px 6px 0;margin-top:4px;">
+    <p style="font-size:13px;color:#92400e;margin:0 0 8px 0;font-weight:700;">⚡ 核心洞察：智投是竞品规模化扩量的关键杠杆</p>
+    <ul style="font-size:13px;color:#78350f;margin:0;padding-left:18px;line-height:1.9;">
+      <li><strong>竞品A（诺特兰德）</strong>智投占比高达 74.1%，其中「推直播」独占 34.0%——系统自动衍生广告，无需逐条手动创建，这正是其账户数 265+ 仍能保持高密度广告数的底层原因。</li>
+      <li><strong>竞品B（华北制药）</strong>智投占比 24.9%，以「单链路智投」为主（21.3%），已建立基础智投体系。</li>
+      <li><strong>保元德</strong>智投占比仅 3.7%，96.3% 消耗依赖手动广告，广告数扩张完全靠人工，效率瓶颈明显。</li>
+      <li>建议优先开启<strong>推直播（3004）</strong>和<strong>单链路智投（3002）</strong>，以项目维度搭建后系统自动衍生广告，可快速补齐广告数规模差距。</li>
+    </ul>
+  </div>
+</div>
+
+  </div>
+  <div class="insight-box" style="margin-top:16px;">
+    <p>
+      <strong>规模差距：</strong>保元德日均消耗（5.11万/日）仅为竞品A的约1/10，
+      差距核心在于<strong>账户数（14 vs 265~312）和广告数（402 vs 8143~9560）</strong>的巨大差距，
+      基建体量不足是消耗规模受限的根本原因。
+    </p>
+    <p style="margin-top:8px;">
+      <strong>基建结构拆解：</strong>单账户广告数（29条/账户）与竞品A（28~33条）基本持平，
+      说明<strong>账户内的广告搭建密度并非短板</strong>；差距的核心在于<strong>账户数量（14 vs 265~312）</strong>，
+      账户数量不足直接限制了广告总量的天花板。
+      单广告创意数（88个/广告）显著低于竞品A（383~450个）和竞品B（405~476个），
+      <strong>素材丰富度差距约4~5倍</strong>，创意多样性不足会影响系统的素材探索效率和受众覆盖广度。
+    </p>
+    <p style="margin-top:8px;">
+      <strong>效率对比：</strong>保元德CVR（7.03%）显著高于竞品A（3.01~3.53%），
+      转化承接能力有优势。但客单价（68元）低于竞品A（88~104元），
+      是ROI低于竞品A的核心原因之一，提升客单价是改善ROI的重要路径。
+    </p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">十、余额预算诊断</div>
+    <div class="section-sub">昨日账户粒度余额状态 · 共 14 个账户</div>
+  </div>
+  <div class="bal-ok" style="margin-bottom:16px;">
+    <p style="font-size:14px;color:#166534;font-weight:600;">✅ 余额整体健康，无风险账户</p>
+    <p style="font-size:13px;color:#374151;margin-top:6px;">
+      昨日总消耗 <strong>40472元</strong>，
+      所有 14 个账户余额状态均为"充足"，无断投风险。
+    </p>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>账户ID</th><th style="text-align:center;">余额状态</th>
+        <th style="text-align:right;">昨日消耗（元）</th>
+        <th style="text-align:right;">可用余额（元）</th>
+        <th style="text-align:right;">预算进度</th>
+        <th style="text-align:right;">可支撑天数</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">78702619</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">10776</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">44319</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">4.1天</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">79278096</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">7996</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">31807</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">4.0天</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">72758261</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">7315</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">34891</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">4.8天</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">69066847</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">6197</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">61033</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">9.8天</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">69575752</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">3072</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">39694</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">12.9天</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">79278085</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">2215</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">17713</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">8.0天</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">69009718</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">1505</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">33367</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">22.2天</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">78676011</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">1397</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">103492</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">74.1天</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">69066844</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">12136</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">充裕</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">78702583</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">29953</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">充裕</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">78702606</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">29278</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">充裕</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">79278092</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">33769</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">充裕</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">79278099</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">17950</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">充裕</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;font-size:12px;">79278105</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:center;">
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">充足</span>
+          </td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">19889</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;">0%</td>
+          <td style="padding:9px 12px;border-bottom:1px solid #E5E7EB;text-align:right;color:#374151;font-weight:600;">充裕</td>
+        </tr></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">十一、核心结论与执行建议</div>
+  </div>
+  <div class="insight-box" style="margin-bottom:20px;">
+    <p><strong>总体判断：</strong>
+      保元德近30天消耗实现翻倍增长，ROI稳定在1.860，整体投放进入健康放量阶段。
+      核心优势在于<strong>视频号直播链路效率高、CVR转化强</strong>；
+      主要短板在于<strong>基建规模远低于竞品、智投工具渗透率不足（1.5%）、客单价偏低（68元）</strong>。
+      下一阶段核心任务：扩账户→扩广告→提智投渗透→提客单价。
+    </p>
+  </div>
+  <ul class="action-list">
+    <li class="action-item" style="border-left:4px solid #DC2626;">
+      <div class="action-icon">🔴</div>
+      <div>
+        <div class="action-title">【立即执行】扩账户 · 扩广告数</div>
+        <div class="action-desc">
+          当前账户数仅14个、广告数402条，与竞品A（265~312账户、8143~9560广告）差距10倍以上。
+          建议本周内新开账户至20+个，广告数扩张至600+条，
+          重点围绕「保元德植物硒厂家直发」直播间（当前仅74条广告，单广告日均321元）加大投放。
+        </div>
+      </div>
+    </li>
+    <li class="action-item" style="border-left:4px solid #DC2626;">
+      <div class="action-icon">🔴</div>
+      <div>
+        <div class="action-title">【立即执行】大幅提升智投渗透率</div>
+        <div class="action-desc">
+          单链路智投ROI（2.395）显著高于非智投（1.853），计价率0.772，效率优势明确。
+          建议在「保元德植物硒厂家直发」直播间优先开启单链路智投，
+          目标智投渗透率提升至30%以上，并为智投广告配置充足预算以支撑起量。
+        </div>
+      </div>
+    </li>
+    <li class="action-item" style="border-left:4px solid #D97706;">
+      <div class="action-icon">🟡</div>
+      <div>
+        <div class="action-title">【本周内】优化「保元德滋补甄选」直播间转化承接</div>
+        <div class="action-desc">
+          该直播间消耗占比36.8%，但CVR仅4.93%，
+          远低于第一直播间（9.35%）。
+          建议排查直播间话术、商品卡展示、主播引导能力，目标CVR提升至7%以上。
+        </div>
+      </div>
+    </li>
+    <li class="action-item" style="border-left:4px solid #D97706;">
+      <div class="action-icon">🟡</div>
+      <div>
+        <div class="action-title">【本周内】加大表达商品聚合广告投入</div>
+        <div class="action-desc">
+          表达商品聚合广告单广告日均消耗174元，
+          跑量效率高于普通直播广告，CPM仅59元，流量成本更低。
+          建议将表达商品聚合广告数从41条扩张至100+条，
+          配合小店链路商品扩充，形成直播+小店双链路协同。
+        </div>
+      </div>
+    </li>
+    <li class="action-item" style="border-left:4px solid #D97706;">
+      <div class="action-icon">🟡</div>
+      <div>
+        <div class="action-title">【本周内】提升小店链路占比 · 扩充商品矩阵</div>
+        <div class="action-desc">
+          小店链路当前占比仅10.9%，「磷虾油叶黄素酯软胶囊」ROI 1.931，效率最优。
+          建议将该商品小店广告数从17条扩张至50+条，
+          同时参考竞品A小店链路布局，逐步将小店占比提升至20%以上。
+        </div>
+      </div>
+    </li>
+    <li class="action-item" style="border-left:4px solid #16A34A;">
+      <div class="action-icon">🟢</div>
+      <div>
+        <div class="action-title">【持续观察】探索微信搜一搜流量 · 提升客单价</div>
+        <div class="action-desc">
+          微信搜一搜ROI高达2.311，计价率0.851，属于高潜力流量，建议持续测试扩量。
+          同时，保元德客单价（68元）低于竞品A（88~104元），
+          建议在直播间推广高客单价商品组合，目标客单价提升至80元以上，改善ROI结构。
+        </div>
+      </div>
+    </li>
+    <li class="action-item" style="border-left:4px solid #16A34A;">
+      <div class="action-icon">🟢</div>
+      <div>
+        <div class="action-title">【持续观察】余额充足，维持当前充值节奏</div>
+        <div class="action-desc">
+          所有14个账户余额状态均为充足，昨日总消耗40472元，余额储备充裕。
+          随消耗规模扩大适时补充余额，确保账户不因余额不足而断投。
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="footer">
+  <p>本报告数据来源：腾讯广告经营数仓 · 竞价口径 · 系统汇总行ROI</p>
+  <p>618大促周期：2026.5.15–6.25 · 近30天周期：2026-05-25 ~ 2026-06-23 · 竞品数据以 ±8% 区间脱敏展示</p>
+  <p>报告生成时间：2026年6月29日 · 腾讯广告经营数据应用中心</p>
+</div>
+</div>
+
+<script>
+var trendData = {"dates": ["2026/05/30", "2026/05/31", "2026/06/01", "2026/06/02", "2026/06/03", "2026/06/04", "2026/06/05", "2026/06/06", "2026/06/07", "2026/06/08", "2026/06/09", "2026/06/10", "2026/06/11", "2026/06/12", "2026/06/13", "2026/06/14", "2026/06/15", "2026/06/16", "2026/06/17", "2026/06/18", "2026/06/19", "2026/06/20", "2026/06/21", "2026/06/22", "2026/06/23", "2026/06/24", "2026/06/25", "2026/06/26", "2026/06/27", "2026/06/28"], "cost": [4.91, 3.88, 4.94, 6.57, 6.86, 5.74, 4.64, 4.49, 4.84, 4.47, 3.75, 3.47, 4.23, 4.6, 3.3, 4.26, 4.09, 4.38, 4.74, 5.47, 6.2, 6.57, 8.1, 9.22, 7.86, 6.82, 4.91, 2.73, 3.25, 4.05], "roi": [1.842, 1.897, 1.786, 1.761, 1.836, 1.891, 1.815, 1.916, 1.871, 1.903, 1.863, 1.844, 1.791, 1.81, 1.998, 2.038, 1.934, 1.922, 1.908, 2.004, 1.84, 1.84, 1.843, 1.863, 1.812, 1.769, 1.826, 1.834, 1.793, 1.912], "ctr": [2.559, 2.456, 2.219, 1.756, 2.444, 2.723, 2.97, 3.84, 3.927, 3.374, 3.441, 5.063, 4.797, 4.059, 3.751, 3.422, 3.059, 3.583, 3.901, 3.16, 2.651, 2.834, 2.88, 3.065, 2.872, 2.904, 2.908, 3.126, 3.028, 2.276], "cvr": [10.315, 8.89, 9.278, 9.662, 9.948, 9.561, 9.488, 7.742, 6.632, 6.908, 5.725, 3.673, 3.69, 4.895, 4.841, 4.787, 5.702, 3.518, 4.081, 8.187, 7.765, 7.899, 8.575, 9.551, 8.551, 8.469, 7.897, 7.941, 8.789, 9.181], "cpm": [80.58, 67.11, 67.36, 58.24, 78.58, 82.12, 92.24, 97.28, 91.57, 80.32, 68.94, 69.98, 67.9, 72.93, 61.78, 56.53, 61.89, 45.3, 57.89, 84.46, 71.68, 76.12, 83.25, 98.31, 82.71, 82.98, 76.6, 81.37, 89.26, 64.06]};
+var posPie    = [{"name": "\u5fae\u4fe1\u89c6\u9891\u53f7", "value": 105.93}, {"name": "\u5fae\u4fe1\u5c0f\u7a0b\u5e8f", "value": 36.3}, {"name": "\u5fae\u4fe1\u516c\u4f17\u53f7", "value": 5.13}, {"name": "\u5e73\u53f0\u4e0e\u5185\u5bb9\u5e7f\u544a", "value": 3.21}, {"name": "\u5fae\u4fe1\u670b\u53cb\u5708", "value": 2.44}, {"name": "\u5fae\u4fe1\u641c\u4e00\u641c", "value": 0.25}];
+var linkPie   = [{"name": "\u76f4\u64ad\u94fe\u8def", "value": 136.63}, {"name": "\u5c0f\u5e97\u94fe\u8def", "value": 16.73}];
+var ltBar     = {"names": ["\u666e\u901a\u76f4\u64ad\u5e7f\u544a", "\u8868\u8fbe\u5546\u54c1\u805a\u5408"], "costs": [115.23, 21.39], "rois": [1.891, 1.785]};
+var ztPie     = [{"name": "\u975e\u667a\u6295", "value": 151.07}, {"name": "\u5355\u94fe\u8def\u667a\u6295", "value": 1.97}, {"name": "\u77ed\u76f4\u53cc\u5f00", "value": 0.26}, {"name": "\u5168\u5e97\u6258\u7ba1", "value": 0.05}];
+var liveBar   = {"names": ["\u4fdd\u5143\u5fb7\u690d\u7269\u7852\u5382\u5bb6\u76f4\u53d1", "\u4fdd\u5143\u5fb7\u6ecb\u8865\u7504\u9009", "\u4fdd\u5143\u5fb7\u6ecb\u8865\u81b3\u98df\u5e97", "\u5fae\u4fe1\u5c0f\u5e97\u5e97\u94faID:wx549", "\u5fae\u4fe1\u5c0f\u5e97\u5e97\u94faID:wx2f0", "\u5fae\u4fe1\u5c0f\u5e97\u5e97\u94faID:wx549", "\u5fae\u4fe1\u5c0f\u5e97\u5e97\u94faID:wx549", "\u4fdd\u5143\u5fb7\u8425\u517b\u5065\u5eb7", "\u5fae\u4fe1\u5c0f\u5e97\u5e97\u94faID:wx549", "\u5fae\u4fe1\u5c0f\u5e97\u5e97\u94faID:wx2f0"], "costs": [64.97, 35.09, 11.56, 6.71, 5.3, 3.72, 3.63, 3.61, 1.1, 0.94], "rois": [1.936, 1.895, 1.669, 1.801, 1.843, 1.786, 1.774, 1.751, 1.626, 1.578]};
+
+// 消耗趋势
+var chartTrend = echarts.init(document.getElementById('chart-trend'));
+chartTrend.setOption({
+  tooltip:{trigger:'axis',axisPointer:{type:'cross'}},
+  legend:{data:['日消耗(万元)','ROI'],top:0},
+  grid:{left:60,right:60,top:36,bottom:50},
+  xAxis:{type:'category',data:trendData.dates,axisLabel:{rotate:45,fontSize:10}},
+  yAxis:[
+    {type:'value',name:'消耗(万元)',nameTextStyle:{fontSize:11},axisLabel:{formatter:v=>v.toFixed(1)}},
+    {type:'value',name:'ROI',nameTextStyle:{fontSize:11},min:1.5,max:2.2,axisLabel:{formatter:v=>v.toFixed(2)}}
+  ],
+  series:[
+    {name:'日消耗(万元)',type:'bar',data:trendData.cost,itemStyle:{color:'#3B82F6',borderRadius:[3,3,0,0]},barMaxWidth:18},
+    {name:'ROI',type:'line',yAxisIndex:1,data:trendData.roi,smooth:true,lineStyle:{color:'#16A34A',width:2},itemStyle:{color:'#16A34A'},symbol:'circle',symbolSize:4}
+  ]
+});
+
+// ROI & CTR
+var chartRoiCtr = echarts.init(document.getElementById('chart-roi-ctr'));
+chartRoiCtr.setOption({
+  tooltip:{trigger:'axis'},
+  legend:{data:['ROI','CTR(%)'],top:0,textStyle:{fontSize:11}},
+  grid:{left:50,right:50,top:36,bottom:50},
+  xAxis:{type:'category',data:trendData.dates,axisLabel:{rotate:45,fontSize:9}},
+  yAxis:[
+    {type:'value',name:'ROI',nameTextStyle:{fontSize:10},axisLabel:{formatter:v=>v.toFixed(2)}},
+    {type:'value',name:'CTR%',nameTextStyle:{fontSize:10},axisLabel:{formatter:v=>v.toFixed(1)+'%'}}
+  ],
+  series:[
+    {name:'ROI',type:'line',data:trendData.roi,smooth:true,lineStyle:{color:'#2563EB',width:2},itemStyle:{color:'#2563EB'},symbol:'none'},
+    {name:'CTR(%)',type:'line',yAxisIndex:1,data:trendData.ctr,smooth:true,lineStyle:{color:'#D97706',width:2,type:'dashed'},itemStyle:{color:'#D97706'},symbol:'none'}
+  ]
+});
+
+// CVR & CPM
+var chartCvrCpm = echarts.init(document.getElementById('chart-cvr-cpm'));
+chartCvrCpm.setOption({
+  tooltip:{trigger:'axis'},
+  legend:{data:['CVR(%)','CPM(元)'],top:0,textStyle:{fontSize:11}},
+  grid:{left:50,right:60,top:36,bottom:50},
+  xAxis:{type:'category',data:trendData.dates,axisLabel:{rotate:45,fontSize:9}},
+  yAxis:[
+    {type:'value',name:'CVR%',nameTextStyle:{fontSize:10},axisLabel:{formatter:v=>v.toFixed(1)+'%'}},
+    {type:'value',name:'CPM元',nameTextStyle:{fontSize:10},axisLabel:{formatter:v=>v.toFixed(0)}}
+  ],
+  series:[
+    {name:'CVR(%)',type:'line',data:trendData.cvr,smooth:true,lineStyle:{color:'#16A34A',width:2},itemStyle:{color:'#16A34A'},symbol:'none'},
+    {name:'CPM(元)',type:'line',yAxisIndex:1,data:trendData.cpm,smooth:true,lineStyle:{color:'#DC2626',width:2,type:'dashed'},itemStyle:{color:'#DC2626'},symbol:'none'}
+  ]
+});
+
+// 版位饼图
+var chartPosPie = echarts.init(document.getElementById('chart-pos-pie'));
+chartPosPie.setOption({
+  tooltip:{trigger:'item',formatter:'{b}: {c}万 ({d}%)'},
+  legend:{orient:'vertical',right:10,top:'center',textStyle:{fontSize:11}},
+  color:['#2563EB','#16A34A','#D97706','#9333EA','#EC4899','#06B6D4','#F59E0B','#6B7280'],
+  series:[{type:'pie',radius:['40%','70%'],center:['38%','50%'],data:posPie,label:{show:false},emphasis:{label:{show:true,fontSize:12,fontWeight:'bold'}}}]
+});
+
+// 链路饼图
+var chartLinkPie = echarts.init(document.getElementById('chart-link-pie'));
+chartLinkPie.setOption({
+  tooltip:{trigger:'item',formatter:'{b}: {c}万 ({d}%)'},
+  legend:{orient:'vertical',right:10,top:'center',textStyle:{fontSize:11}},
+  color:['#2563EB','#16A34A'],
+  series:[{type:'pie',radius:['40%','70%'],center:['38%','50%'],data:linkPie,label:{show:false},emphasis:{label:{show:true,fontSize:12,fontWeight:'bold'}}}]
+});
+
+// 直播子类型柱图
+var chartLtBar = echarts.init(document.getElementById('chart-lt-bar'));
+chartLtBar.setOption({
+  tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+  legend:{data:['消耗(万元)','ROI'],top:0},
+  grid:{left:60,right:60,top:36,bottom:40},
+  xAxis:{type:'category',data:ltBar.names,axisLabel:{fontSize:12}},
+  yAxis:[
+    {type:'value',name:'消耗(万元)',nameTextStyle:{fontSize:11}},
+    {type:'value',name:'ROI',nameTextStyle:{fontSize:11},min:1.7,max:2.0,axisLabel:{formatter:v=>v.toFixed(2)}}
+  ],
+  series:[
+    {name:'消耗(万元)',type:'bar',data:ltBar.costs,itemStyle:{color:'#3B82F6',borderRadius:[4,4,0,0]},barMaxWidth:60},
+    {name:'ROI',type:'line',yAxisIndex:1,data:ltBar.rois,smooth:false,lineStyle:{color:'#16A34A',width:2},itemStyle:{color:'#16A34A'},symbol:'circle',symbolSize:8,label:{show:true,position:'top',fontSize:11,formatter:p=>p.value.toFixed(3)}}
+  ]
+});
+
+// 智投饼图
+var chartZtPie = echarts.init(document.getElementById('chart-zt-pie'));
+chartZtPie.setOption({
+  tooltip:{trigger:'item',formatter:'{b}: {c}万 ({d}%)'},
+  legend:{orient:'vertical',right:10,top:'center',textStyle:{fontSize:11}},
+  color:['#94A3B8','#2563EB','#16A34A','#D97706'],
+  series:[{type:'pie',radius:['40%','70%'],center:['38%','50%'],data:ztPie,label:{show:false},emphasis:{label:{show:true,fontSize:12,fontWeight:'bold'}}}]
+});
+
+// 直播间柱图
+var chartLiveBar = echarts.init(document.getElementById('chart-live-bar'));
+chartLiveBar.setOption({
+  tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+  legend:{data:['消耗(万元)','ROI'],top:0},
+  grid:{left:60,right:60,top:36,bottom:60},
+  xAxis:{type:'category',data:liveBar.names,axisLabel:{rotate:30,fontSize:10}},
+  yAxis:[
+    {type:'value',name:'消耗(万元)',nameTextStyle:{fontSize:11}},
+    {type:'value',name:'ROI',nameTextStyle:{fontSize:11},min:1.5,max:2.1,axisLabel:{formatter:v=>v.toFixed(2)}}
+  ],
+  series:[
+    {name:'消耗(万元)',type:'bar',data:liveBar.costs,itemStyle:{color:'#3B82F6',borderRadius:[3,3,0,0]},barMaxWidth:28},
+    {name:'ROI',type:'line',yAxisIndex:1,data:liveBar.rois,smooth:true,lineStyle:{color:'#16A34A',width:2},itemStyle:{color:'#16A34A'},symbol:'circle',symbolSize:6,label:{show:true,position:'top',fontSize:10,formatter:p=>p.value.toFixed(2)}}
+  ]
+});
+
+window.addEventListener('resize',function(){
+  chartTrend.resize();chartRoiCtr.resize();chartCvrCpm.resize();
+  chartPosPie.resize();chartLinkPie.resize();chartLtBar.resize();
+  chartZtPie.resize();chartLiveBar.resize();
+});
+</script>
+<script>(function(){var _h=0,_t;function m(){var b=document.body;if(!b)return 0;return Math.max(b.scrollHeight,b.offsetHeight,Math.ceil(b.getBoundingClientRect().height))}function s(){var h=m();if(h>0&&h!==_h){_h=h;window.parent.postMessage({type:"iframe-resize",height:h},"*")}}function d(){clearTimeout(_t);_t=setTimeout(s,150)}if(document.readyState==="complete")s();else window.addEventListener("load",s);window.addEventListener("resize",d);if(typeof ResizeObserver!=="undefined"){var ro=new ResizeObserver(d);ro.observe(document.documentElement);if(document.body)ro.observe(document.body)}})();</script><style id="__adata_wm_style__">.__adata_wm__{position:fixed;inset:0;pointer-events:none;z-index:2147483647;background-repeat:repeat;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='160'><text x='50%' y='50%' fill='rgba(0,0,0,0.08)' font-size='14' font-family='-apple-system,Segoe UI,sans-serif' text-anchor='middle' transform='rotate(-25 120 80)'>goinglin</text></svg>")}</style><div class="__adata_wm__" aria-hidden="true"></div></body>
+</html>
