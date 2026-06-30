@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!-- ===== HEAD ===== -->
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>保元德 · 叶黄素/磷虾油类目竞品素材深度分析报告</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        bg: '#f8f5f0',
+        ink: '#1f1b16',
+        muted: '#6b6359',
+        card: '#ffffff',
+        brand: '#c0392b',
+        accent: '#d4a017',
+        highlight: '#fff3a3',
+        insight: '#fbf3dc',
+        bd: '#e6dfd3',
+      },
+      fontFamily: {
+        serif: ['"Noto Serif SC"','serif'],
+        sans: ['"Noto Sans SC"','PingFang SC','sans-serif'],
+      }
+    }
+  }
+}
+</script>
+</head>
+<body class="bg-bg text-ink font-sans overflow-x-hidden">
+
+<!-- ===== HTML ===== -->
+<!-- FILE:index.html -->
+<div class="mx-auto" style="max-width:1440px">
+
+  <!-- Hero -->
+  <header class="px-6 md:px-14 pt-14 pb-10 border-b border-bd">
+    <div class="flex items-center gap-3 text-xs tracking-[0.3em] text-brand font-semibold">
+      <span class="w-10 h-px bg-brand"></span>
+      BAO YUAN DE · COMPETITIVE INSIGHT REPORT
+    </div>
+    <h1 class="font-serif font-black text-4xl md:text-6xl leading-tight mt-5">
+      保元德 <span class="text-brand">叶黄素 / 磷虾油</span><br/>类目竞品素材深度分析报告
+    </h1>
+    <p class="mt-6 text-muted text-base md:text-lg max-w-3xl leading-relaxed">
+      聚焦眼健康营养赛道，对标 <span class="mark-hl">4 个差异化竞品</span>，从消耗规模、ROI 效率、CVR/CTR 表现到话术玩法，找出保元德的<span class="mark-hl">突破口</span>。
+    </p>
+    <div class="mt-8 flex flex-wrap gap-6 text-xs text-muted">
+      <span>报告周期 · 近 30 日</span><span>·</span>
+      <span>样本品牌 · 5</span><span>·</span>
+      <span>数据已脱敏处理</span>
+    </div>
+  </header>
+
+  <!-- 大盘 KPI -->
+  <section class="px-6 md:px-14 py-16">
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <div class="text-xs tracking-[0.25em] text-accent font-semibold">01 / OVERVIEW</div>
+        <h2 class="font-serif font-bold text-3xl md:text-4xl mt-2">大盘概览 · 5 品牌对位</h2>
+      </div>
+      <div class="text-xs text-muted hidden md:block">单位：消耗（元）/ ROI / CVR / CTR</div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4" id="kpi-grid"></div>
+
+    <div class="mt-10 insight-card">
+      <div class="text-xs font-semibold text-accent tracking-widest mb-2">KEY INSIGHT</div>
+      <p class="text-base md:text-lg leading-relaxed">
+        保元德以 <span class="mark-hl">5~6万消耗</span> 取得 <span class="mark-hl">CVR 10~11%</span> 的全场最高转化率，效率层面已 <span class="font-bold text-brand">压制三家竞品</span>；但消耗体量仅为某运动营养品牌的 <span class="font-bold">~40%</span>，规模化能力是下一阶段的核心命题。
+      </p>
+    </div>
+  </section>
+
+  <!-- 图表区 -->
+  <section class="px-6 md:px-14 py-14 border-t border-bd">
+    <div class="text-xs tracking-[0.25em] text-accent font-semibold">02 / DATA VIEW</div>
+    <h2 class="font-serif font-bold text-3xl md:text-4xl mt-2 mb-8">数据多维透视</h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="chart-card lg:col-span-2">
+        <div class="chart-title">消耗规模 × ROI 效率　<span class="text-muted font-normal text-sm">双轴对比</span></div>
+        <div id="chart-bar" style="height:380px"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">CVR × CTR 效率矩阵</div>
+        <div id="chart-scatter" style="height:380px"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">五维综合能力雷达</div>
+        <div id="chart-radar" style="height:380px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 竞品 Tab -->
+  <section class="px-6 md:px-14 py-16 border-t border-bd">
+    <div class="text-xs tracking-[0.25em] text-accent font-semibold">03 / COMPETITORS</div>
+    <h2 class="font-serif font-bold text-3xl md:text-4xl mt-2 mb-8">竞品玩法深度解析</h2>
+
+    <div id="tab-nav" class="flex flex-wrap gap-2 mb-8"></div>
+    <div id="tab-content"></div>
+  </section>
+
+  <!-- 保元德自身 -->
+  <section class="px-6 md:px-14 py-16 border-t border-bd bg-card/40">
+    <div class="text-xs tracking-[0.25em] text-brand font-semibold">04 / SELF DIAGNOSIS</div>
+    <h2 class="font-serif font-bold text-3xl md:text-4xl mt-2 mb-2">保元德自身分析</h2>
+    <p class="text-muted mb-10">效率领先，规模待破</p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 mb-6">
+      <div>
+        <div class="shot-wrap" style="aspect-ratio:9/16;max-height:460px">
+          <img id="byd-shot" alt="保元德 Top1 素材截图" loading="lazy"/>
+          <span class="shot-tag">保元德 · Top1 素材实拍</span>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <div class="detail-block">
+          <div class="detail-title">开场钩子原文</div>
+          <div class="script-quote">「<b id="byd-hook"></b>」<br/><span class="text-xs not-italic text-muted">—— 用悬念式提问切入眼健康日常焦虑，瞬间锁定中老年人群注意力。</span></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="insight-card">
+            <div class="text-xs font-bold text-accent tracking-widest mb-2">核心卖点</div>
+            <ul id="byd-sells" class="text-sm space-y-2 leading-relaxed"></ul>
+          </div>
+          <div class="insight-card">
+            <div class="text-xs font-bold text-accent tracking-widest mb-2">视觉 & 转化</div>
+            <p class="text-sm leading-relaxed mb-2"><b>视觉：</b><span id="byd-visual"></span></p>
+            <p class="text-sm leading-relaxed"><b>转化：</b><span id="byd-convert"></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="key-callout">
+        <div class="text-xs font-bold text-accent tracking-widest mb-2">核心优势</div>
+        <div class="font-serif text-2xl font-bold mb-2">CVR <span class="text-brand">10~11%</span></div>
+        <p class="text-sm text-muted leading-relaxed">全场最高转化率，远超某运动营养品牌（7~8%）与某国货药企（6~7%），说明<span class="mark-hl">人货匹配度极高</span>。</p>
+      </div>
+      <div class="insight-card">
+        <div class="text-xs font-bold text-accent tracking-widest mb-2">现有打法</div>
+        <ul class="text-sm space-y-2 leading-relaxed">
+          <li>· 中老年眼健康刚需切入，痛点话术准确</li>
+          <li>· 直播间场景化产品演示，信任感强</li>
+          <li>· 单价适中，决策门槛低</li>
+          <li>· ROI 1.9~2.0 稳健，跑量风险可控</li>
+        </ul>
+      </div>
+      <div class="insight-card border-brand/40">
+        <div class="text-xs font-bold text-brand tracking-widest mb-2">短板诊断</div>
+        <ul class="text-sm space-y-2 leading-relaxed">
+          <li>⚠ 消耗规模仅 5~6万，<span class="mark-hl">放量天花板低</span></li>
+          <li>⚠ 素材风格单一，缺少高端 / 进口背书</li>
+          <li>⚠ 直播间人设矩阵未铺开</li>
+          <li>⚠ 促销机制弱，缺乏冲动转化钩子</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 借鉴建议 -->
+  <section class="px-6 md:px-14 py-16 border-t border-bd">
+    <div class="text-xs tracking-[0.25em] text-accent font-semibold">05 / LEARNINGS</div>
+    <h2 class="font-serif font-bold text-3xl md:text-4xl mt-2 mb-2">从竞品身上学什么</h2>
+    <p class="text-muted mb-8">四个差异化竞品 × 四条可执行落地路径</p>
+    <div id="learning-list" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+  </section>
+
+  <!-- Roadmap -->
+  <section class="px-6 md:px-14 py-16 border-t border-bd">
+    <div class="text-xs tracking-[0.25em] text-accent font-semibold">06 / ROADMAP</div>
+    <h2 class="font-serif font-bold text-3xl md:text-4xl mt-2 mb-8">4 周落地路线图</h2>
+    <div id="roadmap" class="grid grid-cols-1 md:grid-cols-4 gap-4"></div>
+
+    <div class="mt-12 key-callout">
+      <div class="text-xs font-bold text-accent tracking-widest mb-2">FINAL CALLOUT</div>
+      <p class="text-base md:text-lg leading-relaxed">
+        4 周内通过<span class="mark-hl">「人群×场景×话术×促销」四叠加</span>，将消耗规模提升至 <span class="text-brand font-bold">12~15万</span>，同时维持 ROI ≥ 1.9 与 CVR ≥ 9%，实现<span class="font-bold">效率不退、规模翻倍</span>。
+      </p>
+    </div>
+  </section>
+
+  <footer class="px-6 md:px-14 py-10 border-t border-bd text-xs text-muted flex flex-wrap justify-between gap-4">
+    <span>© 保元德 竞品分析 · 内部参考</span>
+    <span>所有品牌名称及数据均已脱敏处理</span>
+  </footer>
+</div>
+<!-- /FILE:index.html -->
+
+<style>
+/* ===== STYLE ===== */
+/* FILE:style.css */
+html,body{background:#f8f5f0}
+.mark-hl{background:linear-gradient(transparent 55%,#fff3a3 55%);padding:0 2px;font-weight:600;color:#1f1b16}
+.insight-card{background:#fbf3dc;border:1px solid #ecd9a3;border-left:4px solid #d4a017;padding:1.25rem 1.5rem;border-radius:6px}
+.key-callout{background:#fffaf0;border:2px solid #d4a017;padding:1.25rem 1.5rem;border-radius:8px;box-shadow:0 6px 24px -16px rgba(192,57,43,.25)}
+.chart-card{background:#fff;border:1px solid #e6dfd3;border-radius:10px;padding:1.5rem}
+.chart-title{font-family:"Noto Serif SC",serif;font-weight:700;font-size:1.05rem;margin-bottom:.75rem}
+.kpi{background:#fff;border:1px solid #e6dfd3;border-radius:10px;padding:1.25rem;transition:.3s;position:relative}
+.kpi:hover{transform:translateY(-3px);box-shadow:0 12px 30px -18px rgba(0,0,0,.25)}
+.kpi.is-brand{background:linear-gradient(135deg,#c0392b 0%,#a52a1a 100%);color:#fff;border-color:#c0392b}
+.kpi.is-brand .kpi-label,.kpi.is-brand .kpi-sub{color:rgba(255,255,255,.85)}
+.kpi-name{font-family:"Noto Serif SC",serif;font-weight:700;font-size:1rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+.kpi-badge{font-size:10px;background:#fff;color:#c0392b;padding:1px 6px;border-radius:3px;font-weight:700;letter-spacing:.05em}
+.kpi-row{display:flex;justify-content:space-between;padding:.4rem 0;border-top:1px dashed #e6dfd3;font-size:.85rem}
+.kpi.is-brand .kpi-row{border-color:rgba(255,255,255,.2)}
+.kpi-label{color:#6b6359;font-size:.78rem}
+.kpi-val{font-weight:700;font-variant-numeric:tabular-nums}
+.kpi-sub{font-size:.7rem;color:#9a8f7e;margin-top:.4rem;letter-spacing:.05em}
+
+.tab-btn{padding:.6rem 1.1rem;border:1px solid #e6dfd3;background:#fff;border-radius:999px;font-size:.85rem;cursor:pointer;transition:.2s;font-weight:500}
+.tab-btn:hover{border-color:#c0392b;color:#c0392b}
+.tab-btn.active{background:#1f1b16;color:#fff;border-color:#1f1b16}
+
+.tab-panel{background:#fff;border:1px solid #e6dfd3;border-radius:12px;padding:1.5rem;display:grid;grid-template-columns:1fr;gap:1.5rem}
+@media(min-width:900px){.tab-panel{grid-template-columns:340px 1fr}}
+.brand-card{background:#faf6ee;border:1px solid #ecd9a3;border-radius:10px;padding:1.25rem}
+.placeholder{aspect-ratio:4/3;background:#e6dfd3;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:"Noto Serif SC",serif;font-size:3rem;font-weight:900;color:#fff;letter-spacing:.05em;background-image:linear-gradient(135deg,#bcb09b 0%,#8f8472 100%);margin-bottom:.9rem}
+.shot-wrap{position:relative;border-radius:8px;overflow:hidden;margin-bottom:.9rem;border:1px solid #e6dfd3;background:#000;aspect-ratio:9/16;max-height:420px}
+.shot-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.shot-tag{position:absolute;left:8px;bottom:8px;background:rgba(31,27,22,.85);color:#fff;font-size:10px;padding:3px 8px;border-radius:3px;letter-spacing:.05em}
+.mini-row{display:flex;justify-content:space-between;font-size:.8rem;padding:.35rem 0;border-bottom:1px dashed #e6dfd3}
+.mini-row:last-child{border-bottom:none}
+.tag{display:inline-block;background:#1f1b16;color:#fff;font-size:.7rem;padding:2px 8px;border-radius:3px;margin-right:.4rem;margin-bottom:.4rem}
+
+.detail-block{margin-bottom:1.25rem}
+.detail-title{font-family:"Noto Serif SC",serif;font-weight:700;font-size:1rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+.detail-title::before{content:"";width:14px;height:2px;background:#c0392b}
+.script-quote{background:#fbf3dc;border-left:3px solid #d4a017;padding:.7rem 1rem;font-style:italic;font-family:"Noto Serif SC",serif;color:#5a4a30;border-radius:0 4px 4px 0;margin:.5rem 0;font-size:.95rem}
+
+.acc-item{background:#fff;border:1px solid #e6dfd3;border-radius:8px;overflow:hidden}
+.acc-head{padding:1.1rem 1.4rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.acc-head:hover{background:#faf6ee}
+.acc-body{padding:0 1.4rem 1.2rem;display:none;color:#444;line-height:1.8;font-size:.92rem}
+.acc-item.open .acc-body{display:block}
+.acc-item.open .acc-head{background:#faf6ee;border-bottom:1px solid #e6dfd3}
+.acc-arrow{transition:.3s;font-weight:700;color:#c0392b}
+.acc-item.open .acc-arrow{transform:rotate(45deg)}
+
+.road-card{background:#fff;border:1px solid #e6dfd3;border-radius:10px;padding:1.25rem;position:relative;border-top:4px solid #c0392b}
+.road-week{font-size:.7rem;letter-spacing:.2em;color:#c0392b;font-weight:700}
+.road-title{font-family:"Noto Serif SC",serif;font-weight:700;font-size:1.1rem;margin:.4rem 0 .8rem}
+.road-list{font-size:.85rem;color:#444;line-height:1.7;padding-left:1rem;list-style:disc}
+
+/* Competitor enriched blocks */
+.visual-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr;gap:.5rem}
+.visual-list li{position:relative;padding:.5rem .6rem .5rem 1.6rem;background:#faf6ee;border-left:3px solid #d4a017;border-radius:0 4px 4px 0;font-size:.88rem;line-height:1.6;color:#3a3128}
+.visual-list li::before{content:"";position:absolute;left:.55rem;top:1.05rem;width:6px;height:6px;border-radius:50%;background:#c0392b}
+.strategy-grid{display:grid;grid-template-columns:1fr;gap:.55rem}
+.strategy-item{display:flex;gap:.7rem;align-items:flex-start;background:#fbf3dc;border:1px solid #ecd9a3;border-radius:6px;padding:.6rem .8rem;font-size:.88rem;line-height:1.6}
+.strategy-tag{flex-shrink:0;background:#c0392b;color:#fff;font-size:.7rem;padding:2px 8px;border-radius:3px;font-weight:700;letter-spacing:.06em;margin-top:2px}
+.learn-list{list-style:none;padding:0;margin:0;display:grid;gap:.5rem}
+.learn-list li{padding:.55rem .8rem;background:#fff;border:1px solid #ecd9a3;border-left:4px solid #d4a017;border-radius:0 6px 6px 0;font-size:.88rem;line-height:1.65;color:#3a3128}
+
+/* Learning cards (万益蓝模板) */
+.learn-card{background:#fff;border:1px solid #e6dfd3;border-radius:12px;padding:1.5rem 1.6rem;border-top:5px solid var(--lc,#c0392b);box-shadow:0 4px 16px -12px rgba(31,27,22,.15);transition:.25s}
+.learn-card:hover{transform:translateY(-3px);box-shadow:0 18px 32px -20px rgba(31,27,22,.3)}
+.learn-head{display:flex;gap:1rem;align-items:flex-start;margin-bottom:.9rem;padding-bottom:.9rem;border-bottom:1px dashed #e6dfd3}
+.learn-no{font-family:"Noto Serif SC",serif;font-size:2.4rem;font-weight:900;line-height:1;color:var(--lc,#c0392b);opacity:.85}
+.learn-summary{font-size:.92rem;line-height:1.75;color:#3a3128;background:#fbf3dc;border-radius:6px;padding:.75rem .9rem;border-left:3px solid var(--lc,#d4a017)}
+.learn-actions{list-style:none;padding:0;margin:.4rem 0 0;display:grid;gap:.55rem}
+.learn-actions > li{display:flex;gap:.7rem;align-items:flex-start;font-size:.87rem;line-height:1.7;color:#2a241d}
+.learn-bullet{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--lc,#c0392b);color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+
+/* Livestream rooms */
+.room-card{background:#fff;border:1px solid #e6dfd3;border-radius:12px;padding:1.6rem;position:relative;overflow:hidden}
+.room-card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px}
+.room-a::before{background:linear-gradient(90deg,#7c6f57,#bcb09b)}
+.room-b::before{background:linear-gradient(90deg,#c0392b,#d4a017)}
+.room-tag{font-size:.7rem;letter-spacing:.15em;background:#1f1b16;color:#fff;padding:4px 10px;border-radius:3px;font-weight:700;white-space:nowrap}
+.room-a .room-tag{background:#7c6f57}
+.room-b .room-tag{background:#c0392b}
+.room-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin:1rem 0}
+@media(max-width:640px){.room-kpis{grid-template-columns:repeat(2,1fr)}}
+.room-kpi{background:#faf6ee;border-radius:6px;padding:.55rem .5rem;text-align:center;border:1px solid #ecd9a3}
+.room-kpi-k{font-size:.68rem;color:#6b6359;letter-spacing:.05em;margin-bottom:.25rem}
+.room-kpi-v{font-family:"Noto Serif SC",serif;font-weight:700;font-size:.92rem;color:#1f1b16;font-variant-numeric:tabular-nums}
+.diag-block{background:#fbf3dc;border-left:4px solid #d4a017;border-radius:0 6px 6px 0;padding:.85rem 1rem;margin-top:.8rem}
+
+/* Synergy */
+.synergy-card{background:#fffaf0;border:2px solid #d4a017;border-radius:10px;padding:1.5rem 1.8rem}
+.synergy-flow{display:flex;gap:1rem;align-items:stretch;flex-wrap:wrap}
+.synergy-node{flex:1;min-width:240px;background:#fff;border-radius:8px;padding:1rem 1.1rem;border:1px solid #ecd9a3}
+.node-a{border-left:4px solid #7c6f57}
+.node-b{border-left:4px solid #c0392b}
+.synergy-name{font-family:"Noto Serif SC",serif;font-weight:700;font-size:1.05rem}
+.synergy-role{display:inline-block;font-size:.7rem;letter-spacing:.1em;background:#1f1b16;color:#fff;padding:2px 8px;border-radius:3px;margin-top:.35rem;font-weight:700}
+.node-a .synergy-role{background:#7c6f57}
+.node-b .synergy-role{background:#c0392b}
+.synergy-arrow{display:flex;align-items:center;justify-content:center;font-size:2rem;color:#c0392b;font-weight:900;padding:0 .5rem}
+@media(max-width:640px){.synergy-arrow{transform:rotate(90deg);padding:.5rem 0}}
+
+/* /FILE:style.css */
+</style>
+
+<script>
+/* ===== DATA ===== */
+/* FILE:data.js */
+var SHOT_byd="https://going0917.github.io/ad-guide/assets/byd-01b2e402.jpg";var SHOT_sport="https://going0917.github.io/ad-guide/assets/byd-50d05087.jpg";var SHOT_pharma="https://going0917.github.io/ad-guide/assets/byd-ed4120af.jpg";var SHOT_import="https://going0917.github.io/ad-guide/assets/byd-bc4e3e94.jpg";var SHOT_new="https://going0917.github.io/ad-guide/assets/byd-0a32f7de.jpg";
+window.appData = {
+  brands: [
+    {key:'byd', name:'保元德', tag:'本品', isBrand:true, consume:'5~6万', roi:'1.9~2.0', cvr:'10~11%', ctr:'4~5%', sub:'EYE-CARE · OWN'},
+    {key:'sport', name:'某运动营养品牌', tag:'对位 A', consume:'14~15万', roi:'1.8~2.0', cvr:'7~8%', ctr:'3~4%', sub:'SPORTS NUTRITION'},
+    {key:'pharma', name:'某国货药企品牌', tag:'对位 B', consume:'5~6万', roi:'1.7~1.8', cvr:'6~7%', ctr:'3~4%', sub:'PHARMACEUTICAL'},
+    {key:'import', name:'某进口高端品牌', tag:'对位 C', consume:'2~3万', roi:'2.4~2.5', cvr:'2~3%', ctr:'3~4%', sub:'IMPORTED PREMIUM'},
+    {key:'new', name:'某新锐膳食品牌', tag:'对位 D', consume:'1~2万', roi:'1.0~1.2', cvr:'9~10%', ctr:'4~5%', sub:'CHALLENGER'},
+  ],
+  chartData: [
+    {name:'保元德', consume:5.5, roi:1.95, cvr:10.5, ctr:4.5},
+    {name:'某运动营养', consume:14.5, roi:1.9, cvr:7.5, ctr:3.5},
+    {name:'某国货药企', consume:5.5, roi:1.75, cvr:6.5, ctr:3.5},
+    {name:'某进口高端', consume:2.5, roi:2.45, cvr:2.5, ctr:3.5},
+    {name:'某新锐膳食', consume:1.5, roi:1.10, cvr:9.5, ctr:4.5},
+  ],
+  competitors: [
+    {
+      key:'sport', letter:'A', name:'某运动营养品牌', tagline:'中老年精准定位 + 极致促销放量',
+      shot: SHOT_sport,
+      info:{ '总消耗':'14~15万 (规模第一)','平均 ROI':'1.9~2.0','CVR':'7~8%','CTR':'3~4%',
+        'Top1 素材':'618 大促老年专场','核心配方':'8mg 专利叶黄素酯+虾青素+DHA' },
+      tags:['中老年精准','极致促销','人设互动','拍1发20盒'],
+      visualPoints:[
+        '<b>职业装女主播</b> × 老年女性消费者现场互动，年龄信任感强',
+        '展会活动现场与<b>工厂流水线</b>镜头交替出现，强化"货源真实"',
+        '<span class="mark-hl">20 盒大礼包透明袋装</span>多次特写，视觉冲击拉满',
+        '产品<b>堆叠陈列</b>强调"货多便宜"，反复出现于直播间背景'
+      ],
+      strategies:[
+        {tag:'促销', txt:'<b>拍 1 发 20 盒</b>极致性价比，单盒压到 8.4 元/盒'},
+        {tag:'稀缺', txt:'「<b>过两天就没有 618 补贴了</b>」制造时限紧迫'},
+        {tag:'从众', txt:'「<b>名额就在直播间</b>」+ 退休金低收入对话拉近距离'}
+      ],
+      scripts:[
+        '「<b>大姨大姨，您要是再错过，可就恢复 19 块 9 了。</b>」',
+        '「<b>8.4 一盒，每粒都添加 8 毫克的专利叶黄素酯。</b>」',
+        '「<b>我退休金一个月只有 500，能天天吃叶黄素吗？</b>」'
+      ],
+      learnings:[
+        '<b>01</b> 极致促销机制可<span class="mark-hl">快速放量</span>，单素材日耗轻松破万',
+        '<b>02</b> 老年消费者对话<b>降低广告防备</b>，3 秒完播率显著提升',
+        '<b>03</b> 大礼包透明袋装的视觉冲击直接<b>提升点击率</b>'
+      ]
+    },
+    {
+      key:'pharma', letter:'B', name:'某国货药企品牌', tagline:'药企级背书 + 道地原料溯源',
+      shot: SHOT_pharma,
+      info:{ '总消耗':'5~6万','平均 ROI':'1.6~1.8','CVR':'6~7%','CTR':'3~4%',
+        'Top1 素材':'酸枣仁助眠场景剧','核心配方':'酸枣仁+茯苓+山药 (科学配比)' },
+      tags:['国企药企背书','中式专家','原料溯源','恐惧营销'],
+      visualPoints:[
+        '<b>中式服装专家</b>口播 + 山间采摘农民形象，权威感与真实感并存',
+        '户外<b>草原、深山密林</b>及古风场景，强化道地药材叙事',
+        '<span class="mark-hl">红色酸枣仁原材料特写</span>反复出现，视觉记忆点鲜明',
+        '<b>晾晒与研磨</b>过程纪录片化呈现，制造"工序透明"印象'
+      ],
+      strategies:[
+        {tag:'背书', txt:'<b>国企老品牌药企</b>背书，建立"制药级"信任壁垒'},
+        {tag:'溯源', txt:'<b>天然酸枣仁、茯苓、山药</b>科学配比，强调天然属性'},
+        {tag:'恐惧', txt:'「<b>当心发展成干眼症</b>」制造健康危机紧迫感'}
+      ],
+      scripts:[
+        '「<b>酸枣仁这个东西到底适合什么样的人吃呢</b>」',
+        '「<b>华北制药，国企老品牌</b>」',
+        '「<b>天然酸枣仁、茯苓、山药科学配比</b>」'
+      ],
+      learnings:[
+        '<b>01</b> 药企背书<b>强化信任</b>，特别适合中老年保健类目转化',
+        '<b>02</b> 原材料溯源镜头增强<span class="mark-hl">真实感</span>，提升人均观看时长',
+        '<b>03</b> 恐惧营销制造<b>紧迫感</b>，将"可买可不买"转为"必须买"'
+      ]
+    },
+    {
+      key:'import', letter:'C', name:'某进口高端品牌', tagline:'美国进口 + 细胞养护科技',
+      shot: SHOT_import,
+      info:{ '总消耗':'2~3万','平均 ROI':'2.4~2.5 (效率第一)','CVR':'2~3%','CTR':'3~4%',
+        'Top1 素材':'AKG 细胞养护科普片','核心配方':'AKG+PQQ+天然植萃' },
+      tags:['高端定位','细胞科技','国际认证','信息差'],
+      visualPoints:[
+        '<b>气质优雅中老年女性</b> + 西装专家组合出镜，传递"高净值人群"感',
+        '都市街头与<b>3D 细胞结构动画</b>切换，具象化作用机制',
+        '<span class="mark-hl">国际认证证书</span>占满画面，权威性扑面而来',
+        '<b>高端包装特写</b>反复出现，呼应客单价定位'
+      ],
+      strategies:[
+        {tag:'高端', txt:'<b>美国进口细胞养护</b>定位，主打"贵的有理由"'},
+        {tag:'科技', txt:'<b>AKG+PQQ</b> 概念包装，把成分包装为前沿科技'},
+        {tag:'信息差', txt:'「<b>北上广家长早就换成…</b>」制造圈层焦虑'}
+      ],
+      scripts:[
+        '「<b>坚持补充一段时间贝卡罗莱 AKG，自身状态会有哪些不一样的变化呢？</b>」',
+        '「<b>AKG+PQQ 以及天然植萃原料</b>」',
+        '「<b>拥有国际安全检测报告和双重权威资质认证</b>」'
+      ],
+      learnings:[
+        '<b>01</b> 高端定位<b>提升客单价</b>，CVR 虽低但 ROI 反超大众品',
+        '<b>02</b> 3D 动画<span class="mark-hl">具象化功效</span>，破解保健品"看不见"难题',
+        '<b>03</b> 国际认证增强<b>权威感</b>，化解高客单决策疑虑'
+      ]
+    },
+    {
+      key:'new', letter:'D', name:'某新锐膳食品牌', tagline:'家庭剧情 × 源头工厂直供',
+      shot: SHOT_new,
+      info:{ '总消耗':'1~2万','平均 ROI':'1.0~1.2','CVR':'9~10%','CTR':'4~5% (与本品并列最高)',
+        'Top1 素材':'家庭母子对话剧情','核心配方':'蓝莓 + 决明子双主元' },
+      tags:['家庭冲突','源头工厂','拍1发3','低门槛'],
+      visualPoints:[
+        '<b>家庭成员（母子）</b>对话场景，戏剧张力强，去广告化',
+        '<b>外籍专家</b>背书出镜，传递"国际配方"印象',
+        '<span class="mark-hl">现代化无尘车间</span> + 自动化装瓶封口工序展示',
+        '<b>粉色药片特写</b>与流水线 B-Roll 交替，年轻化质感'
+      ],
+      strategies:[
+        {tag:'冲突', txt:'家庭对话<b>制造戏剧性</b>，瞬间锁定注意力'},
+        {tag:'工厂', txt:'<b>源头工厂直供</b>逻辑，"砍掉中间商"做价格说服'},
+        {tag:'性价比', txt:'<b>59 元三大瓶</b>拍 1 发 3，囤货心智极致拉满'}
+      ],
+      scripts:[
+        '「<b>妈，你快别吃了。</b>」「<b>我凭什么不吃啊？你奶奶都七十了还天天吃呢。</b>」',
+        '「<b>59 元三大瓶，拍一发三</b>」',
+        '「<b>蓝莓 + 决明子双重主元</b>」'
+      ],
+      learnings:[
+        '<b>01</b> 家庭冲突式开场<b>降低广告感</b>，CTR 表现与本品并列最高',
+        '<b>02</b> 工厂实拍<span class="mark-hl">增强品质感</span>，弥补品牌力不足',
+        '<b>03</b> 全家适用扩大<b>受众覆盖面</b>，跳出"中老年专属"局限'
+      ]
+    },
+  ],
+  selfBrand: {
+    shot: SHOT_byd,
+    hook:'叶黄素是空腹吃还是饭后吃呢？起床吃和睡前吃差别大吗？',
+    sellings:['科学配方：叶黄素酯+磷虾油+DHA+胡萝卜素','厂家直供 · 砍掉中间商没有层层加价','正品保障：防伪码 + 纯白医药级包装'],
+    visual:'蓝色实验服专家 + 现代化实验室 + 显微镜数据分析屏幕 + 成分表放大镜特写',
+    convert:'「砍掉中间商没有层层加价」做价格说服；「不满意直接退回来」做无忧背书'
+  },
+  learnings: [
+    {
+      from:'某运动营养品牌', color:'#c0392b', title:'极致促销放量',
+      summary:'保元德 <b>CVR 10~11%</b> 全场最高，但消耗仅 <b>5~6 万</b>，放量遇瓶颈。竞品通过<span class="mark-hl">「拍 1 发 20」</span>实现 <b>14~15 万</b>消耗规模。',
+      actions:[
+        '将现有单瓶装升级为「<b>拍 1 发 6</b>」家庭囤货装，配合"<b>一天不到几毛钱</b>"话术降低决策门槛，<span class="mark-hl">目标提升客单价 30%</span>',
+        '增设「<b>限时 3 天 618 补贴</b>」倒计时贴片，在素材前 5 秒植入稀缺感，参考诺特兰德"过两天就恢复原价"结构，<span class="mark-hl">目标 CTR 提升 1.5 个百分点</span>',
+        '布局<b>老年消费者互动</b>场景，采用"退休金 500 能不能吃得起"的低门槛对话开场，降低广告感，<span class="mark-hl">目标 3 秒完播率提升 20%</span>'
+      ]
+    },
+    {
+      from:'某国货药企品牌', color:'#5b8266', title:'药企级背书',
+      summary:'保元德以<b>实验室科研</b>为主要背书，但缺乏国民认知度。华北制药通过"<b>国企老品牌</b>"话术快速建立信任。',
+      actions:[
+        '强化"<b>厂家直供</b>"话术为"<b>GMP 认证药企标准生产</b>"，在素材中增加 20 秒工厂实拍镜头，展示无尘车间与质检流程，<span class="mark-hl">目标 CVR 提升 1 个百分点</span>',
+        '复用「<b>当心发展成干眼症</b>」恐惧营销结构，改编为"<b>叶黄素流失 90% 你还不补？</b>"，配合眼部不适特写画面，<span class="mark-hl">目标 3 秒停留率提升 15%</span>',
+        '增加<b>原材料溯源</b>镜头，拍摄<b>万寿菊种植基地</b>与叶黄素提取过程，参考华北制药酸枣仁晾晒场景，<span class="mark-hl">增强真实感</span>'
+      ]
+    },
+    {
+      from:'某进口高端品牌', color:'#9b6a3f', title:'高端线突围',
+      summary:'保元德客单价偏低，贝卡罗莱通过"<b>美国进口 + AKG 概念</b>"实现 ROI <b>2.4~2.5</b>，<span class="mark-hl">高端化是提升利润的关键路径</span>。',
+      actions:[
+        '布局「<b>进口磷虾油</b>」高端子线 SKU，<b>定价提升 50%</b>，配合"南极磷虾原料"话术与冰川场景素材，<span class="mark-hl">目标 ROI 提升 0.3</span>',
+        '制作 30 秒 <b>3D 细胞吸收动画</b>，具象化"磷虾油 + 叶黄素双通道养护"机制，参考贝卡罗莱细胞结构动画，<span class="mark-hl">提升科技感认知</span>',
+        '申请并展示 <b>SGS / FDA</b> 等国际认证证书，在素材中增加证书特写镜头，配合"国际标准双重认证"话术，<span class="mark-hl">目标高净值人群转化率提升 25%</span>'
+      ]
+    },
+    {
+      from:'某新锐膳食品牌', color:'#d4a017', title:'家庭场景破圈',
+      summary:'保元德素材以<b>专家科普</b>为主，开场略显生硬。FILDES 通过<b>母子对话场景</b>实现 CTR <b>4~5%</b>，家庭冲突式开场值得借鉴。',
+      actions:[
+        '测试「<b>妈你快别吃了 / 我凭什么不吃</b>」家庭冲突式开场，将科普内容后置，<span class="mark-hl">目标 CTR 提升 1 个百分点</span>，同时保持 CVR 稳定',
+        '增加「<b>全家三代都在吃</b>」的场景化展示，从"中老年眼健康"扩展至"<span class="mark-hl">全家护眼</span>"定位，<b>扩大受众覆盖面</b>',
+        '复用「<b>正装试用 + 不满意退</b>」的低门槛承诺，在素材结尾增加 15 秒风险逆转话术，<span class="mark-hl">目标首单转化率提升 20%</span>'
+      ]
+    },
+  ],
+  livestreams: {
+    title:'保元德直播间下钻分析',
+    intro:'同为保元德旗下，两个直播间的<span class="mark-hl">流量打法与转化路径差异显著</span>。差异化定位可以让两间形成「<b>测款引流 → 规模收割</b>」的协同闭环。',
+    rooms:[
+      {
+        id:'0', name:'直播间 1（ID: 0）', tag:'测款引流型',
+        positioning:'高点击 · 中转化 · 低消耗',
+        scene:'适合测款引流',
+        kpis:[
+          {k:'消耗', v:'1.88 万'},
+          {k:'平均 ROI', v:'1.87'},
+          {k:'平均 CVR', v:'7.6%'},
+          {k:'平均 CTR', v:'7.3%'},
+          {k:'Top5 素材 CTR', v:'10.87% (全场最高)'}
+        ],
+        diagnosis:'CTR <b>7.3%</b> 显著高于直播间 2，钩子吸引力强；但 CVR 仅 <b>7.6%</b>，说明<span class="mark-hl">转化承接环节存在断点</span>。单素材消耗未破万，规模化空间未释放。',
+        suggestions:[
+          'CTR 已达 <b>7.3%</b> 说明钩子吸引力强，但 CVR 仅 7.6% 说明<b>转化承接不足</b>，建议在素材中段增加「<b>成分表放大镜特写</b>」等信任元素',
+          '单素材消耗未突破 1 万，建议测试「<b>拍 1 发 3</b>」促销机制提升客单价，<span class="mark-hl">释放流量价值</span>',
+          'Top5 素材 CTR <b>10.87%</b> 为全场最高，建议提取该素材<b>开场话术复制</b>至其他素材测试'
+        ]
+      },
+      {
+        id:'v2_finder', name:'直播间 2（ID: v2_finder）', tag:'规模收割型',
+        positioning:'高转化 · 中点击 · 强消耗',
+        scene:'品牌核心利润来源',
+        kpis:[
+          {k:'消耗', v:'3.96 万'},
+          {k:'平均 ROI', v:'1.92'},
+          {k:'平均 CVR', v:'10.1%'},
+          {k:'平均 CTR', v:'4.3%'},
+          {k:'Top4 素材 CVR', v:'12.21% (全场最高)'}
+        ],
+        diagnosis:'CVR <b>10.1%</b> 全场最高，<span class="mark-hl">收割能力出众</span>；但 CTR <b>4.3%</b> 偏低限制了入口流量，需要在钩子层面借鉴 A/D 竞品打法。',
+        suggestions:[
+          'CVR 10.1% 全场最高说明收割能力强，但 CTR 4.3% 偏低限制了流量入口，建议借鉴<b>诺特兰德"大礼包视觉冲击"</b>提升点击欲望',
+          'Top4 素材 CVR <b>12.21%</b> + ROI <b>2.05</b>，建议提取该素材<span class="mark-hl">核心卖点话术作为标准模板</span>',
+          '作为<b>主力直播间</b>，建议优先测试「<b>拍 1 发 6</b>」促销机制，<span class="mark-hl">目标消耗突破 10 万</span>'
+        ]
+      }
+    ],
+    synergy:{
+      title:'两直播间协同策略',
+      left:{name:'直播间 1', role:'测款引流', desc:'测试新钩子、新话术，筛选 <b>高 CTR</b> 素材'},
+      right:{name:'直播间 2', role:'规模收割', desc:'承接直播间 1 验证的<b>高潜力素材</b>，优化转化承接'}
+    }
+  },
+  roadmap: [
+    {w:'WEEK 01', t:'盘货 · 人群建模', list:['梳理保元德 Top10 高 CVR 素材话术共性','RFM 拆分中老年 / 价格敏感 / 高净值三类种子人群','准备 3 套主播人设脚本：实验室专家 / 中老年互动 / 高端代言','P0 优先级：跑通中老年互动型素材']},
+    {w:'WEEK 02', t:'素材 · 多线齐发', list:['上线「中老年眼健康」互动型素材 ×5（学某运动营养）','上线「磷虾油南极溯源」信任型素材 ×3（学某国货药企）','上线「高端礼盒 + 国际资质」质感素材 ×2（学某进口高端）','P0 优先级：互动型素材日耗破 1 万']},
+    {w:'WEEK 03', t:'促销 · 冲动机制', list:['开启「拍 1 发 10」大礼包专场素材','上线「家庭母子对话剧情」开场素材 ×3','正装试用 9.9 链接引流 + 满减券测试','P1 优先级：CTR 突破 5%']},
+    {w:'WEEK 04', t:'放量 · 模型沉淀', list:['人群包扩量 3 倍，DMP 跑量素材沉淀','高端礼盒 SKU 测试 1V1 顾问转化','复盘 ROI / CVR 双指标，迭代 V2 策略','P2 优先级：消耗规模冲击 12~15 万']},
+  ]
+};
+/* /FILE:data.js */
+</script>
+
+<script>
+/* ===== SCRIPT ===== */
+/* FILE:render.js */
+(function(){
+  const D = window.appData;
+
+  // KPI
+  const kpi = document.getElementById('kpi-grid');
+  kpi.innerHTML = D.brands.map(b=>`
+    <div class="kpi ${b.isBrand?'is-brand':''}">
+      <div class="kpi-name">
+        <span>${b.name}</span>
+        ${b.isBrand?'<span class="kpi-badge">本品</span>':`<span class="kpi-sub" style="font-size:10px">${b.tag}</span>`}
+      </div>
+      <div class="kpi-sub mb-2">${b.sub}</div>
+      <div class="kpi-row"><span class="kpi-label">消耗</span><span class="kpi-val">${b.consume}</span></div>
+      <div class="kpi-row"><span class="kpi-label">ROI</span><span class="kpi-val">${b.roi}</span></div>
+      <div class="kpi-row"><span class="kpi-label">CVR</span><span class="kpi-val">${b.cvr}</span></div>
+      <div class="kpi-row"><span class="kpi-label">CTR</span><span class="kpi-val">${b.ctr}</span></div>
+    </div>
+  `).join('');
+
+  // 保元德 self
+  if(D.selfBrand){
+    const s=D.selfBrand;
+    document.getElementById('byd-shot').src=s.shot;
+    document.getElementById('byd-hook').textContent=s.hook;
+    document.getElementById('byd-sells').innerHTML=s.sellings.map(x=>`<li>· ${x}</li>`).join('');
+    document.getElementById('byd-visual').textContent=s.visual;
+    document.getElementById('byd-convert').innerHTML=s.convert;
+  }
+
+  // Tabs
+  const nav = document.getElementById('tab-nav');
+  const content = document.getElementById('tab-content');
+  nav.innerHTML = D.competitors.map((c,i)=>`<button class="tab-btn ${i===0?'active':''}" data-i="${i}">${c.letter} · ${c.name}</button>`).join('');
+
+  function renderPanel(i){
+    const c = D.competitors[i];
+    content.innerHTML = `
+      <div class="tab-panel">
+        <div>
+          <div class="shot-wrap"><img src="${c.shot}" alt="${c.name} Top1 素材截图" loading="lazy"/><span class="shot-tag">${c.letter} · Top1 素材实拍</span></div>
+          <div class="brand-card">
+            <div class="font-serif font-bold text-lg mb-1">${c.name}</div>
+            <div class="text-xs text-muted mb-3">${c.tagline}</div>
+            ${Object.entries(c.info).map(([k,v])=>`<div class="mini-row"><span class="text-muted">${k}</span><span class="font-bold">${v}</span></div>`).join('')}
+            <div class="mt-3">${c.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+          </div>
+        </div>
+        <div>
+          <div class="detail-block">
+            <div class="detail-title">画面特点</div>
+            <ul class="visual-list">${c.visualPoints.map(p=>`<li>${p}</li>`).join('')}</ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-title">核心策略</div>
+            <div class="strategy-grid">${c.strategies.map(s=>`
+              <div class="strategy-item">
+                <span class="strategy-tag">${s.tag}</span>
+                <span>${s.txt}</span>
+              </div>`).join('')}</div>
+          </div>
+          <div class="detail-block">
+            <div class="detail-title">话术原文</div>
+            ${c.scripts.map(s=>`<div class="script-quote">${s}</div>`).join('')}
+          </div>
+          <div class="detail-block">
+            <div class="detail-title">借鉴价值</div>
+            <ul class="learn-list">${c.learnings.map(l=>`<li>${l}</li>`).join('')}</ul>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  renderPanel(0);
+  nav.addEventListener('click',e=>{
+    const btn = e.target.closest('.tab-btn'); if(!btn) return;
+    nav.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderPanel(+btn.dataset.i);
+  });
+
+  // Learning cards (万益蓝模板: from/color/title/summary/actions)
+  document.getElementById('learning-list').innerHTML = D.learnings.map((l,i)=>`
+    <div class="learn-card" style="--lc:${l.color}">
+      <div class="learn-head">
+        <span class="learn-no">0${i+1}</span>
+        <div>
+          <div class="text-xs tracking-[0.2em]" style="color:${l.color};font-weight:700">FROM · ${l.from}</div>
+          <div class="font-serif font-bold text-xl mt-1">学「${l.title}」</div>
+        </div>
+      </div>
+      <p class="learn-summary">${l.summary}</p>
+      <div class="text-xs font-bold tracking-widest text-accent mt-4 mb-2">落地动作 · ACTIONS</div>
+      <ol class="learn-actions">${l.actions.map((a,j)=>`<li><span class="learn-bullet">${j+1}</span><span>${a}</span></li>`).join('')}</ol>
+    </div>
+  `).join('');
+
+  // Livestream drill-down
+  if(D.livestreams && document.getElementById('ls-title')){
+    const ls = D.livestreams;
+    document.getElementById('ls-title').textContent = ls.title;
+    document.getElementById('ls-intro').innerHTML = ls.intro;
+    document.getElementById('ls-rooms').innerHTML = ls.rooms.map((r,i)=>`
+      <div class="room-card ${i===0?'room-a':'room-b'}">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <div class="font-serif font-bold text-xl">${r.name}</div>
+            <div class="text-xs text-muted mt-1">${r.positioning}</div>
+          </div>
+          <span class="room-tag">${r.tag}</span>
+        </div>
+        <div class="room-kpis">
+          ${r.kpis.map(k=>`<div class="room-kpi"><div class="room-kpi-k">${k.k}</div><div class="room-kpi-v">${k.v}</div></div>`).join('')}
+        </div>
+        <div class="diag-block">
+          <div class="text-xs font-bold tracking-widest text-accent mb-2">定位诊断</div>
+          <p class="text-sm leading-relaxed">${r.diagnosis}</p>
+        </div>
+        <div class="text-xs font-bold tracking-widest text-accent mt-4 mb-2">优化建议</div>
+        <ol class="learn-actions">${r.suggestions.map((s,j)=>`<li><span class="learn-bullet">${j+1}</span><span>${s}</span></li>`).join('')}</ol>
+      </div>
+    `).join('');
+    document.getElementById('ls-synergy').innerHTML = `
+      <div class="synergy-card">
+        <div class="text-xs font-bold tracking-widest text-accent mb-3">${ls.synergy.title}</div>
+        <div class="synergy-flow">
+          <div class="synergy-node node-a">
+            <div class="synergy-name">${ls.synergy.left.name}</div>
+            <div class="synergy-role">${ls.synergy.left.role}</div>
+            <div class="text-xs leading-relaxed mt-2">${ls.synergy.left.desc}</div>
+          </div>
+          <div class="synergy-arrow">→</div>
+          <div class="synergy-node node-b">
+            <div class="synergy-name">${ls.synergy.right.name}</div>
+            <div class="synergy-role">${ls.synergy.right.role}</div>
+            <div class="text-xs leading-relaxed mt-2">${ls.synergy.right.desc}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Roadmap
+  document.getElementById('roadmap').innerHTML = D.roadmap.map(r=>`
+    <div class="road-card">
+      <div class="road-week">${r.w}</div>
+      <div class="road-title">${r.t}</div>
+      <ul class="road-list">${r.list.map(x=>`<li>${x}</li>`).join('')}</ul>
+    </div>
+  `).join('');
+})();
+/* /FILE:render.js */
+
+/* FILE:charts.js */
+document.addEventListener('DOMContentLoaded', function(){
+  function tryInitCharts() {
+    if (typeof echarts === 'undefined') {
+      setTimeout(tryInitCharts, 200);
+      return;
+    }
+    var barEl = document.getElementById('chart-bar');
+    var scatterEl = document.getElementById('chart-scatter');
+    var radarEl = document.getElementById('chart-radar');
+    if (!barEl || !scatterEl || !radarEl) {
+      setTimeout(tryInitCharts, 200);
+      return;
+    }
+    var D = window.appData.chartData;
+    var names = D.map(function(d){return d.name;});
+    var palette = ['#c0392b','#d4a017','#7c6f57','#5b8266','#9b6a3f'];
+
+    // 柱线图
+    var chartBar = echarts.init(barEl);
+    chartBar.setOption({
+      grid:{left:50,right:55,top:50,bottom:40},
+      tooltip:{trigger:'axis'},
+      legend:{data:['消耗（万）','ROI'],top:10,textStyle:{color:'#1f1b16'}},
+      xAxis:{type:'category',data:names,axisLine:{lineStyle:{color:'#bcb09b'}},axisLabel:{color:'#1f1b16'}},
+      yAxis:[
+        {type:'value',name:'消耗(万)',axisLine:{show:false},splitLine:{lineStyle:{color:'#ecdfc8',type:'dashed'}}},
+        {type:'value',name:'ROI',min:0,max:3,axisLine:{show:false},splitLine:{show:false}}
+      ],
+      series:[
+        {name:'消耗（万）',type:'bar',data:D.map(function(d,i){return {value:d.consume,itemStyle:{color:i===0?'#c0392b':'#d4a017',opacity:i===0?1:0.7,borderRadius:[6,6,0,0]}}}),barWidth:34,label:{show:true,position:'top',color:'#1f1b16',fontSize:11}},
+        {name:'ROI',type:'line',yAxisIndex:1,data:D.map(function(d){return d.roi}),smooth:true,lineStyle:{color:'#1f1b16',width:3},itemStyle:{color:'#1f1b16'},symbolSize:10,label:{show:true,color:'#1f1b16',fontSize:11}}
+      ]
+    });
+
+    // 散点图
+    var chartScatter = echarts.init(scatterEl);
+    chartScatter.setOption({
+      grid:{left:55,right:30,top:40,bottom:50},
+      tooltip:{formatter:function(p){return p.data[2]+'<br/>CTR: '+p.data[0]+'%<br/>CVR: '+p.data[1]+'%'}},
+      xAxis:{name:'CTR (%)',nameLocation:'middle',nameGap:30,axisLine:{lineStyle:{color:'#bcb09b'}},splitLine:{lineStyle:{color:'#ecdfc8',type:'dashed'}}},
+      yAxis:{name:'CVR (%)',nameLocation:'middle',nameGap:35,axisLine:{lineStyle:{color:'#bcb09b'}},splitLine:{lineStyle:{color:'#ecdfc8',type:'dashed'}}},
+      series:[{
+        type:'scatter',
+        symbolSize:function(d){return Math.max(20,d[3]*5)},
+        data:D.map(function(d,i){return {value:[d.ctr,d.cvr,d.name,d.consume],itemStyle:{color:palette[i],opacity:0.85}}}),
+        label:{show:true,formatter:function(p){return p.data[2]},position:'top',color:'#1f1b16',fontSize:11,fontWeight:'bold'}
+      }]
+    });
+
+    // 雷达图
+    function norm(v,max){return +(v/max*100).toFixed(1);}
+    var maxC = Math.max.apply(null,D.map(function(d){return d.consume}));
+    var maxR = Math.max.apply(null,D.map(function(d){return d.roi}));
+    var maxV = Math.max.apply(null,D.map(function(d){return d.cvr}));
+    var maxT = Math.max.apply(null,D.map(function(d){return d.ctr}));
+    var chartRadar = echarts.init(radarEl);
+    chartRadar.setOption({
+      tooltip:{},
+      legend:{bottom:0,textStyle:{color:'#1f1b16',fontSize:11}},
+      radar:{
+        indicator:[
+          {name:'消耗规模',max:100},{name:'ROI 效率',max:100},
+          {name:'CVR 转化',max:100},{name:'CTR 吸引',max:100},
+          {name:'综合得分',max:100}
+        ],
+        axisName:{color:'#1f1b16',fontSize:11},
+        splitArea:{areaStyle:{color:['#fbf3dc','#f8f5f0']}},
+        splitLine:{lineStyle:{color:'#d4a017'}}
+      },
+      series:[{type:'radar',data:D.map(function(d,i){
+        var nC=norm(d.consume,maxC), nR=norm(d.roi,maxR), nV=norm(d.cvr,maxV), nT=norm(d.ctr,maxT);
+        return {
+          name:d.name,
+          value:[nC, nR, nV, nT, (nC+nR+nV+nT)/4],
+          lineStyle:{color:palette[i],width:i===0?3:1.5},
+          itemStyle:{color:palette[i]},
+          areaStyle:{color:palette[i],opacity:i===0?0.35:0.08}
+        };
+      })}]
+    });
+
+    window.addEventListener('resize',function(){
+      chartBar.resize();
+      chartScatter.resize();
+      chartRadar.resize();
+    });
+  }
+  tryInitCharts();
+});
+/* /FILE:charts.js */
+</script>
+</body>
+</html>
