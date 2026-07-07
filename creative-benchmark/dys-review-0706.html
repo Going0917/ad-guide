@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>多燕瘦自营 618复盘报告 2026.05.20-07.06</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1a1a2e;font-size:14px}
+.page-header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;padding:36px 48px 28px}
+.page-header h1{font-size:26px;font-weight:700;letter-spacing:1px;margin-bottom:6px}
+.page-header .sub{font-size:13px;opacity:.7;margin-bottom:20px}
+.kpi-row{display:flex;gap:14px;flex-wrap:wrap}
+.kpi-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 18px;min-width:120px}
+.kpi-card .lbl{font-size:11px;opacity:.7;margin-bottom:3px}
+.kpi-card .val{font-size:20px;font-weight:700}
+.kpi-card .unit{font-size:11px;opacity:.8}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+.section{background:#fff;border-radius:14px;padding:24px 28px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.sec-title{font-size:17px;font-weight:700;color:#1a1a2e;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.sec-title::before{content:"";display:inline-block;width:4px;height:18px;background:linear-gradient(180deg,#5470c6,#91cc75);border-radius:2px}
+.sec-desc{font-size:12px;color:#888;margin-bottom:16px;padding-left:12px}
+.chart-lg{width:100%;height:400px}
+.chart-md{width:100%;height:320px}
+.chart-sm{width:100%;height:280px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.insight{background:#f8f9ff;border-left:4px solid #5470c6;border-radius:0 8px 8px 0;padding:12px 16px;margin-top:14px;font-size:13px;line-height:1.8;color:#333}
+.insight strong{color:#1a1a2e}
+.tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600;margin-right:5px;color:#fff}
+.tag-warn{background:#ee6666}.tag-ok{background:#52c41a}.tag-tip{background:#fa8c16}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px}
+th{background:#f5f6fa;color:#555;font-weight:600;padding:9px 10px;text-align:center;border-bottom:2px solid #e0e0e0}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #f0f0f0}
+tr:hover td{background:#fafbff}
+.hl{color:#ee6666;font-weight:700}.gd{color:#52c41a;font-weight:700}.wn{color:#fa8c16;font-weight:700}
+.badge{display:inline-block;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:600;margin-left:4px}
+.bd-red{background:#fff1f0;color:#cf1322;border:1px solid #ffa39e}
+.bd-grn{background:#f6ffed;color:#389e0d;border:1px solid #b7eb8f}
+.bd-blu{background:#e6f7ff;color:#096dd9;border:1px solid #91d5ff}
+.bd-org{background:#fff7e6;color:#d46b08;border:1px solid #ffd591}
+/* Tab */
+.tabs{display:flex;border-bottom:2px solid #e8e8e8;margin-bottom:16px}
+.tab-btn{padding:9px 18px;cursor:pointer;font-size:13px;color:#666;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.tab-btn.active{color:#5470c6;border-bottom-color:#5470c6;font-weight:600}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+/* 直播间卡片 */
+.room-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.room-card{border:1px solid #e8e8e8;border-radius:12px;padding:18px;background:#fafbff}
+.room-card-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.room-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700}
+.room-kpi{display:flex;gap:10px;margin-bottom:12px}
+.room-kpi-item{flex:1;text-align:center;background:#f0f2f5;border-radius:8px;padding:8px 4px}
+.room-kpi-item .rl{font-size:10px;color:#888}
+.room-kpi-item .rv{font-size:16px;font-weight:700}
+.action-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:12px;line-height:1.6}
+.dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+.dot-r{background:#ee6666;color:#fff}.dot-y{background:#fac858;color:#333}.dot-g{background:#91cc75;color:#333}
+.cmp-row{display:flex;align-items:center;gap:8px;margin:5px 0}
+.cmp-lbl{width:55px;font-size:12px;color:#666;text-align:right;flex-shrink:0}
+.cmp-track{flex:1;height:9px;background:#f0f0f0;border-radius:5px;overflow:hidden}
+.cmp-fill{height:100%;border-radius:5px}
+</style>
+</head>
+<body>
+<div class="page-header">
+  <h1>多燕瘦自营 · 618大促复盘报告</h1>
+  <div class="sub">分析周期：2026.05.20 — 2026.07.06 &nbsp;|&nbsp; 直播链路竞价口径（普通直播间+商品聚合页）</div>
+  <div class="kpi-row">
+    <div class="kpi-card"><div class="lbl">期间总消耗</div><div class="val">2138.8<span class="unit"> 万元</span></div></div>
+    <div class="kpi-card"><div class="lbl">日均消耗</div><div class="val">44.6<span class="unit"> 万/日</span></div></div>
+    <div class="kpi-card"><div class="lbl">整体 ROI</div><div class="val">1.290</div></div>
+    <div class="kpi-card"><div class="lbl">CTR</div><div class="val">1.75<span class="unit">%</span></div></div>
+    <div class="kpi-card"><div class="lbl">CVR</div><div class="val">3.02<span class="unit">%</span></div></div>
+    <div class="kpi-card"><div class="lbl">CPM</div><div class="val">111.3<span class="unit"> 元</span></div></div>
+    <div class="kpi-card"><div class="lbl">计价率</div><div class="val">1.176</div></div>
+    <div class="kpi-card"><div class="lbl">有效直播间</div><div class="val">4<span class="unit"> 个</span></div></div>
+  </div>
+</div>
+<div class="container">
+
+
+<!-- ===== S1 消耗总览 ===== -->
+<div class="section">
+  <div class="sec-title">一、消耗总览</div>
+  <div class="sec-desc">分直播间 × 分天消耗趋势，叠加 618 大促阶段标注（堆叠面积图）</div>
+  <div class="chart-lg" id="c_daily"></div>
+  <div class="insight">
+    <span class="tag tag-ok">规模</span>期间总消耗 <strong>2138.8万元</strong>，日均 <strong>44.6万/日</strong>。
+    <strong>奇奇</strong>为第一主力（1018.8万，47.6%），<strong>茶茶</strong>次之（544.1万，25.4%），
+    <strong>柒柒</strong>（433.2万，20.3%），<strong>柚柚</strong>（142.7万，6.7%）。<br>
+    <span class="tag tag-warn">问题</span>P5高潮期（6.16-6.18）日均仅 <strong>34.5万</strong>，
+    是全程最低节奏，节奏系数 0.77 vs 大盘 1.24，<span class="hl">618最核心爆发节点严重踩空</span>。
+  </div>
+</div>
+
+<!-- ===== S2 分阶段 ===== -->
+<div class="section">
+  <div class="sec-title">二、分阶段消耗分析（P1-P7）</div>
+  <div class="sec-desc">618大促七阶段消耗节奏与各直播间贡献拆解</div>
+  <div class="grid2">
+    <div>
+      <div style="font-size:12px;color:#888;margin-bottom:6px;font-weight:600">▌ 各阶段日均消耗（万/日）</div>
+      <div class="chart-sm" id="c_phase_daily"></div>
+    </div>
+    <div>
+      <div style="font-size:12px;color:#888;margin-bottom:6px;font-weight:600">▌ 各阶段 × 直播间消耗分布</div>
+      <div class="chart-sm" id="c_phase_room"></div>
+    </div>
+  </div>
+  <table>
+    <tr><th>阶段</th><th>时间</th><th>天数</th><th>总消耗(万)</th><th>日均(万/日)</th>
+        <th>奇奇</th><th>茶茶</th><th>柒柒</th><th>柚柚</th><th>节奏系数</th><th>大盘节奏</th></tr>
+    <tr><td><strong>P1 蓄水期</strong></td><td>5.20-5.31</td><td>12</td><td>365.8</td><td>30.5</td><td>131.7</td><td>96.7</td><td>137.4</td><td>0</td><td class="hl">0.68</td><td>0.88</td></tr>
+<tr><td><strong>P2 预热期</strong></td><td>6.01-6.05</td><td>5</td><td>275.5</td><td>55.1</td><td>119.5</td><td>55.1</td><td>95.9</td><td>5.1</td><td class="gd">1.23</td><td>1.19</td></tr>
+<tr><td><strong>P3 开门红</strong></td><td>6.06-6.09</td><td>4</td><td>211.1</td><td>52.8</td><td>87.6</td><td>57.1</td><td>66.3</td><td>0</td><td class="gd">1.18</td><td>1.15</td></tr>
+<tr><td><strong>P4 返场期</strong></td><td>6.10-6.15</td><td>6</td><td>279.8</td><td>46.6</td><td>127.7</td><td>93.8</td><td>58.3</td><td>0</td><td class="">1.04</td><td>1.12</td></tr>
+<tr><td><strong>P5 高潮期</strong></td><td>6.16-6.18</td><td>3</td><td>103.5</td><td>34.5</td><td>58.2</td><td>22.1</td><td>23.2</td><td>0</td><td class="hl">0.77</td><td>1.24</td></tr>
+<tr><td><strong>P6 收尾期</strong></td><td>6.19-6.25</td><td>7</td><td>422.8</td><td>60.4</td><td>265.0</td><td>86.0</td><td>52.2</td><td>19.6</td><td class="">1.35</td><td>1.4</td></tr>
+<tr><td><strong>P7 日常期</strong></td><td>6.26-7.06</td><td>11</td><td>480.3</td><td>43.7</td><td>229.0</td><td>133.3</td><td>0</td><td>118.0</td><td class="">0.98</td><td>1.02</td></tr>
+  </table>
+  <div class="insight">
+    <span class="tag tag-warn">核心问题</span>
+    <strong>P5高潮期节奏系数0.77</strong>（大盘1.24），差距0.47，是全程最大偏差点，618最核心节点踩空。<br>
+    <span class="tag tag-ok">亮点</span>P6收尾期奇奇单阶段消耗265万，是全程最高单阶段表现。<br>
+    <span class="tag tag-tip">注意</span>P7日常期柒柒消耗归零，柚柚承接118万，账户策略发生明显切换。
+  </div>
+</div>
+
+
+<!-- ===== S3 大盘对比 ===== -->
+<div class="section">
+  <div class="sec-title">三、618大盘对比分析</div>
+  <div class="sec-desc">客户核心指标 vs 赛道大盘，定位竞争差距</div>
+  <div class="grid2">
+    <div>
+      <div style="font-size:12px;color:#888;margin-bottom:6px;font-weight:600">▌ 节奏系数对比（客户 vs 大盘）</div>
+      <div class="chart-sm" id="c_rhythm"></div>
+    </div>
+    <div style="padding:10px 0">
+      <div style="font-size:13px;font-weight:600;margin-bottom:10px">ROI 对比</div>
+      <div class="cmp-row"><div class="cmp-lbl">客户</div>
+        <div class="cmp-track"><div class="cmp-fill" style="width:70.9%;background:#5470c6"></div></div>
+        <span style="font-size:13px;font-weight:700;color:#5470c6;margin-left:8px">1.294</span></div>
+      <div class="cmp-row"><div class="cmp-lbl">大盘</div>
+        <div class="cmp-track"><div class="cmp-fill" style="width:100%;background:#ee6666"></div></div>
+        <span style="font-size:13px;font-weight:700;color:#ee6666;margin-left:8px">1.826</span></div>
+      <div style="font-size:11px;color:#ee6666;margin:2px 0 14px 63px">差距 -0.532，客户ROI仅为大盘70.9%</div>
+
+      <div style="font-size:13px;font-weight:600;margin-bottom:10px">C类满减券参与率</div>
+      <div class="cmp-row"><div class="cmp-lbl">客户</div>
+        <div class="cmp-track"><div class="cmp-fill" style="width:0%;background:#5470c6"></div></div>
+        <span style="font-size:13px;font-weight:700;color:#ee6666;margin-left:8px">≈0%</span></div>
+      <div class="cmp-row"><div class="cmp-lbl">大盘</div>
+        <div class="cmp-track"><div class="cmp-fill" style="width:38.4%;background:#91cc75"></div></div>
+        <span style="font-size:13px;font-weight:700;color:#91cc75;margin-left:8px">38.4%</span></div>
+      <div style="font-size:11px;color:#ee6666;margin:2px 0 14px 63px">几乎未参与618最大流量杠杆</div>
+
+      <div style="font-size:13px;font-weight:600;margin-bottom:10px">腾飞消耗占比</div>
+      <div class="cmp-row"><div class="cmp-lbl">客户</div>
+        <div class="cmp-track"><div class="cmp-fill" style="width:97.8%;background:#5470c6"></div></div>
+        <span style="font-size:13px;font-weight:700;color:#5470c6;margin-left:8px">52.9%</span></div>
+      <div class="cmp-row"><div class="cmp-lbl">大盘</div>
+        <div class="cmp-track"><div class="cmp-fill" style="width:100%;background:#91cc75"></div></div>
+        <span style="font-size:13px;font-weight:700;color:#91cc75;margin-left:8px">54.1%</span></div>
+      <div style="font-size:11px;color:#52c41a;margin:2px 0 0 63px">与大盘持平，腾飞使用率正常</div>
+    </div>
+  </div>
+  <div class="insight">
+    <span class="tag tag-warn">核心问题</span>618期间消耗规模环比下滑约 <strong>29%</strong>，未吃到大促增量红利；
+    日均消耗占赛道约 <strong>21%</strong>，赛道大盘环比仅+0.6%。<br>
+    <span class="tag tag-warn">最大漏洞</span><strong>C类满减券参与率≈0%</strong>（大盘38.4%），
+    618最大流量杠杆完全缺失，直接导致ROI大幅落后大盘（1.294 vs 1.826）。<br>
+    <span class="tag tag-tip">建议</span>下一轮大促提前2周规划满减券策略，目标参与率≥30%；
+    P5高潮期提前备足预算，节奏系数目标≥1.2。
+  </div>
+</div>
+
+<!-- ===== S4 推广形式 ===== -->
+<div class="section"><div class="sec-title">四、推广形式分析（整体 + 分直播间）</div><div class="sec-desc">普通直播间 vs 商品聚合页（6/10上线），整体及各直播间效率对比；点击标签切换</div><div class="tabs" id="tabs_type"><button class="tab-btn active" onclick="switchTab('type',0)">整体</button><button class="tab-btn " onclick="switchTab('type',1)">奇奇</button><button class="tab-btn " onclick="switchTab('type',2)">茶茶</button><button class="tab-btn " onclick="switchTab('type',3)">柒柒</button><button class="tab-btn " onclick="switchTab('type',4)">柚柚</button></div><div class="tab-pane active" id="type_pane_0"><div class="grid2"><div><div class="chart-sm" id="c_type_pie_0"></div></div><div><div class="chart-sm" id="c_type_eff_0"></div></div></div><table><tr><th>推广形式</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>计价率</th><th>ROI</th></tr><tr><td><strong>普通直播间</strong><span class="badge bd-blu">91.9%</span></td><td>40.97</td><td>57</td><td>14,642</td><td>9,387.8</td><td>1.79</td><td>2.99</td><td>111.7</td><td>1.173</td><td class="">1.293</td></tr><tr><td><strong>商品聚合页</strong><span class="badge bd-blu">8.1%</span></td><td>3.59</td><td>57</td><td>404</td><td>1,012.7</td><td>1.36</td><td>4.38</td><td>125.7</td><td>1.238</td><td class="">1.258</td></tr></table><div class="insight"><strong>【整体推广形式诊断】</strong> 普通直播间占比91.9%，日耗40.97万/日，ROI=1.293。商品聚合页6/10上线，日耗3.59万/日，ROI=1.258，CVR(4.38%)高于普通直播间(2.99%)，具备扩量潜力。</div></div><div class="tab-pane" id="type_pane_1"><div class="grid2"><div><div class="chart-sm" id="c_type_pie_1"></div></div><div><div class="chart-sm" id="c_type_eff_1"></div></div></div><table><tr><th>推广形式</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>计价率</th><th>ROI</th></tr><tr><td><strong>普通直播间</strong><span class="badge bd-blu">85.6%</span></td><td>18.16</td><td>54</td><td>4,504</td><td>3,317.9</td><td>1.72</td><td>3.37</td><td>117.7</td><td>1.139</td><td class="gd">1.335</td></tr><tr><td><strong>商品聚合页</strong><span class="badge bd-blu">14.4%</span></td><td>3.06</td><td>12</td><td>184</td><td>694.2</td><td>1.34</td><td>4.71</td><td>133.0</td><td>1.201</td><td class="">1.285</td></tr></table><div class="insight"><strong>【奇奇直播间诊断】</strong> 商品聚合页占比14.4%，ROI(1.285) 低于普通直播间(1.335)，需优化聚合页商品组合与出价。聚合页CTR(1.34%) 低于直播间(1.72%)，建议迭代聚合页封面素材。</div></div><div class="tab-pane" id="type_pane_2"><div class="grid2"><div><div class="chart-sm" id="c_type_pie_2"></div></div><div><div class="chart-sm" id="c_type_eff_2"></div></div></div><table><tr><th>推广形式</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>计价率</th><th>ROI</th></tr><tr><td><strong>普通直播间</strong><span class="badge bd-blu">98.5%</span></td><td>11.16</td><td>51</td><td>4,505</td><td>2,877.2</td><td>1.79</td><td>2.69</td><td>101.1</td><td>1.184</td><td class="">1.279</td></tr><tr><td><strong>商品聚合页</strong><span class="badge bd-blu">1.5%</span></td><td>0.17</td><td>12</td><td>104</td><td>170.1</td><td>1.75</td><td>1.35</td><td>72.1</td><td>1.769</td><td class="hl">0.869</td></tr></table><div class="insight"><strong>【茶茶直播间诊断】</strong> 商品聚合页占比1.5%，ROI(0.869) 低于普通直播间(1.279)，需优化聚合页商品组合与出价。聚合页CTR(1.75%) 低于直播间(1.79%)，建议迭代聚合页封面素材。</div></div><div class="tab-pane" id="type_pane_3"><div class="grid2"><div><div class="chart-sm" id="c_type_pie_3"></div></div><div><div class="chart-sm" id="c_type_eff_3"></div></div></div><table><tr><th>推广形式</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>计价率</th><th>ROI</th></tr><tr><td><strong>普通直播间</strong><span class="badge bd-blu">98.0%</span></td><td>8.84</td><td>45</td><td>4,017</td><td>2,299.2</td><td>2.06</td><td>2.71</td><td>122.2</td><td>1.196</td><td class="">1.263</td></tr><tr><td><strong>商品聚合页</strong><span class="badge bd-blu">2.0%</span></td><td>0.18</td><td>12</td><td>88</td><td>103.4</td><td>1.14</td><td>2.85</td><td>86.1</td><td>1.474</td><td class="hl">1.035</td></tr></table><div class="insight"><strong>【柒柒直播间诊断】</strong> 商品聚合页占比2.0%，ROI(1.035) 低于普通直播间(1.263)，需优化聚合页商品组合与出价。聚合页CTR(1.14%) 低于直播间(2.06%)，建议迭代聚合页封面素材。</div></div><div class="tab-pane" id="type_pane_4"><div class="grid2"><div><div class="chart-sm" id="c_type_pie_4"></div></div><div><div class="chart-sm" id="c_type_eff_4"></div></div></div><table><tr><th>推广形式</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>计价率</th><th>ROI</th></tr><tr><td><strong>普通直播间</strong><span class="badge bd-blu">94.3%</span></td><td>2.80</td><td>40</td><td>1,616</td><td>893.4</td><td>1.44</td><td>2.54</td><td>82.2</td><td>1.281</td><td class="">1.166</td></tr><tr><td><strong>商品聚合页</strong><span class="badge bd-blu">5.7%</span></td><td>0.17</td><td>7</td><td>28</td><td>45.0</td><td>1.51</td><td>3.32</td><td>92.3</td><td>1.099</td><td class="gd">1.423</td></tr></table><div class="insight"><strong>【柚柚直播间诊断】</strong> 商品聚合页占比5.7%，<span class="gd">ROI(1.423) 高于普通直播间(1.166)，建议加大聚合页预算占比。</span></div></div></div>
+
+<div class="section"><div class="sec-title">五、版位分析（整体 + 分直播间）</div><div class="sec-desc">各流量版位消耗分布与效率，识别高价值版位与低效版位；点击标签切换</div><div class="tabs" id="tabs_flow"><button class="tab-btn active" onclick="switchTab('flow',0)">整体</button><button class="tab-btn " onclick="switchTab('flow',1)">奇奇</button><button class="tab-btn " onclick="switchTab('flow',2)">茶茶</button><button class="tab-btn " onclick="switchTab('flow',3)">柒柒</button><button class="tab-btn " onclick="switchTab('flow',4)">柚柚</button></div><div class="tab-pane active" id="flow_pane_0"><div class="chart-md" id="c_flow_0"></div><table><tr><th>版位</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th></tr><tr><td><strong>微信视频号</strong><span class="badge bd-blu">72.3%</span></td><td>32.20</td><td>57</td><td>12,744</td><td>4,582.6</td><td>1.78</td><td>4.65</td><td>165.3</td><td class="gd">1.336</td></tr><tr><td><strong>微信小程序</strong><span class="badge bd-blu">8.3%</span></td><td>3.70</td><td>57</td><td>9,057</td><td>4,922.4</td><td>2.00</td><td>2.56</td><td>126.6</td><td class="hl">1.097</td></tr><tr><td><strong>平台与内容广告</strong><span class="badge bd-blu">7.4%</span></td><td>3.31</td><td>57</td><td>10,079</td><td>3,948.2</td><td>4.15</td><td>0.74</td><td>72.7</td><td class="">1.125</td></tr><tr><td><strong>微信公众号</strong><span class="badge bd-blu">6.4%</span></td><td>2.83</td><td>57</td><td>10,740</td><td>3,037.8</td><td>0.78</td><td>2.72</td><td>44.5</td><td class="gd">1.364</td></tr><tr><td><strong>微信朋友圈</strong><span class="badge bd-blu">5.0%</span></td><td>2.21</td><td>57</td><td>10,441</td><td>3,511.8</td><td>0.68</td><td>2.90</td><td>48.3</td><td class="">1.142</td></tr><tr><td><strong>搜索广告</strong><span class="badge bd-blu">0.3%</span></td><td>0.14</td><td>57</td><td>8,667</td><td>1,816.4</td><td>1.75</td><td>0.61</td><td>27.8</td><td class="hl">1.044</td></tr><tr><td><strong>微信搜一搜</strong><span class="badge bd-blu">0.3%</span></td><td>0.13</td><td>57</td><td>3,342</td><td>23.8</td><td>5.70</td><td>8.21</td><td>1,499.9</td><td class="hl">0.872</td></tr><tr><td><strong>移动联盟</strong><span class="badge bd-blu">0.1%</span></td><td>0.04</td><td>57</td><td>1,634</td><td>258.4</td><td>5.90</td><td>0.12</td><td>24.7</td><td class="hl">0.624</td></tr></table><div class="insight"><strong>【整体版位诊断】</strong> 主力版位：<strong>微信视频号</strong>（72.3%消耗），ROI=1.336。 <span class="hl">低ROI版位（<1.1）：微信小程序, 微信搜一搜, 搜索广告, 移动联盟，建议降低出价或暂停。</span></div></div><div class="tab-pane" id="flow_pane_1"><div class="chart-md" id="c_flow_1"></div><table><tr><th>版位</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th></tr><tr><td><strong>微信视频号</strong><span class="badge bd-blu">74.0%</span></td><td>15.71</td><td>51</td><td>3,953</td><td>1,563.9</td><td>1.85</td><td>4.72</td><td>171.8</td><td class="gd">1.371</td></tr><tr><td><strong>微信小程序</strong><span class="badge bd-blu">7.4%</span></td><td>1.58</td><td>52</td><td>2,900</td><td>2,037.3</td><td>1.89</td><td>2.87</td><td>131.9</td><td class="">1.121</td></tr><tr><td><strong>微信公众号</strong><span class="badge bd-blu">6.7%</span></td><td>1.42</td><td>50</td><td>3,395</td><td>1,244.1</td><td>0.80</td><td>2.93</td><td>47.4</td><td class="gd">1.377</td></tr><tr><td><strong>平台与内容广告</strong><span class="badge bd-blu">5.9%</span></td><td>1.25</td><td>52</td><td>3,264</td><td>1,441.9</td><td>3.09</td><td>0.91</td><td>68.3</td><td class="">1.151</td></tr><tr><td><strong>微信朋友圈</strong><span class="badge bd-blu">5.4%</span></td><td>1.14</td><td>52</td><td>3,386</td><td>1,403.8</td><td>0.70</td><td>3.00</td><td>49.1</td><td class="">1.191</td></tr><tr><td><strong>微信搜一搜</strong><span class="badge bd-blu">0.3%</span></td><td>0.06</td><td>45</td><td>1,167</td><td>9.0</td><td>6.42</td><td>9.76</td><td>1,835.1</td><td class="hl">0.976</td></tr><tr><td><strong>搜索广告</strong><span class="badge bd-blu">0.2%</span></td><td>0.05</td><td>49</td><td>2,875</td><td>688.4</td><td>1.57</td><td>0.76</td><td>30.3</td><td class="">1.144</td></tr><tr><td><strong>移动联盟</strong><span class="badge bd-blu">0.1%</span></td><td>0.02</td><td>39</td><td>602</td><td>107.6</td><td>6.61</td><td>0.11</td><td>27.2</td><td class="hl">0.541</td></tr></table><div class="insight"><strong>【奇奇直播间版位诊断】</strong> 主力版位：<strong>微信视频号</strong>（74.0%消耗），ROI=1.371。 <span class="hl">低ROI版位（<1.1）：微信搜一搜, 移动联盟，建议降低出价或暂停。</span></div></div><div class="tab-pane" id="flow_pane_2"><div class="chart-md" id="c_flow_2"></div><table><tr><th>版位</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th></tr><tr><td><strong>微信视频号</strong><span class="badge bd-blu">71.7%</span></td><td>8.13</td><td>50</td><td>3,929</td><td>1,411.9</td><td>1.78</td><td>4.39</td><td>158.3</td><td class="gd">1.319</td></tr><tr><td><strong>微信小程序</strong><span class="badge bd-blu">9.8%</span></td><td>1.11</td><td>46</td><td>2,833</td><td>1,380.3</td><td>2.07</td><td>2.43</td><td>126.8</td><td class="hl">1.093</td></tr><tr><td><strong>平台与内容广告</strong><span class="badge bd-blu">7.7%</span></td><td>0.87</td><td>50</td><td>3,048</td><td>1,169.0</td><td>4.99</td><td>0.57</td><td>68.8</td><td class="">1.132</td></tr><tr><td><strong>微信公众号</strong><span class="badge bd-blu">5.5%</span></td><td>0.62</td><td>46</td><td>3,281</td><td>825.0</td><td>0.54</td><td>2.12</td><td>23.3</td><td class="gd">1.357</td></tr><tr><td><strong>微信朋友圈</strong><span class="badge bd-blu">4.5%</span></td><td>0.51</td><td>48</td><td>3,257</td><td>973.7</td><td>0.67</td><td>2.81</td><td>45.6</td><td class="">1.146</td></tr><tr><td><strong>微信搜一搜</strong><span class="badge bd-blu">0.4%</span></td><td>0.04</td><td>41</td><td>1,071</td><td>7.9</td><td>5.40</td><td>7.51</td><td>1,302.6</td><td class="hl">0.849</td></tr><tr><td><strong>搜索广告</strong><span class="badge bd-blu">0.4%</span></td><td>0.04</td><td>46</td><td>2,496</td><td>421.3</td><td>1.93</td><td>0.52</td><td>28.3</td><td class="hl">0.942</td></tr><tr><td><strong>移动联盟</strong><span class="badge bd-blu">0.2%</span></td><td>0.02</td><td>37</td><td>585</td><td>93.6</td><td>5.57</td><td>0.15</td><td>25.6</td><td class="hl">0.749</td></tr></table><div class="insight"><strong>【茶茶直播间版位诊断】</strong> 主力版位：<strong>微信视频号</strong>（71.7%消耗），ROI=1.319。 <span class="hl">低ROI版位（<1.1）：微信小程序, 微信搜一搜, 搜索广告, 移动联盟，建议降低出价或暂停。</span></div></div><div class="tab-pane" id="flow_pane_3"><div class="chart-md" id="c_flow_3"></div><table><tr><th>版位</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th></tr><tr><td><strong>微信视频号</strong><span class="badge bd-blu">70.6%</span></td><td>6.36</td><td>44</td><td>3,482</td><td>1,183.1</td><td>1.83</td><td>4.23</td><td>163.2</td><td class="gd">1.304</td></tr><tr><td><strong>平台与内容广告</strong><span class="badge bd-blu">10.2%</span></td><td>0.92</td><td>45</td><td>2,664</td><td>942.3</td><td>4.52</td><td>0.77</td><td>86.1</td><td class="">1.133</td></tr><tr><td><strong>微信小程序</strong><span class="badge bd-blu">7.3%</span></td><td>0.66</td><td>45</td><td>2,409</td><td>1,047.5</td><td>2.18</td><td>1.87</td><td>110.0</td><td class="hl">1.029</td></tr><tr><td><strong>微信公众号</strong><span class="badge bd-blu">7.2%</span></td><td>0.65</td><td>45</td><td>2,924</td><td>651.8</td><td>1.02</td><td>3.05</td><td>64.5</td><td class="gd">1.379</td></tr><tr><td><strong>微信朋友圈</strong><span class="badge bd-blu">4.1%</span></td><td>0.37</td><td>45</td><td>2,583</td><td>778.3</td><td>0.68</td><td>2.97</td><td>53.8</td><td class="hl">1.045</td></tr><tr><td><strong>搜索广告</strong><span class="badge bd-blu">0.4%</span></td><td>0.04</td><td>44</td><td>2,292</td><td>508.5</td><td>1.67</td><td>0.62</td><td>26.3</td><td class="hl">1.093</td></tr><tr><td><strong>微信搜一搜</strong><span class="badge bd-blu">0.1%</span></td><td>0.01</td><td>37</td><td>572</td><td>4.7</td><td>4.87</td><td>7.58</td><td>1,394.9</td><td class="hl">0.681</td></tr><tr><td><strong>移动联盟</strong><span class="badge bd-blu">0.0%</span></td><td>0.00</td><td>38</td><td>261</td><td>29.1</td><td>6.53</td><td>0.11</td><td>19.3</td><td class="hl">0.683</td></tr></table><div class="insight"><strong>【柒柒直播间版位诊断】</strong> 主力版位：<strong>微信视频号</strong>（70.6%消耗），ROI=1.304。 <span class="hl">低ROI版位（<1.1）：微信小程序, 微信朋友圈, 搜索广告, 微信搜一搜, 移动联盟，建议降低出价或暂停。</span></div></div><div class="tab-pane" id="flow_pane_4"><div class="chart-md" id="c_flow_4"></div><table><tr><th>版位</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th></tr><tr><td><strong>微信视频号</strong><span class="badge bd-blu">67.3%</span></td><td>2.00</td><td>39</td><td>1,380</td><td>423.6</td><td>1.11</td><td>6.52</td><td>150.4</td><td class="">1.243</td></tr><tr><td><strong>微信小程序</strong><span class="badge bd-blu">11.8%</span></td><td>0.35</td><td>38</td><td>915</td><td>457.2</td><td>1.96</td><td>2.88</td><td>133.0</td><td class="">1.127</td></tr><tr><td><strong>平台与内容广告</strong><span class="badge bd-blu">9.1%</span></td><td>0.27</td><td>39</td><td>1,103</td><td>395.0</td><td>5.05</td><td>0.43</td><td>60.1</td><td class="hl">0.959</td></tr><tr><td><strong>微信朋友圈</strong><span class="badge bd-blu">6.4%</span></td><td>0.19</td><td>39</td><td>1,215</td><td>356.0</td><td>0.60</td><td>2.49</td><td>39.5</td><td class="hl">1.029</td></tr><tr><td><strong>微信公众号</strong><span class="badge bd-blu">4.4%</span></td><td>0.13</td><td>36</td><td>1,140</td><td>316.9</td><td>0.37</td><td>1.70</td><td>14.2</td><td class="">1.173</td></tr><tr><td><strong>微信搜一搜</strong><span class="badge bd-blu">0.7%</span></td><td>0.02</td><td>35</td><td>532</td><td>2.2</td><td>4.68</td><td>5.30</td><td>962.6</td><td class="hl">0.719</td></tr><tr><td><strong>搜索广告</strong><span class="badge bd-blu">0.3%</span></td><td>0.01</td><td>39</td><td>1,004</td><td>198.2</td><td>2.20</td><td>0.25</td><td>21.2</td><td class="hl">0.768</td></tr><tr><td><strong>移动联盟</strong><span class="badge bd-blu">0.0%</span></td><td>0.00</td><td>31</td><td>186</td><td>28.0</td><td>1.79</td><td>0.03</td><td>2.7</td><td class="hl">0.257</td></tr></table><div class="insight"><strong>【柚柚直播间版位诊断】</strong> 主力版位：<strong>微信视频号</strong>（67.3%消耗），ROI=1.243。 <span class="hl">低ROI版位（<1.1）：平台与内容广告, 微信朋友圈, 微信搜一搜, 搜索广告, 移动联盟，建议降低出价或暂停。</span></div></div></div>
+
+<div class="section"><div class="sec-title">六、智投分析（整体 + 分直播间）</div><div class="sec-desc">智投 vs 非智投消耗占比与效率对比，评估智能化程度与基建水平；点击标签切换</div><div class="tabs" id="tabs_smart"><button class="tab-btn active" onclick="switchTab('smart',0)">整体</button><button class="tab-btn " onclick="switchTab('smart',1)">奇奇</button><button class="tab-btn " onclick="switchTab('smart',2)">茶茶</button><button class="tab-btn " onclick="switchTab('smart',3)">柒柒</button><button class="tab-btn " onclick="switchTab('smart',4)">柚柚</button></div><div class="tab-pane active" id="smart_pane_0"><div class="grid2"><div><div class="chart-sm" id="c_smart_pie_0"></div></div><div><div class="chart-sm" id="c_smart_eff_0"></div></div></div><table><tr><th>智投类型</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>智投项目数</th><th>ARPU</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th></tr><tr><td><strong>非智投</strong><span class="badge bd-blu">72.6%</span></td><td>32.38</td><td>57</td><td>11,341</td><td>6,540.5</td><td>0</td><td>1,645.6<br><small>广告条均(元)</small></td><td>1.68</td><td>3.53</td><td>120.2</td><td class="gd">1.326</td></tr><tr><td><strong>推直播</strong><span class="badge bd-blu">14.2%</span></td><td>6.35</td><td>18</td><td>2,504</td><td>2,427.8</td><td>484</td><td>6,541.9<br><small>项目条均(元)</small></td><td>2.05</td><td>1.90</td><td>90.9</td><td class="">1.160</td></tr><tr><td><strong>单链路智投</strong><span class="badge bd-blu">13.1%</span></td><td>5.83</td><td>17</td><td>1,298</td><td>1,506.1</td><td>249</td><td>13,690.9<br><small>项目条均(元)</small></td><td>1.85</td><td>2.62</td><td>106.6</td><td class="">1.229</td></tr><tr><td><strong>短直双开</strong><span class="badge bd-blu">0.0%</span></td><td>0.01</td><td>3</td><td>19</td><td>22.1</td><td>7</td><td>732.5<br><small>项目条均(元)</small></td><td>1.14</td><td>1.15</td><td>31.8</td><td class="hl">1.080</td></tr></table><div class="insight"><strong>【整体智投诊断】</strong> 智投消耗占比27.4%，智投项目总数740个。非智投广告条均1,645.6元，ROI=1.326。 单链路智投项目条均13,690.9元，ROI=1.229。 推直播项目条均6,541.9元，ROI=1.160。</div></div><div class="tab-pane" id="smart_pane_1"><div class="grid2"><div><div class="chart-sm" id="c_smart_pie_1"></div></div><div><div class="chart-sm" id="c_smart_eff_1"></div></div></div><table><tr><th>智投类型</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>智投项目数</th><th>ARPU</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th></tr><tr><td><strong>非智投</strong><span class="badge bd-blu">81.9%</span></td><td>17.38</td><td>54</td><td>3,735</td><td>2,714.6</td><td>0</td><td>2,233.9<br><small>广告条均(元)</small></td><td>1.66</td><td>3.87</td><td>128.6</td><td class="gd">1.352</td></tr><tr><td><strong>单链路智投</strong><span class="badge bd-blu">10.3%</span></td><td>2.18</td><td>16</td><td>359</td><td>545.0</td><td>63</td><td>17,733.7<br><small>项目条均(元)</small></td><td>1.61</td><td>2.99</td><td>104.9</td><td class="">1.254</td></tr><tr><td><strong>推直播</strong><span class="badge bd-blu">7.8%</span></td><td>1.66</td><td>13</td><td>620</td><td>790.8</td><td>119</td><td>6,705.8<br><small>项目条均(元)</small></td><td>1.80</td><td>1.85</td><td>78.2</td><td class="">1.168</td></tr></table><div class="insight"><strong>【奇奇直播间智投诊断】</strong> 智投消耗占比18.1%，智投项目总数182个。非智投广告条均2,233.9元，ROI=1.352。 单链路智投项目条均17,733.7元，ROI=1.254。 推直播项目条均6,705.8元，ROI=1.168。</div></div><div class="tab-pane" id="smart_pane_2"><div class="grid2"><div><div class="chart-sm" id="c_smart_pie_2"></div></div><div><div class="chart-sm" id="c_smart_eff_2"></div></div></div><table><tr><th>智投类型</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>智投项目数</th><th>ARPU</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th></tr><tr><td><strong>非智投</strong><span class="badge bd-blu">67.3%</span></td><td>7.63</td><td>49</td><td>3,522</td><td>1,829.6</td><td>0</td><td>1,040.5<br><small>广告条均(元)</small></td><td>1.65</td><td>3.11</td><td>105.6</td><td class="gd">1.302</td></tr><tr><td><strong>推直播</strong><span class="badge bd-blu">17.9%</span></td><td>2.03</td><td>12</td><td>755</td><td>783.0</td><td>144</td><td>6,782.6<br><small>项目条均(元)</small></td><td>2.11</td><td>1.80</td><td>86.9</td><td class="">1.182</td></tr><tr><td><strong>单链路智投</strong><span class="badge bd-blu">14.7%</span></td><td>1.67</td><td>13</td><td>358</td><td>451.0</td><td>76</td><td>13,331.0<br><small>项目条均(元)</small></td><td>1.94</td><td>2.31</td><td>97.6</td><td class="">1.248</td></tr><tr><td><strong>短直双开</strong><span class="badge bd-blu">0.0%</span></td><td>0.00</td><td>0</td><td>0</td><td>0.0</td><td>1</td><td>-<br><small>项目条均(元)</small></td><td>nan</td><td>nan</td><td>nan</td><td class="">nan</td></tr></table><div class="insight"><strong>【茶茶直播间智投诊断】</strong> 智投消耗占比32.7%，智投项目总数221个。非智投广告条均1,040.5元，ROI=1.302。 推直播项目条均6,782.6元，ROI=1.182。 单链路智投项目条均13,331.0元，ROI=1.248。</div></div><div class="tab-pane" id="smart_pane_3"><div class="grid2"><div><div class="chart-sm" id="c_smart_pie_3"></div></div><div><div class="chart-sm" id="c_smart_eff_3"></div></div></div><table><tr><th>智投类型</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>智投项目数</th><th>ARPU</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th></tr><tr><td><strong>非智投</strong><span class="badge bd-blu">61.1%</span></td><td>5.52</td><td>45</td><td>2,777</td><td>1,351.0</td><td>0</td><td>953.3<br><small>广告条均(元)</small></td><td>1.99</td><td>3.07</td><td>128.7</td><td class="gd">1.315</td></tr><tr><td><strong>单链路智投</strong><span class="badge bd-blu">20.4%</span></td><td>1.84</td><td>14</td><td>514</td><td>482.0</td><td>91</td><td>10,011.0<br><small>项目条均(元)</small></td><td>2.10</td><td>2.32</td><td>114.9</td><td class="">1.186</td></tr><tr><td><strong>推直播</strong><span class="badge bd-blu">18.5%</span></td><td>1.67</td><td>14</td><td>832</td><td>584.7</td><td>167</td><td>4,786.1<br><small>项目条均(元)</small></td><td>2.08</td><td>2.19</td><td>108.2</td><td class="">1.155</td></tr><tr><td><strong>短直双开</strong><span class="badge bd-blu">0.1%</span></td><td>0.01</td><td>3</td><td>19</td><td>22.1</td><td>6</td><td>732.5<br><small>项目条均(元)</small></td><td>1.14</td><td>1.15</td><td>31.8</td><td class="hl">1.080</td></tr></table><div class="insight"><strong>【柒柒直播间智投诊断】</strong> 智投消耗占比38.9%，智投项目总数264个。非智投广告条均953.3元，ROI=1.315。 单链路智投项目条均10,011.0元，ROI=1.186。 推直播项目条均4,786.1元，ROI=1.155。</div></div><div class="tab-pane" id="smart_pane_4"><div class="grid2"><div><div class="chart-sm" id="c_smart_pie_4"></div></div><div><div class="chart-sm" id="c_smart_eff_4"></div></div></div><table><tr><th>智投类型</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>智投项目数</th><th>ARPU</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th></tr><tr><td><strong>非智投</strong><span class="badge bd-blu">62.0%</span></td><td>1.84</td><td>39</td><td>1,307</td><td>645.3</td><td>0</td><td>677.5<br><small>广告条均(元)</small></td><td>1.06</td><td>3.35</td><td>76.7</td><td class="">1.220</td></tr><tr><td><strong>推直播</strong><span class="badge bd-blu">33.0%</span></td><td>0.98</td><td>16</td><td>297</td><td>269.3</td><td>54</td><td>8,739.9<br><small>项目条均(元)</small></td><td>2.30</td><td>1.69</td><td>91.2</td><td class="">1.108</td></tr><tr><td><strong>单链路智投</strong><span class="badge bd-blu">5.1%</span></td><td>0.15</td><td>4</td><td>67</td><td>28.1</td><td>19</td><td>3,681.6<br><small>项目条均(元)</small></td><td>1.40</td><td>4.19</td><td>132.6</td><td class="">1.176</td></tr></table><div class="insight"><strong>【柚柚直播间智投诊断】</strong> 智投消耗占比38.0%，智投项目总数73个。非智投广告条均677.5元，ROI=1.220。 推直播项目条均8,739.9元，ROI=1.108。 单链路智投项目条均3,681.6元，ROI=1.176。</div></div></div>
+
+<div class="section"><div class="sec-title">七、出价模式分析（整体 + 分直播间）</div><div class="sec-desc">ROI出价 vs CPA出价消耗占比与效率对比；点击标签切换</div><div class="tabs" id="tabs_bid"><button class="tab-btn active" onclick="switchTab('bid',0)">整体</button><button class="tab-btn " onclick="switchTab('bid',1)">奇奇</button><button class="tab-btn " onclick="switchTab('bid',2)">茶茶</button><button class="tab-btn " onclick="switchTab('bid',3)">柒柒</button><button class="tab-btn " onclick="switchTab('bid',4)">柚柚</button></div><div class="tab-pane active" id="bid_pane_0"><div class="grid2"><div><div class="chart-sm" id="c_bid_pie_0"></div></div><div><div class="chart-sm" id="c_bid_eff_0"></div></div></div><table><tr><th>出价模式</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>ROI</th><th>ROI出价</th><th>CPA出价(元)</th></tr><tr><td><strong>ROI出价</strong><span class="badge bd-blu">92.8%</span></td><td>41.33</td><td>57</td><td>12,608</td><td>8,393.8</td><td>1.73</td><td>3.34</td><td class="">1.294</td><td>1.509</td><td>-</td></tr><tr><td><strong>CPA出价</strong><span class="badge bd-blu">6.8%</span></td><td>3.04</td><td>57</td><td>2,401</td><td>1,997.5</td><td>2.00</td><td>1.40</td><td class="">1.222</td><td>-</td><td>181.9</td></tr><tr><td><strong>CPA+辅助ROI</strong><span class="badge bd-blu">0.4%</span></td><td>0.19</td><td>57</td><td>39</td><td>9.2</td><td>1.77</td><td>5.97</td><td class="gd">1.364</td><td>-</td><td>181.1</td></tr><tr><td><strong>其他</strong><span class="badge bd-blu">0.0%</span></td><td>0.00</td><td>57</td><td>13</td><td>0.1</td><td>0.00</td><td>0.00</td><td class="hl">0.000</td><td>-</td><td>-</td></tr></table><div class="insight"><strong>【整体出价模式诊断】</strong> ROI出价占比92.8%，ROI=1.294，ROI出价均值=1.509。 CPA出价占比6.8%，ROI=1.222，CPA出价均值=181.9元。</div></div><div class="tab-pane" id="bid_pane_1"><div class="grid2"><div><div class="chart-sm" id="c_bid_pie_1"></div></div><div><div class="chart-sm" id="c_bid_eff_1"></div></div></div><table><tr><th>出价模式</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>ROI</th><th>ROI出价</th><th>CPA出价(元)</th></tr><tr><td><strong>ROI出价</strong><span class="badge bd-blu">94.2%</span></td><td>19.99</td><td>49</td><td>4,046</td><td>3,312.0</td><td>1.65</td><td>3.76</td><td class="gd">1.331</td><td>1.513</td><td>-</td></tr><tr><td><strong>CPA出价</strong><span class="badge bd-blu">5.0%</span></td><td>1.06</td><td>40</td><td>629</td><td>694.9</td><td>1.87</td><td>1.46</td><td class="">1.248</td><td>-</td><td>181.9</td></tr><tr><td><strong>CPA+辅助ROI</strong><span class="badge bd-blu">0.8%</span></td><td>0.18</td><td>7</td><td>15</td><td>5.3</td><td>1.74</td><td>6.05</td><td class="gd">1.360</td><td>-</td><td>181.8</td></tr><tr><td><strong>其他</strong><span class="badge bd-blu">0.0%</span></td><td>0.00</td><td>3</td><td>4</td><td>0.0</td><td>0.00</td><td>nan</td><td class="hl">0.000</td><td>-</td><td>-</td></tr></table><div class="insight"><strong>【奇奇直播间出价模式诊断】</strong> ROI出价占比94.2%，ROI=1.331，ROI出价均值=1.513。 CPA出价占比5.0%，ROI=1.248，CPA出价均值=181.9元。</div></div><div class="tab-pane" id="bid_pane_2"><div class="grid2"><div><div class="chart-sm" id="c_bid_pie_2"></div></div><div><div class="chart-sm" id="c_bid_eff_2"></div></div></div><table><tr><th>出价模式</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>ROI</th><th>ROI出价</th><th>CPA出价(元)</th></tr><tr><td><strong>ROI出价</strong><span class="badge bd-blu">92.3%</span></td><td>10.47</td><td>50</td><td>3,894</td><td>2,384.1</td><td>1.76</td><td>2.96</td><td class="">1.284</td><td>1.508</td><td>-</td></tr><tr><td><strong>CPA出价</strong><span class="badge bd-blu">7.7%</span></td><td>0.87</td><td>36</td><td>704</td><td>662.3</td><td>1.94</td><td>1.15</td><td class="">1.136</td><td>-</td><td>182.3</td></tr><tr><td><strong>CPA+辅助ROI</strong><span class="badge bd-blu">0.0%</span></td><td>0.00</td><td>8</td><td>11</td><td>0.9</td><td>1.63</td><td>0.00</td><td class="hl">0.000</td><td>-</td><td>179.8</td></tr><tr><td><strong>其他</strong><span class="badge bd-blu">0.0%</span></td><td>0.00</td><td>3</td><td>3</td><td>0.0</td><td>0.00</td><td>nan</td><td class="hl">0.000</td><td>-</td><td>-</td></tr></table><div class="insight"><strong>【茶茶直播间出价模式诊断】</strong> ROI出价占比92.3%，ROI=1.284，ROI出价均值=1.508。 CPA出价占比7.7%，ROI=1.136，CPA出价均值=182.3元。</div></div><div class="tab-pane" id="bid_pane_3"><div class="grid2"><div><div class="chart-sm" id="c_bid_pie_3"></div></div><div><div class="chart-sm" id="c_bid_eff_3"></div></div></div><table><tr><th>出价模式</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>ROI</th><th>ROI出价</th><th>CPA出价(元)</th></tr><tr><td><strong>ROI出价</strong><span class="badge bd-blu">91.0%</span></td><td>8.21</td><td>45</td><td>3,198</td><td>1,881.8</td><td>2.04</td><td>2.89</td><td class="">1.257</td><td>1.507</td><td>-</td></tr><tr><td><strong>CPA出价</strong><span class="badge bd-blu">8.9%</span></td><td>0.80</td><td>37</td><td>905</td><td>518.4</td><td>2.00</td><td>1.69</td><td class="">1.270</td><td>-</td><td>182.0</td></tr><tr><td><strong>CPA+辅助ROI</strong><span class="badge bd-blu">0.1%</span></td><td>0.01</td><td>2</td><td>2</td><td>2.4</td><td>2.11</td><td>4.97</td><td class="gd">1.428</td><td>-</td><td>173.0</td></tr><tr><td><strong>其他</strong><span class="badge bd-blu">0.0%</span></td><td>0.00</td><td>2</td><td>2</td><td>0.0</td><td>0.00</td><td>nan</td><td class="hl">0.000</td><td>-</td><td>-</td></tr></table><div class="insight"><strong>【柒柒直播间出价模式诊断】</strong> ROI出价占比91.0%，ROI=1.257，ROI出价均值=1.507。 CPA出价占比8.9%，ROI=1.270，CPA出价均值=182.0元。</div></div><div class="tab-pane" id="bid_pane_4"><div class="grid2"><div><div class="chart-sm" id="c_bid_pie_4"></div></div><div><div class="chart-sm" id="c_bid_eff_4"></div></div></div><table><tr><th>出价模式</th><th>日耗(万)</th><th>账户数</th><th>广告数</th><th>日均唯一ID数</th><th>CTR(%)</th><th>CVR(%)</th><th>ROI</th><th>ROI出价</th><th>CPA出价(元)</th></tr><tr><td><strong>ROI出价</strong><span class="badge bd-blu">89.6%</span></td><td>2.66</td><td>39</td><td>1,470</td><td>815.9</td><td>1.26</td><td>3.02</td><td class="">1.172</td><td>1.495</td><td>-</td></tr><tr><td><strong>CPA出价</strong><span class="badge bd-blu">10.4%</span></td><td>0.31</td><td>23</td><td>163</td><td>121.9</td><td>2.64</td><td>1.20</td><td class="">1.253</td><td>-</td><td>180.8</td></tr><tr><td><strong>CPA+辅助ROI</strong><span class="badge bd-blu">0.0%</span></td><td>0.00</td><td>6</td><td>11</td><td>0.6</td><td>0.74</td><td>0.00</td><td class="hl">0.000</td><td>-</td><td>179.9</td></tr><tr><td><strong>其他</strong><span class="badge bd-blu">0.0%</span></td><td>0.00</td><td>3</td><td>4</td><td>0.1</td><td>0.00</td><td>nan</td><td class="hl">0.000</td><td>-</td><td>-</td></tr></table><div class="insight"><strong>【柚柚直播间出价模式诊断】</strong> ROI出价占比89.6%，ROI=1.172，ROI出价均值=1.495。 CPA出价占比10.4%，ROI=1.253，CPA出价均值=180.8元。</div></div></div>
+
+
+<!-- ===== S_COMP 竞对对标分析 ===== -->
+<div class="section">
+  <div class="sec-title">八、赛道竞对对标分析（近14天）</div>
+  <div class="sec-desc">体重管理类目9个在投直播间横向对比，识别多燕瘦与竞对的核心差距与优化方向</div>
+
+  <!-- 核心结论卡片 -->
+  <div class="kpi-row" style="margin-bottom:16px">
+    <div class="kpi-card" style="background:#f0f5ff;border:1px solid #d6e4ff;border-radius:10px;padding:14px 20px;min-width:160px;flex:1">
+      <div class="lbl">多燕瘦合计日均消耗</div>
+      <div class="val">42.34<span style="font-size:14px">万/日</span></div>
+      <div class="unit" style="color:#52c41a">竞对单直播间均值 2.9×</div>
+    </div>
+    <div class="kpi-card" style="background:#f0f5ff;border:1px solid #d6e4ff;border-radius:10px;padding:14px 20px;min-width:160px;flex:1">
+      <div class="lbl">多燕瘦加权 ROI</div>
+      <div class="val" style="color:#e6394a">1.263</div>
+      <div class="unit" style="color:#e6394a">竞对均值 1.655，差距 -24%</div>
+    </div>
+    <div class="kpi-card" style="background:#f0f5ff;border:1px solid #d6e4ff;border-radius:10px;padding:14px 20px;min-width:160px;flex:1">
+      <div class="lbl">智投渗透率</div>
+      <div class="val" style="color:#e6394a">24.4%</div>
+      <div class="unit" style="color:#e6394a">竞对均值 76.1%，差距 -51.7pct</div>
+    </div>
+    <div class="kpi-card" style="background:#f0f5ff;border:1px solid #d6e4ff;border-radius:10px;padding:14px 20px;min-width:160px;flex:1">
+      <div class="lbl">多燕瘦 CTR</div>
+      <div class="val" style="color:#e6394a">1.30%</div>
+      <div class="unit" style="color:#e6394a">竞对均值 3.09%，差距 -58%</div>
+    </div>
+  </div>
+
+  <!-- 图表区 -->
+  <div class="grid2" style="margin-bottom:16px">
+    <div>
+      <div style="font-size:13px;font-weight:600;color:#333;margin-bottom:6px">各直播间日均消耗 vs ROI</div>
+      <div class="chart-md" id="c_comp_bubble"></div>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:600;color:#333;margin-bottom:6px">智投渗透率对比</div>
+      <div class="chart-md" id="c_comp_smart"></div>
+    </div>
+  </div>
+
+  <!-- 整体对比表 -->
+  <div style="font-size:13px;font-weight:600;color:#333;margin:12px 0 6px">直播间整体指标横向对比</div>
+  <div style="overflow-x:auto">
+  <table style="min-width:900px">
+    <tr>
+      <th>直播间</th><th>标签</th><th>日均消耗</th><th>日耗峰值</th>
+      <th>CTR</th><th>CVR</th><th>CPM(元)</th><th>客单价(元)</th>
+      <th>ROI</th><th>广告数</th><th>账户数</th><th>创意唯一ID数</th><th>智投渗透率</th>
+    </tr>
+    <tr style="background:#fff7e6">
+      <td><strong>巧农婆**</strong></td><td><span class="badge" style="background:#ff7875;color:#fff">竞对</span></td>
+      <td><strong>50万+</strong></td><td>157.54万</td>
+      <td class="gd">3.47%</td><td class="gd">7.94%</td><td>144.6</td><td>100</td>
+      <td class="gd"><strong>1.687</strong></td><td>1,691</td><td>47</td><td>1,917</td><td class="gd">85.9%</td>
+    </tr>
+    <tr style="background:#e6f7ff">
+      <td><strong>多燕瘦-奇奇</strong></td><td><span class="badge bd-blu">多燕瘦</span></td>
+      <td><strong>20.86万</strong></td><td>29.39万</td>
+      <td class="hl">1.31%</td><td>4.92%</td><td>93.2</td><td>263</td>
+      <td class="hl">1.285</td><td>2,699</td><td>49</td><td>4,354</td><td class="hl">13.5%</td>
+    </tr>
+    <tr style="background:#e6f7ff">
+      <td><strong>多燕瘦-茶茶</strong></td><td><span class="badge bd-blu">多燕瘦</span></td>
+      <td><strong>11.49万</strong></td><td>19.01万</td>
+      <td class="hl">1.38%</td><td>3.83%</td><td>72.5</td><td>258</td>
+      <td class="hl">1.281</td><td>2,341</td><td>45</td><td>3,172</td><td>32.7%</td>
+    </tr>
+    <tr style="background:#e6f7ff">
+      <td><strong>多燕瘦-柚柚</strong></td><td><span class="badge bd-blu">多燕瘦</span></td>
+      <td><strong>9.99万</strong></td><td>15.93万</td>
+      <td class="hl">1.18%</td><td>3.66%</td><td>83.6</td><td>262</td>
+      <td class="hl">1.193</td><td>1,604</td><td>43</td><td>2,810</td><td>37.6%</td>
+    </tr>
+    <tr>
+      <td><strong>华大**</strong></td><td><span class="badge" style="background:#ff7875;color:#fff">竞对</span></td>
+      <td>8-10万</td><td>14.43万</td>
+      <td>1.66%</td><td>2.30%</td><td>247.7</td><td>1,202</td>
+      <td class="gd">1.740</td><td>88</td><td>8</td><td>302</td><td>7.6%</td>
+    </tr>
+    <tr>
+      <td><strong>葵花**</strong></td><td><span class="badge" style="background:#ff7875;color:#fff">竞对</span></td>
+      <td>5-8万</td><td>13.81万</td>
+      <td>2.34%</td><td class="gd">7.93%</td><td>70.6</td><td>59</td>
+      <td>1.235</td><td>1,705</td><td>30</td><td>4,342</td><td class="gd">95.6%</td>
+    </tr>
+    <tr>
+      <td><strong>巧农婆**食养馆</strong></td><td><span class="badge" style="background:#ff7875;color:#fff">竞对</span></td>
+      <td>3-5万</td><td>15.63万</td>
+      <td class="gd">4.57%</td><td class="gd">8.68%</td><td>260.4</td><td>100</td>
+      <td class="gd">1.490</td><td>1,108</td><td>41</td><td>1,076</td><td class="gd">94.2%</td>
+    </tr>
+    <tr>
+      <td><strong>万益蓝**营养膳食</strong></td><td><span class="badge" style="background:#ff7875;color:#fff">竞对</span></td>
+      <td>3-5万</td><td>8.52万</td>
+      <td>1.69%</td><td>2.53%</td><td>238.2</td><td>1,086</td>
+      <td class="gd"><strong>1.827</strong></td><td>371</td><td>13</td><td>512</td><td>14.5%</td>
+    </tr>
+    <tr>
+      <td><strong>万益蓝**官方食品</strong></td><td><span class="badge" style="background:#ff7875;color:#fff">竞对</span></td>
+      <td>3-5万</td><td>9.11万</td>
+      <td>2.09%</td><td>1.53%</td><td>171.8</td><td>1,028</td>
+      <td class="gd"><strong>1.857</strong></td><td>1,122</td><td>12</td><td>1,215</td><td class="gd">93.3%</td>
+    </tr>
+  </table>
+  </div>
+
+  <!-- 核心差距对比 -->
+  <div style="font-size:13px;font-weight:600;color:#333;margin:20px 0 6px">多燕瘦 vs 竞对均值：核心指标差距</div>
+  <div class="chart-md" id="c_comp_gap"></div>
+
+  <!-- 两个 Tab 模块 -->
+  <div style="font-size:13px;font-weight:600;color:#333;margin:20px 0 6px">智投工具结构对比</div>
+  <div style="overflow-x:auto">
+  <table style="min-width:900px">
+    <tr>
+      <th>智投类型</th>
+      <th>多燕瘦-奇奇</th><th>多燕瘦-茶茶</th><th>多燕瘦-柚柚</th>
+      <th>巧农婆**</th><th>葵花**</th><th>巧农婆**食养馆</th>
+      <th>万益蓝**营养</th><th>万益蓝**官方</th><th>华大**</th>
+    </tr>
+    <tr>
+      <td><strong>非智投广告</strong></td>
+      <td class="hl">86.5%</td><td class="hl">67.3%</td><td class="hl">62.4%</td>
+      <td>14.1%</td><td>4.4%</td><td>5.8%</td>
+      <td>85.5%</td><td>6.7%</td><td>92.4%</td>
+    </tr>
+    <tr>
+      <td><strong>单链路智投</strong></td>
+      <td class="hl">4.8%</td><td class="hl">9.4%</td><td class="hl">5.0%</td>
+      <td class="gd">67.0%</td><td class="gd">95.6%</td><td class="gd">86.6%</td>
+      <td>14.5%</td><td class="gd">93.3%</td><td>7.6%</td>
+    </tr>
+    <tr>
+      <td><strong>全域通直播</strong></td>
+      <td>1.9%</td><td>2.4%</td><td>1.6%</td>
+      <td class="gd">18.3%</td><td>—</td><td>7.6%</td>
+      <td>—</td><td>—</td><td>—</td>
+    </tr>
+    <tr>
+      <td><strong>推直播</strong></td>
+      <td>6.7%</td><td class="hl">20.8%</td><td class="hl">31.0%</td>
+      <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+    </tr>
+  </table>
+  </div>
+
+  <!-- 推广形式对比 -->
+  <div style="font-size:13px;font-weight:600;color:#333;margin:20px 0 6px">推广产品类型结构对比</div>
+  <div style="overflow-x:auto">
+  <table style="min-width:900px">
+    <tr>
+      <th>推广类型</th>
+      <th>多燕瘦-奇奇</th><th>多燕瘦-茶茶</th><th>多燕瘦-柚柚</th>
+      <th>巧农婆**</th><th>葵花**</th><th>巧农婆**食养馆</th>
+      <th>万益蓝**营养</th><th>万益蓝**官方</th><th>华大**</th>
+    </tr>
+    <tr>
+      <td><strong>普通直播间</strong></td>
+      <td>78.0%</td><td>99.1%</td><td>94.1%</td>
+      <td>100%</td><td>100%</td><td>100%</td>
+      <td>13.9%</td><td>2.7%</td><td>60.5%</td>
+    </tr>
+    <tr>
+      <td><strong>商品聚合页</strong></td>
+      <td class="gd">22.0%</td><td class="hl">0.9%</td><td class="hl">5.9%</td>
+      <td>—</td><td>—</td><td>—</td>
+      <td>27.1%</td><td>18.8%</td><td>39.5%</td>
+    </tr>
+    <tr>
+      <td><strong>直播4+M ⭐</strong></td>
+      <td class="hl">—</td><td class="hl">—</td><td class="hl">—</td>
+      <td>—</td><td>—</td><td>—</td>
+      <td class="gd">59.0%</td><td class="gd">78.5%</td><td>—</td>
+    </tr>
+  </table>
+  </div>
+  <div style="font-size:12px;color:#888;margin-top:4px">⭐ 直播4+M：万益蓝**两账号赛道最高ROI（1.827/1.857）的核心工具，多燕瘦目前完全未使用</div>
+
+  <!-- 视频号版位对比 -->
+  <div style="font-size:13px;font-weight:600;color:#333;margin:20px 0 6px">视频号版位效率对比（核心版位）</div>
+  <div class="chart-md" id="c_comp_vn"></div>
+  <div style="overflow-x:auto">
+  <table style="min-width:800px">
+    <tr><th>直播间</th><th>视频号消耗占比</th><th>CTR</th><th>CVR</th><th>CPM(元)</th><th>ROI</th></tr>
+    <tr style="background:#fff7e6"><td><strong>巧农婆**</strong></td><td>28.4%</td><td class="gd">3.22%</td><td class="gd">9.64%</td><td>131.1</td><td class="gd">1.687</td></tr>
+    <tr style="background:#e6f7ff"><td><strong>多燕瘦-奇奇</strong></td><td>72.8%</td><td class="hl">1.64%</td><td>8.53%</td><td>150.5</td><td>1.323</td></tr>
+    <tr style="background:#e6f7ff"><td><strong>多燕瘦-茶茶</strong></td><td>68.0%</td><td class="hl">1.89%</td><td>7.89%</td><td>129.9</td><td>1.324</td></tr>
+    <tr style="background:#e6f7ff"><td><strong>多燕瘦-柚柚</strong></td><td>66.2%</td><td class="hl">1.10%</td><td>9.22%</td><td>148.8</td><td class="hl">1.251</td></tr>
+    <tr><td><strong>华大**</strong></td><td>67.1%</td><td>1.12%</td><td>5.30%</td><td>341.3</td><td class="gd">1.743</td></tr>
+    <tr><td><strong>葵花**</strong></td><td>63.2%</td><td>2.61%</td><td class="gd">9.45%</td><td>81.2</td><td>1.243</td></tr>
+    <tr><td><strong>万益蓝**营养膳食</strong></td><td>83.4%</td><td>1.10%</td><td>5.22%</td><td>287.5</td><td class="gd">1.881</td></tr>
+    <tr><td><strong>万益蓝**官方食品</strong></td><td>73.0%</td><td>1.13%</td><td>5.95%</td><td>324.3</td><td class="gd">1.844</td></tr>
+    <tr><td><strong>巧农婆**食养馆</strong></td><td>11.1%</td><td class="gd">3.50%</td><td class="gd">12.39%</td><td>250.7</td><td class="gd">1.431</td></tr>
+  </table>
+  </div>
+
+  <!-- 账户余额预警 -->
+  <div style="font-size:13px;font-weight:600;color:#333;margin:20px 0 6px">⚠️ 竞对账户余额预警（竞争窗口信号）</div>
+  <table>
+    <tr><th>直播间</th><th>标签</th><th>账户余额</th><th>日均消耗</th><th>余额可维持</th><th>风险评估</th></tr>
+    <tr style="background:#e6f7ff"><td>多燕瘦-奇奇</td><td><span class="badge bd-blu">多燕瘦</span></td><td>¥82.8万</td><td>20.86万/日</td><td>~4天</td><td>🟡 需关注</td></tr>
+    <tr style="background:#e6f7ff"><td>多燕瘦-茶茶</td><td><span class="badge bd-blu">多燕瘦</span></td><td>¥82.4万</td><td>11.49万/日</td><td>~7天</td><td>🟡 需关注</td></tr>
+    <tr style="background:#e6f7ff"><td>多燕瘦-柚柚</td><td><span class="badge bd-blu">多燕瘦</span></td><td>¥82.2万</td><td>9.99万/日</td><td>~8天</td><td>🟡 需关注</td></tr>
+    <tr><td>万益蓝**官方食品</td><td><span class="badge" style="background:#ff7875;color:#fff">竞对</span></td><td>¥6.6万</td><td>3-5万/日</td><td>~1.5天</td><td>🔴 高风险</td></tr>
+    <tr><td>万益蓝**营养膳食</td><td><span class="badge" style="background:#ff7875;color:#fff">竞对</span></td><td>¥5.8万</td><td>3-5万/日</td><td>~1.3天</td><td>🔴 高风险</td></tr>
+    <tr style="background:#fff1f0"><td><strong>巧农婆**滋补</strong></td><td><span class="badge" style="background:#ff7875;color:#fff">竞对</span></td><td><strong>¥2.1万</strong></td><td><strong>50万+/日</strong></td><td><strong>&lt;0.5天</strong></td><td><strong>🔴 极高风险</strong></td></tr>
+    <tr style="background:#fff1f0"><td><strong>巧农婆**食养馆</strong></td><td><span class="badge" style="background:#ff7875;color:#fff">竞对</span></td><td><strong>¥1.5万</strong></td><td><strong>3-5万/日</strong></td><td><strong>~0.3天</strong></td><td><strong>🔴 极高风险</strong></td></tr>
+  </table>
+
+  <div class="insight">
+    <strong>【竞对对标核心洞察】</strong>
+    多燕瘦消耗规模领先赛道（合计42.34万/日），但ROI（1.263）落后竞对均值（1.655）24%，差距来源于三个层面：
+    <br>① <strong>工具缺口</strong>：智投渗透率仅24.4%（竞对均值76.1%），单链路智投占比不足10%，而巧农婆**、葵花**均超65%；直播4+M完全未使用，而万益蓝**凭此实现赛道最高ROI（1.857）；
+    <br>② <strong>素材效率</strong>：CTR 1.30%，低于竞对均值3.09%（差距-58%），视频号版位CTR差距尤为突出（1.10-1.89% vs 巧农婆** 3.22%）；
+    <br>③ <strong>版位结构</strong>：对视频号依赖度过高（63-73%），小程序版位CVR仅3.0-3.3%（竞对10.84%），平台与内容广告版位ROI低于1.1，存在拖累整体ROI的版位。
+    <br><strong>竞争窗口</strong>：巧农婆**两账号余额极低（¥1.5-2.1万），随时可能断投，建议持续监控，在其断投窗口期适时加大多燕瘦预算力度。
+  </div>
+</div>
+
+
+<div class="section">
+  <div class="sec-title">九、直播间综合诊断与优化建议</div>
+  <div class="sec-desc">结合618大促复盘 + 竞对对标分析，四个直播间全维度诊断与可执行优化方向</div>
+
+  <!-- 整体优先级行动清单 -->
+  <div style="background:#fffbe6;border:1px solid #ffe58f;border-radius:10px;padding:16px;margin-bottom:20px">
+    <div style="font-size:14px;font-weight:700;color:#d48806;margin-bottom:12px">🎯 整体优先级行动清单（结合竞对对标）</div>
+    <div class="action-item"><div class="dot dot-r">🔴</div><div style="font-size:13px"><strong>立即：大幅提升单链路智投占比至40%+</strong>——当前仅5-9%，竞对头部均超65%；优先在奇奇账号（消耗最大）大规模开启，预期ROI从1.263提升至1.5+</div></div>
+    <div class="action-item"><div class="dot dot-r">🔴</div><div style="font-size:13px"><strong>立即：柚柚账号推直播占比从31%压缩至10%以内</strong>——推直播ROI约束弱，是拖累整体ROI的核心因素，切换为单链路智投</div></div>
+    <div class="action-item"><div class="dot dot-r">🔴</div><div style="font-size:13px"><strong>立即：监控竞对断投窗口</strong>——巧农婆**两账号余额极低（¥1.5-2.1万），随时可能断投；一旦发现断投，立即提升多燕瘦三账号预算上限20-30%</div></div>
+    <div class="action-item"><div class="dot dot-y">🟡</div><div style="font-size:13px"><strong>本周内：素材专项优化，CTR目标从1.30%提升至2.0%+</strong>——与竞对均值差距-58%，是eCPM竞争力不足的根本原因；重点参考巧农婆**（CTR 3.47%）素材风格</div></div>
+    <div class="action-item"><div class="dot dot-y">🟡</div><div style="font-size:13px"><strong>本周内：评估直播4+M试跑</strong>——万益蓝**凭此实现赛道最高ROI（1.857），多燕瘦完全未使用；先在奇奇账号试跑，挂载高客单价SKU</div></div>
+    <div class="action-item"><div class="dot dot-y">🟡</div><div style="font-size:13px"><strong>本周内：茶茶/柚柚开启商品聚合页至15-20%</strong>——茶茶0.9%、柚柚5.9%，奇奇已有22%实践可复用</div></div>
+    <div class="action-item"><div class="dot dot-g">🟢</div><div style="font-size:13px"><strong>持续：清理低效广告，提升广告ARPU</strong>——三账号合计广告数6,644条是竞对均值8倍，每周清理7天无消耗广告，集中预算到高效广告</div></div>
+    <div class="action-item"><div class="dot dot-g">🟢</div><div style="font-size:13px"><strong>持续：优化微信小程序版位承接</strong>——CVR仅3.0-3.3%（竞对10.84%），排查落地页转化节点；平台与内容广告版位ROI低于1.1，评估压缩预算占比</div></div>
+  </div>
+
+  <!-- 四个直播间诊断卡片 -->
+  <div class="room-grid">
+    <div class="room-card">
+      <div class="room-card-head">
+        <div class="room-avatar" style="background:#5470c6">奇奇</div>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:#1a1a2e">多燕瘦管理师奇奇</div>
+          <div style="font-size:12px;color:#888">消耗 1018.8万 · 占比 47.6% · ROI 1.335 · 智投渗透率 13.5%</div>
+        </div>
+      </div>
+      <div class="room-kpi">
+        <div class="room-kpi-item"><div class="rl">CTR</div><div class="rv" style="color:#5470c6">1.82%</div></div>
+        <div class="room-kpi-item"><div class="rl">CVR</div><div class="rv" style="color:#5470c6">3.15%</div></div>
+        <div class="room-kpi-item"><div class="rl">ROI</div><div class="rv" style="color:#5470c6">1.335</div></div>
+        <div class="room-kpi-item"><div class="rl">智投</div><div class="rv" style="color:#e6394a">13.5%</div></div>
+      </div>
+      <div style="margin-bottom:10px">
+        <div style="font-size:12px;font-weight:600;color:#52c41a;margin-bottom:4px">✓ 优势</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 消耗规模最大，是账户核心主力（47.6%）</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· P6收尾期单阶段265万，爆发力强</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 商品聚合页已有22%实践，领先其他账号</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 视频号版位CVR（8.53%）与竞对头部接近</div>
+      </div>
+      <div style="margin-bottom:12px">
+        <div style="font-size:12px;font-weight:600;color:#ee6666;margin-bottom:4px">✗ 问题（含竞对对标）</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 智投渗透率仅13.5%，竞对头部均超65%——最大工具缺口</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· CTR 1.31%，低于竞对均值3.09%（差距-58%）</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· P5高潮期仅58.2万，618节奏踩空</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 完全未使用直播4+M（万益蓝**凭此ROI达1.857）</div>
+      </div>
+      <div style="background:#fff;border:1px solid #e8ecff;border-radius:8px;padding:10px">
+        <div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:8px">📋 优化行动</div>
+        <div class="action-item"><div class="dot dot-r">🔴</div><div style="font-size:12px">单链路智投占比提升至40%+（当前4.8%），参考巧农婆**67%实践</div></div>
+        <div class="action-item"><div class="dot dot-r">🔴</div><div style="font-size:12px">素材专项：制作10-20条高CTR测试素材，目标CTR 2.0%+</div></div>
+        <div class="action-item"><div class="dot dot-y">🟡</div><div style="font-size:12px">试跑直播4+M，挂载高客单价SKU，目标占比20%+</div></div>
+        <div class="action-item"><div class="dot dot-g">🟢</div><div style="font-size:12px">商品聚合页继续扩量至25%+，优化聚合页商品组合</div></div>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <div class="room-card-head">
+        <div class="room-avatar" style="background:#91cc75">茶茶</div>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:#1a1a2e">多燕瘦管理师茶茶</div>
+          <div style="font-size:12px;color:#888">消耗 544.1万 · 占比 25.4% · ROI 1.279 · 智投渗透率 32.7%</div>
+        </div>
+      </div>
+      <div class="room-kpi">
+        <div class="room-kpi-item"><div class="rl">CTR</div><div class="rv" style="color:#91cc75">1.71%</div></div>
+        <div class="room-kpi-item"><div class="rl">CVR</div><div class="rv" style="color:#91cc75">2.95%</div></div>
+        <div class="room-kpi-item"><div class="rl">ROI</div><div class="rv" style="color:#e6394a">1.279</div></div>
+        <div class="room-kpi-item"><div class="rl">智投</div><div class="rv" style="color:#faad14">32.7%</div></div>
+      </div>
+      <div style="margin-bottom:10px">
+        <div style="font-size:12px;font-weight:600;color:#52c41a;margin-bottom:4px">✓ 优势</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 智投渗透率32.7%，三账号中相对最高</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· P7日常期消耗133.3万，日常跑量稳定</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 视频号版位ROI（1.324）与奇奇持平</div>
+      </div>
+      <div style="margin-bottom:12px">
+        <div style="font-size:12px;font-weight:600;color:#ee6666;margin-bottom:4px">✗ 问题（含竞对对标）</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 推直播占比20.8%，ROI约束弱，拖累整体ROI</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 商品聚合页仅0.9%，几乎未使用</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 单链路智投仅9.4%，与竞对差距显著</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· CVR 2.95%，低于竞对均值6.82%</div>
+      </div>
+      <div style="background:#fff;border:1px solid #e8ecff;border-radius:8px;padding:10px">
+        <div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:8px">📋 优化行动</div>
+        <div class="action-item"><div class="dot dot-r">🔴</div><div style="font-size:12px">推直播广告逐步切换为单链路智投，目标单链路智投占比30%+</div></div>
+        <div class="action-item"><div class="dot dot-y">🟡</div><div style="font-size:12px">开启商品聚合页，目标占比15-20%（参考奇奇22%实践）</div></div>
+        <div class="action-item"><div class="dot dot-y">🟡</div><div style="font-size:12px">优化小程序版位承接页面，提升CVR（当前3.31%→目标6%+）</div></div>
+        <div class="action-item"><div class="dot dot-g">🟢</div><div style="font-size:12px">素材迭代：重点优化封面图和前3秒钩子，提升CTR</div></div>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <div class="room-card-head">
+        <div class="room-avatar" style="background:#fac858">柒柒</div>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:#1a1a2e">多燕瘦管理师柒柒</div>
+          <div style="font-size:12px;color:#888">消耗 433.2万 · 占比 20.3% · ROI 1.263 · P7无消耗</div>
+        </div>
+      </div>
+      <div class="room-kpi">
+        <div class="room-kpi-item"><div class="rl">CTR</div><div class="rv" style="color:#fac858">2.07%</div></div>
+        <div class="room-kpi-item"><div class="rl">CVR</div><div class="rv" style="color:#fac858">2.83%</div></div>
+        <div class="room-kpi-item"><div class="rl">ROI</div><div class="rv" style="color:#e6394a">1.263</div></div>
+        <div class="room-kpi-item"><div class="rl">CPM</div><div class="rv" style="color:#fac858">122.2元</div></div>
+      </div>
+      <div style="margin-bottom:10px">
+        <div style="font-size:12px;font-weight:600;color:#52c41a;margin-bottom:4px">✓ 优势</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· CTR 2.07%，三账号中最高，素材点击效率相对最好</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· P1蓄水期消耗137.4万，前期积累充分</div>
+      </div>
+      <div style="margin-bottom:12px">
+        <div style="font-size:12px;font-weight:600;color:#ee6666;margin-bottom:4px">✗ 问题（含竞对对标）</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· P7日常期消耗归零，账号可能已停播或暂停投放</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· ROI 1.263，三账号中最低（与竞对均值差距最大）</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 商品聚合页ROI（1.035）明显低于普通直播间（1.263）</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 智投结构待优化，单链路智投占比偏低</div>
+      </div>
+      <div style="background:#fff;border:1px solid #e8ecff;border-radius:8px;padding:10px">
+        <div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:8px">📋 优化行动</div>
+        <div class="action-item"><div class="dot dot-r">🔴</div><div style="font-size:12px">确认P7停播原因，评估是否恢复投放；若停播则将预算向奇奇/茶茶倾斜</div></div>
+        <div class="action-item"><div class="dot dot-y">🟡</div><div style="font-size:12px">商品聚合页ROI偏低（1.035），暂停或降低出价，优化商品组合</div></div>
+        <div class="action-item"><div class="dot dot-y">🟡</div><div style="font-size:12px">提升单链路智投占比，利用CTR优势（2.07%）放大智投效果</div></div>
+        <div class="action-item"><div class="dot dot-g">🟢</div><div style="font-size:12px">ROI出价校准：当前ROI 1.263，建议适当下调出价目标扩量</div></div>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <div class="room-card-head">
+        <div class="room-avatar" style="background:#ee6666">柚柚</div>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:#1a1a2e">多燕瘦管理师柚柚</div>
+          <div style="font-size:12px;color:#888">消耗 142.7万 · 占比 6.7% · ROI 1.166 · 推直播31%</div>
+        </div>
+      </div>
+      <div class="room-kpi">
+        <div class="room-kpi-item"><div class="rl">CTR</div><div class="rv" style="color:#ee6666">1.11%</div></div>
+        <div class="room-kpi-item"><div class="rl">CVR</div><div class="rv" style="color:#ee6666">2.29%</div></div>
+        <div class="room-kpi-item"><div class="rl">ROI</div><div class="rv" style="color:#e6394a">1.166</div></div>
+        <div class="room-kpi-item"><div class="rl">推直播</div><div class="rv" style="color:#e6394a">31%</div></div>
+      </div>
+      <div style="margin-bottom:10px">
+        <div style="font-size:12px;font-weight:600;color:#52c41a;margin-bottom:4px">✓ 优势</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· P7日常期消耗118万，后期爆发明显</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 商品聚合页ROI（1.423）高于普通直播间（1.166），聚合页效率优</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 智投渗透率37.6%，三账号中最高</div>
+      </div>
+      <div style="margin-bottom:12px">
+        <div style="font-size:12px;font-weight:600;color:#ee6666;margin-bottom:4px">✗ 问题（含竞对对标）</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· ROI 1.166，四账号最低，推直播31%是核心拖累</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· CTR 1.11%，四账号最低，素材吸引力最弱</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· P1-P5期间消耗极低（合计仅5.1万），618大促几乎缺席</div>
+        <div style="font-size:12px;color:#555;padding:2px 0 2px 10px">· 平台与内容广告版位ROI 0.967，低于1.0，亏损版位</div>
+      </div>
+      <div style="background:#fff;border:1px solid #e8ecff;border-radius:8px;padding:10px">
+        <div style="font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:8px">📋 优化行动</div>
+        <div class="action-item"><div class="dot dot-r">🔴</div><div style="font-size:12px">推直播从31%压缩至10%以内，切换为单链路智投</div></div>
+        <div class="action-item"><div class="dot dot-r">🔴</div><div style="font-size:12px">平台与内容广告版位ROI 0.967（亏损），立即降低出价或暂停</div></div>
+        <div class="action-item"><div class="dot dot-y">🟡</div><div style="font-size:12px">商品聚合页ROI优（1.423），加大聚合页预算占比至20%+</div></div>
+        <div class="action-item"><div class="dot dot-y">🟡</div><div style="font-size:12px">素材专项：CTR仅1.11%，优先更换封面图，参考奇奇高CTR素材</div></div>
+        <div class="action-item"><div class="dot dot-g">🟢</div><div style="font-size:12px">下次大促提前布局，P1-P5蓄水期需保障基础消耗</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== S9 总结 ===== -->
+<div class="section">
+  <div class="sec-title">九、总结与下阶段行动计划</div>
+  <div class="sec-desc">核心问题汇总与优先级排序，指导下一轮大促投放策略</div>
+  <table>
+    <tr><th>优先级</th><th>问题</th><th>影响</th><th>行动方向</th><th>负责直播间</th></tr>
+    <tr><td><span class="badge bd-red">P0 紧急</span></td><td>C类满减券参与率≈0%</td><td>ROI落后大盘0.53，错失最大流量杠杆</td><td>下次大促提前2周规划满减券，目标参与率≥30%</td><td>全部</td></tr><tr><td><span class="badge bd-red">P0 紧急</span></td><td>P5高潮期节奏系数0.77（大盘1.24）</td><td>618最核心节点踩空，消耗仅103.5万</td><td>高潮期提前锁定预算包，节奏系数目标≥1.2</td><td>全部</td></tr><tr><td><span class="badge bd-org">P1 重要</span></td><td>柒柒P7日常期消耗归零</td><td>账户停投，流量损失</td><td>排查停投原因，制定账户接力机制</td><td>柒柒</td></tr><tr><td><span class="badge bd-org">P1 重要</span></td><td>柚柚P1-P5多阶段缺席</td><td>蓄水期错失，后期被动放量</td><td>下次大促P1即启动，建立完整投放节奏</td><td>柚柚</td></tr><tr><td><span class="badge bd-org">P1 重要</span></td><td>茶茶商品聚合页ROI仅0.869</td><td>接近亏损，拖累整体ROI</td><td>重新选品或暂停聚合页，优先保障ROI达标</td><td>茶茶</td></tr><tr><td><span class="badge bd-blu">P2 优化</span></td><td>CTR整体偏低（1.75%）</td><td>流量获取效率低，CPM偏高</td><td>全面迭代素材，A/B测试新封面，目标CTR≥2.0%</td><td>茶茶、柒柒、柚柚</td></tr><tr><td><span class="badge bd-blu">P2 优化</span></td><td>智投占比偏低</td><td>系统智能优化空间受限</td><td>逐步提升智投占比至50%+</td><td>全部</td></tr>
+  </table>
+  <div class="insight" style="margin-top:16px">
+    <span class="tag tag-ok">下阶段目标</span>
+    ROI目标：<strong>≥1.5</strong>（向大盘1.826靠拢）；
+    日均消耗目标：<strong>≥50万/日</strong>；
+    C类满减券参与率：<strong>≥30%</strong>；
+    P5高潮期节奏系数：<strong>≥1.2</strong>；
+    CTR目标：<strong>≥2.0%</strong>。
+  </div>
+</div>
+<div style="text-align:center;padding:20px;color:#aaa;font-size:12px">
+  多燕瘦自营 · 618大促竞价广告复盘报告 · 直播链路竞价口径 · 2026.05.20-07.06
+</div>
+</div><!-- /container -->
+
+
+<script>
+// ===== 数据 =====
+const DATES = ["2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-05-30", "2026-05-31", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-06", "2026-06-07", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06"];
+const ROOM_SERIES = {"\u5947\u5947": [14.15, 8.56, 11.48, 12.43, 14.59, 11.49, 8.38, 10.82, 6.0, 15.65, 9.88, 8.22, 10.44, 19.52, 30.84, 25.21, 33.46, 26.8, 21.65, 19.17, 20.01, 23.65, 14.97, 13.77, 28.77, 27.53, 19.04, 20.88, 17.33, 20.04, 80.7, 62.06, 37.97, 26.87, 25.1, 18.36, 13.96, 13.92, 25.54, 29.07, 25.89, 18.96, 19.54, 18.79, 14.89, 18.54, 25.31, 18.58], "\u8336\u8336": [20.83, 10.16, 7.6, 6.76, 9.37, 5.31, 4.92, 5.52, 6.05, 6.9, 4.93, 8.35, 5.02, 9.03, 13.28, 14.09, 13.66, 13.22, 15.27, 10.13, 18.52, 24.73, 14.02, 12.34, 17.86, 12.08, 12.81, 9.12, 8.2, 4.78, 20.84, 20.66, 13.01, 7.74, 8.08, 6.6, 9.05, 11.66, 8.37, 12.85, 8.98, 6.16, 8.04, 18.76, 12.9, 17.23, 14.86, 13.45], "\u67d2\u67d2": [0.81, 14.35, 13.89, 13.35, 16.1, 10.36, 7.68, 11.95, 12.45, 13.48, 12.01, 10.98, 9.81, 5.15, 10.62, 27.23, 43.06, 19.32, 18.28, 15.83, 12.87, 11.42, 11.0, 8.59, 8.72, 10.4, 8.16, 8.0, 8.13, 7.04, 9.1, 18.55, 15.98, 8.53, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "\u67da\u67da": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.57, 1.56, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.01, 6.28, 7.44, 5.88, 11.37, 12.02, 15.49, 15.76, 9.17, 10.26, 7.9, 9.4, 8.73, 9.58, 8.32]};
+const PHASE_NAMES = ["P1 \u84c4\u6c34\u671f", "P2 \u9884\u70ed\u671f", "P3 \u5f00\u95e8\u7ea2", "P4 \u8fd4\u573a\u671f", "P5 \u9ad8\u6f6e\u671f", "P6 \u6536\u5c3e\u671f", "P7 \u65e5\u5e38\u671f"];
+const PHASE_DAILY = [30.5, 55.1, 52.8, 46.6, 34.5, 60.4, 43.7];
+const PHASE_TOTALS = [365.8, 275.5, 211.1, 279.8, 103.5, 422.8, 480.3];
+const PHASE_ROOM_SERIES = {"\u5947\u5947": [131.7, 119.5, 87.6, 127.7, 58.2, 265.0, 229.0], "\u8336\u8336": [96.7, 55.1, 57.1, 93.8, 22.1, 86.0, 133.3], "\u67d2\u67d2": [137.4, 95.9, 66.3, 58.3, 23.2, 52.2, 0.0], "\u67da\u67da": [0.0, 5.1, 0.0, 0.0, 0.0, 19.6, 118.0]};
+const TYPE_DATA = {"整体": {"普通直播间": {"daily": 40.97, "ads": 14642, "accts": 57, "uniq_id": 9387.8, "ctr": 1.79, "cvr": 2.99, "cpm": 111.7, "cr": 1.173, "roi": 1.293}, "商品聚合页": {"daily": 3.59, "ads": 404, "accts": 57, "uniq_id": 1012.7, "ctr": 1.36, "cvr": 4.38, "cpm": 125.7, "cr": 1.238, "roi": 1.258}}, "奇奇": {"普通直播间": {"daily": 18.16, "ads": 4504, "accts": 54, "uniq_id": 3317.9, "ctr": 1.72, "cvr": 3.37, "cpm": 117.7, "cr": 1.139, "roi": 1.335}, "商品聚合页": {"daily": 3.06, "ads": 184, "accts": 12, "uniq_id": 694.2, "ctr": 1.34, "cvr": 4.71, "cpm": 133.0, "cr": 1.201, "roi": 1.285}}, "茶茶": {"普通直播间": {"daily": 11.16, "ads": 4505, "accts": 51, "uniq_id": 2877.2, "ctr": 1.79, "cvr": 2.69, "cpm": 101.1, "cr": 1.184, "roi": 1.279}, "商品聚合页": {"daily": 0.17, "ads": 104, "accts": 12, "uniq_id": 170.1, "ctr": 1.75, "cvr": 1.35, "cpm": 72.1, "cr": 1.769, "roi": 0.869}}, "柒柒": {"普通直播间": {"daily": 8.84, "ads": 4017, "accts": 45, "uniq_id": 2299.2, "ctr": 2.06, "cvr": 2.71, "cpm": 122.2, "cr": 1.196, "roi": 1.263}, "商品聚合页": {"daily": 0.18, "ads": 88, "accts": 12, "uniq_id": 103.4, "ctr": 1.14, "cvr": 2.85, "cpm": 86.1, "cr": 1.474, "roi": 1.035}}, "柚柚": {"普通直播间": {"daily": 2.8, "ads": 1616, "accts": 40, "uniq_id": 893.4, "ctr": 1.44, "cvr": 2.54, "cpm": 82.2, "cr": 1.281, "roi": 1.166}, "商品聚合页": {"daily": 0.17, "ads": 28, "accts": 7, "uniq_id": 45.0, "ctr": 1.51, "cvr": 3.32, "cpm": 92.3, "cr": 1.099, "roi": 1.423}}}
+const FLOW_DATA = {"整体": {"微信视频号": {"daily": 32.2, "ads": 12744, "accts": 57, "uniq_id": 4582.6, "ctr": 1.78, "cvr": 4.65, "cpm": 165.3, "roi": 1.336}, "微信小程序": {"daily": 3.7, "ads": 9057, "accts": 57, "uniq_id": 4922.4, "ctr": 2.0, "cvr": 2.56, "cpm": 126.6, "roi": 1.097}, "微信公众号": {"daily": 2.83, "ads": 10740, "accts": 57, "uniq_id": 3037.8, "ctr": 0.78, "cvr": 2.72, "cpm": 44.5, "roi": 1.364}, "平台与内容广告": {"daily": 3.31, "ads": 10079, "accts": 57, "uniq_id": 3948.2, "ctr": 4.15, "cvr": 0.74, "cpm": 72.7, "roi": 1.125}, "微信朋友圈": {"daily": 2.21, "ads": 10441, "accts": 57, "uniq_id": 3511.8, "ctr": 0.68, "cvr": 2.9, "cpm": 48.3, "roi": 1.142}, "微信搜一搜": {"daily": 0.13, "ads": 3342, "accts": 57, "uniq_id": 23.8, "ctr": 5.7, "cvr": 8.21, "cpm": 1499.9, "roi": 0.872}, "搜索广告": {"daily": 0.14, "ads": 8667, "accts": 57, "uniq_id": 1816.4, "ctr": 1.75, "cvr": 0.61, "cpm": 27.8, "roi": 1.044}, "移动联盟": {"daily": 0.04, "ads": 1634, "accts": 57, "uniq_id": 258.4, "ctr": 5.9, "cvr": 0.12, "cpm": 24.7, "roi": 0.624}}, "奇奇": {"微信视频号": {"daily": 15.71, "ads": 3953, "accts": 51, "uniq_id": 1563.9, "ctr": 1.85, "cvr": 4.72, "cpm": 171.8, "roi": 1.371}, "微信小程序": {"daily": 1.58, "ads": 2900, "accts": 52, "uniq_id": 2037.3, "ctr": 1.89, "cvr": 2.87, "cpm": 131.9, "roi": 1.121}, "微信公众号": {"daily": 1.42, "ads": 3395, "accts": 50, "uniq_id": 1244.1, "ctr": 0.8, "cvr": 2.93, "cpm": 47.4, "roi": 1.377}, "平台与内容广告": {"daily": 1.25, "ads": 3264, "accts": 52, "uniq_id": 1441.9, "ctr": 3.09, "cvr": 0.91, "cpm": 68.3, "roi": 1.151}, "微信朋友圈": {"daily": 1.14, "ads": 3386, "accts": 52, "uniq_id": 1403.8, "ctr": 0.7, "cvr": 3.0, "cpm": 49.1, "roi": 1.191}, "微信搜一搜": {"daily": 0.06, "ads": 1167, "accts": 45, "uniq_id": 9.0, "ctr": 6.42, "cvr": 9.76, "cpm": 1835.1, "roi": 0.976}, "搜索广告": {"daily": 0.05, "ads": 2875, "accts": 49, "uniq_id": 688.4, "ctr": 1.57, "cvr": 0.76, "cpm": 30.3, "roi": 1.144}, "移动联盟": {"daily": 0.02, "ads": 602, "accts": 39, "uniq_id": 107.6, "ctr": 6.61, "cvr": 0.11, "cpm": 27.2, "roi": 0.541}}, "茶茶": {"微信视频号": {"daily": 8.13, "ads": 3929, "accts": 50, "uniq_id": 1411.9, "ctr": 1.78, "cvr": 4.39, "cpm": 158.3, "roi": 1.319}, "微信小程序": {"daily": 1.11, "ads": 2833, "accts": 46, "uniq_id": 1380.3, "ctr": 2.07, "cvr": 2.43, "cpm": 126.8, "roi": 1.093}, "平台与内容广告": {"daily": 0.87, "ads": 3048, "accts": 50, "uniq_id": 1169.0, "ctr": 4.99, "cvr": 0.57, "cpm": 68.8, "roi": 1.132}, "微信公众号": {"daily": 0.62, "ads": 3281, "accts": 46, "uniq_id": 825.0, "ctr": 0.54, "cvr": 2.12, "cpm": 23.3, "roi": 1.357}, "微信朋友圈": {"daily": 0.51, "ads": 3257, "accts": 48, "uniq_id": 973.7, "ctr": 0.67, "cvr": 2.81, "cpm": 45.6, "roi": 1.146}, "微信搜一搜": {"daily": 0.04, "ads": 1071, "accts": 41, "uniq_id": 7.9, "ctr": 5.4, "cvr": 7.51, "cpm": 1302.6, "roi": 0.849}, "搜索广告": {"daily": 0.04, "ads": 2496, "accts": 46, "uniq_id": 421.3, "ctr": 1.93, "cvr": 0.52, "cpm": 28.3, "roi": 0.942}, "移动联盟": {"daily": 0.02, "ads": 585, "accts": 37, "uniq_id": 93.6, "ctr": 5.57, "cvr": 0.15, "cpm": 25.6, "roi": 0.749}}, "柒柒": {"微信视频号": {"daily": 6.36, "ads": 3482, "accts": 44, "uniq_id": 1183.1, "ctr": 1.83, "cvr": 4.23, "cpm": 163.2, "roi": 1.304}, "平台与内容广告": {"daily": 0.92, "ads": 2664, "accts": 45, "uniq_id": 942.3, "ctr": 4.52, "cvr": 0.77, "cpm": 86.1, "roi": 1.133}, "微信小程序": {"daily": 0.66, "ads": 2409, "accts": 45, "uniq_id": 1047.5, "ctr": 2.18, "cvr": 1.87, "cpm": 110.0, "roi": 1.029}, "微信公众号": {"daily": 0.65, "ads": 2924, "accts": 45, "uniq_id": 651.8, "ctr": 1.02, "cvr": 3.05, "cpm": 64.5, "roi": 1.379}, "微信朋友圈": {"daily": 0.37, "ads": 2583, "accts": 45, "uniq_id": 778.3, "ctr": 0.68, "cvr": 2.97, "cpm": 53.8, "roi": 1.045}, "搜索广告": {"daily": 0.04, "ads": 2292, "accts": 44, "uniq_id": 508.5, "ctr": 1.67, "cvr": 0.62, "cpm": 26.3, "roi": 1.093}, "微信搜一搜": {"daily": 0.01, "ads": 572, "accts": 37, "uniq_id": 4.7, "ctr": 4.87, "cvr": 7.58, "cpm": 1394.9, "roi": 0.681}, "移动联盟": {"daily": 0.0, "ads": 261, "accts": 38, "uniq_id": 29.1, "ctr": 6.53, "cvr": 0.11, "cpm": 19.3, "roi": 0.683}}, "柚柚": {"微信视频号": {"daily": 2.0, "ads": 1380, "accts": 39, "uniq_id": 423.6, "ctr": 1.11, "cvr": 6.52, "cpm": 150.4, "roi": 1.243}, "微信小程序": {"daily": 0.35, "ads": 915, "accts": 38, "uniq_id": 457.2, "ctr": 1.96, "cvr": 2.88, "cpm": 133.0, "roi": 1.127}, "平台与内容广告": {"daily": 0.27, "ads": 1103, "accts": 39, "uniq_id": 395.0, "ctr": 5.05, "cvr": 0.43, "cpm": 60.1, "roi": 0.959}, "微信朋友圈": {"daily": 0.19, "ads": 1215, "accts": 39, "uniq_id": 356.0, "ctr": 0.6, "cvr": 2.49, "cpm": 39.5, "roi": 1.029}, "微信公众号": {"daily": 0.13, "ads": 1140, "accts": 36, "uniq_id": 316.9, "ctr": 0.37, "cvr": 1.7, "cpm": 14.2, "roi": 1.173}, "微信搜一搜": {"daily": 0.02, "ads": 532, "accts": 35, "uniq_id": 2.2, "ctr": 4.68, "cvr": 5.3, "cpm": 962.6, "roi": 0.719}, "搜索广告": {"daily": 0.01, "ads": 1004, "accts": 39, "uniq_id": 198.2, "ctr": 2.2, "cvr": 0.25, "cpm": 21.2, "roi": 0.768}, "移动联盟": {"daily": 0.0, "ads": 186, "accts": 31, "uniq_id": 28.0, "ctr": 1.79, "cvr": 0.03, "cpm": 2.7, "roi": 0.257}}}
+const SMART_DATA = {"整体": {"非智投": {"daily": 32.38, "ads": 11341, "accts": 57, "uniq_id": 6540.5, "template_cnt": 0, "arpu": 1645.6, "arpu_label": "广告条均消耗(元)", "ctr": 1.68, "cvr": 3.53, "cpm": 120.2, "roi": 1.326}, "单链路智投": {"daily": 5.83, "ads": 1298, "accts": 17, "uniq_id": 1506.1, "template_cnt": 249, "arpu": 13690.9, "arpu_label": "智投项目条均消耗(元)", "ctr": 1.85, "cvr": 2.62, "cpm": 106.6, "roi": 1.229}, "推直播": {"daily": 6.35, "ads": 2504, "accts": 18, "uniq_id": 2427.8, "template_cnt": 484, "arpu": 6541.9, "arpu_label": "智投项目条均消耗(元)", "ctr": 2.05, "cvr": 1.9, "cpm": 90.9, "roi": 1.16}, "短直双开": {"daily": 0.01, "ads": 19, "accts": 3, "uniq_id": 22.1, "template_cnt": 7, "arpu": 732.5, "arpu_label": "智投项目条均消耗(元)", "ctr": 1.14, "cvr": 1.15, "cpm": 31.8, "roi": 1.08}}, "奇奇": {"非智投": {"daily": 17.38, "ads": 3735, "accts": 54, "uniq_id": 2714.6, "template_cnt": 0, "arpu": 2233.9, "arpu_label": "广告条均消耗(元)", "ctr": 1.66, "cvr": 3.87, "cpm": 128.6, "roi": 1.352}, "单链路智投": {"daily": 2.18, "ads": 359, "accts": 16, "uniq_id": 545.0, "template_cnt": 63, "arpu": 17733.7, "arpu_label": "智投项目条均消耗(元)", "ctr": 1.61, "cvr": 2.99, "cpm": 104.9, "roi": 1.254}, "推直播": {"daily": 1.66, "ads": 620, "accts": 13, "uniq_id": 790.8, "template_cnt": 119, "arpu": 6705.8, "arpu_label": "智投项目条均消耗(元)", "ctr": 1.8, "cvr": 1.85, "cpm": 78.2, "roi": 1.168}}, "茶茶": {"非智投": {"daily": 7.63, "ads": 3522, "accts": 49, "uniq_id": 1829.6, "template_cnt": 0, "arpu": 1040.5, "arpu_label": "广告条均消耗(元)", "ctr": 1.65, "cvr": 3.11, "cpm": 105.6, "roi": 1.302}, "推直播": {"daily": 2.03, "ads": 755, "accts": 12, "uniq_id": 783.0, "template_cnt": 144, "arpu": 6782.6, "arpu_label": "智投项目条均消耗(元)", "ctr": 2.11, "cvr": 1.8, "cpm": 86.9, "roi": 1.182}, "单链路智投": {"daily": 1.67, "ads": 358, "accts": 13, "uniq_id": 451.0, "template_cnt": 76, "arpu": 13331.0, "arpu_label": "智投项目条均消耗(元)", "ctr": 1.94, "cvr": 2.31, "cpm": 97.6, "roi": 1.248}, "短直双开": {"daily": 0.0, "ads": 0, "accts": 0, "uniq_id": 0.0, "template_cnt": 1, "arpu": null, "arpu_label": "智投项目条均消耗(元)", "ctr": NaN, "cvr": NaN, "cpm": NaN, "roi": NaN}}, "柒柒": {"非智投": {"daily": 5.52, "ads": 2777, "accts": 45, "uniq_id": 1351.0, "template_cnt": 0, "arpu": 953.3, "arpu_label": "广告条均消耗(元)", "ctr": 1.99, "cvr": 3.07, "cpm": 128.7, "roi": 1.315}, "单链路智投": {"daily": 1.84, "ads": 514, "accts": 14, "uniq_id": 482.0, "template_cnt": 91, "arpu": 10011.0, "arpu_label": "智投项目条均消耗(元)", "ctr": 2.1, "cvr": 2.32, "cpm": 114.9, "roi": 1.186}, "推直播": {"daily": 1.67, "ads": 832, "accts": 14, "uniq_id": 584.7, "template_cnt": 167, "arpu": 4786.1, "arpu_label": "智投项目条均消耗(元)", "ctr": 2.08, "cvr": 2.19, "cpm": 108.2, "roi": 1.155}, "短直双开": {"daily": 0.01, "ads": 19, "accts": 3, "uniq_id": 22.1, "template_cnt": 6, "arpu": 732.5, "arpu_label": "智投项目条均消耗(元)", "ctr": 1.14, "cvr": 1.15, "cpm": 31.8, "roi": 1.08}}, "柚柚": {"非智投": {"daily": 1.84, "ads": 1307, "accts": 39, "uniq_id": 645.3, "template_cnt": 0, "arpu": 677.5, "arpu_label": "广告条均消耗(元)", "ctr": 1.06, "cvr": 3.35, "cpm": 76.7, "roi": 1.22}, "推直播": {"daily": 0.98, "ads": 297, "accts": 16, "uniq_id": 269.3, "template_cnt": 54, "arpu": 8739.9, "arpu_label": "智投项目条均消耗(元)", "ctr": 2.3, "cvr": 1.69, "cpm": 91.2, "roi": 1.108}, "单链路智投": {"daily": 0.15, "ads": 67, "accts": 4, "uniq_id": 28.1, "template_cnt": 19, "arpu": 3681.6, "arpu_label": "智投项目条均消耗(元)", "ctr": 1.4, "cvr": 4.19, "cpm": 132.6, "roi": 1.176}}}
+const BID_DATA = {"整体": {"ROI出价": {"daily": 41.33, "ads": 12608, "accts": 57, "uniq_id": 8393.8, "ctr": 1.73, "cvr": 3.34, "roi": 1.294, "roi_bid": 1.509, "cpa_bid": null}, "CPA出价": {"daily": 3.04, "ads": 2401, "accts": 57, "uniq_id": 1997.5, "ctr": 2.0, "cvr": 1.4, "roi": 1.222, "roi_bid": null, "cpa_bid": 181.9}, "CPA+辅助ROI": {"daily": 0.19, "ads": 39, "accts": 57, "uniq_id": 9.2, "ctr": 1.77, "cvr": 5.97, "roi": 1.364, "roi_bid": null, "cpa_bid": 181.1}, "其他": {"daily": 0.0, "ads": 13, "accts": 57, "uniq_id": 0.1, "ctr": 0.0, "cvr": 0.0, "roi": 0.0, "roi_bid": null, "cpa_bid": null}}, "奇奇": {"ROI出价": {"daily": 19.99, "ads": 4046, "accts": 49, "uniq_id": 3312.0, "ctr": 1.65, "cvr": 3.76, "roi": 1.331, "roi_bid": 1.513, "cpa_bid": null}, "CPA出价": {"daily": 1.06, "ads": 629, "accts": 40, "uniq_id": 694.9, "ctr": 1.87, "cvr": 1.46, "roi": 1.248, "roi_bid": null, "cpa_bid": 181.9}, "CPA+辅助ROI": {"daily": 0.18, "ads": 15, "accts": 7, "uniq_id": 5.3, "ctr": 1.74, "cvr": 6.05, "roi": 1.36, "roi_bid": null, "cpa_bid": 181.8}, "其他": {"daily": 0.0, "ads": 4, "accts": 3, "uniq_id": 0.0, "ctr": 0.0, "cvr": NaN, "roi": 0.0, "roi_bid": null, "cpa_bid": null}}, "茶茶": {"ROI出价": {"daily": 10.47, "ads": 3894, "accts": 50, "uniq_id": 2384.1, "ctr": 1.76, "cvr": 2.96, "roi": 1.284, "roi_bid": 1.508, "cpa_bid": null}, "CPA出价": {"daily": 0.87, "ads": 704, "accts": 36, "uniq_id": 662.3, "ctr": 1.94, "cvr": 1.15, "roi": 1.136, "roi_bid": null, "cpa_bid": 182.3}, "CPA+辅助ROI": {"daily": 0.0, "ads": 11, "accts": 8, "uniq_id": 0.9, "ctr": 1.63, "cvr": 0.0, "roi": 0.0, "roi_bid": null, "cpa_bid": 179.8}, "其他": {"daily": 0.0, "ads": 3, "accts": 3, "uniq_id": 0.0, "ctr": 0.0, "cvr": NaN, "roi": 0.0, "roi_bid": null, "cpa_bid": null}}, "柒柒": {"ROI出价": {"daily": 8.21, "ads": 3198, "accts": 45, "uniq_id": 1881.8, "ctr": 2.04, "cvr": 2.89, "roi": 1.257, "roi_bid": 1.507, "cpa_bid": null}, "CPA出价": {"daily": 0.8, "ads": 905, "accts": 37, "uniq_id": 518.4, "ctr": 2.0, "cvr": 1.69, "roi": 1.27, "roi_bid": null, "cpa_bid": 182.0}, "CPA+辅助ROI": {"daily": 0.01, "ads": 2, "accts": 2, "uniq_id": 2.4, "ctr": 2.11, "cvr": 4.97, "roi": 1.428, "roi_bid": null, "cpa_bid": 173.0}, "其他": {"daily": 0.0, "ads": 2, "accts": 2, "uniq_id": 0.0, "ctr": 0.0, "cvr": NaN, "roi": 0.0, "roi_bid": null, "cpa_bid": null}}, "柚柚": {"ROI出价": {"daily": 2.66, "ads": 1470, "accts": 39, "uniq_id": 815.9, "ctr": 1.26, "cvr": 3.02, "roi": 1.172, "roi_bid": 1.495, "cpa_bid": null}, "CPA出价": {"daily": 0.31, "ads": 163, "accts": 23, "uniq_id": 121.9, "ctr": 2.64, "cvr": 1.2, "roi": 1.253, "roi_bid": null, "cpa_bid": 180.8}, "CPA+辅助ROI": {"daily": 0.0, "ads": 11, "accts": 6, "uniq_id": 0.6, "ctr": 0.74, "cvr": 0.0, "roi": 0.0, "roi_bid": null, "cpa_bid": 179.9}, "其他": {"daily": 0.0, "ads": 4, "accts": 3, "uniq_id": 0.1, "ctr": 0.0, "cvr": NaN, "roi": 0.0, "roi_bid": null, "cpa_bid": null}}}
+const ROOMS = ["整体", "奇奇", "茶茶", "柒柒", "柚柚"];
+const COLORS = ["#5470c6", "#91cc75", "#fac858", "#ee6666"];
+const MARK_AREAS = [[{"xAxis": "2026-05-20", "itemStyle": {"color": "rgba(84,112,198,0.08)"}, "name": "P1\u84c4\u6c34"}, {"xAxis": "2026-05-31"}], [{"xAxis": "2026-06-01", "itemStyle": {"color": "rgba(145,204,117,0.12)"}, "name": "P2\u9884\u70ed"}, {"xAxis": "2026-06-05"}], [{"xAxis": "2026-06-06", "itemStyle": {"color": "rgba(250,200,88,0.15)"}, "name": "P3\u5f00\u95e8\u7ea2"}, {"xAxis": "2026-06-09"}], [{"xAxis": "2026-06-10", "itemStyle": {"color": "rgba(238,102,102,0.08)"}, "name": "P4\u8fd4\u573a"}, {"xAxis": "2026-06-15"}], [{"xAxis": "2026-06-16", "itemStyle": {"color": "rgba(238,102,102,0.22)"}, "name": "P5\u9ad8\u6f6e"}, {"xAxis": "2026-06-18"}], [{"xAxis": "2026-06-19", "itemStyle": {"color": "rgba(115,192,222,0.12)"}, "name": "P6\u6536\u5c3e"}, {"xAxis": "2026-06-25"}], [{"xAxis": "2026-06-26", "itemStyle": {"color": "rgba(59,162,114,0.08)"}, "name": "P7\u65e5\u5e38"}, {"xAxis": "2026-07-06"}]];
+
+// ===== Tab 切换 =====
+function switchTab(group, idx) {
+  // 切换按钮
+  document.querySelectorAll('#tabs_' + group + ' .tab-btn').forEach(function(b, i) {
+    b.classList.toggle('active', i === idx);
+  });
+  // 切换面板
+  document.querySelectorAll('[id^="' + group + '_pane_"]').forEach(function(el, i) {
+    el.classList.toggle('active', i === idx);
+  });
+  // 延迟渲染，确保 display:block 生效后再 init
+  setTimeout(function() { renderTabChart(group, idx); }, 60);
+}
+
+// ===== 安全 init（容器不可见时跳过）=====
+function safeInit(id) {
+  var el = document.getElementById(id);
+  if (!el) return null;
+  // 若已有实例则取出复用
+  var existing = echarts.getInstanceByDom(el);
+  if (existing) { existing.dispose(); }
+  return echarts.init(el);
+}
+
+// ===== 1. 分天趋势 =====
+function renderDaily() {
+  var chart = safeInit('c_daily');
+  if (!chart) return;
+  var series = ROOMS.map(function(r, i) {
+    return {
+      name: r, type: 'line', stack: 'total',
+      areaStyle: {opacity: 0.65}, smooth: true, symbol: 'none',
+      lineStyle: {width: 1.5}, itemStyle: {color: COLORS[i]},
+      data: ROOM_SERIES[r],
+      markArea: i === 0 ? {
+        silent: true, data: MARK_AREAS,
+        label: {show: true, position: 'insideTop', fontSize: 10, color: '#555'}
+      } : undefined
+    };
+  });
+  chart.setOption({
+    tooltip: {
+      trigger: 'axis',
+      formatter: function(params) {
+        var s = '<b>' + params[0].axisValue + '</b><br/>';
+        var total = 0;
+        params.forEach(function(p) { s += p.marker + p.seriesName + ': ' + p.value + '万<br/>'; total += p.value; });
+        s += '<b>合计: ' + total.toFixed(1) + '万</b>';
+        return s;
+      }
+    },
+    legend: {data: ROOMS, top: 4},
+    grid: {left: 52, right: 20, top: 40, bottom: 50},
+    xAxis: {type: 'category', data: DATES, axisLabel: {rotate: 30, fontSize: 10}},
+    yAxis: {type: 'value', name: '消耗(万元)', nameTextStyle: {fontSize: 11}},
+    series: series
+  });
+  window.addEventListener('resize', function() { chart.resize(); });
+}
+
+// ===== 2. 分阶段日均 =====
+function renderPhaseDaily() {
+  var chart = safeInit('c_phase_daily');
+  if (!chart) return;
+  var phaseColors = ['#5470c6','#91cc75','#fac858','#ee6666','#cc3333','#73c0de','#3ba272'];
+  chart.setOption({
+    tooltip: {trigger: 'axis'},
+    grid: {left: 50, right: 20, top: 20, bottom: 60},
+    xAxis: {type: 'category', data: PHASE_NAMES, axisLabel: {rotate: 20, fontSize: 10}},
+    yAxis: {type: 'value', name: '万/日'},
+    series: [{
+      type: 'bar', data: PHASE_DAILY,
+      itemStyle: {color: function(p) { return phaseColors[p.dataIndex]; }},
+      label: {show: true, position: 'top', fontSize: 11, formatter: function(p) { return p.value + '万'; }},
+      markLine: {data: [{type: 'average', name: '均值', lineStyle: {color: '#999', type: 'dashed'}}]}
+    }]
+  });
+}
+
+// ===== 3. 分阶段×直播间 =====
+function renderPhaseRoom() {
+  var chart = safeInit('c_phase_room');
+  if (!chart) return;
+  chart.setOption({
+    tooltip: {trigger: 'axis', axisPointer: {type: 'shadow'}},
+    legend: {data: ROOMS, top: 4, textStyle: {fontSize: 11}},
+    grid: {left: 50, right: 20, top: 36, bottom: 60},
+    xAxis: {type: 'category', data: PHASE_NAMES, axisLabel: {rotate: 20, fontSize: 10}},
+    yAxis: {type: 'value', name: '消耗(万)'},
+    series: ROOMS.map(function(r, i) {
+      return {name: r, type: 'bar', stack: 'total', itemStyle: {color: COLORS[i]}, data: PHASE_ROOM_SERIES[r]};
+    })
+  });
+}
+
+// ===== 4. 节奏系数 =====
+function renderRhythm() {
+  var chart = safeInit('c_rhythm');
+  if (!chart) return;
+  var client = [0.68, 1.23, 1.18, 1.04, 0.77, 1.35, 0.98];
+  var market = [0.88, 1.19, 1.15, 1.12, 1.24, 1.40, 1.02];
+  chart.setOption({
+    tooltip: {trigger: 'axis'},
+    legend: {data: ['客户', '大盘'], top: 4},
+    grid: {left: 50, right: 20, top: 36, bottom: 60},
+    xAxis: {type: 'category', data: PHASE_NAMES, axisLabel: {rotate: 20, fontSize: 10}},
+    yAxis: {type: 'value', name: '节奏系数', min: 0.5},
+    series: [
+      {name: '客户', type: 'line', data: client, itemStyle: {color: '#5470c6'}, lineStyle: {width: 2.5},
+       markPoint: {data: [{type: 'min', name: '最低点', itemStyle: {color: '#ee6666'}}]}},
+      {name: '大盘', type: 'line', data: market, itemStyle: {color: '#91cc75'}, lineStyle: {width: 2, type: 'dashed'}}
+    ]
+  });
+}
+
+// ===== 5. 推广形式图表 =====
+function renderTypeChart(idx) {
+  var r = ROOMS[idx];
+  var rdata = TYPE_DATA[r] || {};
+  var types = Object.keys(rdata);
+  if (!types.length) return;
+
+  var pieChart = safeInit('c_type_pie_' + idx);
+  if (pieChart) {
+    pieChart.setOption({
+      title: {text: '消耗占比', left: 'center', top: 4, textStyle: {fontSize: 12}},
+      tooltip: {trigger: 'item', formatter: '{b}: {c}万 ({d}%)'},
+      legend: {bottom: 0, textStyle: {fontSize: 11}},
+      series: [{
+        type: 'pie', radius: ['35%', '65%'], center: ['50%', '46%'],
+        data: types.map(function(t, i) { return {name: t, value: rdata[t].daily, itemStyle: {color: COLORS[i]}}; }),
+        label: {formatter: '{b}\n{c}万', fontSize: 11}
+      }]
+    });
+  }
+
+  var effChart = safeInit('c_type_eff_' + idx);
+  if (effChart && types.length >= 1) {
+    var maxCtr = Math.max.apply(null, types.map(function(t) { return rdata[t].ctr; })) * 1.4;
+    var maxCvr = Math.max.apply(null, types.map(function(t) { return rdata[t].cvr; })) * 1.4;
+    var maxRoi = Math.max.apply(null, types.map(function(t) { return rdata[t].roi; })) * 1.3;
+    effChart.setOption({
+      title: {text: '效率对比', left: 'center', top: 4, textStyle: {fontSize: 12}},
+      tooltip: {},
+      legend: {data: types, bottom: 0, textStyle: {fontSize: 11}},
+      radar: {
+        indicator: [{name: 'CTR(%)', max: maxCtr}, {name: 'CVR(%)', max: maxCvr}, {name: 'ROI', max: maxRoi}],
+        center: ['50%', '48%'], radius: '52%'
+      },
+      series: [{
+        type: 'radar',
+        data: types.map(function(t, i) {
+          return {name: t, value: [rdata[t].ctr, rdata[t].cvr, rdata[t].roi],
+                  itemStyle: {color: COLORS[i]}, areaStyle: {opacity: 0.2}};
+        })
+      }]
+    });
+  }
+}
+
+// ===== 6. 版位图表 =====
+function renderFlowChart(idx) {
+  var r = ROOMS[idx];
+  var rdata = FLOW_DATA[r] || {};
+  var flows = Object.keys(rdata).sort(function(a, b) { return rdata[b].daily - rdata[a].daily; });
+  if (!flows.length) return;
+  var chart = safeInit('c_flow_' + idx);
+  if (!chart) return;
+  chart.setOption({
+    tooltip: {trigger: 'axis', axisPointer: {type: 'shadow'}},
+    legend: {data: ['消耗(万)', 'ROI'], top: 4, textStyle: {fontSize: 11}},
+    grid: {left: 130, right: 70, top: 36, bottom: 20},
+    xAxis: [
+      {type: 'value', name: '消耗(万)'},
+      {type: 'value', name: 'ROI', min: 0, max: 2.5}
+    ],
+    yAxis: {type: 'category', data: flows.slice().reverse(), axisLabel: {fontSize: 11}},
+    series: [
+      {name: '消耗(万)', type: 'bar', xAxisIndex: 0,
+        data: flows.slice().reverse().map(function(f) { return rdata[f].daily; }),
+        itemStyle: {color: '#5470c6'},
+        label: {show: true, position: 'right', fontSize: 10}},
+      {name: 'ROI', type: 'scatter', xAxisIndex: 1,
+        data: flows.slice().reverse().map(function(f) { return rdata[f].roi; }),
+        symbolSize: 10, itemStyle: {color: '#ee6666'}}
+    ]
+  });
+}
+
+// ===== 7. 智投图表 =====
+function renderSmartChart(idx) {
+  var r = ROOMS[idx];
+  var rdata = SMART_DATA[r] || {};
+  var types = Object.keys(rdata).sort(function(a, b) { return rdata[b].daily - rdata[a].daily; });
+  if (!types.length) return;
+
+  var pieChart = safeInit('c_smart_pie_' + idx);
+  if (pieChart) {
+    pieChart.setOption({
+      title: {text: '消耗占比', left: 'center', top: 4, textStyle: {fontSize: 12}},
+      tooltip: {trigger: 'item', formatter: '{b}: {c}万 ({d}%)'},
+      legend: {bottom: 0, textStyle: {fontSize: 10}},
+      series: [{
+        type: 'pie', radius: ['30%', '60%'], center: ['50%', '46%'],
+        data: types.map(function(t, i) { return {name: t, value: rdata[t].daily, itemStyle: {color: COLORS[i % 4]}}; }),
+        label: {fontSize: 10}
+      }]
+    });
+  }
+
+  var effChart = safeInit('c_smart_eff_' + idx);
+  if (effChart) {
+    effChart.setOption({
+      title: {text: '效率对比', left: 'center', top: 4, textStyle: {fontSize: 12}},
+      tooltip: {trigger: 'axis', axisPointer: {type: 'shadow'}},
+      legend: {data: ['CTR(%)', 'CVR(%)', 'ROI'], bottom: 0, textStyle: {fontSize: 10}},
+      grid: {left: 40, right: 20, top: 36, bottom: 40},
+      xAxis: {type: 'category', data: types, axisLabel: {fontSize: 10}},
+      yAxis: {type: 'value'},
+      series: [
+        {name: 'CTR(%)', type: 'bar', data: types.map(function(t) { return rdata[t].ctr; }), itemStyle: {color: '#5470c6'}},
+        {name: 'CVR(%)', type: 'bar', data: types.map(function(t) { return rdata[t].cvr; }), itemStyle: {color: '#91cc75'}},
+        {name: 'ROI', type: 'line', data: types.map(function(t) { return rdata[t].roi; }),
+          itemStyle: {color: '#ee6666'}, lineStyle: {width: 2}, symbol: 'circle', symbolSize: 6}
+      ]
+    });
+  }
+}
+
+// ===== 8. 出价模式图表 =====
+function renderBidChart(idx) {
+  var r = ROOMS[idx];
+  var rdata = BID_DATA[r] || {};
+  var modes = Object.keys(rdata).sort(function(a, b) { return rdata[b].daily - rdata[a].daily; });
+  if (!modes.length) return;
+
+  // 饼图：消耗占比
+  var pie = safeInit('c_bid_pie_' + idx);
+  if (pie) {
+    pie.setOption({
+      tooltip: {formatter: function(p){ return p.name + ': ' + p.value.toFixed(2) + '万 (' + p.percent + '%)'; }},
+      legend: {bottom:0, textStyle:{fontSize:10}},
+      series:[{
+        type:'pie', radius:['40%','70%'], center:['50%','45%'],
+        label:{show:true, formatter:function(p){ return p.percent>5 ? p.name+'\n'+p.percent+'%' : ''; }, fontSize:10},
+        data: modes.map(function(m,i){
+          return {name:m, value:rdata[m].daily, itemStyle:{color:['#5470c6','#91cc75','#fac858','#ee6666','#73c0de'][i%5]}};
+        })
+      }]
+    });
+  }
+
+  // 柱+折线：消耗 + ROI
+  var eff = safeInit('c_bid_eff_' + idx);
+  if (eff) {
+    eff.setOption({
+      tooltip: {trigger:'axis'},
+      legend: {data:['日耗(万)','ROI'], top:4, textStyle:{fontSize:10}},
+      grid: {left:50, right:60, top:36, bottom:40},
+      xAxis: {type:'category', data:modes, axisLabel:{fontSize:10, interval:0}},
+      yAxis: [
+        {type:'value', name:'日耗(万)', nameTextStyle:{fontSize:10}},
+        {type:'value', name:'ROI', min:0.8, max:2.0, nameTextStyle:{fontSize:10}}
+      ],
+      series: [
+        {name:'日耗(万)', type:'bar', yAxisIndex:0,
+          data: modes.map(function(m){ return rdata[m].daily; }),
+          itemStyle:{color:'#5470c6'},
+          label:{show:true, position:'top', fontSize:9, formatter:function(p){ return p.value.toFixed(2); }}},
+        {name:'ROI', type:'line', yAxisIndex:1,
+          data: modes.map(function(m){ return rdata[m].roi; }),
+          itemStyle:{color:'#ee6666'}, lineStyle:{width:2.5},
+          symbol:'circle', symbolSize:7,
+          label:{show:true, position:'top', fontSize:9, formatter:function(p){ return p.value ? p.value.toFixed(3) : ''; }}}
+      ]
+    });
+  }
+}
+
+function renderTabChart(group, idx) {
+  if (group === 'type')  renderTypeChart(idx);
+  if (group === 'flow')  renderFlowChart(idx);
+  if (group === 'smart') renderSmartChart(idx);
+  if (group === 'bid')   renderBidChart(idx);
+}
+
+// ===== 初始化入口 =====
+document.addEventListener('DOMContentLoaded', function() {
+  renderDaily();
+  renderPhaseDaily();
+  renderPhaseRoom();
+  renderRhythm();
+  renderTypeChart(0);
+  renderFlowChart(0);
+  renderSmartChart(0);
+  renderBidChart(0);
+  renderCompBubble();
+  renderCompSmart();
+  renderCompGap();
+  renderCompVN();
+});
+
+// ===== 竞对分析图表 =====
+function renderCompBubble() {
+  var chart = safeInit('c_comp_bubble');
+  if (!chart) return;
+  // [日均消耗, ROI, 名称, 是否多燕瘦]
+  var data = [
+    [50, 1.687, '巧农婆**', false],
+    [20.86, 1.285, '奇奇', true],
+    [11.49, 1.281, '茶茶', true],
+    [9.99, 1.193, '柚柚', true],
+    [9, 1.740, '华大**', false],
+    [6.5, 1.235, '葵花**', false],
+    [4, 1.490, '巧农婆**食养馆', false],
+    [4, 1.827, '万益蓝**营养', false],
+    [4, 1.857, '万益蓝**官方', false]
+  ];
+  chart.setOption({
+    tooltip: {
+      formatter: function(p) {
+        return p.data[2] + '<br>日均消耗: ' + p.data[0] + '万<br>ROI: ' + p.data[1];
+      }
+    },
+    grid: {left:50, right:20, top:20, bottom:40},
+    xAxis: {type:'value', name:'日均消耗(万)', nameLocation:'end', nameTextStyle:{fontSize:11}},
+    yAxis: {type:'value', name:'ROI', min:1.0, max:2.0, nameTextStyle:{fontSize:11}},
+    series: [{
+      type: 'scatter',
+      symbolSize: function(d) { return Math.sqrt(d[0]) * 8; },
+      data: data.map(function(d) { return {
+        value: d,
+        itemStyle: {color: d[3] ? '#1677ff' : '#ff7875', opacity: 0.85},
+        label: {show: true, formatter: function(p) { return p.data[2]; }, position:'right', fontSize:10}
+      }; }),
+      label: {show: true}
+    }, {
+      type: 'line', markLine: {
+        silent: true, lineStyle: {color:'#faad14', type:'dashed'},
+        data: [{yAxis: 1.655, name:'竞对均值ROI'}]
+      }
+    }]
+  });
+}
+
+function renderCompSmart() {
+  var chart = safeInit('c_comp_smart');
+  if (!chart) return;
+  var names = ['奇奇','茶茶','柚柚','巧农婆**','葵花**','食养馆','万益蓝营养','万益蓝官方','华大**'];
+  var vals  = [13.5, 32.7, 37.6, 85.9, 95.6, 94.2, 14.5, 93.3, 7.6];
+  var colors = ['#1677ff','#1677ff','#1677ff','#ff7875','#ff7875','#ff7875','#ff7875','#ff7875','#ff7875'];
+  chart.setOption({
+    tooltip: {formatter: function(p) { return p.name + ': ' + p.value + '%'; }},
+    grid: {left:80, right:20, top:10, bottom:10},
+    xAxis: {type:'value', max:100, axisLabel:{formatter:'{value}%', fontSize:10}},
+    yAxis: {type:'category', data:names, axisLabel:{fontSize:10}},
+    series: [{
+      type:'bar', data: vals.map(function(v,i) { return {value:v, itemStyle:{color:colors[i]}}; }),
+      label: {show:true, position:'right', formatter:'{c}%', fontSize:10},
+      markLine: {silent:true, lineStyle:{color:'#faad14',type:'dashed'}, data:[{xAxis:76.1,name:'竞对均值'}]}
+    }]
+  });
+}
+
+function renderCompGap() {
+  var chart = safeInit('c_comp_gap');
+  if (!chart) return;
+  var metrics = ['CTR(%)', 'CVR(%)', 'ROI', '智投渗透率(%)'];
+  var dyy = [1.30, 4.33, 1.263, 24.4];
+  var comp = [3.09, 6.82, 1.655, 76.1];
+  chart.setOption({
+    tooltip: {trigger:'axis'},
+    legend: {data:['多燕瘦','竞对均值'], top:4},
+    grid: {left:60, right:20, top:36, bottom:30},
+    xAxis: {type:'category', data:metrics, axisLabel:{fontSize:11}},
+    yAxis: {type:'value', axisLabel:{fontSize:10}},
+    series: [
+      {name:'多燕瘦', type:'bar', data:dyy, itemStyle:{color:'#1677ff'},
+       label:{show:true, position:'top', fontSize:10, formatter:function(p){return p.value;}}},
+      {name:'竞对均值', type:'bar', data:comp, itemStyle:{color:'#ff7875'},
+       label:{show:true, position:'top', fontSize:10, formatter:function(p){return p.value;}}}
+    ]
+  });
+}
+
+function renderCompVN() {
+  var chart = safeInit('c_comp_vn');
+  if (!chart) return;
+  var names = ['巧农婆**','奇奇','茶茶','柚柚','华大**','葵花**','万益蓝营养','万益蓝官方','食养馆'];
+  var ctr   = [3.22, 1.64, 1.89, 1.10, 1.12, 2.61, 1.10, 1.13, 3.50];
+  var cvr   = [9.64, 8.53, 7.89, 9.22, 5.30, 9.45, 5.22, 5.95, 12.39];
+  var isMyy = [false, true, true, true, false, false, false, false, false];
+  chart.setOption({
+    tooltip: {trigger:'axis'},
+    legend: {data:['CTR(%)','CVR(%)'], top:4},
+    grid: {left:50, right:60, top:36, bottom:50},
+    xAxis: {type:'category', data:names, axisLabel:{fontSize:10, rotate:20}},
+    yAxis: [
+      {type:'value', name:'CTR(%)', max:6, nameTextStyle:{fontSize:10}},
+      {type:'value', name:'CVR(%)', min:0, max:15, nameTextStyle:{fontSize:10}}
+    ],
+    series: [
+      {name:'CTR(%)', type:'bar', yAxisIndex:0,
+       data: ctr.map(function(v,i){ return {value:v, itemStyle:{color: isMyy[i]?'#1677ff':'#ff7875'}}; }),
+       label:{show:true, position:'top', fontSize:9, formatter:function(p){return p.value+'%';}}},
+      {name:'CVR(%)', type:'line', yAxisIndex:1,
+       data:cvr, itemStyle:{color:'#52c41a'}, lineStyle:{width:2.5},
+       symbol:'circle', symbolSize:7,
+       label:{show:true, position:'top', fontSize:9, formatter:function(p){return p.value+'%';}}}
+    ]
+  });
+}
+
+</script>
+<script>(function(){var _h=0,_t;function m(){var b=document.body;if(!b)return 0;return Math.max(b.scrollHeight,b.offsetHeight,Math.ceil(b.getBoundingClientRect().height))}function s(){var h=m();if(h>0&&h!==_h){_h=h;window.parent.postMessage({type:"iframe-resize",height:h},"*")}}function d(){clearTimeout(_t);_t=setTimeout(s,150)}if(document.readyState==="complete")s();else window.addEventListener("load",s);window.addEventListener("resize",d);if(typeof ResizeObserver!=="undefined"){var ro=new ResizeObserver(d);ro.observe(document.documentElement);if(document.body)ro.observe(document.body)}})();</script><style id="__adata_wm_style__">.__adata_wm__{position:fixed;inset:0;pointer-events:none;z-index:2147483647;background-repeat:repeat;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='160'><text x='50%' y='50%' fill='rgba(0,0,0,0.08)' font-size='14' font-family='-apple-system,Segoe UI,sans-serif' text-anchor='middle' transform='rotate(-25 120 80)'>goinglin</text></svg>")}</style><div class="__adata_wm__" aria-hidden="true"></div></body>
+</html>
