@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>林诺德竞价投放复盘报告 2026.05.20–07.06</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+  :root {
+    --primary: #1a6fc4;
+    --primary-light: #e8f1fb;
+    --accent: #e85d26;
+    --accent2: #2eab6e;
+    --warn: #f5a623;
+    --bg: #f4f6fa;
+    --card: #ffffff;
+    --border: #e0e6ef;
+    --text: #1a2233;
+    --text2: #5a6a85;
+    --shadow: 0 2px 12px rgba(26,111,196,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+  .page-header { background: linear-gradient(135deg,#1a6fc4 0%,#0d4a8a 100%); color: #fff; padding: 32px 40px 24px; }
+  .page-header h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+  .page-header .meta { font-size: 13px; opacity: 0.85; display: flex; gap: 24px; flex-wrap: wrap; margin-top: 8px; }
+  .page-header .meta span { display: flex; align-items: center; gap: 4px; }
+  .nav-tabs { background: #fff; border-bottom: 2px solid var(--border); padding: 0 40px; display: flex; gap: 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .nav-tab { padding: 14px 20px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--text2); border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; white-space: nowrap; }
+  .nav-tab:hover { color: var(--primary); }
+  .nav-tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
+  .section { display: none; padding: 28px 40px; max-width: 1400px; margin: 0 auto; }
+  .section.active { display: block; }
+  .section-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 20px; padding-left: 12px; border-left: 4px solid var(--primary); display: flex; align-items: center; gap: 8px; }
+  .sub-title { font-size: 15px; font-weight: 600; color: var(--text); margin: 20px 0 12px; padding-left: 10px; border-left: 3px solid var(--accent); }
+  .card { background: var(--card); border-radius: 12px; padding: 20px 24px; box-shadow: var(--shadow); margin-bottom: 20px; border: 1px solid var(--border); }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .kpi-card { background: var(--card); border-radius: 10px; padding: 16px 18px; box-shadow: var(--shadow); border: 1px solid var(--border); text-align: center; }
+  .kpi-card .label { font-size: 12px; color: var(--text2); margin-bottom: 6px; }
+  .kpi-card .value { font-size: 22px; font-weight: 700; color: var(--primary); }
+  .kpi-card .sub { font-size: 11px; color: var(--text2); margin-top: 4px; }
+  .kpi-card.warn .value { color: var(--accent); }
+  .kpi-card.good .value { color: var(--accent2); }
+  .chart-box { height: 320px; }
+  .chart-box-lg { height: 380px; }
+  .chart-box-sm { height: 260px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--primary-light); color: var(--primary); font-weight: 600; padding: 10px 12px; text-align: center; border-bottom: 2px solid var(--border); }
+  td { padding: 9px 12px; text-align: center; border-bottom: 1px solid var(--border); color: var(--text); }
+  tr:hover td { background: #f8faff; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .tag-blue { background: var(--primary-light); color: var(--primary); }
+  .tag-red { background: #fef0eb; color: var(--accent); }
+  .tag-green { background: #e8f7f0; color: var(--accent2); }
+  .tag-warn { background: #fef8e7; color: var(--warn); }
+  .insight-box { background: linear-gradient(135deg,#f0f6ff,#e8f1fb); border-left: 4px solid var(--primary); border-radius: 8px; padding: 14px 18px; margin: 12px 0; font-size: 13px; line-height: 1.7; }
+  .insight-box .icon { font-size: 16px; margin-right: 6px; }
+  .warn-box { background: #fef8e7; border-left: 4px solid var(--warn); border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 13px; }
+  .good-box { background: #e8f7f0; border-left: 4px solid var(--accent2); border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 13px; }
+  .action-list { list-style: none; }
+  .action-list li { padding: 10px 14px; margin: 8px 0; border-radius: 8px; font-size: 13px; line-height: 1.6; display: flex; align-items: flex-start; gap: 10px; }
+  .action-list li.p0 { background: #fef0eb; border-left: 4px solid var(--accent); }
+  .action-list li.p1 { background: #fef8e7; border-left: 4px solid var(--warn); }
+  .action-list li.p2 { background: #e8f7f0; border-left: 4px solid var(--accent2); }
+  .badge { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 8px; white-space: nowrap; }
+  .badge-red { background: var(--accent); color: #fff; }
+  .badge-warn { background: var(--warn); color: #fff; }
+  .badge-green { background: var(--accent2); color: #fff; }
+  .vs-row td.better { color: var(--accent2); font-weight: 600; }
+  .vs-row td.worse { color: var(--accent); font-weight: 600; }
+  .phase-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; background: var(--primary-light); color: var(--primary); }
+  .divider { height: 1px; background: var(--border); margin: 20px 0; }
+  @media (max-width: 768px) {
+    .nav-tabs { padding: 0 16px; overflow-x: auto; }
+    .section.active { padding: 16px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>🏆 林诺德竞价投放复盘报告</h1>
+  <div class="meta">
+    <span>📅 分析周期：2026.05.20 — 2026.07.06（48天）</span>
+    <span>🔗 口径：竞价 · 直播链路</span>
+    <span>📊 直播间：专注儿童成长 + 专注孩子成长</span>
+    <span>💡 ROI口径：系统汇总行下单ROI</span>
+  </div>
+</div>
+
+<div class="nav-tabs">
+  <div class="nav-tab active" onclick="showSection('s618')">一、618大促专项</div>
+  <div class="nav-tab" onclick="showSection('sOverall')">二、整体概况</div>
+  <div class="nav-tab" onclick="showSection('sBalance')">余额诊断</div>
+  <div class="nav-tab" onclick="showSection('sForm')">三、推广形式</div>
+  <div class="nav-tab" onclick="showSection('sPos')">四、版位诊断</div>
+  <div class="nav-tab" onclick="showSection('sSmart')">五、智投工具</div>
+  <div class="nav-tab" onclick="showSection('sBid')">六、出价模式</div>
+  <div class="nav-tab" onclick="showSection('sDrop')">七、掉量归因</div>
+  <div class="nav-tab" onclick="showSection('sComp')">八、竞对对标</div>
+  <div class="nav-tab" onclick="showSection('sAction')">九、诊断与建议</div>
+</div>
+
+<!-- ===== 一、618大促专项 ===== -->
+<div id="s618" class="section active">
+  <div class="section-title">🎯 一、618大促专项分析（2026.06.01–06.21）</div>
+
+  <div class="insight-box">
+    <span class="icon">📌</span>
+    <strong>核心结论：</strong>林诺德618整体ROI <strong>1.685</strong>，低于赛道大盘 <strong>1.826</strong>（差距 -0.14）；
+    P5高潮爆发期节奏系数 <strong>1.56x</strong> 超越大盘 1.24x，但 P6返场留存率仅 <strong>91.3%</strong>（大盘 113.5%），返场期未能延续势头。
+    <strong>最大政策缺口：全程未参与C类满减券</strong>，大盘C类精排后占比达52.2%，林诺德完全错失。
+  </div>
+
+  <div class="sub-title">A1 各阶段节奏系数对照</div>
+  <div class="card">
+    <div class="chart-box-lg" id="chart618Rhythm"></div>
+  </div>
+
+  <div class="sub-title">A2 各阶段效率指标对比</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>阶段</th><th>客户节奏系数</th><th>大盘节奏系数</th><th>差距</th>
+        <th>客户ROI</th><th>大盘ROI</th><th>客户CTR</th><th>客户CVR</th><th>客户CPM</th><th>客户计价率</th>
+      </tr>
+      <tr><td>P1 520冲刺</td><td>0.75</td><td>0.97</td><td class="worse">-0.22</td><td>1.716</td><td>1.985</td><td>1.79%</td><td>2.18%</td><td>171.9</td><td>1.273</td></tr>
+      <tr><td>P2 618蓄水</td><td>0.68</td><td>0.85</td><td class="worse">-0.17</td><td>1.600</td><td>1.864</td><td>1.83%</td><td>2.06%</td><td>175.9</td><td>1.276</td></tr>
+      <tr><td>P3 开门红</td><td>0.87</td><td>0.81</td><td class="better">+0.06</td><td>1.907</td><td>1.857</td><td>1.24%</td><td>3.03%</td><td>147.7</td><td>1.037</td></tr>
+      <tr><td>P4 场景期</td><td>1.02</td><td>0.95</td><td class="better">+0.07</td><td>1.553</td><td>1.741</td><td>1.40%</td><td>2.92%</td><td>190.4</td><td>1.285</td></tr>
+      <tr><td>P5 高潮爆发</td><td><strong>1.56</strong></td><td>1.24</td><td class="better">+0.33</td><td>1.776</td><td>1.826</td><td>1.78%</td><td>3.51%</td><td>216.8</td><td>1.224</td></tr>
+      <tr><td>P6 返场</td><td>1.43</td><td>1.40</td><td>+0.02</td><td>1.775</td><td>1.731</td><td>2.24%</td><td>3.52%</td><td>237.2</td><td>1.257</td></tr>
+      <tr><td>P7 尾声</td><td>0.96</td><td>1.01</td><td class="worse">-0.05</td><td>1.704</td><td>1.739</td><td>2.06%</td><td>4.13%</td><td>257.3</td><td>1.276</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <div class="sub-title">B 补贴券参与情况</div>
+      <div class="card">
+        <div class="warn-box">⚠️ <strong>关键缺口：</strong>林诺德全程未参与C类满减券，大盘C类精排后占比高达 <strong>52.2%</strong>，是最大的政策红利缺口。</div>
+        <table>
+          <tr><th>活动类型</th><th>客户占比</th><th>大盘占比</th><th>差距</th><th>客户ROI</th></tr>
+          <tr><td><span class="tag tag-red">C类(1110)</span></td><td class="worse">0.0%</td><td>38.4%</td><td class="worse">-38.4pp</td><td>—</td></tr>
+          <tr><td><span class="tag tag-blue">B类(1016)</span></td><td>76.0%</td><td>29.3%</td><td class="better">+46.7pp</td><td>1.743</td></tr>
+          <tr><td>无活动</td><td>24.0%</td><td>32.3%</td><td>-8.3pp</td><td>1.559</td></tr>
+        </table>
+        <div style="margin-top:12px;font-size:12px;color:var(--text2)">精排扶持后大盘C类占比：13.3% → <strong>52.2%</strong>，增量GMV +466.5万元</div>
+      </div>
+    </div>
+    <div>
+      <div class="sub-title">C 赛道腾飞扶持</div>
+      <div class="card">
+        <div class="good-box">✅ 腾飞撬动比 <strong>15.4x</strong>（大盘15.3x），6/11精排生效后撬动比从8x跃升至17x+</div>
+        <table>
+          <tr><th>指标</th><th>林诺德</th><th>大盘</th></tr>
+          <tr><td>腾飞消耗占比</td><td>47.0%</td><td>54.1%</td></tr>
+          <tr><td>平均撬动比</td><td><strong>15.4x</strong></td><td>15.3x</td></tr>
+          <tr><td>腾飞金</td><td>1.6万</td><td>—</td></tr>
+          <tr><td>腾飞带来消耗</td><td>24.1万</td><td>—</td></tr>
+          <tr><td>赛道排名</td><td>第7名</td><td>—</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-title">D HNC健康展效果（6.15–6.17）</div>
+  <div class="card">
+    <div class="good-box">🏆 展会期间日耗创Q2新高：单日最高 <strong>7.76万</strong>（06/17），ROI <strong>1.734</strong>（环比+21.0%），计价率 1.130（环比-19.0%）</div>
+    <table>
+      <tr><th>指标</th><th>展会期间(6.15-17)</th><th>环比(6.12-14)</th><th>变化</th><th>周同比(6.8-10)</th><th>变化</th></tr>
+      <tr><td>日均消耗</td><td><strong>5.77万/日</strong></td><td>3.78万/日</td><td class="better">+52.4%</td><td>5.00万/日</td><td class="better">+15.3%</td></tr>
+      <tr><td>下单ROI</td><td><strong>1.734</strong></td><td>1.433</td><td class="better">+21.0%</td><td>1.594</td><td class="better">+8.8%</td></tr>
+      <tr><td>计价率</td><td>1.130</td><td>1.395</td><td class="better">-19.0%</td><td>1.324</td><td class="better">-14.6%</td></tr>
+      <tr><td>CTR</td><td>1.30%</td><td>1.16%</td><td class="better">+12.1%</td><td>1.32%</td><td>-2.1%</td></tr>
+    </table>
+  </div>
+
+  <div class="sub-title">E 618 vs 大盘整体效率对比</div>
+  <div class="card">
+    <table>
+      <tr><th>指标</th><th>林诺德618期间</th><th>大盘618期间</th><th>差距</th><th>关键洞察</th></tr>
+      <tr><td>ROI</td><td>1.685</td><td>1.826</td><td class="worse">-0.14</td><td>效率低于大盘，CTR是核心瓶颈</td></tr>
+      <tr><td>CTR</td><td>1.70%</td><td>2.90%</td><td class="worse">-1.20pp</td><td>⚠️ 点击率显著低于大盘</td></tr>
+      <tr><td>CVR</td><td>3.60%</td><td>3.38%</td><td class="better">+0.22pp</td><td>转化能力略优于大盘</td></tr>
+      <tr><td>CPM</td><td>196.2元</td><td>90.6元</td><td class="worse">+105.6</td><td>流量成本偏高</td></tr>
+      <tr><td>计价率</td><td>1.221</td><td>1.038</td><td class="worse">+0.18</td><td>成本控制有提升空间</td></tr>
+      <tr><td>双峰倍数(P5/P3)</td><td><strong>1.79x</strong></td><td>1.53x</td><td class="better">+0.26x</td><td>高潮期爆发力强于大盘</td></tr>
+      <tr><td>P6留存率(P6/P5)</td><td>91.3%</td><td>113.5%</td><td class="worse">-22.2pp</td><td>⚠️ 返场期未能延续势头</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== 二、整体概况 ===== -->
+<div id="sOverall" class="section">
+  <div class="section-title">📊 二、整体投放概况（2026.05.20–07.06）</div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="label">总消耗</div><div class="value">230.9万</div><div class="sub">48天</div></div>
+    <div class="kpi-card"><div class="label">日均消耗</div><div class="value">4.81万</div><div class="sub">元/日</div></div>
+    <div class="kpi-card good"><div class="label">下单ROI</div><div class="value">1.687</div><div class="sub">系统口径</div></div>
+    <div class="kpi-card"><div class="label">CTR</div><div class="value">1.83%</div><div class="sub">点击率</div></div>
+    <div class="kpi-card"><div class="label">浅层CVR</div><div class="value">2.99%</div><div class="sub">进直播间转化</div></div>
+    <div class="kpi-card warn"><div class="label">竞价CPM</div><div class="value">200.1元</div><div class="sub">流量成本</div></div>
+    <div class="kpi-card"><div class="label">计价率</div><div class="value">1.225</div><div class="sub">成本系数</div></div>
+    <div class="kpi-card"><div class="label">有消耗广告数</div><div class="value">1,430</div><div class="sub">条</div></div>
+    <div class="kpi-card"><div class="label">有消耗创意(TID)</div><div class="value">21,151</div><div class="sub">条</div></div>
+    <div class="kpi-card"><div class="label">有消耗账户数</div><div class="value">55</div><div class="sub">个</div></div>
+  </div>
+
+  <div class="sub-title">分天消耗趋势（含直播间拆分）</div>
+  <div class="card">
+    <div class="chart-box-lg" id="chartDailyCost"></div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <div class="sub-title">分天ROI趋势</div>
+      <div class="card"><div class="chart-box" id="chartDailyROI"></div></div>
+    </div>
+    <div>
+      <div class="sub-title">分天CTR & CPM趋势</div>
+      <div class="card"><div class="chart-box" id="chartDailyCTR"></div></div>
+    </div>
+  </div>
+
+  <div class="sub-title">分阶段核心指标</div>
+  <div class="card">
+    <div class="chart-box-lg" id="chartPhase"></div>
+  </div>
+
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr><th>阶段</th><th>日期范围</th><th>天数</th><th>日均消耗(万)</th><th>ROI</th><th>CTR</th><th>CVR</th><th>CPM(元)</th><th>计价率</th></tr>
+      <tr><td><span class="phase-badge">P1蓄水期</span></td><td>05-20~05-31</td><td>12</td><td>3.43</td><td>1.662</td><td>1.78%</td><td>2.07%</td><td>166.6</td><td>1.232</td></tr>
+      <tr><td><span class="phase-badge">P2预热期</span></td><td>06-01~06-05</td><td>5</td><td>5.37</td><td>1.541</td><td>1.05%</td><td>3.50%</td><td>175.3</td><td>1.266</td></tr>
+      <tr><td><span class="phase-badge">P3开门红</span></td><td>06-06~06-10</td><td>4</td><td>4.85</td><td>1.663</td><td>1.90%</td><td>2.36%</td><td>193.8</td><td>1.295</td></tr>
+      <tr><td><span class="phase-badge">P4场景期</span></td><td>06-11~06-16</td><td>6</td><td>4.79</td><td>1.550</td><td>1.27%</td><td>3.53%</td><td>212.8</td><td>1.277</td></tr>
+      <tr><td><span class="phase-badge">P5高潮爆发</span></td><td>06-17~06-19</td><td>3</td><td>10.73</td><td>1.853</td><td>2.01%</td><td>3.49%</td><td>217.0</td><td>1.156</td></tr>
+      <tr><td><span class="phase-badge">P6返场</span></td><td>06-20~06-22</td><td>3</td><td>7.04</td><td>1.775</td><td>2.24%</td><td>3.52%</td><td>237.2</td><td>1.300</td></tr>
+      <tr><td><span class="phase-badge">P7尾声</span></td><td>06-23~07-06</td><td>15</td><td>4.09</td><td>1.722</td><td>2.32%</td><td>3.12%</td><td>218.7</td><td>1.272</td></tr>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 余额预算诊断 ===== -->
+<div id="sBalance" class="section">
+  <div class="section-title">💰 账户余额 &amp; 预算健康诊断（实时）</div>
+
+  <div class="insight-box">
+    <span class="icon">📌</span>
+    数据口径：实时数据，更新至 2026-07-08 11:20；账户共 45 个，全部开通<strong>共享钱包</strong>，资金由钱包统一管理。
+  </div>
+
+  <!-- 总结论 -->
+  <div style="background:#f0f9ff;border-left:4px solid #3b82f6;padding:14px 18px;border-radius:6px;margin-bottom:18px;">
+    <div style="font-weight:700;color:#1e40af;margin-bottom:8px;">📊 整体结论</div>
+    <p style="margin:0;line-height:1.8;color:#374151;">
+      林诺德当前 <strong>45 个账户全部绑定共享钱包</strong>，余额即将不足账户消耗占比 <strong>0%</strong>，预算即将撞线账户消耗占比 <strong>0%</strong>，整体余额与预算状态健康，无即时风险。
+      <br>但需关注<span style="color:#d97706;font-weight:600;">充值节奏</span>：共享钱包当前余额约 <strong>19.1 万元</strong>，按昨日消耗速度（5.1 万/日）估算仅可支撑约 <strong>3.7 天</strong>，按近 7 日日均（3.9 万/日）估算约 <strong>4.9 天</strong>，建议尽快安排充值以保障后续投放连续性。
+    </p>
+  </div>
+
+  <!-- 核心指标卡片 -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;">
+    <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:14px;text-align:center;">
+      <div style="font-size:12px;color:#6b7280;margin-bottom:6px;">共享钱包余额</div>
+      <div style="font-size:22px;font-weight:700;color:#1d4ed8;">19.1 万元</div>
+      <div style="font-size:11px;color:#9ca3af;margin-top:4px;">实时</div>
+    </div>
+    <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:14px;text-align:center;">
+      <div style="font-size:12px;color:#6b7280;margin-bottom:6px;">昨日总消耗</div>
+      <div style="font-size:22px;font-weight:700;color:#374151;">5.1 万元</div>
+      <div style="font-size:11px;color:#9ca3af;margin-top:4px;">2026-07-07</div>
+    </div>
+    <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:14px;text-align:center;">
+      <div style="font-size:12px;color:#6b7280;margin-bottom:6px;">近 7 日日均消耗</div>
+      <div style="font-size:22px;font-weight:700;color:#374151;">3.9 万元</div>
+      <div style="font-size:11px;color:#9ca3af;margin-top:4px;">近 7 天均值</div>
+    </div>
+    <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:14px;text-align:center;">
+      <div style="font-size:12px;color:#6b7280;margin-bottom:6px;">余额可支撑天数</div>
+      <div style="font-size:22px;font-weight:700;color:#d97706;">3.7 ~ 4.9 天</div>
+      <div style="font-size:11px;color:#9ca3af;margin-top:4px;">按昨日/近7日估算</div>
+    </div>
+  </div>
+
+  <!-- 余额诊断详情 -->
+  <div class="subsection-title">一、余额诊断</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>诊断项</th>
+        <th>当前状态</th>
+        <th>风险判定</th>
+        <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>余额即将不足账户消耗占比</td>
+        <td><strong>0%</strong></td>
+        <td><span style="color:#16a34a;font-weight:600;">✅ 正常</span></td>
+        <td>全部账户余额状态充足</td>
+      </tr>
+      <tr>
+        <td>共享钱包余额</td>
+        <td><strong>190,887 元</strong></td>
+        <td><span style="color:#d97706;font-weight:600;">⚠️ 关注</span></td>
+        <td>按昨日消耗（50,965元/日）估算，约 3.7 天后耗尽；按近7日日均（39,149元/日）估算约 4.9 天</td>
+      </tr>
+      <tr>
+        <td>账户结构</td>
+        <td><strong>45 个账户全部绑定共享钱包</strong></td>
+        <td><span style="color:#16a34a;font-weight:600;">✅ 正常</span></td>
+        <td>共享钱包统一管理资金，单账户余额不反映真实可用资金，无需逐账户排查</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 预算诊断详情 -->
+  <div class="subsection-title" style="margin-top:18px;">二、预算诊断</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>诊断项</th>
+        <th>当前状态</th>
+        <th>风险判定</th>
+        <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>预算即将撞线账户消耗占比</td>
+        <td><strong>0%</strong></td>
+        <td><span style="color:#16a34a;font-weight:600;">✅ 正常</span></td>
+        <td>无账户预算消耗进度超过 50%</td>
+      </tr>
+      <tr>
+        <td>已撞线账户数</td>
+        <td><strong>0 个</strong></td>
+        <td><span style="color:#16a34a;font-weight:600;">✅ 正常</span></td>
+        <td>无账户预算消耗进度达到 100%，投放未受预算限制</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 建议 -->
+  <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:14px 18px;margin-top:18px;">
+    <div style="font-weight:700;color:#92400e;margin-bottom:8px;">💡 运营建议</div>
+    <ul style="margin:0;padding-left:18px;color:#374151;line-height:2;">
+      <li>🟡 <strong>近期充值</strong>：共享钱包余额按当前消耗节奏约 3~5 天内耗尽，建议在 <strong>7 月 10 日前</strong>完成充值，避免断投影响复盘期后续投放。</li>
+      <li>🟢 <strong>预算健康</strong>：当前无撞线风险，日预算设置合理，无需调整。</li>
+      <li>🟢 <strong>余额结构健康</strong>：全部账户绑定共享钱包，资金统一调配，无碎片化余额风险。</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ===== 三、推广形式 ===== -->
+<div id="sForm" class="section">
+  <div class="section-title">🔧 三、推广形式分析（整体 + 分直播间）</div>
+
+  <div class="insight-box">
+    <span class="icon">📌</span>
+    数据口径：<strong>竞价 + 直播链路</strong>（2026-05-20至2026-07-06，共48天）。
+    整体消耗 230.9万，普通直播间占 <strong>97.5%</strong>，商品聚合页占 <strong>2.5%</strong>。
+    两个直播间中，专注儿童成长间承担主力消耗（<strong>69.7%</strong>），专注孩子成长间ROI更优（<strong>1.901 vs 1.591</strong>）。
+    ⚠️ 两种推广形式计价率均 &gt;1.2，实际扣费超出预期，需持续监控ROI侵蚀风险。
+  </div>
+
+  <div class="sub-title">整体维度</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>推广形式</th><th>消耗占比</th><th>日耗(万)</th>
+        <th>账户数</th><th>广告数</th><th>广告条均消耗(元)</th><th>日均唯一ID数</th>
+        <th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>计价率</th><th>ROI</th>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><strong>普通直播间</strong></td>
+        <td>97.5%</td><td><strong>4.69</strong></td>
+        <td>41</td><td>1,203</td><td><strong>1,291</strong></td><td>3,677</td>
+        <td>1.80%</td><td>4.37%</td><td>¥240.5</td>
+        <td><span style="color:#e85d26;font-weight:bold">1.244</span></td>
+        <td><strong>1.688</strong></td>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><strong>商品聚合页</strong></td>
+        <td>2.5%</td><td><strong>0.12</strong></td>
+        <td>6</td><td>80</td><td><strong>712</strong></td><td>229</td>
+        <td>2.38%</td><td>2.50%</td><td>¥148.8</td>
+        <td><span style="color:#e85d26;font-weight:bold">1.255</span></td>
+        <td><strong>1.654</strong></td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="sub-title">专注儿童成长</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>推广形式</th><th>消耗占比</th><th>日耗(万)</th>
+        <th>账户数</th><th>广告数</th><th>广告条均消耗(元)</th><th>日均唯一ID数</th>
+        <th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>计价率</th><th>ROI</th>
+      </tr>
+      <tr>
+        <td><strong>普通直播间</strong></td>
+        <td>96.5%</td><td>3.24</td>
+        <td>41</td><td>1,203</td><td>1,291</td><td>3,351</td>
+        <td>1.43%</td><td>4.25%</td><td>¥218.2</td>
+        <td><span style="color:#e85d26">1.244</span></td>
+        <td>1.591</td>
+      </tr>
+      <tr>
+        <td><strong>商品聚合页</strong></td>
+        <td>3.5%</td><td>0.12</td>
+        <td>6</td><td>80</td><td>712</td><td>229</td>
+        <td>2.38%</td><td>2.50%</td><td>¥148.8</td>
+        <td><span style="color:#e85d26">1.255</span></td>
+        <td>1.654</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="sub-title">专注孩子成长</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>推广形式</th><th>消耗占比</th><th>日耗(万)</th>
+        <th>账户数</th><th>广告数</th><th>广告条均消耗(元)</th><th>日均唯一ID数</th>
+        <th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>计价率</th><th>ROI</th>
+      </tr>
+      <tr>
+        <td><strong>普通直播间</strong></td>
+        <td>99.9%</td><td>1.45</td>
+        <td>14</td><td>150</td><td>4,653</td><td>327</td>
+        <td>2.91%</td><td>4.64%</td><td>¥290.2</td>
+        <td><span style="color:#e85d26">1.245</span></td>
+        <td>1.902</td>
+      </tr>
+    </table>
+    </div>
+    <div class="insight-box" style="margin-top:12px">
+      <span class="icon">⚠️</span>
+      专注孩子成长几乎全量为普通直播间推广（99.9%），商品聚合页消耗极少，推广形式单一，建议开启商品聚合页测试。
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <span class="icon">💡</span>
+    <strong>综合洞察：</strong>
+    商品聚合页CPM（¥148.8）显著低于普通直播间（¥240.5），获量成本更低，但当前仅占 2.5%，建议专注儿童成长提升至 10%+（竞对诺特**自营已达 15.2%）。
+    计价率超成本（&gt;1.2）意味着实际扣费持续高于出价预期，需结合ROI趋势判断是否触发系统控量。
+  </div>
+</div>
+
+<!-- ===== 四、版位诊断 ===== -->
+<div id="sPos" class="section">
+  <div class="section-title">📍 四、版位诊断（整体 + 分直播间）</div>
+
+  <div class="sub-title">各版位消耗与效率（整体）</div>
+  <div class="card">
+    <div class="chart-box-lg" id="chartPos"></div>
+  </div>
+
+  <div class="sub-title">版位 × 整体 + 分直播间明细</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>维度</th><th>版位</th><th>消耗占比</th><th>日耗(万)</th>
+        <th>账户数</th><th>广告数</th><th>日均唯一ID数</th>
+        <th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><span class="tag tag-blue">整体</span></td>
+        <td><strong>微信视频号</strong></td>
+        <td>79.0%</td><td><strong>3.8</strong></td>
+        <td>41</td><td>1265</td><td>856.4</td>
+        <td>1.53</td><td><span style="color:#2eab6e;font-weight:bold">4.86</span></td><td><span style="color:#e85d26;font-weight:bold">260.1</span></td>
+        <td><strong>1.716</strong></td>
+      </tr>
+      <tr>
+        <td>专注儿童成长</td>
+        <td>微信视频号</td>
+        <td>73.1%</td><td>2.45</td>
+        <td>41</td><td>1112</td><td>726.6</td>
+        <td>1.05</td><td><span style="color:#2eab6e">4.93</span></td><td><span style="color:#e85d26">241.3</span></td>
+        <td>1.605</td>
+      </tr>
+      <tr>
+        <td>专注孩子成长</td>
+        <td>微信视频号</td>
+        <td>92.5%</td><td>1.35</td>
+        <td>14</td><td>153</td><td>129.8</td>
+        <td><span style="color:#2eab6e">2.65</span></td><td><span style="color:#2eab6e">4.79</span></td><td><span style="color:#e85d26;font-weight:bold">303.1</span></td>
+        <td><span style="color:#2eab6e;font-weight:bold">1.919</span></td>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><span class="tag tag-blue">整体</span></td>
+        <td><strong>微信小程序</strong></td>
+        <td>7.8%</td><td><strong>0.37</strong></td>
+        <td>38</td><td>680</td><td>900.0</td>
+        <td><span style="color:#2eab6e">2.08</span></td><td>2.44</td><td>216.2</td>
+        <td><strong>1.739</strong></td>
+      </tr>
+      <tr>
+        <td>专注儿童成长</td>
+        <td>微信小程序</td>
+        <td>10.5%</td><td>0.35</td>
+        <td>38</td><td>621</td><td>843.6</td>
+        <td>1.99</td><td>2.41</td><td>212.7</td>
+        <td>1.726</td>
+      </tr>
+      <tr>
+        <td>专注孩子成长</td>
+        <td>微信小程序</td>
+        <td>1.5%</td><td>0.02</td>
+        <td>12</td><td>59</td><td>56.4</td>
+        <td><span style="color:#2eab6e">4.02</span></td><td>2.81</td><td><span style="color:#e85d26">296.6</span></td>
+        <td><span style="color:#2eab6e">1.96</span></td>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><span class="tag tag-blue">整体</span></td>
+        <td><strong>微信朋友圈</strong></td>
+        <td>5.1%</td><td><strong>0.25</strong></td>
+        <td>41</td><td>1035</td><td>626.1</td>
+        <td><span style="color:#e85d26">0.75</span></td><td>1.72</td><td><span style="color:#2eab6e">71.6</span></td>
+        <td><strong style="color:#e85d26">1.353</strong></td>
+      </tr>
+      <tr>
+        <td>专注儿童成长</td>
+        <td>微信朋友圈</td>
+        <td>6.9%</td><td>0.23</td>
+        <td>41</td><td>900</td><td>577.7</td>
+        <td>0.72</td><td>1.82</td><td>73.3</td>
+        <td>1.383</td>
+      </tr>
+      <tr>
+        <td>专注孩子成长</td>
+        <td>微信朋友圈</td>
+        <td>1.0%</td><td>0.01</td>
+        <td>14</td><td>135</td><td>48.4</td>
+        <td>1.03</td><td><span style="color:#e85d26">0.91</span></td><td><span style="color:#2eab6e">52.1</span></td>
+        <td><span style="color:#e85d26;font-weight:bold">0.836</span></td>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><span class="tag tag-blue">整体</span></td>
+        <td><strong>微信公众号</strong></td>
+        <td>4.7%</td><td><strong>0.23</strong></td>
+        <td>41</td><td>985</td><td>522.7</td>
+        <td>0.86</td><td>3.7</td><td><span style="color:#2eab6e">117.9</span></td>
+        <td><strong>1.749</strong></td>
+      </tr>
+      <tr>
+        <td>专注儿童成长</td>
+        <td>微信公众号</td>
+        <td>5.3%</td><td>0.18</td>
+        <td>41</td><td>860</td><td>483.5</td>
+        <td>0.74</td><td>3.25</td><td>118.9</td>
+        <td>1.578</td>
+      </tr>
+      <tr>
+        <td>专注孩子成长</td>
+        <td>微信公众号</td>
+        <td>3.4%</td><td>0.05</td>
+        <td>14</td><td>125</td><td>39.2</td>
+        <td>1.27</td><td><span style="color:#2eab6e">4.6</span></td><td><span style="color:#2eab6e">114.5</span></td>
+        <td><span style="color:#2eab6e;font-weight:bold">2.359</span></td>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><span class="tag tag-blue">整体</span></td>
+        <td><strong>平台与内容广告</strong></td>
+        <td>1.7%</td><td><strong>0.08</strong></td>
+        <td>40</td><td>610</td><td>412.8</td>
+        <td><span style="color:#2eab6e">6.78</span></td><td><span style="color:#e85d26">0.4</span></td><td><span style="color:#2eab6e">113.6</span></td>
+        <td><strong style="color:#2eab6e">1.964</strong></td>
+      </tr>
+      <tr>
+        <td>专注儿童成长</td>
+        <td>平台与内容广告</td>
+        <td>2.3%</td><td>0.08</td>
+        <td>40</td><td>534</td><td>394.5</td>
+        <td>6.89</td><td>0.42</td><td>119.4</td>
+        <td>2.029</td>
+      </tr>
+      <tr>
+        <td>专注孩子成长</td>
+        <td>平台与内容广告</td>
+        <td>0.3%</td><td>0.0</td>
+        <td>14</td><td>76</td><td>18.3</td>
+        <td>5.79</td><td>0.16</td><td>56.7</td>
+        <td>0.64</td>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><span class="tag tag-blue">整体</span></td>
+        <td><strong>移动联盟</strong></td>
+        <td>1.1%</td><td><strong>0.05</strong></td>
+        <td>22</td><td>144</td><td>126.7</td>
+        <td><span style="color:#2eab6e">7.45</span></td><td><span style="color:#e85d26">0.1</span></td><td><span style="color:#2eab6e">50.5</span></td>
+        <td><strong style="color:#e85d26">0.629</strong></td>
+      </tr>
+      <tr>
+        <td>专注儿童成长</td>
+        <td>移动联盟</td>
+        <td>1.0%</td><td>0.03</td>
+        <td>22</td><td>137</td><td>96.2</td>
+        <td>6.68</td><td>0.12</td><td>48.7</td>
+        <td>0.687</td>
+      </tr>
+      <tr>
+        <td>专注孩子成长</td>
+        <td>移动联盟</td>
+        <td>1.3%</td><td>0.02</td>
+        <td>5</td><td>7</td><td>30.5</td>
+        <td><span style="color:#2eab6e">9.05</span></td><td><span style="color:#e85d26">0.07</span></td><td>54.4</td>
+        <td><span style="color:#e85d26;font-weight:bold">0.523</span></td>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><span class="tag tag-blue">整体</span></td>
+        <td><strong>搜索广告</strong></td>
+        <td>0.4%</td><td><strong>0.02</strong></td>
+        <td>33</td><td>511</td><td>453.7</td>
+        <td>1.5</td><td><span style="color:#e85d26">0.4</span></td><td><span style="color:#2eab6e">36.5</span></td>
+        <td><strong style="color:#e85d26">0.753</strong></td>
+      </tr>
+      <tr>
+        <td>专注儿童成长</td>
+        <td>搜索广告</td>
+        <td>0.6%</td><td>0.02</td>
+        <td>33</td><td>487</td><td>450.2</td>
+        <td>1.53</td><td>0.4</td><td>38.0</td>
+        <td>0.757</td>
+      </tr>
+      <tr>
+        <td>专注孩子成长</td>
+        <td>搜索广告</td>
+        <td>0.0%</td><td>0.0</td>
+        <td>11</td><td>24</td><td>3.5</td>
+        <td>0.76</td><td>0.0</td><td>4.0</td>
+        <td>0.0</td>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><span class="tag tag-blue">整体</span></td>
+        <td><strong>微信搜一搜</strong></td>
+        <td>0.2%</td><td><strong>0.01</strong></td>
+        <td>41</td><td>927</td><td>8.1</td>
+        <td><span style="color:#2eab6e">5.21</span></td><td><span style="color:#e85d26">0.43</span></td><td><span style="color:#e85d26">287.5</span></td>
+        <td><strong style="color:#e85d26">0.564</strong></td>
+      </tr>
+      <tr>
+        <td>专注儿童成长</td>
+        <td>微信搜一搜</td>
+        <td>0.3%</td><td>0.01</td>
+        <td>41</td><td>805</td><td>7.1</td>
+        <td>5.33</td><td>0.5</td><td>295.7</td>
+        <td>0.647</td>
+      </tr>
+      <tr>
+        <td>专注孩子成长</td>
+        <td>微信搜一搜</td>
+        <td>0.1%</td><td>0.0</td>
+        <td>14</td><td>122</td><td>1.0</td>
+        <td>4.51</td><td>0.0</td><td>242.2</td>
+        <td>0.0</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <span class="icon">💡</span>
+    <strong>版位洞察：</strong>微信视频号是主力版位（79.0%），ROI 1.716；
+    微信小程序（7.8%）ROI 1.739，效率略优于视频号；
+    平台与内容广告（1.7%）ROI 1.964，是高潜力版位，建议适度扩量；
+    移动联盟ROI 0.629、搜索广告ROI 0.753，效率偏低，建议控制预算。
+  </div>
+</div>
+
+<!-- ===== 五、智投工具 ===== -->
+<div id="sSmart" class="section">
+  <div class="section-title">🤖 五、智投工具分析（整体 + 分直播间）</div>
+
+  <div class="warn-box">⚠️ <strong>核心问题：</strong>智投渗透率仅 <strong>37.7%</strong>，竞对均值 <strong>73.4%</strong>，差距 -35.7pct。
+  非智投广告条均消耗 <strong>3,149元</strong>，推直播项目条均 <strong>6,429元</strong>（139个项目），智投规模仍不足。
+  单链路智投仅 <strong>6个项目</strong>，而竞对奥运**吕爸单链路智投占比高达 57.1%。</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="chart-box" id="chartSmartPie"></div>
+    </div>
+    <div class="card">
+      <div class="chart-box" id="chartSmartBar"></div>
+    </div>
+  </div>
+
+  <div class="sub-title">整体维度</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>智投类型</th><th>消耗占比</th><th>日耗(万)</th>
+        <th>账户数</th><th>广告数</th><th>日均唯一ID数</th>
+        <th>智投项目数</th>
+        <th>ARPU(元)<br><span style="font-size:10px;font-weight:normal">广告/项目条均</span></th>
+        <th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><strong>非智投</strong></td>
+        <td>62.3%</td><td><strong>3.00</strong></td>
+        <td>32</td><td>457</td><td>400</td>
+        <td>—</td>
+        <td>广告条均 3,149元</td>
+        <td>2.21%</td><td>3.64%</td><td>¥254.8</td>
+        <td><strong>1.769</strong></td>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><strong>推直播</strong></td>
+        <td>37.6%</td><td><strong>1.81</strong></td>
+        <td>20</td><td>952</td><td>789</td>
+        <td><strong>139</strong></td>
+        <td>项目条均 6,429元</td>
+        <td>1.48%</td><td>2.06%</td><td>¥147.8</td>
+        <td><strong>1.551</strong></td>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><strong>单链路智投</strong></td>
+        <td>0.1%</td><td><strong>0.00</strong></td>
+        <td>3</td><td>29</td><td>9</td>
+        <td><strong>6</strong></td>
+        <td>项目条均 353元</td>
+        <td>3.40%</td><td>0.93%</td><td>¥120.5</td>
+        <td><strong>1.228</strong></td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="sub-title">专注儿童成长</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>智投类型</th><th>消耗占比</th><th>日耗(万)</th>
+        <th>账户数</th><th>广告数</th><th>日均唯一ID数</th>
+        <th>智投项目数</th>
+        <th>ARPU(元)<br><span style="font-size:10px;font-weight:normal">广告/项目条均</span></th>
+        <th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th>
+      </tr>
+      <tr>
+        <td><strong>非智投</strong></td>
+        <td>46.0%</td><td>1.54</td>
+        <td>32</td><td>322</td><td>285</td>
+        <td>—</td>
+        <td>广告条均 2,301元</td>
+        <td>1.51%</td><td>3.62%</td><td>¥252.3</td>
+        <td>1.645</td>
+      </tr>
+      <tr>
+        <td><strong>推直播</strong></td>
+        <td>53.9%</td><td>1.81</td>
+        <td>20</td><td>952</td><td>789</td>
+        <td>139</td>
+        <td>项目条均 6,429元</td>
+        <td>1.48%</td><td>2.06%</td><td>¥147.8</td>
+        <td>1.551</td>
+      </tr>
+      <tr>
+        <td><strong>单链路智投</strong></td>
+        <td>0.1%</td><td>0.00</td>
+        <td>1</td><td>14</td><td>8</td>
+        <td>3</td>
+        <td>项目条均 354元</td>
+        <td>4.35%</td><td>0.16%</td><td>¥74.7</td>
+        <td>1.017</td>
+      </tr>
+      <tr>
+        <td><strong>短直双开</strong></td>
+        <td>0.0%</td><td>0.00</td>
+        <td>1</td><td>3</td><td>1</td>
+        <td>—</td>
+        <td>广告条均 32元</td>
+        <td>0.84%</td><td>0.00%</td><td>¥38.2</td>
+        <td>0.000</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="sub-title">专注孩子成长</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>智投类型</th><th>消耗占比</th><th>日耗(万)</th>
+        <th>账户数</th><th>广告数</th><th>日均唯一ID数</th>
+        <th>智投项目数</th>
+        <th>ARPU(元)<br><span style="font-size:10px;font-weight:normal">广告/项目条均</span></th>
+        <th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>ROI</th>
+      </tr>
+      <tr>
+        <td><strong>非智投</strong></td>
+        <td>99.9%</td><td>1.45</td>
+        <td>14</td><td>135</td><td>115</td>
+        <td>—</td>
+        <td>广告条均 5,172元</td>
+        <td>2.91%</td><td>3.67%</td><td>¥257.5</td>
+        <td>1.901</td>
+      </tr>
+      <tr>
+        <td><strong>单链路智投</strong></td>
+        <td>0.1%</td><td>0.00</td>
+        <td>3</td><td>15</td><td>1</td>
+        <td>3</td>
+        <td>项目条均 285元</td>
+        <td>2.45%</td><td>1.69%</td><td>¥177.3</td>
+        <td>1.488</td>
+      </tr>
+    </table>
+    </div>
+    <div class="insight-box" style="margin-top:12px">
+      <span class="icon">⚠️</span>
+      专注孩子成长智投渗透率仅 <strong>0.1%</strong>，几乎完全依赖非智投，是两个直播间中最迫切需要智投改造的账号。
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <span class="icon">📊</span>
+    <strong>【整体智投诊断】</strong>
+    智投渗透率 <strong>37.7%</strong>（推直播+单链路智投消耗/总消耗）。
+    非智投广告条均消耗 <strong>3,149元</strong>，ROI=1.769；
+    推直播项目条均消耗 <strong>6,429元</strong>（<strong>139个项目</strong>），ROI=1.551；
+    单链路智投仅 <strong>6个项目</strong>，项目条均 1.4元/日，尚未形成规模。
+    <br>⚠️ 竞对奥运**吕爸单链路智投占比 57.1%，ROI 2.328；林诺德单链路智投仅 0.1%，是与竞对ROI差距的结构性原因。
+    建议专注儿童成长优先测试单链路智投，目标渗透率提升至 <strong>20%+</strong>。
+  </div>
+</div>
+
+<div id="sBid" class="section">
+  <div class="section-title">💰 六、出价模式分析（整体 + 分直播间）</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="chart-box" id="chartBidPie"></div>
+    </div>
+    <div class="card">
+      <div class="chart-box" id="chartBidBar"></div>
+    </div>
+  </div>
+
+  <div class="sub-title">整体维度</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>出价模式</th><th>消耗占比</th><th>日耗(万)</th>
+        <th>账户数</th><th>广告数</th><th>日均唯一ID数</th>
+        <th>CTR(%)</th><th>CVR(%)</th><th>ROI</th>
+        <th>实际CPA(元)</th><th>计价率</th><th>广告条均消耗(元)</th>
+        <th>ROI出价值</th><th>CPA出价(元)</th>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><strong>ROI出价</strong></td>
+        <td>24.1%</td><td><strong>1.16</strong></td>
+        <td>30</td><td>193</td><td>180</td>
+        <td>1.79%</td><td>5.85%</td>
+        <td><strong>1.756</strong></td>
+        <td>402</td><td>1.221</td><td>2,878</td>
+        <td><span style="color:#e85d26;font-weight:bold">2.137</span></td>
+        <td>—</td>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><strong>CPA出价</strong></td>
+        <td>73.9%</td><td><strong>3.56</strong></td>
+        <td>41</td><td>1,190</td><td>956</td>
+        <td>2.26%</td><td>2.76%</td>
+        <td><strong>1.670</strong></td>
+        <td>402</td><td><span style="color:#e85d26;font-weight:bold">1.223</span></td><td>1,430</td>
+        <td>—</td>
+        <td><span style="color:#1a6fc4;font-weight:bold">¥336.4</span></td>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><strong>CPA+辅助ROI</strong></td>
+        <td>1.8%</td><td><strong>0.09</strong></td>
+        <td>20</td><td>32</td><td>50</td>
+        <td>1.62%</td><td>3.42%</td>
+        <td><strong>1.434</strong></td>
+        <td>494</td><td><span style="color:#e85d26;font-weight:bold">1.429</span></td><td>1,328</td>
+        <td>—</td>
+        <td>¥349.3</td>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><strong>ROI出价(净成交)</strong></td>
+        <td>0.2%</td><td><strong>0.01</strong></td>
+        <td>1</td><td>5</td><td>5</td>
+        <td>1.36%</td><td>0.91%</td>
+        <td><strong>1.353</strong></td>
+        <td>617</td><td><span style="color:#e85d26;font-weight:bold">1.473</span></td><td>740</td>
+        <td>1.868</td>
+        <td>—</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="sub-title">专注儿童成长</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>出价模式</th><th>消耗占比</th><th>日耗(万)</th>
+        <th>账户数</th><th>广告数</th>
+        <th>CTR(%)</th><th>CVR(%)</th><th>ROI</th>
+        <th>实际CPA(元)</th><th>计价率</th><th>广告条均消耗(元)</th>
+        <th>ROI出价值</th><th>CPA出价(元)</th>
+      </tr>
+      <tr>
+        <td><strong>ROI出价</strong></td>
+        <td>27.0%</td><td>0.91</td>
+        <td>30</td><td>143</td>
+        <td>1.24%</td><td>5.99%</td>
+        <td>1.785</td>
+        <td>435</td><td>1.191</td><td>3,042</td>
+        <td>2.103</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>CPA出价</strong></td>
+        <td>70.1%</td><td>2.35</td>
+        <td>41</td><td>1,090</td>
+        <td>1.54%</td><td>2.07%</td>
+        <td>1.526</td>
+        <td>488</td><td><span style="color:#e85d26">1.243</span></td><td>1,033</td>
+        <td>—</td>
+        <td><span style="color:#e85d26">¥472.9</span></td>
+      </tr>
+      <tr>
+        <td><strong>CPA+辅助ROI</strong></td>
+        <td>2.6%</td><td>0.09</td>
+        <td>20</td><td>32</td>
+        <td>1.62%</td><td>3.42%</td>
+        <td>1.434</td>
+        <td>494</td><td><span style="color:#e85d26">1.429</span></td><td>1,328</td>
+        <td>—</td>
+        <td>¥349.3</td>
+      </tr>
+      <tr>
+        <td><strong>ROI出价(净成交)</strong></td>
+        <td>0.2%</td><td>0.01</td>
+        <td>1</td><td>5</td>
+        <td>1.36%</td><td>0.91%</td>
+        <td>1.353</td>
+        <td>617</td><td><span style="color:#e85d26">1.473</span></td><td>740</td>
+        <td>1.868</td>
+        <td>—</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="sub-title">专注孩子成长</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>出价模式</th><th>消耗占比</th><th>日耗(万)</th>
+        <th>账户数</th><th>广告数</th>
+        <th>CTR(%)</th><th>CVR(%)</th><th>ROI</th>
+        <th>实际CPA(元)</th><th>计价率</th><th>广告条均消耗(元)</th>
+        <th>ROI出价值</th><th>CPA出价(元)</th>
+      </tr>
+      <tr>
+        <td><strong>ROI出价</strong></td>
+        <td>17.3%</td><td>0.25</td>
+        <td>10</td><td>50</td>
+        <td>2.35%</td><td>5.71%</td>
+        <td>1.651</td>
+        <td>280</td><td>1.330</td><td>2,414</td>
+        <td>2.171</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>CPA出价</strong></td>
+        <td>82.7%</td><td>1.20</td>
+        <td>14</td><td>100</td>
+        <td>2.99%</td><td>3.45%</td>
+        <td>1.953</td>
+        <td>234</td><td>1.184</td><td>5,779</td>
+        <td>—</td>
+        <td><span style="color:#2eab6e">¥200.0</span></td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <span class="icon">📊</span>
+    <strong>【整体出价模式诊断】</strong>
+    CPA出价是主力（<strong>73.9%</strong>），ROI=1.670，均值出价 <strong>¥336.4</strong>。
+    两间出价差异显著：专注儿童成长 CPA出价 <strong>¥472.9</strong>（偏高，建议适当下调以降低CPM）；
+    专注孩子成长 CPA出价 <strong>¥200.0</strong>（偏低，建议适当提升以改善竞争力）。
+    <br>ROI出价占比 <strong>24.1%</strong>，ROI=1.756，ROI出价值 <strong>2.137</strong>（要求较高，获量空间被压缩）。
+    ROI出价CVR（5.85%）显著高于CPA出价（2.76%），说明ROI出价对转化质量筛选更严格。
+    <br>💡 建议在日常期增加ROI出价比例；专注孩子成长 ROI出价值 2.171 高于儿童成长 2.103，两间出价策略需分别优化。
+  </div>
+</div>
+
+<div id="sDrop" class="section">
+  <div class="section-title">📉 七、掉量归因分析</div>
+
+  <div class="insight-box">
+    <span class="icon">📌</span>
+    <strong>掉量关键节点：</strong>P6返场期（06-20~06-22）日均消耗 7.04万，相比P5高潮爆发期（10.73万/日）下降 <strong>-34.4%</strong>；
+    P7尾声期进一步回落至 4.09万/日（-61.9%）。返场期掉量主要原因：活动热度消退 + C类券缺失 + 创意疲劳。
+  </div>
+
+  <div class="sub-title">消耗波动关键节点</div>
+  <div class="card">
+    <div class="chart-box-lg" id="chartDrop"></div>
+  </div>
+
+  <div class="sub-title">掉量归因拆解</div>
+  <div class="card">
+    <table>
+      <tr><th>归因维度</th><th>问题描述</th><th>影响程度</th><th>改善建议</th></tr>
+      <tr>
+        <td><span class="tag tag-red">政策缺口</span></td>
+        <td>全程未参与C类满减券，大盘C类精排后占比52.2%</td>
+        <td><span class="badge badge-red">高</span></td>
+        <td>下次大促提前申请C类券资质，预计可提升ROI 0.1~0.2</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-warn">创意疲劳</span></td>
+        <td>P6返场期CTR 2.24%（P5为2.01%），但CVR下滑，说明创意吸引力下降</td>
+        <td><span class="badge badge-warn">中</span></td>
+        <td>大促后3天内完成创意轮换，储备返场期专属素材</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-warn">预算收缩</span></td>
+        <td>P6返场期日均消耗从10.73万降至7.04万，预算主动收缩</td>
+        <td><span class="badge badge-warn">中</span></td>
+        <td>参考大盘P6/P5=113.5%，返场期应维持甚至小幅提升预算</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-blue">流量竞争</span></td>
+        <td>大促后流量竞争降温，CPM从217元降至237元（反常上升），说明流量质量下降</td>
+        <td><span class="badge badge-green">低</span></td>
+        <td>P7尾声期转向ROI出价，降低CPM压力</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<!-- ===== 八、竞对对标（完整版） ===== -->
+<div id="sComp" class="section">
+  <div class="section-title">🔍 八、竞对对标分析（林诺德 vs 儿童营养类目竞对）</div>
+
+  <div class="insight-box">
+    <span class="icon">📌</span>
+    <strong>核心结论：</strong>林诺德规模领先竞对3倍（日均5.53万 vs 竞对均值1.84万），
+    但ROI差距 -22%（1.712 vs 2.200）。CTR（+42%）和CVR（+18%）均优于竞对，
+    核心差距在于 <strong>CPM偏高（+89%）</strong> 和 <strong>智投渗透率不足（-35.7pct）</strong>。
+    内容质量不是瓶颈，流量采购效率是核心改善方向。
+  </div>
+
+  <div class="sub-title">A 整体效率对比</div>
+  <div class="card">
+    <div class="chart-box-lg" id="chartComp"></div>
+  </div>
+
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr><th>指标</th><th>林诺德</th><th>竞对均值</th><th>差距</th><th>差距方向</th><th>关键洞察</th></tr>
+      <tr><td>日均消耗(万)</td><td><strong>5.53</strong></td><td>1.84</td><td class="better">+3.69 (+200%)</td><td><span class="tag tag-green">领先</span></td><td>规模领先竞对3倍，投放体量优势明显</td></tr>
+      <tr><td>下单ROI</td><td>1.712</td><td><strong>2.200</strong></td><td class="worse">-0.488 (-22%)</td><td><span class="tag tag-red">落后</span></td><td>⚠️ 效率差距显著，需重点改善</td></tr>
+      <tr><td>CTR</td><td><strong>2.11%</strong></td><td>1.49%</td><td class="better">+0.62pp (+42%)</td><td><span class="tag tag-green">领先</span></td><td>点击率优势明显，内容吸引力强</td></tr>
+      <tr><td>CVR</td><td><strong>4.00%</strong></td><td>3.39%</td><td class="better">+0.61pp (+18%)</td><td><span class="tag tag-green">领先</span></td><td>转化能力优于竞对，直播间承接力强</td></tr>
+      <tr><td>CPM(元)</td><td>222.5</td><td><strong>118.0</strong></td><td class="worse">+104.5 (+89%)</td><td><span class="tag tag-red">落后</span></td><td>⚠️ 流量成本偏高是ROI差距核心原因</td></tr>
+      <tr><td>智投渗透率</td><td>37.7%</td><td><strong>73.4%</strong></td><td class="worse">-35.7pp</td><td><span class="tag tag-red">落后</span></td><td>⚠️ 智投工具使用严重不足</td></tr>
+      <tr><td>计价率</td><td>1.225</td><td>1.038</td><td class="worse">+0.187</td><td><span class="tag tag-red">落后</span></td><td>成本控制有提升空间</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="sub-title">B 分直播间效率对比</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr><th>直播间</th><th>日均消耗(万)</th><th>ROI</th><th>CTR</th><th>CVR</th><th>CPM(元)</th><th>计价率</th><th>账户数</th><th>广告数</th></tr>
+      <tr style="background:#f0f6ff">
+        <td><span class="tag tag-blue">林诺德合计</span></td>
+        <td><strong>5.53</strong></td><td>1.712</td><td>2.11%</td><td>4.00%</td><td>222.5</td><td>1.225</td><td>55</td><td>1,430</td>
+      </tr>
+      <tr>
+        <td>专注儿童成长</td>
+        <td>3.35</td><td>1.594</td><td>1.50%</td><td>2.58%</td><td>182.5</td><td>1.265</td><td>41</td><td>457</td>
+      </tr>
+      <tr>
+        <td>专注孩子成长</td>
+        <td>1.46</td><td>1.901</td><td>2.91%</td><td>3.67%</td><td>257.3</td><td>1.226</td><td>14</td><td>85</td>
+      </tr>
+      <tr style="background:#fef8e7">
+        <td><span class="tag tag-warn">央视**</span></td>
+        <td>3-5万</td><td>2.627</td><td>1.73%</td><td>1.77%</td><td>¥94.8</td><td>—</td><td>31</td><td>124</td>
+      </tr>
+      <tr style="background:#fef8e7">
+        <td><span class="tag tag-warn">诺特**（自营）</span></td>
+        <td>2-3万</td><td>1.702</td><td>1.51%</td><td>5.23%</td><td>¥178.6</td><td>—</td><td>5</td><td>78</td>
+      </tr>
+      <tr style="background:#fef8e7">
+        <td><span class="tag tag-warn">奥运**（吕爸）</span></td>
+        <td>1-2万</td><td>2.328</td><td>1.29%</td><td>4.60%</td><td>¥130.1</td><td>—</td><td>8</td><td>298</td>
+      </tr>
+      <tr style="background:#fef8e7">
+        <td><span class="tag tag-warn">诺特**（官方）</span></td>
+        <td>1-2万</td><td>1.892</td><td>1.18%</td><td>1.66%</td><td>¥37.1</td><td>—</td><td>27</td><td>380</td>
+      </tr>
+      <tr style="background:#fef8e7">
+        <td><span class="tag tag-warn">诺特**</span></td>
+        <td>1-2万</td><td>2.774</td><td>1.53%</td><td>2.85%</td><td>¥55.7</td><td>—</td><td>3</td><td>102</td>
+      </tr>
+      <tr style="background:#fef8e7">
+        <td><span class="tag tag-warn">奥运**（儿童）</span></td>
+        <td>1万以下</td><td>1.902</td><td>1.39%</td><td>3.91%</td><td>¥174.3</td><td>—</td><td>4</td><td>140</td>
+      </tr>
+    </table>
+    </div>
+    <div class="insight-box" style="margin-top:12px">
+      <span class="icon">💡</span>
+      <strong>洞察：</strong>专注孩子成长间ROI（1.901）已接近竞对均值（2.200），差距仅-13.6%；
+      而专注儿童成长间ROI（1.594）与竞对差距达-27.5%，是拉低整体ROI的主要原因。
+      建议重点优化儿童成长间的CPM和智投策略。
+    </div>
+  </div>
+
+  <div class="sub-title">C 智投渗透率对比</div>
+  <div class="card">
+    <div class="chart-box" id="chartCompSmart"></div>
+    <table style="margin-top:16px">
+      <tr><th>维度</th><th>林诺德整体</th><th>专注儿童成长</th><th>专注孩子成长</th><th>竞对均值</th></tr>
+      <tr>
+        <td>智投渗透率</td>
+        <td class="worse"><strong>37.7%</strong></td>
+        <td class="worse">~35%</td>
+        <td class="worse">~42%</td>
+        <td class="better"><strong>73.4%</strong></td>
+      </tr>
+      <tr>
+        <td>非智投ROI</td>
+        <td>1.769</td><td>1.645</td><td>1.902</td><td>—</td>
+      </tr>
+      <tr>
+        <td>推直播ROI</td>
+        <td>1.551</td><td>1.543</td><td>—</td><td>—</td>
+      </tr>
+      <tr>
+        <td>非智投CPM(元)</td>
+        <td class="worse">254.8</td><td>—</td><td>—</td><td class="better">~120</td>
+      </tr>
+      <tr>
+        <td>推直播CPM(元)</td>
+        <td class="better">147.8</td><td>—</td><td>—</td><td>—</td>
+      </tr>
+    </table>
+    <div class="insight-box" style="margin-top:12px">
+      <span class="icon">💡</span>
+      <strong>智投洞察：</strong>推直播CPM（147.8元）比非智投CPM（254.8元）低 <strong>42%</strong>，
+      说明智投工具能有效降低流量成本。若将智投渗透率从37.7%提升至60%，
+      预计整体CPM可从200元降至约170元，ROI可提升约0.1~0.15。
+    </div>
+  </div>
+
+  <div class="sub-title">F 智投工具结构对比（各直播间消耗占比）</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>智投类型</th>
+        <th>林诺德-专注儿童成长</th>
+        <th>林诺德-专注孩子成长</th>
+        <th>奥运**吕爸</th>
+        <th>奥运**儿童</th>
+        <th>诺特**官方</th>
+        <th>诺特**</th>
+        <th>央视**</th>
+        <th>诺特**自营</th>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><strong>非智投广告</strong></td>
+        <td>38.2%</td>
+        <td><strong>99.8%</strong></td>
+        <td>18.4%</td>
+        <td>27.3%</td>
+        <td>81.0%</td>
+        <td>2.6%</td>
+        <td>84.2%</td>
+        <td>95.2%</td>
+      </tr>
+      <tr>
+        <td><strong>推直播</strong></td>
+        <td><strong>61.7%</strong></td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>单链路智投</strong></td>
+        <td>0.1%</td>
+        <td>0.2%</td>
+        <td><span style="color:#e85d26;font-weight:bold">57.1%</span></td>
+        <td><span style="color:#e85d26;font-weight:bold">49.9%</span></td>
+        <td><span style="color:#e85d26;font-weight:bold">19.0%</span></td>
+        <td><span style="color:#e85d26;font-weight:bold">97.4%</span></td>
+        <td>0.1%</td>
+        <td>4.8%</td>
+      </tr>
+      <tr>
+        <td><strong>全域通直播</strong></td>
+        <td>—</td>
+        <td>—</td>
+        <td><span style="color:#e85d26;font-weight:bold">23.6%</span></td>
+        <td><span style="color:#e85d26;font-weight:bold">12.3%</span></td>
+        <td>—</td>
+        <td>—</td>
+        <td><span style="color:#e85d26;font-weight:bold">15.7%</span></td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>短直双开</strong></td>
+        <td>0.0%</td>
+        <td>—</td>
+        <td>0.9%</td>
+        <td><span style="color:#e85d26">10.5%</span></td>
+        <td>0.0%</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+    </table>
+    </div>
+    <div class="insight-box" style="margin-top:12px">
+      <span class="icon">⚠️</span>
+      <strong>关键洞察：</strong>林诺德智投消耗几乎全来自推直播，而竞对主力工具是<strong>单链路智投</strong>（奥运**吕爸 57.1%、诺特** 97.4%）和<strong>全域通直播</strong>（奥运**吕爸 23.6%、央视** 15.7%）。
+      林诺德目前<strong>缺失单链路智投和全域通直播</strong>两类核心工具，是与竞对ROI差距的结构性原因。
+      专注孩子成长间智投渗透率仅 0.2%，几乎完全依赖非智投，是两个直播间中更迫切需要智投改造的账号。
+    </div>
+  </div>
+
+  <div class="sub-title">G 推广产品类型结构对比</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>推广产品类型</th>
+        <th>林诺德-专注儿童成长</th>
+        <th>林诺德-专注孩子成长</th>
+        <th>央视**</th>
+        <th>诺特**自营</th>
+        <th>奥运**吕爸</th>
+        <th>诺特**官方</th>
+        <th>诺特**</th>
+        <th>奥运**儿童</th>
+      </tr>
+      <tr style="background:#f0f6ff">
+        <td><strong>普通直播间</strong></td>
+        <td>93.7%</td>
+        <td><strong>99.9%</strong></td>
+        <td>88.1%</td>
+        <td>84.8%</td>
+        <td>100.0%</td>
+        <td>100.0%</td>
+        <td>97.1%</td>
+        <td>100.0%</td>
+      </tr>
+      <tr>
+        <td><strong>商品聚合页</strong></td>
+        <td><span style="color:#2eab6e;font-weight:bold">6.3%</span></td>
+        <td>—</td>
+        <td>—</td>
+        <td><span style="color:#2eab6e;font-weight:bold">15.2%</span></td>
+        <td>—</td>
+        <td>—</td>
+        <td>2.9%</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>直播4+M</strong></td>
+        <td>—</td>
+        <td>—</td>
+        <td><span style="color:#e85d26;font-weight:bold">11.9%</span></td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+    </table>
+    </div>
+    <div class="insight-box" style="margin-top:12px">
+      <span class="icon">💡</span>
+      <strong>关键洞察：</strong>
+      林诺德-专注儿童成长已有 6.3% 商品聚合页消耗，但竞对诺特**自营达 15.2%，仍有提升空间，建议目标提升至 10%+。
+      直播4+M（type=61）仅竞对央视**使用（11.9%），林诺德尚未开启，是扩量的潜在工具。
+      专注孩子成长 99.9% 为普通直播间，推广形式极度单一，建议开启商品聚合页测试。
+    </div>
+  </div>
+
+  <div class="sub-title">H 视频号版位效率对比</div>
+  <div class="card">
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>直播间</th><th>标签</th><th>视频号消耗</th><th>消耗占比</th><th>CTR</th><th>CVR</th><th>CPM(元)</th><th>ROI</th>
+      </tr>
+      <tr style="background:#fff3e0">
+        <td><strong>林诺德-专注儿童成长</strong></td>
+        <td><span class="tag tag-blue">✅林诺德</span></td>
+        <td>2.12万</td><td>70.9%</td>
+        <td>1.11%</td><td>6.83%</td>
+        <td><span style="color:#e85d26;font-weight:bold">¥285.0</span></td>
+        <td>1.583</td>
+      </tr>
+      <tr style="background:#fff3e0">
+        <td><strong>林诺德-专注孩子成长</strong></td>
+        <td><span class="tag tag-blue">✅林诺德</span></td>
+        <td>2.33万</td><td>91.6%</td>
+        <td>2.62%</td><td>8.03%</td>
+        <td><span style="color:#e85d26;font-weight:bold">¥307.0</span></td>
+        <td>1.902</td>
+      </tr>
+      <tr>
+        <td>央视**</td>
+        <td><span class="tag tag-warn">竞对</span></td>
+        <td>2-3万</td><td>81.6%</td>
+        <td>1.35%</td><td>3.03%</td>
+        <td>¥113.9</td>
+        <td>2.603</td>
+      </tr>
+      <tr>
+        <td>诺特**自营</td>
+        <td><span class="tag tag-warn">竞对</span></td>
+        <td>2-3万</td><td>83.1%</td>
+        <td>0.97%</td><td>9.98%</td>
+        <td>¥204.1</td>
+        <td>1.749</td>
+      </tr>
+      <tr>
+        <td>奥运**吕爸</td>
+        <td><span class="tag tag-warn">竞对</span></td>
+        <td>1万以下</td><td>61.5%</td>
+        <td>1.06%</td><td>7.53%</td>
+        <td>¥158.1</td>
+        <td>2.379</td>
+      </tr>
+      <tr>
+        <td>诺特**官方</td>
+        <td><span class="tag tag-warn">竞对</span></td>
+        <td>1万以下</td><td>65.3%</td>
+        <td>1.14%</td><td>4.90%</td>
+        <td>¥95.0</td>
+        <td>1.984</td>
+      </tr>
+      <tr>
+        <td>诺特**</td>
+        <td><span class="tag tag-warn">竞对</span></td>
+        <td>1万以下</td><td>76.6%</td>
+        <td>1.31%</td><td>6.11%</td>
+        <td>¥93.0</td>
+        <td><span style="color:#2eab6e;font-weight:bold">2.865</span></td>
+      </tr>
+      <tr>
+        <td>奥运**儿童</td>
+        <td><span class="tag tag-warn">竞对</span></td>
+        <td>1万以下</td><td>79.1%</td>
+        <td>1.35%</td><td>6.44%</td>
+        <td>¥259.0</td>
+        <td>1.877</td>
+      </tr>
+    </table>
+    </div>
+    <div class="insight-box" style="margin-top:12px">
+      <span class="icon">⚠️</span>
+      <strong>关键洞察：</strong>林诺德两账号视频号CPM（¥285~¥307）高出竞对均值约 <strong>+90%</strong>（竞对均值约¥145）。
+      诺特**视频号CPM仅 ¥93.0，ROI高达 <strong>2.865</strong>（赛道最高），完全依赖素材效率（低出价+高CTR/CVR），是值得重点参考的素材运营标杆。
+      林诺德-专注孩子成长视频号占比高达 91.6%，是赛道内最高，单一版位依赖带来流量风险。
+    </div>
+  </div>
+
+  <div class="sub-title">I 流量版位结构对比分析</div>
+  <div class="card">
+    <div class="insight-box" style="margin-bottom:12px">
+      <span class="icon">📌</span>
+      <strong>核心结论：</strong>版位下钻分析揭示三个结构性问题：
+      ①林诺德-专注孩子成长视频号占比高达 91.6%（赛道最高），版位极度单一；
+      ②林诺德视频号CPM（¥285~¥307）高出竞对均值约 +90%，是ROI偏低的核心原因；
+      ③林诺德-专注儿童成长朋友圈版位ROI仅 1.380，低于整体ROI（1.570），拖累效率。
+      同时发现优化机会：专注儿童成长小程序版位ROI 1.711，高于整体ROI（1.570），具备扩量潜力。
+    </div>
+
+    <div style="font-weight:bold;margin-bottom:8px;color:#1a6fc4">各直播间版位消耗占比分布</div>
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>直播间</th><th>标签</th><th>微信视频号</th><th>微信小程序</th><th>微信公众号</th><th>微信朋友圈</th><th>平台与内容广告</th><th>其他</th>
+      </tr>
+      <tr style="background:#fff3e0">
+        <td><strong>林诺德-专注儿童成长</strong></td>
+        <td><span class="tag tag-blue">✅林诺德</span></td>
+        <td><strong>70.9%</strong></td><td>10.3%</td><td>4.6%</td><td>8.8%</td><td>2.5%</td><td>2.8%</td>
+      </tr>
+      <tr style="background:#fff3e0">
+        <td><strong>林诺德-专注孩子成长</strong></td>
+        <td><span class="tag tag-blue">✅林诺德</span></td>
+        <td><span style="color:#e85d26;font-weight:bold">91.6%</span></td><td>1.7%</td><td>3.6%</td><td>1.5%</td><td>0.2%</td><td>1.4%</td>
+      </tr>
+      <tr>
+        <td>央视**</td><td><span class="tag tag-warn">竞对</span></td>
+        <td>81.6%</td><td>2.5%</td><td>10.1%</td><td>3.2%</td><td>1.0%</td><td>1.6%</td>
+      </tr>
+      <tr>
+        <td>诺特**自营</td><td><span class="tag tag-warn">竞对</span></td>
+        <td>83.1%</td><td>10.5%</td><td>4.4%</td><td>&lt;1%</td><td>&lt;1%</td><td>1.3%</td>
+      </tr>
+      <tr>
+        <td>奥运**吕爸</td><td><span class="tag tag-warn">竞对</span></td>
+        <td>61.5%</td><td><span style="color:#2eab6e;font-weight:bold">20.5%</span></td><td>5.4%</td><td>6.3%</td><td>5.6%</td><td>0.8%</td>
+      </tr>
+      <tr>
+        <td>诺特**官方</td><td><span class="tag tag-warn">竞对</span></td>
+        <td>65.3%</td><td>4.7%</td><td>2.7%</td><td><span style="color:#e85d26">23.5%</span></td><td>2.5%</td><td>1.4%</td>
+      </tr>
+      <tr>
+        <td>诺特**</td><td><span class="tag tag-warn">竞对</span></td>
+        <td>76.6%</td><td>6.5%</td><td>2.9%</td><td>11.9%</td><td>1.5%</td><td>0.6%</td>
+      </tr>
+      <tr>
+        <td>奥运**儿童</td><td><span class="tag tag-warn">竞对</span></td>
+        <td>79.1%</td><td>10.2%</td><td>4.7%</td><td>4.7%</td><td>0.8%</td><td>0.5%</td>
+      </tr>
+    </table>
+    </div>
+
+    <div style="font-weight:bold;margin:16px 0 8px;color:#1a6fc4">微信小程序版位效率对比</div>
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>直播间</th><th>标签</th><th>消耗占比</th><th>CTR</th><th>CVR</th><th>CPM(元)</th><th>ROI</th><th>vs整体ROI</th>
+      </tr>
+      <tr style="background:#fff3e0">
+        <td><strong>林诺德-专注儿童成长</strong></td>
+        <td><span class="tag tag-blue">✅林诺德</span></td>
+        <td>10.3%</td><td>1.90%</td><td>2.55%</td><td>¥222.8</td>
+        <td><span style="color:#2eab6e;font-weight:bold">1.711</span></td>
+        <td><span style="color:#2eab6e">↑高于整体1.570</span></td>
+      </tr>
+      <tr style="background:#fff3e0">
+        <td><strong>林诺德-专注孩子成长</strong></td>
+        <td><span class="tag tag-blue">✅林诺德</span></td>
+        <td>1.7%</td><td>3.93%</td><td>2.76%</td><td>¥273.7</td>
+        <td><span style="color:#2eab6e;font-weight:bold">2.023</span></td>
+        <td><span style="color:#2eab6e">↑高于整体1.880，严重低配</span></td>
+      </tr>
+      <tr>
+        <td>奥运**吕爸</td><td><span class="tag tag-warn">竞对</span></td>
+        <td>20.5%</td><td>2.36%</td><td>3.05%</td><td>¥167.2</td><td>2.342</td><td>↑高于整体</td>
+      </tr>
+      <tr>
+        <td>诺特**</td><td><span class="tag tag-warn">竞对</span></td>
+        <td>6.5%</td><td>4.77%</td><td>0.49%</td><td>¥32.7</td><td>2.889</td><td>↑高于整体</td>
+      </tr>
+    </table>
+    </div>
+
+    <div style="font-weight:bold;margin:16px 0 8px;color:#1a6fc4">微信朋友圈版位效率对比</div>
+    <div style="overflow-x:auto">
+    <table>
+      <tr>
+        <th>直播间</th><th>标签</th><th>消耗占比</th><th>CTR</th><th>CVR</th><th>CPM(元)</th><th>ROI</th><th>vs整体ROI</th>
+      </tr>
+      <tr style="background:#fff3e0">
+        <td><strong>林诺德-专注儿童成长</strong></td>
+        <td><span class="tag tag-blue">✅林诺德</span></td>
+        <td>8.8%</td><td>0.84%</td><td>1.73%</td><td>¥82.6</td>
+        <td><span style="color:#e85d26;font-weight:bold">1.380</span></td>
+        <td><span style="color:#e85d26">↓低于整体1.570，拖累效率</span></td>
+      </tr>
+      <tr style="background:#fff3e0">
+        <td><strong>林诺德-专注孩子成长</strong></td>
+        <td><span class="tag tag-blue">✅林诺德</span></td>
+        <td>1.5%</td><td>1.10%</td><td>1.24%</td><td>¥61.8</td>
+        <td><span style="color:#e85d26;font-weight:bold">1.029</span></td>
+        <td><span style="color:#e85d26">↓几乎无利润</span></td>
+      </tr>
+      <tr>
+        <td>奥运**吕爸</td><td><span class="tag tag-warn">竞对</span></td>
+        <td>6.3%</td><td>0.39%</td><td>4.54%</td><td>¥44.7</td><td>2.190</td><td>—</td>
+      </tr>
+      <tr>
+        <td>诺特**官方</td><td><span class="tag tag-warn">竞对</span></td>
+        <td>23.5%</td><td>0.27%</td><td>2.42%</td><td>¥14.8</td><td>1.591</td><td>↓低于整体，共性问题</td>
+      </tr>
+    </table>
+    </div>
+
+    <div class="insight-box" style="margin-top:12px">
+      <span class="icon">🎯</span>
+      <strong>版位优化行动建议：</strong><br>
+      🔴 <strong>立即行动</strong>：降低视频号版位出价，目标CPM从¥285~¥307降至¥180~¥200（参考诺特** ¥93.0 → ROI 2.865）<br>
+      🟡 <strong>本周内</strong>：专注儿童成长将朋友圈版位预算占比从8.8%压缩至5%以内，释放预算转移至小程序版位（目标占比15%）<br>
+      🟡 <strong>本周内</strong>：专注孩子成长激活小程序版位，目标占比提升至8~10%（当前仅1.7%，但ROI 2.023高于整体）<br>
+      🟢 <strong>持续观察</strong>：跟踪诺特**视频号素材策略（CPM ¥93.0，ROI 2.865，赛道最高）
+    </div>
+  </div>
+
+</div>
+<!-- ===== 九、诊断与建议 ===== -->
+<div id="sAction" class="section">
+  <div class="section-title">🎯 九、综合诊断与行动建议</div>
+
+  <div class="sub-title">核心问题诊断</div>
+  <div class="card">
+    <table>
+      <tr><th>#</th><th>问题</th><th>数据依据</th><th>影响程度</th></tr>
+      <tr>
+        <td>1</td>
+        <td><strong>C类满减券缺失</strong>：全程未参与，大盘占比52.2%</td>
+        <td>林诺德C类占比0% vs 大盘38.4%</td>
+        <td><span class="badge badge-red">极高</span></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>CPM偏高</strong>：流量成本是竞对1.89倍</td>
+        <td>林诺德CPM 222.5元 vs 竞对118元</td>
+        <td><span class="badge badge-red">极高</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>智投渗透率不足</strong>：仅31.6%，竞对73.4%</td>
+        <td>智投消耗占比差距-41.8pct</td>
+        <td><span class="badge badge-red">高</span></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>返场期预算收缩</strong>：P6/P5=65.6%，大盘113.5%</td>
+        <td>P6日均7.04万 vs P5日均10.73万</td>
+        <td><span class="badge badge-warn">中</span></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><strong>孩子成长间预算偏低</strong>：ROI 1.901但消耗仅30.3%</td>
+        <td>孩子成长间ROI高出儿童成长间19.3%</td>
+        <td><span class="badge badge-warn">中</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="sub-title">优先级行动清单</div>
+  <div class="card">
+    <ul class="action-list">
+      <li class="p0">
+        <span class="badge badge-red">P0 立即</span>
+        <div>
+          <strong>申请C类满减券资质</strong>：联系平台BD，在下次大促前完成C类券申请。
+          参考大盘数据，C类券精排后占比可达52.2%，预计可提升整体ROI <strong>0.1~0.2</strong>，
+          对应GMV增量约 <strong>30~60万元/月</strong>。
+        </div>
+      </li>
+      <li class="p0">
+        <span class="badge badge-red">P0 立即</span>
+        <div>
+          <strong>提升智投渗透率至60%+</strong>：逐步将非智投广告迁移至智投模式，
+          参考竞对73.4%的渗透率，智投可帮助系统自动优化流量分配，
+          预期CPM降低 <strong>15~25%</strong>，ROI提升 <strong>0.1~0.15</strong>。
+        </div>
+      </li>
+      <li class="p1">
+        <span class="badge badge-warn">P1 近期</span>
+        <div>
+          <strong>优化CPM控制策略</strong>：当前CPM 200.1元，竞对118元。
+          建议：① 扩大智投比例降低人工竞价溢价；② 优化定向策略，减少高CPM版位（搜一搜）比例；
+          ③ 在P7日常期主动降低出价，将CPM控制在 <strong>160~180元</strong> 区间。
+        </div>
+      </li>
+      <li class="p1">
+        <span class="badge badge-warn">P1 近期</span>
+        <div>
+          <strong>加大孩子成长间预算</strong>：专注孩子成长间ROI 1.901，高于儿童成长间1.594，
+          但消耗占比仅30.3%。建议将孩子成长间预算占比提升至 <strong>40~45%</strong>，
+          预计整体ROI可提升 <strong>0.05~0.08</strong>。
+        </div>
+      </li>
+      <li class="p2">
+        <span class="badge badge-green">P2 规划</span>
+        <div>
+          <strong>下次大促返场期策略优化</strong>：本次P6返场期消耗较P5下降34.4%，
+          而大盘P6反而增长13.5%。建议下次大促提前储备返场期专属创意素材，
+          并维持P6预算不低于P5的 <strong>90%</strong>，充分利用大促后的流量红利期。
+        </div>
+      </li>
+      <li class="p2">
+        <span class="badge badge-green">P2 规划</span>
+        <div>
+          <strong>HNC健康展效果复制</strong>：6.15-6.17展会期间ROI 1.734（+21%），
+          建议分析展会期间的创意/定向/出价策略，提炼可复用的投放方法论，
+          在下次线下活动或节点营销时提前布局。
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sub-title">下阶段目标设定（参考）</div>
+  <div class="card">
+    <table>
+      <tr><th>指标</th><th>当前值</th><th>近期目标（1个月）</th><th>中期目标（3个月）</th></tr>
+      <tr><td>下单ROI</td><td>1.687</td><td>1.80</td><td>2.00+</td></tr>
+      <tr><td>CPM(元)</td><td>200.1</td><td>175</td><td>150</td></tr>
+      <tr><td>智投渗透率</td><td>31.6%</td><td>50%</td><td>65%</td></tr>
+      <tr><td>C类券占比</td><td>0%</td><td>20%</td><td>35%</td></tr>
+      <tr><td>孩子成长间消耗占比</td><td>30.3%</td><td>38%</td><td>42%</td></tr>
+    </table>
+  </div>
+</div>
+
+<script>
+function initChart(id) {
+  var el = document.getElementById(id);
+  if (!el) return null;
+  return echarts.init(el);
+}
+
+// ===== 618节奏系数图 =====
+(function() {
+  var c = initChart('chart618Rhythm');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['客户节奏系数','大盘节奏系数','客户ROI','大盘ROI'], bottom: 0 },
+    grid: { top: 20, bottom: 60, left: 60, right: 80 },
+    xAxis: { type: 'category', data: ['P1 520冲刺', 'P2 618蓄水', 'P3 开门红', 'P4 场景期', 'P5 高潮爆发', 'P6 返场', 'P7 尾声'] },
+    yAxis: [
+      { type: 'value', name: '节奏系数', min: 0, max: 2 },
+      { type: 'value', name: 'ROI', min: 1.4, max: 2.1 }
+    ],
+    series: [
+      { name: '客户节奏系数', type: 'bar', data: [0.75, 0.68, 0.87, 1.02, 1.56, 1.43, 0.96], itemStyle: { color: '#1a6fc4' }, barMaxWidth: 30 },
+      { name: '大盘节奏系数', type: 'bar', data: [0.97, 0.85, 0.81, 0.95, 1.24, 1.4, 1.01], itemStyle: { color: '#aac8f0' }, barMaxWidth: 30 },
+      { name: '客户ROI', type: 'line', yAxisIndex: 1, data: [1.716, 1.6, 1.907, 1.553, 1.776, 1.775, 1.704], lineStyle: { color: '#e85d26', width: 2 }, symbol: 'circle' },
+      { name: '大盘ROI', type: 'line', yAxisIndex: 1, data: [1.985, 1.864, 1.857, 1.741, 1.826, 1.731, 1.739], lineStyle: { color: '#f5a623', width: 2, type: 'dashed' }, symbol: 'circle' }
+    ]
+  });
+})();
+
+// ===== 分天消耗趋势（修正版）=====
+(function() {
+  var c = initChart('chartDailyCost');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['总消耗','儿童成长','孩子成长'], bottom: 0 },
+    grid: { top: 20, bottom: 60, left: 60, right: 20 },
+    xAxis: { type: 'category', data: ['05/20', '05/21', '05/22', '05/23', '05/24', '05/25', '05/26', '05/27', '05/28', '05/29', '05/30', '05/31', '06/01', '06/02', '06/03', '06/04', '06/05', '06/06', '06/07', '06/08', '06/09', '06/10', '06/11', '06/12', '06/13', '06/14', '06/15', '06/16', '06/17', '06/18', '06/19', '06/20', '06/21', '06/22', '06/23', '06/24', '06/25', '06/26', '06/27', '06/28', '06/29', '06/30', '07/01', '07/02', '07/03', '07/04', '07/05', '07/06'], axisLabel: { rotate: 45, fontSize: 10 } },
+    yAxis: { type: 'value', name: '万元' },
+    series: [
+      { name: '总消耗', type: 'line', data: [3.57, 2.96, 3.11, 3.63, 3.73, 3.82, 3.91, 4.04, 2.03, 3.08, 3.34, 3.97, 5.59, 5.61, 5.11, 4.69, 5.84, 3.2, 4.82, 5.29, 6.09, 6.12, 5.01, 3.6, 3.88, 4.14, 6.02, 6.11, 11.11, 14.96, 9.25, 6.81, 5.05, 6.27, 4.7, 3.58, 4.28, 4.4, 3.88, 4.35, 3.47, 4.1, 3.01, 3.11, 3.33, 2.83, 5.73, 4.29], lineStyle: { color: '#1a6fc4', width: 2 }, areaStyle: { opacity: 0.08 }, symbol: 'none' },
+      { name: '儿童成长', type: 'bar', data: [3.57, 2.96, 3.11, 3.63, 3.73, 3.82, 3.91, 4.04, 2.03, 3.08, 3.34, 3.97, 5.59, 5.61, 5.11, 4.69, 5.8, 3.19, 4.81, 4.23, 4.89, 5.88, 4.82, 3.39, 3.82, 4.14, 6.02, 4.93, 6.36, 5.83, 3.21, 2.73, 2.69, 2.13, 1.98, 1.31, 1.24, 1.25, 0.71, 1.57, 1.26, 1.34, 1.15, 1.09, 1.17, 1.27, 2.88, 1.7], stack: 'room', itemStyle: { color: '#1a6fc4' }, barMaxWidth: 12 },
+      { name: '孩子成长', type: 'bar', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04, 0.02, 0.01, 1.06, 1.19, 0.23, 0.19, 0.21, 0.06, 0, 0, 1.18, 4.75, 9.13, 6.04, 4.08, 2.36, 4.14, 2.73, 2.28, 3.05, 3.16, 3.17, 2.77, 2.21, 2.76, 1.86, 2.02, 2.16, 1.56, 2.86, 2.59], stack: 'room', itemStyle: { color: '#2eab6e' }, barMaxWidth: 12 }
+    ]
+  });
+})();
+
+// ===== 分天ROI趋势（修正版，使用系统汇总行口径）=====
+(function() {
+  var c = initChart('chartDailyROI');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'axis', formatter: function(params) {
+      var s = params[0].axisValue + '<br/>';
+      params.forEach(function(p) { s += p.marker + p.seriesName + ': ' + p.value + '<br/>'; });
+      return s;
+    } },
+    legend: { data: ['整体ROI','儿童成长ROI','孩子成长ROI'], bottom: 0 },
+    grid: { top: 20, bottom: 60, left: 60, right: 20 },
+    xAxis: { type: 'category', data: ['05/20', '05/21', '05/22', '05/23', '05/24', '05/25', '05/26', '05/27', '05/28', '05/29', '05/30', '05/31', '06/01', '06/02', '06/03', '06/04', '06/05', '06/06', '06/07', '06/08', '06/09', '06/10', '06/11', '06/12', '06/13', '06/14', '06/15', '06/16', '06/17', '06/18', '06/19', '06/20', '06/21', '06/22', '06/23', '06/24', '06/25', '06/26', '06/27', '06/28', '06/29', '06/30', '07/01', '07/02', '07/03', '07/04', '07/05', '07/06'], axisLabel: { rotate: 45, fontSize: 10 } },
+    yAxis: { type: 'value', name: 'ROI', min: 0, max: 3.5 },
+    series: [
+      { name: '整体ROI', type: 'line', data: [1.404, 1.207, 1.663, 1.64, 1.967, 1.792, 1.559, 1.469, 1.178, 1.689, 1.894, 2.169, 1.729, 1.462, 1.366, 1.683, 1.474, 1.808, 1.737, 1.978, 1.254, 1.593, 1.381, 1.518, 1.509, 1.278, 1.878, 1.714, 1.744, 1.99, 1.869, 1.715, 1.683, 1.85, 1.573, 1.538, 1.776, 2.095, 1.632, 1.806, 1.651, 1.805, 1.594, 1.689, 1.552, 1.794, 1.781, 1.501], lineStyle: { color: '#e85d26', width: 2.5 }, symbol: 'none',
+        markLine: { data: [{ type: 'average', name: '均值' }], lineStyle: { color: '#f5a623', type: 'dashed' } } },
+      { name: '儿童成长ROI', type: 'line', data: [1.404, 1.207, 1.663, 1.64, 1.967, 1.792, 1.559, 1.469, 1.178, 1.689, 1.894, 2.169, 1.729, 1.462, 1.366, 1.683, 1.484, 1.816, 1.742, 1.977, 1.305, 1.558, 1.387, 1.52, 1.524, 1.278, 1.878, 1.781, 1.562, 1.881, 1.536, 1.152, 1.512, 1.618, 1.1, 1.471, 1.39, 1.667, 1.726, 1.568, 1.532, 1.46, 1.435, 1.296, 1.328, 1.943, 1.41, 1.484], lineStyle: { color: '#1a6fc4', width: 1.5, type: 'dashed' }, symbol: 'none' },
+      { name: '孩子成长ROI', type: 'line', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 1.983, 1.042, 2.458, 1.23, 1.489, 0.604, 0, 0, 1.433, 1.988, 2.06, 2.046, 2.092, 1.878, 1.97, 1.915, 1.576, 1.932, 2.264, 1.611, 1.94, 1.719, 1.974, 1.693, 1.901, 1.675, 1.673, 2.155, 1.513], lineStyle: { color: '#2eab6e', width: 1.5, type: 'dashed' }, symbol: 'none' }
+    ]
+  });
+})();
+
+// ===== 分天CTR & CPM =====
+(function() {
+  var c = initChart('chartDailyCTR');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['CTR(%)','CPM(元)'], bottom: 0 },
+    grid: { top: 20, bottom: 60, left: 60, right: 60 },
+    xAxis: { type: 'category', data: ['05/20', '05/21', '05/22', '05/23', '05/24', '05/25', '05/26', '05/27', '05/28', '05/29', '05/30', '05/31', '06/01', '06/02', '06/03', '06/04', '06/05', '06/06', '06/07', '06/08', '06/09', '06/10', '06/11', '06/12', '06/13', '06/14', '06/15', '06/16', '06/17', '06/18', '06/19', '06/20', '06/21', '06/22', '06/23', '06/24', '06/25', '06/26', '06/27', '06/28', '06/29', '06/30', '07/01', '07/02', '07/03', '07/04', '07/05', '07/06'], axisLabel: { rotate: 45, fontSize: 10 } },
+    yAxis: [
+      { type: 'value', name: 'CTR(%)', min: 0 },
+      { type: 'value', name: 'CPM(元)', min: 0 }
+    ],
+    series: [
+      { name: 'CTR(%)', type: 'line', data: [2.38, 3.07, 1.36, 1.28, 1.29, 1.36, 1.3, 3.04, 1.34, 1.47, 1.54, 1.23, 1.03, 1.25, 1.13, 1.26, 0.74, 1.16, 1.36, 1.88, 2.67, 1.34, 1.2, 1.29, 1.18, 1.2, 1.35, 1.38, 2.17, 2.23, 2.35, 2.18, 2.14, 2.13, 1.9, 1.8, 2.4, 2.27, 2.51, 1.75, 2.0, 2.45, 2.09, 2.35, 2.67, 2.83, 2.52, 2.57], lineStyle: { color: '#2eab6e', width: 2 }, symbol: 'none' },
+      { name: 'CPM(元)', type: 'line', yAxisIndex: 1, data: [165.8, 149.3, 173.8, 204.5, 194.8, 231.3, 196.1, 138.4, 153.0, 163.8, 135.8, 137.7, 164.8, 186.9, 177.7, 211.3, 152.8, 173.4, 187.3, 263.0, 170.1, 214.8, 199.0, 216.3, 210.0, 215.8, 221.0, 174.9, 211.4, 246.1, 237.1, 234.2, 241.4, 263.3, 247.9, 246.3, 269.7, 270.6, 247.8, 254.3, 253.6, 250.6, 207.2, 220.5, 126.5, 135.5, 217.1, 165.1], lineStyle: { color: '#9b59b6', width: 2 }, symbol: 'none' }
+    ]
+  });
+})();
+
+// ===== 分阶段图 =====
+(function() {
+  var c = initChart('chartPhase');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['日均消耗(万)','ROI','CTR(%)','CVR(%)'], bottom: 0 },
+    grid: { top: 20, bottom: 60, left: 60, right: 80 },
+    xAxis: { type: 'category', data: ['P1蓄水期', 'P2预热期', 'P3开门红', 'P4场景期', 'P5高潮爆发', 'P6返场', 'P7尾声'] },
+    yAxis: [
+      { type: 'value', name: '万元/ROI', min: 0 },
+      { type: 'value', name: 'CTR/CVR(%)', min: 0 }
+    ],
+    series: [
+      { name: '日均消耗(万)', type: 'bar', data: [3.43, 5.37, 4.85, 4.79, 10.73, 7.04, 4.09], itemStyle: { color: '#1a6fc4' }, barMaxWidth: 40 },
+      { name: 'ROI', type: 'line', data: [1.662, 1.541, 1.663, 1.55, 1.853, 1.775, 1.722], lineStyle: { color: '#e85d26', width: 2 }, symbol: 'circle' },
+      { name: 'CTR(%)', type: 'line', yAxisIndex: 1, data: [1.78, 1.05, 1.9, 1.27, 2.01, 2.24, 2.32], lineStyle: { color: '#2eab6e', width: 2 }, symbol: 'circle' },
+      { name: 'CVR(%)', type: 'line', yAxisIndex: 1, data: [2.07, 3.5, 2.36, 3.53, 3.49, 3.52, 3.12], lineStyle: { color: '#f5a623', width: 2 }, symbol: 'circle' }
+    ]
+  });
+})();
+
+// ===== 直播间饼图 =====
+(function() {
+  var c = initChart('chartRoomPie');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'item', formatter: '{b}: {c}万 ({d}%)' },
+    legend: { bottom: 0 },
+    series: [{
+      type: 'pie', radius: ['40%','70%'],
+      data: [
+        { name: '专注儿童成长', value: 161.0, itemStyle: { color: '#1a6fc4' } },
+        { name: '专注孩子成长', value: 69.9, itemStyle: { color: '#2eab6e' } }
+      ],
+      label: { formatter: '{b}\n{d}%' }
+    }]
+  });
+})();
+
+// ===== 版位图 =====
+(function() {
+  var c = initChart('chartPos');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['日耗(万)','ROI','CTR(%)'], bottom: 0 },
+    grid: { top: 20, bottom: 80, left: 80, right: 80 },
+    xAxis: { type: 'category', data: ['微信视频号', '微信小程序', '微信朋友圈', '微信公众号', '平台与内容广告', '移动联盟', '搜索广告', '微信搜一搜'], axisLabel: { rotate: 30, fontSize: 11 } },
+    yAxis: [
+      { type: 'value', name: '日耗(万)/ROI' },
+      { type: 'value', name: 'CTR(%)', min: 0 }
+    ],
+    series: [
+      { name: '日耗(万)', type: 'bar', data: [3.8, 0.37, 0.25, 0.23, 0.08, 0.05, 0.02, 0.01], itemStyle: { color: '#1a6fc4' }, barMaxWidth: 50 },
+      { name: 'ROI', type: 'line', data: [1.716, 1.739, 1.353, 1.749, 1.964, 0.629, 0.753, 0.564], lineStyle: { color: '#e85d26', width: 2 }, symbol: 'circle' },
+      { name: 'CTR(%)', type: 'line', yAxisIndex: 1, data: [1.53, 2.08, 0.75, 0.86, 6.78, 7.45, 1.5, 5.21], lineStyle: { color: '#2eab6e', width: 2 }, symbol: 'circle' }
+    ]
+  });
+})();
+
+// ===== 智投饼图 =====
+(function() {
+  var c = initChart('chartSmartPie');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'item', formatter: '{b}: {d}%' },
+    legend: { bottom: 0 },
+    series: [{
+      type: 'pie', radius: ['40%','70%'],
+      data: [
+        { name: '非智投', value: 62.3, itemStyle: { color: '#1a6fc4' } },
+        { name: '推直播', value: 37.6, itemStyle: { color: '#2eab6e' } },
+        { name: '单链路智投', value: 0.1, itemStyle: { color: '#f5a623' } },
+        { name: '短直双开', value: 0.0, itemStyle: { color: '#e85d26' } }
+      ],
+      label: { formatter: '{b}\n{d}%' }
+    }]
+  });
+})();
+
+// ===== 智投效率对比柱图 =====
+(function() {
+  var c = initChart('chartSmartBar');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['CTR(%)','CVR(%)','ROI'], bottom: 0 },
+    grid: { top: 20, bottom: 60, left: 60, right: 80 },
+    xAxis: { type: 'category', data: ['非智投','推直播','单链路智投','短直双开'] },
+    yAxis: [
+      { type: 'value', name: 'CTR/CVR(%)', min: 0 },
+      { type: 'value', name: 'ROI', min: 0, max: 2.5 }
+    ],
+    series: [
+      { name: 'CTR(%)', type: 'bar', data: [2.18, 1.48, 3.87, 0.84], itemStyle: { color: '#1a6fc4' }, barMaxWidth: 40 },
+      { name: 'CVR(%)', type: 'bar', data: [3.65, 2.06, 0.41, 0.0], itemStyle: { color: '#2eab6e' }, barMaxWidth: 40 },
+      { name: 'ROI', type: 'line', yAxisIndex: 1, data: [1.769, 1.551, 1.228, 0.0], lineStyle: { color: '#e85d26', width: 2 }, symbol: 'circle' }
+    ]
+  });
+})();
+
+// ===== 出价模式饼图 =====
+(function() {
+  var c = initChart('chartBidPie');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'item', formatter: '{b}: {d}%' },
+    legend: { bottom: 0, type: 'scroll' },
+    series: [{
+      type: 'pie', radius: ['40%','70%'],
+      data: [
+        { name: 'CPA出价', value: 73.9, itemStyle: { color: '#1a6fc4' } },
+        { name: 'ROI出价', value: 24.1, itemStyle: { color: '#2eab6e' } },
+        { name: 'CPA+辅助ROI', value: 1.8, itemStyle: { color: '#f5a623' } },
+        { name: '净成交出价', value: 0.2, itemStyle: { color: '#9b59b6' } }
+      ],
+      label: { formatter: '{b}\n{d}%' }
+    }]
+  });
+})();
+
+// ===== 出价模式日耗+ROI柱图 =====
+(function() {
+  var c = initChart('chartBidBar');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['日耗(万)','ROI'], bottom: 0 },
+    grid: { top: 20, bottom: 60, left: 60, right: 80 },
+    xAxis: { type: 'category', data: ['CPA出价','ROI出价','CPA+辅助ROI','净成交出价'] },
+    yAxis: [
+      { type: 'value', name: '日耗(万)', min: 0 },
+      { type: 'value', name: 'ROI', min: 0.8, max: 2.2 }
+    ],
+    series: [
+      { name: '日耗(万)', type: 'bar', data: [3.56, 1.16, 0.09, 0.01], itemStyle: { color: '#1a6fc4' }, barMaxWidth: 50 },
+      { name: 'ROI', type: 'line', yAxisIndex: 1, data: [1.671, 1.756, 1.434, 1.353], lineStyle: { color: '#e85d26', width: 2 }, symbol: 'circle' }
+    ]
+  });
+})();
+
+// ===== 掉量图 =====
+(function() {
+  var c = initChart('chartDrop');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['总消耗','ROI'], bottom: 0 },
+    grid: { top: 20, bottom: 60, left: 60, right: 60 },
+    xAxis: { type: 'category', data: ['05/20', '05/21', '05/22', '05/23', '05/24', '05/25', '05/26', '05/27', '05/28', '05/29', '05/30', '05/31', '06/01', '06/02', '06/03', '06/04', '06/05', '06/06', '06/07', '06/08', '06/09', '06/10', '06/11', '06/12', '06/13', '06/14', '06/15', '06/16', '06/17', '06/18', '06/19', '06/20', '06/21', '06/22', '06/23', '06/24', '06/25', '06/26', '06/27', '06/28', '06/29', '06/30', '07/01', '07/02', '07/03', '07/04', '07/05', '07/06'], axisLabel: { rotate: 45, fontSize: 10 } },
+    yAxis: [
+      { type: 'value', name: '万元' },
+      { type: 'value', name: 'ROI', min: 0 }
+    ],
+    series: [
+      { name: '总消耗', type: 'bar', data: [3.57, 2.96, 3.11, 3.63, 3.73, 3.82, 3.91, 4.04, 2.03, 3.08, 3.34, 3.97, 5.59, 5.61, 5.11, 4.69, 5.84, 3.2, 4.82, 5.29, 6.09, 6.12, 5.01, 3.6, 3.88, 4.14, 6.02, 6.11, 11.11, 14.96, 9.25, 6.81, 5.05, 6.27, 4.7, 3.58, 4.28, 4.4, 3.88, 4.35, 3.47, 4.1, 3.01, 3.11, 3.33, 2.83, 5.73, 4.29], itemStyle: { color: '#1a6fc4' }, barMaxWidth: 12 },
+      { name: 'ROI', type: 'line', yAxisIndex: 1, data: [1.404, 1.207, 1.663, 1.64, 1.967, 1.792, 1.559, 1.469, 1.178, 1.689, 1.894, 2.169, 1.729, 1.462, 1.366, 1.683, 1.474, 1.808, 1.737, 1.978, 1.254, 1.593, 1.381, 1.518, 1.509, 1.278, 1.878, 1.714, 1.744, 1.99, 1.869, 1.715, 1.683, 1.85, 1.573, 1.538, 1.776, 2.095, 1.632, 1.806, 1.651, 1.805, 1.594, 1.689, 1.552, 1.794, 1.781, 1.501], lineStyle: { color: '#e85d26', width: 2 }, symbol: 'none' }
+    ]
+  });
+})();
+
+// ===== 竞对对标图 =====
+(function() {
+  var c = initChart('chartComp');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['林诺德','竞对均值'], bottom: 0 },
+    grid: { top: 20, bottom: 60, left: 60, right: 20 },
+    xAxis: { type: 'category', data: ['日均消耗(万)','ROI','CTR(%)','CVR(%)','CPM(元/10)','智投渗透率(%)'] },
+    yAxis: { type: 'value' },
+    series: [
+      { name: '林诺德', type: 'bar', data: [5.53, 1.712, 2.11, 4.00, 22.25, 37.7], itemStyle: { color: '#1a6fc4' }, barMaxWidth: 30 },
+      { name: '竞对均值', type: 'bar', data: [1.84, 2.200, 1.49, 3.39, 11.80, 73.4], itemStyle: { color: '#aac8f0' }, barMaxWidth: 30 }
+    ]
+  });
+})();
+
+// ===== 竞对智投对比图 =====
+(function() {
+  var c = initChart('chartCompSmart');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['智投渗透率(%)'], bottom: 0 },
+    grid: { top: 20, bottom: 40, left: 60, right: 20 },
+    xAxis: { type: 'category', data: ['林诺德整体','专注儿童成长','专注孩子成长','竞对均值'] },
+    yAxis: { type: 'value', name: '智投渗透率(%)', min: 0, max: 100 },
+    series: [
+      { name: '智投渗透率(%)', type: 'bar',
+        data: [
+          { value: 37.7, itemStyle: { color: '#e85d26' } },
+          { value: 35, itemStyle: { color: '#f5a623' } },
+          { value: 42, itemStyle: { color: '#f5a623' } },
+          { value: 73.4, itemStyle: { color: '#2eab6e' } }
+        ],
+        barMaxWidth: 60,
+        label: { show: true, position: 'top', formatter: '{c}%' }
+      }
+    ]
+  });
+})();
+
+// ===== 竞对CPM对比图 =====
+(function() {
+  var c = initChart('chartCompCPM');
+  if (!c) return;
+  c.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['CPM(元)'], bottom: 0 },
+    grid: { top: 20, bottom: 40, left: 60, right: 20 },
+    xAxis: { type: 'category', data: ['整体CPM','非智投CPM','推直播CPM','视频号CPM','朋友圈CPM','竞对均值CPM'] },
+    yAxis: { type: 'value', name: 'CPM(元)', min: 0 },
+    series: [
+      { name: 'CPM(元)', type: 'bar',
+        data: [
+          { value: 222.5, itemStyle: { color: '#e85d26' } },
+          { value: 254.8, itemStyle: { color: '#e85d26' } },
+          { value: 147.8, itemStyle: { color: '#2eab6e' } },
+          { value: 260.1, itemStyle: { color: '#f5a623' } },
+          { value: 71.6, itemStyle: { color: '#2eab6e' } },
+          { value: 118.0, itemStyle: { color: '#1a6fc4' } }
+        ],
+        barMaxWidth: 60,
+        label: { show: true, position: 'top', formatter: '¥{c}' }
+      }
+    ]
+  });
+})();
+
+// ===== Tab切换 =====
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+}
+
+window.addEventListener('resize', function() {
+  var chartIds = ['chart618Rhythm','chartDailyCost','chartDailyROI','chartDailyCTR','chartPhase',
+    'chartRoomPie','chartPos','chartSmartPie','chartSmartBar','chartBidPie','chartBidBar',
+    'chartDrop','chartComp','chartCompSmart','chartCompCPM'];
+  chartIds.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { var inst = echarts.getInstanceByDom(el); if (inst) inst.resize(); }
+  });
+});
+</script>
+<script>(function(){var _h=0,_t;function m(){var b=document.body;if(!b)return 0;return Math.max(b.scrollHeight,b.offsetHeight,Math.ceil(b.getBoundingClientRect().height))}function s(){var h=m();if(h>0&&h!==_h){_h=h;window.parent.postMessage({type:"iframe-resize",height:h},"*")}}function d(){clearTimeout(_t);_t=setTimeout(s,150)}if(document.readyState==="complete")s();else window.addEventListener("load",s);window.addEventListener("resize",d);if(typeof ResizeObserver!=="undefined"){var ro=new ResizeObserver(d);ro.observe(document.documentElement);if(document.body)ro.observe(document.body)}})();</script><style id="__adata_wm_style__">.__adata_wm__{position:fixed;inset:0;pointer-events:none;z-index:2147483647;background-repeat:repeat;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='160'><text x='50%' y='50%' fill='rgba(0,0,0,0.08)' font-size='14' font-family='-apple-system,Segoe UI,sans-serif' text-anchor='middle' transform='rotate(-25 120 80)'>goinglin</text></svg>")}</style><div class="__adata_wm__" aria-hidden="true"></div></body>
+</html>
