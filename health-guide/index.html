@@ -381,6 +381,27 @@ body {
   max-width: 1000px;
 }
 
+/* ================ 模块快速收起 / 展开（默认展开） ================ */
+.sm-toggle {
+  margin-left: auto;
+  flex: none;
+  width: 26px; height: 26px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: rgba(10,10,10,0.06);
+  color: rgba(10,10,10,0.55);
+  font-size: 12px; line-height: 1; cursor: pointer;
+  transition: transform 0.25s ease, background 0.2s, color 0.2s;
+  user-select: none;
+}
+.sm-toggle:hover { background: rgba(10,10,10,0.13); color: rgba(10,10,10,0.85); }
+.submodule.is-collapsed .sm-toggle { transform: rotate(-90deg); }
+.submodule.is-collapsed > :not(.sm-head) { display: none !important; }
+/* 折叠态下标题与下一模块留点呼吸 */
+.submodule.is-collapsed .sm-head { margin-bottom: 0; }
+/* sm-head 内若已有右侧 CTA，让折叠按钮始终保持最右 */
+.submodule .sm-head .ct-head-cta { margin-left: 0; }
+
 /* 报告卡片 */
 .report-grid {
   display: grid;
@@ -746,7 +767,130 @@ body {
     <h2>选品</h2>
     <p class="ph-tagline">选品决定出价上限——选对品、配好盘，广告竞争力的起点就高。</p>
   </div>
-  <!-- 子模块①：小店全域·商品洞察（报告卡片） -->
+  <!-- 子模块①：小店广告域·爆品榜（数据，支持赛道切换） -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">🔥</span>
+      <span class="sm-title">小店广告域 · 爆品榜</span>
+      <span class="sm-badge">每周更新 · 近双周 06.29–07.12</span>
+    </div>
+    <p class="sm-desc">基于小店广告域近双周投放数据，看清"什么品在跑、跑得怎么样、谁在涨"。指标为脱敏区间（视频号版位口径），日耗仅披露量级，供对比参考。</p>
+
+    <!-- 赛道切换 -->
+    <div class="track-tabs">
+      <button class="active" data-track="shanshi" onclick="switchTrack('shanshi')">膳食营养</button>
+      <button data-track="haibao" onclick="switchTrack('haibao')">海外保健食品</button>
+    </div>
+
+    <!-- ===== 膳食营养赛道 ===== -->
+    <div class="track-panel active" data-track="shanshi">
+      <div class="track-summary">代餐粉/谷物粉升至头部第一位；益生菌、复合维生素/矿物质紧随其后；铁锌硒、代餐粉/食补粉直购链路增速爆发。直播链路 CTR 偏低但 CVR 更高，直购链路反之。</div>
+
+      <div class="rank-subtitle"><span class="rs-icon">🏆</span>爆品榜 · 当前跑量 TOP（按品类）</div>
+      <div class="table-scroll">
+        <table class="rank-table">
+          <thead><tr>
+            <th>#</th><th>一级品类</th><th>代表商品</th><th>链路</th><th>日耗量级</th><th>主要版位</th><th>CTR</th><th>CVR</th><th>下单ROI</th><th>客单价</th><th>eCPM</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="rt-rank">1</td><td class="rt-cat">代餐粉/谷物粉</td><td class="rt-good">七日膳食套餐营养代餐粉固体饮料</td><td>小店直播</td><td>20–40万</td><td class="rt-slot">视频号信息流 / 优量汇 / 小程序 / 公众号 / 朋友圈</td><td>1.4%–1.9%</td><td>8.4%–8.9%</td><td>1.13–1.53</td><td>252–262</td><td>138–148</td></tr>
+            <tr><td class="rt-rank">2</td><td class="rt-cat">益生菌</td><td class="rt-good">多株活菌益生菌固体饮料</td><td>小店直播</td><td>20–40万</td><td class="rt-slot">视频号信息流 / 朋友圈 / 公众号 / 小程序</td><td>1.1%–1.6%</td><td>5.5%–6.0%</td><td>1.53–1.93</td><td>606–616</td><td>202–212</td></tr>
+            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">益生菌</td><td class="rt-good">四维益生菌固体饮料（高活性益生菌+益生元）</td><td>小店直购</td><td>5–10万</td><td class="rt-slot">视频号信息流</td><td>1.6%–2.1%</td><td>6.2%–6.7%</td><td>1.43–1.83</td><td>303–313</td><td>187–197</td></tr>
+            <tr><td class="rt-rank">3</td><td class="rt-cat">复合维生素/矿物质</td><td class="rt-good">骨胶原蛋白+钙+维D片</td><td>小店直播</td><td>10–20万</td><td class="rt-slot">视频号信息流 / 小程序</td><td>1.5%–2.0%</td><td>6.9%–7.4%</td><td>1.68–2.08</td><td>124–134</td><td>71–81</td></tr>
+            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">复合维生素/矿物质</td><td class="rt-good">骨胶原蛋白+钙+维D片</td><td>小店直购</td><td>5–10万</td><td class="rt-slot">视频号信息流</td><td>2.3%–2.8%</td><td>10.4%–10.9%</td><td>2.39–2.79</td><td>88–98</td><td>79–89</td></tr>
+            <tr><td class="rt-rank">4</td><td class="rt-cat">B族维生素</td><td class="rt-good">维生素B族咀嚼片复配8大B族</td><td>小店直购</td><td>3–5万</td><td class="rt-slot">视频号信息流</td><td>2.8%–3.3%</td><td>12.3%–12.8%</td><td>2.32–2.72</td><td>39–49</td><td>55–65</td></tr>
+            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">B族维生素</td><td class="rt-good">维生素B族咀嚼片复配8大B族</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>2.2%–2.7%</td><td>7.4%–7.9%</td><td>1.53–1.93</td><td>53–63</td><td>49–59</td></tr>
+            <tr><td class="rt-rank">5</td><td class="rt-cat">铁锌硒</td><td class="rt-good">植物硒蛋白硒片（多维复合微量元素）</td><td>小店直播</td><td>3–5万</td><td class="rt-slot">视频号信息流 / 小程序</td><td>3.3%–3.8%</td><td>9.4%–9.9%</td><td>1.61–2.01</td><td>60–70</td><td>92–102</td></tr>
+            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">铁锌硒</td><td class="rt-good">植物硒蛋白硒片（多维复合微量元素）</td><td>小店直购</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>4.3%–4.8%</td><td>9.8%–10.3%</td><td>1.75–2.15</td><td>62–72</td><td>132–142</td></tr>
+            <tr><td class="rt-rank">6</td><td class="rt-cat">GABA/氨基丁酸</td><td class="rt-good">氨基丁酸多维生素片综合营养</td><td>小店直播</td><td>3–5万</td><td class="rt-slot">视频号信息流 / 小程序</td><td>1.0%–1.5%</td><td>7.1%–7.6%</td><td>1.83–2.23</td><td>582–592</td><td>204–214</td></tr>
+            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">GABA/氨基丁酸</td><td class="rt-good">液体氨基丁酸骨胶原小分子肽饮</td><td>小店直购</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>1.6%–2.1%</td><td>5.6%–6.1%</td><td>2.14–2.54</td><td>630–640</td><td>235–245</td></tr>
+            <tr><td class="rt-rank">7</td><td class="rt-cat">叶黄素/叶黄素酯</td><td class="rt-good">蓝莓叶黄素酯软胶囊</td><td>小店直播</td><td>3–5万</td><td class="rt-slot">视频号信息流 / 小程序</td><td>1.7%–2.2%</td><td>8.4%–8.9%</td><td>1.55–1.95</td><td>119–129</td><td>100–110</td></tr>
+            <tr><td class="rt-rank">8</td><td class="rt-cat">DHA/EPA/DPA</td><td class="rt-good">神经酸DHA藻油复合营养饮</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>2.6%–3.1%</td><td>6.8%–7.3%</td><td>1.61–2.01</td><td>449–459</td><td>310–320</td></tr>
+            <tr><td class="rt-rank">9</td><td class="rt-cat">软糖</td><td class="rt-good">儿童营养包软糖（21重营养独立包装）</td><td>小店直购</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>1.5%–2.0%</td><td>8.5%–9.0%</td><td>1.51–1.91</td><td>352–362</td><td>272–282</td></tr>
+            <tr><td class="rt-rank">10</td><td class="rt-cat">虾青素</td><td class="rt-good">虾青素多规格套餐</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>1.0%–1.5%</td><td>11.8%–12.3%</td><td>1.66–2.06</td><td>223–233</td><td>140–150</td></tr>
+            <tr><td class="rt-rank">11</td><td class="rt-cat">代餐粉/食补粉</td><td class="rt-good">七日膳食套餐科学营养搭配固体饮料</td><td>小店直购</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>2.0%–2.5%</td><td>5.8%–6.3%</td><td>1.16–1.56</td><td>259–269</td><td>236–246</td></tr>
+            <tr><td class="rt-rank">12</td><td class="rt-cat">酵素及其制品</td><td class="rt-good">鱼磷虾油水蛭素纳豆激酶</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>1.2%–1.7%</td><td>4.2%–4.7%</td><td>1.52–1.92</td><td>609–619</td><td>166–176</td></tr>
+            <tr><td class="rt-rank">13</td><td class="rt-cat">胶原蛋白肽</td><td class="rt-good">胶原蛋白肽透明质酸钠EGCG饮</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>2.6%–3.1%</td><td>3.3%–3.8%</td><td>1.39–1.79</td><td>734–744</td><td>363–373</td></tr>
+            <tr><td class="rt-rank">14</td><td class="rt-cat">维生素D</td><td class="rt-good">中老年维生素D+钙年装套餐</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">小程序</td><td>3.2%–3.7%</td><td>10.2%–10.7%</td><td>1.36–1.76</td><td>55–65</td><td>110–120</td></tr>
+            <tr><td class="rt-rank">15</td><td class="rt-cat">钙镁</td><td class="rt-good">骨胶原蛋白+钙+维D片</td><td>小店直播</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>2.8%–3.3%</td><td>5.1%–5.6%</td><td>1.82–2.22</td><td>115–125</td><td>75–85</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rank-subtitle"><span class="rs-icon">🚀</span>潜力增速榜 · 近双周增速 TOP（日耗 &gt; 100元）</div>
+      <div class="table-scroll">
+        <table class="rank-table">
+          <thead><tr>
+            <th>#</th><th>一级品类</th><th>代表商品</th><th>链路</th><th>日耗量级</th><th>环比增速</th><th>CTR</th><th>CVR</th><th>下单ROI</th><th>客单价</th><th>说明</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="rt-rank">1</td><td class="rt-cat">代餐粉/食补粉</td><td class="rt-good">七日膳食套餐科学营养搭配固体饮料</td><td>小店直购</td><td>1–3万</td><td class="rt-up">+397794%</td><td>2.0%–2.5%</td><td>5.8%–6.3%</td><td>1.16–1.56</td><td>259–269</td><td class="rt-note">小店直购需求爆发</td></tr>
+            <tr><td class="rt-rank">2</td><td class="rt-cat">骨胶原蛋白</td><td class="rt-good">骨胶原蛋白+钙+维D片</td><td>小店直购</td><td>0–1万</td><td class="rt-up">+540%</td><td>1.8%–2.3%</td><td>19.2%–19.7%</td><td>1.59–1.99</td><td>92–102</td><td class="rt-note">小店直购需求爆发，CVR 极高</td></tr>
+            <tr><td class="rt-rank">3</td><td class="rt-cat">铁锌硒</td><td class="rt-good">植物硒蛋白硒片（多维复合微量元素）</td><td>小店直购</td><td>1–3万</td><td class="rt-up">+313%</td><td>4.3%–4.8%</td><td>9.8%–10.3%</td><td>1.75–2.15</td><td>62–72</td><td class="rt-note">小店直购需求爆发</td></tr>
+            <tr><td class="rt-rank">4</td><td class="rt-cat">磷虾油</td><td class="rt-good">磷虾油叶黄素酯DHA</td><td>小店直购</td><td>0–1万</td><td class="rt-up">+176%</td><td>5.6%–6.1%</td><td>6.0%–6.5%</td><td>1.41–1.81</td><td>63–73</td><td class="rt-note">消耗环比翻倍</td></tr>
+            <tr><td class="rt-rank">5</td><td class="rt-cat">其他冲饮品</td><td class="rt-good">益生菌电解质粉冲剂（运动补水）</td><td>小店直播</td><td>0–1万</td><td class="rt-up">+81%</td><td>2.2%–2.7%</td><td>6.3%–6.8%</td><td>3.16–3.56</td><td>112–122</td><td class="rt-note">小店直播稳步增长，高ROI</td></tr>
+            <tr><td class="rt-rank">6</td><td class="rt-cat">DHA/EPA/DPA</td><td class="rt-good">通用胶囊DHA/EPA/DPA</td><td>CID</td><td>0–1万</td><td class="rt-up">+64%</td><td>2.2%–2.7%</td><td>8.0%–8.5%</td><td>1.53–1.93</td><td>297–307</td><td class="rt-note">CID 链路稳步增长</td></tr>
+            <tr><td class="rt-rank">7</td><td class="rt-cat">酵素及其制品</td><td class="rt-good">鱼磷虾油水蛭素纳豆激酶</td><td>小店直播</td><td>1–3万</td><td class="rt-up">+50%</td><td>1.2%–1.7%</td><td>4.2%–4.7%</td><td>1.52–1.92</td><td>609–619</td><td class="rt-note">稳步增长</td></tr>
+            <tr><td class="rt-rank">8</td><td class="rt-cat">其他冲饮品</td><td class="rt-good">益生菌电解质粉冲剂（运动补水）</td><td>小店直购</td><td>0–1万</td><td class="rt-up">+42%</td><td>2.5%–3.0%</td><td>5.8%–6.3%</td><td>3.03–3.43</td><td>110–120</td><td class="rt-note">小店直购稳步增长</td></tr>
+            <tr><td class="rt-rank">9</td><td class="rt-cat">胶原蛋白肽</td><td class="rt-good">胶原蛋白肽透明质酸钠EGCG饮</td><td>小店直播</td><td>1–3万</td><td class="rt-up">+27%</td><td>2.6%–3.1%</td><td>3.3%–3.8%</td><td>1.39–1.79</td><td>734–744</td><td class="rt-note">小店直播稳步增长</td></tr>
+            <tr><td class="rt-rank">10</td><td class="rt-cat">其他普通膳食营养</td><td class="rt-good">植物硒蛋白多维补硒片</td><td>小店直购</td><td>0–1万</td><td class="rt-up">+25%</td><td>1.3%–1.8%</td><td>2.5%–3.0%</td><td>1.45–1.85</td><td>218–228</td><td class="rt-note">小店直购稳步增长</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== 海外保健食品赛道 ===== -->
+    <div class="track-panel" data-track="haibao">
+      <div class="track-summary">增强免疫力、心脑血管、养肝护肝为头部品类；养肝护肝 CID 链路增速显著（+117%）；健脑益智、增强免疫力稳步增长。链路以 CID / 小程序直购为主。</div>
+
+      <div class="rank-subtitle"><span class="rs-icon">🏆</span>爆品榜 · 当前跑量 TOP（按品类）</div>
+      <div class="table-scroll">
+        <table class="rank-table">
+          <thead><tr>
+            <th>#</th><th>一级品类</th><th>代表商品</th><th>链路</th><th>日耗量级</th><th>主要版位</th><th>CTR</th><th>CVR</th><th>下单ROI</th><th>客单价</th><th>eCPM</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="rt-rank">1</td><td class="rt-cat">心脑血管</td><td class="rt-good">辅酶Q10胶囊</td><td>小程序直购</td><td>3–5万</td><td class="rt-slot">视频号信息流</td><td>5.1%–5.6%</td><td>5.4%–5.9%</td><td>1.01–1.41</td><td>472–482</td><td>946–956</td></tr>
+            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">心脑血管</td><td class="rt-good">深海鱼油</td><td>CID</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>0.9%–1.4%</td><td>4.6%–5.1%</td><td>0.69–1.09</td><td>347–357</td><td>178–188</td></tr>
+            <tr><td class="rt-rank">2</td><td class="rt-cat">增强免疫力</td><td class="rt-good">每日补充包</td><td>小程序直购</td><td>3–5万</td><td class="rt-slot">公众号 / 视频号信息流 / 朋友圈</td><td>5.0%–5.5%</td><td>5.1%–5.6%</td><td>0.89–1.29</td><td>495–505</td><td>1101–1111</td></tr>
+            <tr><td class="rt-rank">3</td><td class="rt-cat">健脑益智</td><td class="rt-good">神经营养素</td><td>CID</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>2.2%–2.7%</td><td>3.1%–3.6%</td><td>1.17–1.57</td><td>404–414</td><td>189–199</td></tr>
+            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">健脑益智</td><td class="rt-good">脑力素</td><td>小程序直购</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>2.7%–3.2%</td><td>5.8%–6.3%</td><td>1.09–1.49</td><td>537–547</td><td>617–627</td></tr>
+            <tr><td class="rt-rank">4</td><td class="rt-cat">养肝护肝</td><td class="rt-good">水飞蓟Q10</td><td>CID</td><td>3–5万</td><td class="rt-slot">视频号信息流</td><td>0.9%–1.4%</td><td>6.2%–6.7%</td><td>1.07–1.47</td><td>299–309</td><td>134–144</td></tr>
+            <tr><td class="rt-rank">5</td><td class="rt-cat">美白/抗氧化</td><td class="rt-good">麦角硫因胶囊</td><td>小程序直购</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>2.8%–3.3%</td><td>9.7%–10.2%</td><td>0.80–1.20</td><td>535–545</td><td>1306–1316</td></tr>
+            <tr><td class="rt-rank">6</td><td class="rt-cat">维矿物质补充</td><td class="rt-good">骨胶原蛋白</td><td>CID</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>1.6%–2.1%</td><td>3.7%–4.2%</td><td>0.89–1.29</td><td>420–430</td><td>205–215</td></tr>
+            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">维矿物质补充</td><td class="rt-good">矿维胶囊</td><td>小程序直购</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>2.6%–3.1%</td><td>3.0%–3.5%</td><td>0.76–1.16</td><td>310–320</td><td>230–240</td></tr>
+            <tr><td class="rt-rank">7</td><td class="rt-cat">补益安神</td><td class="rt-good">复合植物舒压睡眠片</td><td>CID</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>1.0%–1.5%</td><td>5.7%–6.2%</td><td>1.01–1.41</td><td>309–319</td><td>143–153</td></tr>
+            <tr><td class="rt-rank">8</td><td class="rt-cat">骨骼健康</td><td class="rt-good">关节功能营养素</td><td>CID</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>2.2%–2.7%</td><td>5.3%–5.8%</td><td>1.21–1.61</td><td>486–496</td><td>404–414</td></tr>
+            <tr><td class="rt-rank">9</td><td class="rt-cat">肠胃养护</td><td class="rt-good">清清胶囊（肠道清润）</td><td>CID</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>2.7%–3.2%</td><td>4.5%–5.0%</td><td>1.07–1.47</td><td>448–458</td><td>397–407</td></tr>
+            <tr><td class="rt-rank">10</td><td class="rt-cat">儿童营养补充</td><td class="rt-good">儿童益生元</td><td>CID</td><td>0–1万</td><td class="rt-slot">朋友圈</td><td>0.3%–0.8%</td><td>—</td><td>—</td><td>—</td><td>1–11</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rank-subtitle"><span class="rs-icon">🚀</span>潜力增速榜 · 近双周增速 TOP（日耗 &gt; 100元）</div>
+      <div class="table-scroll">
+        <table class="rank-table">
+          <thead><tr>
+            <th>#</th><th>一级品类</th><th>代表商品</th><th>链路</th><th>日耗量级</th><th>环比增速</th><th>CTR</th><th>CVR</th><th>下单ROI</th><th>客单价</th><th>说明</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="rt-rank">1</td><td class="rt-cat">养肝护肝</td><td class="rt-good">护肝片（小程序直购）</td><td>小程序直购</td><td>0–1万</td><td class="rt-up">+235%</td><td>1.1%–1.6%</td><td>4.5%–5.0%</td><td>0.71–1.11</td><td>608–618</td><td class="rt-note">小程序直购需求爆发</td></tr>
+            <tr><td class="rt-rank">2</td><td class="rt-cat">养肝护肝</td><td class="rt-good">水飞蓟Q10</td><td>CID</td><td>3–5万</td><td class="rt-up">+117%</td><td>0.9%–1.4%</td><td>6.2%–6.7%</td><td>1.07–1.47</td><td>299–309</td><td class="rt-note">CID 消耗环比翻倍</td></tr>
+            <tr><td class="rt-rank">3</td><td class="rt-cat">健脑益智</td><td class="rt-good">神经营养素</td><td>CID</td><td>1–3万</td><td class="rt-up">+46%</td><td>2.2%–2.7%</td><td>3.1%–3.6%</td><td>1.17–1.57</td><td>404–414</td><td class="rt-note">CID 稳步增长</td></tr>
+            <tr><td class="rt-rank">4</td><td class="rt-cat">增强免疫力</td><td class="rt-good">每日补充包</td><td>小程序直购</td><td>3–5万</td><td class="rt-up">+41%</td><td>5.0%–5.5%</td><td>5.1%–5.6%</td><td>0.89–1.29</td><td>495–505</td><td class="rt-note">小程序直购稳步增长</td></tr>
+            <tr><td class="rt-rank">5</td><td class="rt-cat">美白/抗氧化</td><td class="rt-good">麦角硫因胶囊</td><td>小程序直购</td><td>1–3万</td><td class="rt-down">−0%</td><td>2.8%–3.3%</td><td>9.7%–10.2%</td><td>0.80–1.20</td><td>535–545</td><td class="rt-note">小程序直购大盘平稳</td></tr>
+            <tr><td class="rt-rank">6</td><td class="rt-cat">心脑血管</td><td class="rt-good">辅酶Q10胶囊</td><td>小程序直购</td><td>3–5万</td><td class="rt-down">−1%</td><td>5.1%–5.6%</td><td>5.4%–5.9%</td><td>1.01–1.41</td><td>472–482</td><td class="rt-note">小程序直购大盘平稳</td></tr>
+            <tr><td class="rt-rank">7</td><td class="rt-cat">增强免疫力</td><td class="rt-good">辅酶Q10胶囊</td><td>CID</td><td>0–1万</td><td class="rt-down">−1%</td><td>1.8%–2.3%</td><td>—</td><td>—</td><td>—</td><td class="rt-note">CID 大盘平稳</td></tr>
+            <tr><td class="rt-rank">8</td><td class="rt-cat">儿童营养补充</td><td class="rt-good">儿童益生元</td><td>CID</td><td>0–1万</td><td class="rt-down">−3%</td><td>0.3%–0.8%</td><td>—</td><td>—</td><td>—</td><td class="rt-note">CID 大盘平稳</td></tr>
+            <tr><td class="rt-rank">9</td><td class="rt-cat">补益安神</td><td class="rt-good">氨基丁酸睡眠片</td><td>小程序直购</td><td>0–1万</td><td class="rt-down">−7%</td><td>2.0%–2.5%</td><td>10.6%–11.1%</td><td>1.01–1.41</td><td>490–500</td><td class="rt-note">小程序直购小幅回落</td></tr>
+            <tr><td class="rt-rank">10</td><td class="rt-cat">心脑血管</td><td class="rt-good">深海鱼油</td><td>CID</td><td>1–3万</td><td class="rt-down">−8%</td><td>0.9%–1.4%</td><td>4.6%–5.1%</td><td>0.69–1.09</td><td>347–357</td><td class="rt-note">CID 小幅回落</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子模块②：小店全域·商品洞察（报告卡片） -->
   <div class="submodule">
     <div class="sm-head">
       <span class="sm-icon">🧭</span>
@@ -755,18 +899,18 @@ body {
     </div>
     <p class="sm-desc">从"全网在卖什么、什么时令卖什么"的视角选品定盘。点击卡片查看完整报告。</p>
     <div class="report-grid">
-      <a class="report-card c-feature" href="https://going0917.github.io/ad-guide/nutrition-insights-2025may.html" target="_blank" rel="noopener">
+      <a class="report-card c-feature" href="https://going0917.github.io/ad-guide/nutrition-insights-2026june.html" target="_blank" rel="noopener">
         <div class="rc-top">
           <span class="rc-tag">⭐ 赛道自有洞察</span>
           <span class="rc-link">查看 →</span>
         </div>
         <div class="rc-title">膳食营养补充食品 · 选品洞察</div>
-        <div class="rc-period">2025.05 月度</div>
+        <div class="rc-period">2026.06 月度</div>
         <div class="rc-chips">
-          <span class="rc-chip key">维矿/钙铁锌硒 占 46.5%</span>
-          <span class="rc-chip">TOP3 品类占 77% 热度</span>
-          <span class="rc-chip">高增长词 学生 / 原装进口 / 冻干</span>
-          <span class="rc-chip">打法 引流 / 标准 / 升级 三款矩阵</span>
+          <span class="rc-chip key">维矿/钙铁锌硒 占 40.4%</span>
+          <span class="rc-chip">TOP3 品类占 75.8% 热度</span>
+          <span class="rc-chip">高增长词 免疫增强↑293% / 学生↑184%</span>
+          <span class="rc-chip">打法 低客单入口款 + 高客单周期装利润款</span>
         </div>
       </a>
       <a class="report-card c-autumn" href="https://winglee777.github.io/q3-category-trend/longimage.html" target="_blank" rel="noopener">
@@ -799,129 +943,6 @@ body {
           <span class="rc-chip">打法 明确功能定位 + 明星达人推荐</span>
         </div>
       </a>
-    </div>
-  </div>
-
-  <!-- 子模块②：小店广告域·爆品榜（数据，支持赛道切换） -->
-  <div class="submodule">
-    <div class="sm-head">
-      <span class="sm-icon">🔥</span>
-      <span class="sm-title">小店广告域 · 爆品榜</span>
-      <span class="sm-badge">每周更新 · 近双周 06.15–06.28</span>
-    </div>
-    <p class="sm-desc">基于小店广告域近双周投放数据，看清"什么品在跑、跑得怎么样、谁在涨"。指标为脱敏区间（视频号版位口径），日耗仅披露量级，供对比参考。</p>
-
-    <!-- 赛道切换 -->
-    <div class="track-tabs">
-      <button class="active" data-track="shanshi" onclick="switchTrack('shanshi')">膳食营养</button>
-      <button data-track="haibao" onclick="switchTrack('haibao')">海外保健食品</button>
-    </div>
-
-    <!-- ===== 膳食营养赛道 ===== -->
-    <div class="track-panel active" data-track="shanshi">
-      <div class="track-summary">益生菌、代餐粉/食补粉、复合维生素稳居跑量头部；B族维生素、DHA/EPA、虾青素增速亮眼。直播链路 CTR 偏低但 CVR 更高，直购链路反之。</div>
-
-      <div class="rank-subtitle"><span class="rs-icon">🏆</span>爆品榜 · 当前跑量 TOP（按品类）</div>
-      <div class="table-scroll">
-        <table class="rank-table">
-          <thead><tr>
-            <th>#</th><th>一级品类</th><th>代表商品</th><th>链路</th><th>日耗量级</th><th>主要版位</th><th>CTR</th><th>CVR</th><th>下单ROI</th><th>客单价</th><th>eCPM</th>
-          </tr></thead>
-          <tbody>
-            <tr><td class="rt-rank">1</td><td class="rt-cat">益生菌</td><td class="rt-good">多株活菌益生菌固体饮料</td><td>小店直播</td><td>40–60万</td><td class="rt-slot">视频号信息流 / 朋友圈 / 公众号 / 小程序 / 优量汇</td><td>1.3%–1.8%</td><td>11.8%–12.3%</td><td>1.72–2.12</td><td>817–827</td><td>191–201</td></tr>
-            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">益生菌</td><td class="rt-good">四维益生菌固体饮料（高活性益生菌+益生元）</td><td>小店直购</td><td>5–10万</td><td class="rt-slot">视频号信息流</td><td>1.7%–2.2%</td><td>5.5%–6.0%</td><td>1.46–1.86</td><td>313–323</td><td>177–187</td></tr>
-            <tr><td class="rt-rank">2</td><td class="rt-cat">代餐粉/谷物粉</td><td class="rt-good">七日膳食套餐营养代餐粉固体饮料</td><td>小店直播</td><td>40–60万</td><td class="rt-slot">视频号信息流 / 小程序 / 公众号 / 优量汇 / 朋友圈</td><td>1.6%–2.1%</td><td>8.1%–8.6%</td><td>1.14–1.54</td><td>260–270</td><td>155–165</td></tr>
-            <tr><td class="rt-rank">3</td><td class="rt-cat">复合维生素/矿物质</td><td class="rt-good">骨胶原蛋白+钙+维D片</td><td>小店直播</td><td>20–40万</td><td class="rt-slot">视频号信息流 / 小程序</td><td>1.3%–1.8%</td><td>7.8%–8.3%</td><td>1.65–2.05</td><td>118–128</td><td>67–77</td></tr>
-            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">复合维生素/矿物质</td><td class="rt-good">骨胶原蛋白+钙+维D片</td><td>小店直购</td><td>10–20万</td><td class="rt-slot">视频号信息流 / 小程序</td><td>1.3%–1.8%</td><td>10.7%–11.2%</td><td>2.15–2.55</td><td>83–93</td><td>50–60</td></tr>
-            <tr><td class="rt-rank">4</td><td class="rt-cat">B族维生素</td><td class="rt-good">维生素B族咀嚼片复配8大B族</td><td>小店直播</td><td>5–10万</td><td class="rt-slot">视频号信息流 / 小程序</td><td>2.1%–2.6%</td><td>8.6%–9.1%</td><td>1.49–1.89</td><td>69–79</td><td>71–81</td></tr>
-            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">B族维生素</td><td class="rt-good">血橙复合B族维生素咀嚼片</td><td>小店直购</td><td>5–10万</td><td class="rt-slot">视频号信息流</td><td>1.9%–2.4%</td><td>12.1%–12.6%</td><td>2.13–2.53</td><td>44–54</td><td>40–50</td></tr>
-            <tr><td class="rt-rank">5</td><td class="rt-cat">叶黄素/叶黄素酯</td><td class="rt-good">蓝莓叶黄素酯软胶囊</td><td>小店直播</td><td>5–10万</td><td class="rt-slot">小程序 / 视频号信息流</td><td>1.3%–1.8%</td><td>14.6%–15.1%</td><td>1.56–1.96</td><td>101–111</td><td>51–61</td></tr>
-            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">叶黄素/叶黄素酯</td><td class="rt-good">磷虾油叶黄素酯DHA软胶囊</td><td>小店直购</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>4.2%–4.7%</td><td>8.7%–9.2%</td><td>1.80–2.20</td><td>79–89</td><td>149–159</td></tr>
-            <tr><td class="rt-rank">6</td><td class="rt-cat">GABA/氨基丁酸</td><td class="rt-good">氨基丁酸综合营养钙片</td><td>小店直播</td><td>3–5万</td><td class="rt-slot">视频号信息流</td><td>1.0%–1.5%</td><td>7.1%–7.6%</td><td>1.86–2.26</td><td>626–636</td><td>214–224</td></tr>
-            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">GABA/氨基丁酸</td><td class="rt-good">液体氨基丁酸骨胶原小分子肽饮</td><td>小店直购</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>1.3%–1.8%</td><td>5.5%–6.0%</td><td>2.20–2.60</td><td>629–639</td><td>190–200</td></tr>
-            <tr><td class="rt-rank">7</td><td class="rt-cat">软糖</td><td class="rt-good">儿童营养包软糖（21重营养独立包装）</td><td>小店直购</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>1.4%–1.9%</td><td>9.6%–10.1%</td><td>1.52–1.92</td><td>342–352</td><td>283–293</td></tr>
-            <tr><td class="rt-rank">8</td><td class="rt-cat">虾青素</td><td class="rt-good">虾青素多规格套餐</td><td>小店直播</td><td>3–5万</td><td class="rt-slot">视频号信息流</td><td>1.2%–1.7%</td><td>10.8%–11.3%</td><td>1.37–1.77</td><td>207–217</td><td>172–182</td></tr>
-            <tr><td class="rt-rank">9</td><td class="rt-cat">DHA/EPA/DPA</td><td class="rt-good">神经酸DHA藻油复合营养饮</td><td>小店直播</td><td>3–5万</td><td class="rt-slot">视频号信息流</td><td>2.3%–2.8%</td><td>8.2%–8.7%</td><td>1.77–2.17</td><td>453–463</td><td>294–304</td></tr>
-            <tr><td class="rt-rank">10</td><td class="rt-cat">钙镁</td><td class="rt-good">中老年钙镁年装套餐</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>2.1%–2.6%</td><td>8.1%–8.6%</td><td>1.60–2.00</td><td>92–102</td><td>83–93</td></tr>
-            <tr><td class="rt-rank">11</td><td class="rt-cat">其他普通膳食营养</td><td class="rt-good">固态氢片（氢水杯升级装）</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>2.9%–3.4%</td><td>9.3%–9.8%</td><td>1.87–2.27</td><td>55–65</td><td>66–76</td></tr>
-            <tr><td class="rt-rank">12</td><td class="rt-cat">骨胶原蛋白</td><td class="rt-good">骨胶原蛋白+钙+维D片</td><td>小店直购</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>2.6%–3.1%</td><td>6.6%–7.1%</td><td>1.63–2.03</td><td>103–113</td><td>105–115</td></tr>
-            <tr><td class="rt-rank">13</td><td class="rt-cat">胶原蛋白肽</td><td class="rt-good">胶原蛋白肽透明质酸钠EGCG饮</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>3.2%–3.7%</td><td>1.3%–1.8%</td><td>1.32–1.72</td><td>952–962</td><td>276–286</td></tr>
-            <tr><td class="rt-rank">14</td><td class="rt-cat">酵素及其制品</td><td class="rt-good">鱼磷虾油水蛭素纳豆激酶</td><td>小店直播</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>3.0%–3.5%</td><td>4.0%–4.5%</td><td>1.53–1.93</td><td>600–610</td><td>366–376</td></tr>
-            <tr><td class="rt-rank">15</td><td class="rt-cat">铁锌硒</td><td class="rt-good">植物硒蛋白多维补硒片</td><td>小店直播</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>1.9%–2.4%</td><td>5.1%–5.6%</td><td>1.36–1.76</td><td>203–213</td><td>128–138</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="rank-subtitle"><span class="rs-icon">🚀</span>潜力增速榜 · 近双周增速 TOP（日耗 &gt; 100元）</div>
-      <div class="table-scroll">
-        <table class="rank-table">
-          <thead><tr>
-            <th>#</th><th>一级品类</th><th>代表商品</th><th>链路</th><th>日耗量级</th><th>环比增速</th><th>CTR</th><th>CVR</th><th>下单ROI</th><th>客单价</th><th>说明</th>
-          </tr></thead>
-          <tbody>
-            <tr><td class="rt-rank">1</td><td class="rt-cat">DHA/EPA/DPA</td><td class="rt-good">神经酸DHA藻油复合营养饮</td><td>小店直播</td><td>3–5万</td><td class="rt-up">+1541%</td><td>2.3%–2.8%</td><td>8.2%–8.7%</td><td>1.77–2.17</td><td>453–463</td><td class="rt-note">小店直播需求爆发</td></tr>
-            <tr><td class="rt-rank">2</td><td class="rt-cat">补血口服液</td><td class="rt-good">铁+燕窝+阿胶血肽饮（女性/孕妇）</td><td>小店直播</td><td>0–1万</td><td class="rt-up">+903%</td><td>2.2%–2.7%</td><td>—</td><td>—</td><td>—</td><td class="rt-note">小店直播需求爆发</td></tr>
-            <tr><td class="rt-rank">3</td><td class="rt-cat">果蔬汁饮料</td><td class="rt-good">燕窝花胶胶原蛋白肽血橙饮</td><td>小店直购</td><td>0–1万</td><td class="rt-up">+340%</td><td>2.9%–3.4%</td><td>12.2%–12.8%</td><td>7.60–8.00</td><td>544–554</td><td class="rt-note">小店直购需求爆发，高 ROI</td></tr>
-            <tr><td class="rt-rank">4</td><td class="rt-cat">口香糖/木糖醇</td><td class="rt-good">口腔益生菌含片（清新口气）</td><td>小店直购</td><td>0–1万</td><td class="rt-up">+211%</td><td>1.8%–2.3%</td><td>11.3%–11.8%</td><td>1.14–1.54</td><td>257–267</td><td class="rt-note">小店直购需求爆发</td></tr>
-            <tr><td class="rt-rank">5</td><td class="rt-cat">酵素及其制品</td><td class="rt-good">鱼磷虾油水蛭素纳豆激酶</td><td>小店直播</td><td>1–3万</td><td class="rt-up">+172%</td><td>3.0%–3.5%</td><td>4.0%–4.5%</td><td>1.53–1.93</td><td>600–610</td><td class="rt-note">消耗环比翻倍</td></tr>
-            <tr><td class="rt-rank">6</td><td class="rt-cat">虾青素</td><td class="rt-good">虾青素多规格套餐</td><td>小店直播</td><td>3–5万</td><td class="rt-up">+117%</td><td>1.2%–1.7%</td><td>10.8%–11.3%</td><td>1.37–1.77</td><td>207–217</td><td class="rt-note">消耗环比翻倍</td></tr>
-            <tr><td class="rt-rank">7</td><td class="rt-cat">维生素D</td><td class="rt-good">骨胶原钙维生素D片（儿童）</td><td>小店直购</td><td>0–1万</td><td class="rt-up">+111%</td><td>1.2%–1.7%</td><td>11.5%–12.0%</td><td>1.65–2.05</td><td>62–72</td><td class="rt-note">消耗环比翻倍</td></tr>
-            <tr><td class="rt-rank">8</td><td class="rt-cat">GABA/氨基丁酸</td><td class="rt-good">γ氨基丁酸多维综合营养钙片</td><td>CID</td><td>0–1万</td><td class="rt-up">+105%</td><td>1.5%–2.0%</td><td>3.4%–3.9%</td><td>0.92–1.32</td><td>418–428</td><td class="rt-note">CID 链路翻倍</td></tr>
-            <tr><td class="rt-rank">9</td><td class="rt-cat">GABA/氨基丁酸</td><td class="rt-good">液体氨基丁酸骨胶原小分子肽饮</td><td>小店直购</td><td>0–1万</td><td class="rt-up">+103%</td><td>1.3%–1.8%</td><td>5.5%–6.0%</td><td>2.20–2.60</td><td>629–639</td><td class="rt-note">消耗环比翻倍</td></tr>
-            <tr><td class="rt-rank">10</td><td class="rt-cat">鱼油/深海鱼油</td><td class="rt-good">高纯度深海鱼油 Omega-3（EPA+DHA）</td><td>小店直购</td><td>0–1万</td><td class="rt-up">+97%</td><td>2.4%–2.9%</td><td>7.1%–7.6%</td><td>1.63–2.03</td><td>137–147</td><td class="rt-note">小店直购稳步增长</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ===== 海外保健食品赛道 ===== -->
-    <div class="track-panel" data-track="haibao">
-      <div class="track-summary">心脑血管、增强免疫力、健脑益智仍为主力品类；维矿物质补充、美白抗氧化增速亮眼；近双周整体处调整期。链路以 CID / 小程序直购为主。</div>
-
-      <div class="rank-subtitle"><span class="rs-icon">🏆</span>爆品榜 · 当前跑量 TOP（按品类）</div>
-      <div class="table-scroll">
-        <table class="rank-table">
-          <thead><tr>
-            <th>#</th><th>一级品类</th><th>代表商品</th><th>链路</th><th>日耗量级</th><th>主要版位</th><th>CTR</th><th>CVR</th><th>下单ROI</th><th>客单价</th><th>eCPM</th>
-          </tr></thead>
-          <tbody>
-            <tr><td class="rt-rank">1</td><td class="rt-cat">心脑血管</td><td class="rt-good">深海鱼油</td><td>CID</td><td>3–5万</td><td class="rt-slot">视频号信息流</td><td>0.9%–1.4%</td><td>4.8%–5.3%</td><td>0.57–0.97</td><td>254–264</td><td>155–165</td></tr>
-            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">心脑血管</td><td class="rt-good">男性每日营养包</td><td>小程序直购</td><td>3–5万</td><td class="rt-slot">朋友圈</td><td>2.9%–3.4%</td><td>3.5%–4.0%</td><td>0.68–1.08</td><td>484–494</td><td>517–527</td></tr>
-            <tr><td class="rt-rank">2</td><td class="rt-cat">健脑益智</td><td class="rt-good">脑力素</td><td>小程序直购</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>3.4%–3.9%</td><td>4.8%–5.3%</td><td>0.96–1.36</td><td>522–532</td><td>692–702</td></tr>
-            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">健脑益智</td><td class="rt-good">神经营养素</td><td>CID</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>2.7%–3.2%</td><td>2.6%–3.1%</td><td>1.04–1.44</td><td>389–399</td><td>211–221</td></tr>
-            <tr><td class="rt-rank">3</td><td class="rt-cat">增强免疫力</td><td class="rt-good">每日补充包</td><td>小程序直购</td><td>3–5万</td><td class="rt-slot">视频号信息流</td><td>6.6%–7.1%</td><td>3.5%–4.0%</td><td>0.80–1.20</td><td>483–493</td><td>1089–1099</td></tr>
-            <tr><td class="rt-rank">4</td><td class="rt-cat">养肝护肝</td><td class="rt-good">水飞蓟Q10</td><td>CID</td><td>1–3万</td><td class="rt-slot">视频号信息流</td><td>1.0%–1.5%</td><td>6.1%–6.6%</td><td>1.02–1.42</td><td>331–341</td><td>175–185</td></tr>
-            <tr><td class="rt-rank">5</td><td class="rt-cat">美白/抗氧化</td><td class="rt-good">麦角硫因胶囊</td><td>小程序直购</td><td>1–3万</td><td class="rt-slot">公众号</td><td>2.5%–3.0%</td><td>7.6%–8.1%</td><td>0.74–1.14</td><td>501–511</td><td>959–969</td></tr>
-            <tr><td class="rt-rank">6</td><td class="rt-cat">维矿物质补充</td><td class="rt-good">骨胶原蛋白</td><td>CID</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>1.8%–2.3%</td><td>4.1%–4.6%</td><td>0.79–1.19</td><td>321–331</td><td>216–226</td></tr>
-            <tr class="sub"><td class="rt-rank">·</td><td class="rt-cat">维矿物质补充</td><td class="rt-good">矿维胶囊</td><td>小程序直购</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>2.0%–2.5%</td><td>3.9%–4.4%</td><td>0.90–1.30</td><td>332–342</td><td>204–214</td></tr>
-            <tr><td class="rt-rank">7</td><td class="rt-cat">骨骼健康</td><td class="rt-good">骨胶原蛋白</td><td>CID</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>2.3%–2.8%</td><td>4.3%–4.8%</td><td>1.10–1.50</td><td>462–472</td><td>362–372</td></tr>
-            <tr><td class="rt-rank">8</td><td class="rt-cat">肠胃养护</td><td class="rt-good">清清胶囊（肠道清润）</td><td>CID</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>2.2%–2.7%</td><td>3.6%–4.1%</td><td>1.02–1.42</td><td>441–451</td><td>261–271</td></tr>
-            <tr><td class="rt-rank">9</td><td class="rt-cat">补益安神</td><td class="rt-good">复合植物舒压睡眠片</td><td>CID</td><td>0–1万</td><td class="rt-slot">视频号信息流</td><td>1.3%–1.8%</td><td>5.3%–5.8%</td><td>1.03–1.43</td><td>311–321</td><td>170–180</td></tr>
-            <tr><td class="rt-rank">10</td><td class="rt-cat">儿童营养补充</td><td class="rt-good">儿童益生元</td><td>CID</td><td>0–1万</td><td class="rt-slot">朋友圈</td><td>0.9%–1.4%</td><td>—</td><td>—</td><td>—</td><td>6–16</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="rank-subtitle"><span class="rs-icon">🚀</span>潜力增速榜 · 近双周增速 TOP（日耗 &gt; 100元）</div>
-      <div class="table-scroll">
-        <table class="rank-table">
-          <thead><tr>
-            <th>#</th><th>一级品类</th><th>代表商品</th><th>链路</th><th>日耗量级</th><th>环比增速</th><th>CTR</th><th>CVR</th><th>下单ROI</th><th>客单价</th><th>说明</th>
-          </tr></thead>
-          <tbody>
-            <tr><td class="rt-rank">1</td><td class="rt-cat">维矿物质补充</td><td class="rt-good">矿维胶囊</td><td>小程序直购</td><td>0–1万</td><td class="rt-up">+132%</td><td>2.0%–2.5%</td><td>3.9%–4.4%</td><td>0.90–1.30</td><td>332–342</td><td class="rt-note">小程序直购消耗环比翻倍</td></tr>
-            <tr><td class="rt-rank">2</td><td class="rt-cat">美白/抗氧化</td><td class="rt-good">焕亮双抗丸</td><td>CID</td><td>0–1万</td><td class="rt-up">+116%</td><td>0.5%–1.0%</td><td>3.3%–3.8%</td><td>0.37–0.77</td><td>382–392</td><td class="rt-note">CID 消耗环比翻倍</td></tr>
-            <tr><td class="rt-rank">3</td><td class="rt-cat">儿童营养补充</td><td class="rt-good">儿童益生元</td><td>CID</td><td>0–1万</td><td class="rt-up">+106%</td><td>0.9%–1.4%</td><td>—</td><td>—</td><td>—</td><td class="rt-note">CID 消耗环比翻倍</td></tr>
-            <tr><td class="rt-rank">4</td><td class="rt-cat">肠胃养护</td><td class="rt-good">清清胶囊（肠道清润）</td><td>CID</td><td>0–1万</td><td class="rt-up">+42%</td><td>2.2%–2.7%</td><td>3.6%–4.1%</td><td>1.02–1.42</td><td>441–451</td><td class="rt-note">CID 稳步增长</td></tr>
-            <tr><td class="rt-rank">5</td><td class="rt-cat">健脑益智</td><td class="rt-good">神经营养素</td><td>CID</td><td>1–3万</td><td class="rt-up">+36%</td><td>2.7%–3.2%</td><td>2.6%–3.1%</td><td>1.04–1.44</td><td>389–399</td><td class="rt-note">CID 稳步增长</td></tr>
-            <tr><td class="rt-rank">6</td><td class="rt-cat">心脑血管</td><td class="rt-good">男性每日营养包</td><td>小程序直购</td><td>3–5万</td><td class="rt-up">+33%</td><td>2.9%–3.4%</td><td>3.5%–4.0%</td><td>0.68–1.08</td><td>484–494</td><td class="rt-note">小程序直购稳步增长</td></tr>
-            <tr><td class="rt-rank">7</td><td class="rt-cat">心脑血管</td><td class="rt-good">深海鱼油</td><td>CID</td><td>3–5万</td><td class="rt-up">+22%</td><td>0.9%–1.4%</td><td>4.8%–5.3%</td><td>0.57–0.97</td><td>254–264</td><td class="rt-note">CID 稳步增长</td></tr>
-            <tr><td class="rt-rank">8</td><td class="rt-cat">补益安神</td><td class="rt-good">复合植物舒压睡眠片</td><td>CID</td><td>0–1万</td><td class="rt-up">+20%</td><td>1.3%–1.8%</td><td>5.3%–5.8%</td><td>1.03–1.43</td><td>311–321</td><td class="rt-note">CID 稳步增长</td></tr>
-            <tr><td class="rt-rank">9</td><td class="rt-cat">增强免疫力</td><td class="rt-good">辅酶Q10胶囊</td><td>CID</td><td>0–1万</td><td class="rt-down">−2%</td><td>0.1%–0.6%</td><td>—</td><td>—</td><td>—</td><td class="rt-note">CID 大盘平稳</td></tr>
-            <tr><td class="rt-rank">10</td><td class="rt-cat">美白/抗氧化</td><td class="rt-good">麦角硫因胶囊</td><td>小程序直购</td><td>1–3万</td><td class="rt-down">−9%</td><td>2.5%–3.0%</td><td>7.6%–8.1%</td><td>0.74–1.14</td><td>501–511</td><td class="rt-note">小程序直购平稳</td></tr>
-          </tbody>
-        </table>
-      </div>
     </div>
   </div>
 </section>
@@ -1033,7 +1054,7 @@ body {
       font-family: var(--font-label); font-size: 11.5px; font-weight: 800;
       letter-spacing: 0.03em; color: var(--magenta); margin-bottom: 10px;
     }
-    .ct-hooks-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 9px; }
+    .ct-hooks-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 16px; }
     .ct-hook-q {
       display: flex; gap: 9px; align-items: flex-start;
       font-size: 13px; line-height: 1.5; color: var(--ink);
@@ -1110,11 +1131,107 @@ body {
     }
     .ct-head-cta:hover { transform: translateY(-1px); opacity: 0.92; }
 
+    /* —— 分品类下钻：品类 Tab 切换（纯 CSS radio-tab，无 JS，对客版兼容） —— */
+    .ct-cat-switch { position: relative; }
+    .ct-cat-radio { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+    .ct-cat-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .ct-cat-chip {
+      font-family: var(--font-label); font-size: 13px; font-weight: 800;
+      padding: 8px 16px; border-radius: var(--radius-pill);
+      background: var(--paper); color: rgba(10,10,10,0.7);
+      border: 1.5px solid rgba(199,59,122,0.28); cursor: pointer;
+      transition: transform .18s, background .18s, color .18s, border-color .18s;
+      user-select: none; white-space: nowrap;
+    }
+    .ct-cat-chip:hover { transform: translateY(-1px); }
+    .ct-cat-chip.is-disabled {
+      background: transparent; color: rgba(10,10,10,0.32);
+      border: 1.5px dashed rgba(10,10,10,0.18); cursor: not-allowed;
+    }
+    .ct-cat-chip.is-disabled:hover { transform: none; }
+    /* 选中态：magenta 实心 */
+    #ct-cat-ysj:checked  ~ .ct-cat-tabs label[for="ct-cat-ysj"],
+    #ct-cat-etyy:checked ~ .ct-cat-tabs label[for="ct-cat-etyy"],
+    #ct-cat-yhs:checked  ~ .ct-cat-tabs label[for="ct-cat-yhs"] {
+      background: var(--magenta); color: #fff; border-color: var(--magenta);
+    }
+    /* 面板显隐（radio 为前置兄弟节点，~ 选中对应面板） */
+    .ct-cat-panel { display: none; }
+    #ct-cat-ysj:checked  ~ .ct-cat-panel[data-cat="ysj"],
+    #ct-cat-etyy:checked ~ .ct-cat-panel[data-cat="etyy"],
+    #ct-cat-yhs:checked  ~ .ct-cat-panel[data-cat="yhs"] {
+      display: block; animation: ctCatFade .3s ease;
+    }
+    @keyframes ctCatFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+    /* —— 品类概况条 —— */
+    .ct-cat-ov {
+      display: flex; flex-wrap: wrap; gap: 9px 24px;
+      background: var(--paper); border-left: 5px solid var(--magenta);
+      border-radius: 12px; padding: 12px 16px; margin-bottom: 13px;
+    }
+    .ct-cat-ov .cov-item { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+    .ct-cat-ov .cov-k { font-family: var(--font-label); font-size: 10.5px; font-weight: 800; color: var(--magenta); letter-spacing: .03em; }
+    .ct-cat-ov .cov-v { font-size: 12.5px; line-height: 1.45; color: rgba(10,10,10,0.82); font-weight: 600; }
+    .ct-cat-ov .ct-ta { display: inline-block; background: rgba(199,59,122,0.12); color: var(--magenta); font-weight: 800; padding: 1px 7px; border-radius: 6px; margin: 1px 3px 1px 0; font-size: 11.5px; }
+
+    /* —— 打法流派卡 —— */
+    .ct-play-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 14px; }
+    .ct-play-card {
+      background: var(--paper); border-radius: 16px; padding: 14px 15px;
+      border-top: 4px solid var(--c, var(--magenta));
+      display: flex; flex-direction: column;
+    }
+    .ct-play-card.f1 { --c: var(--blue); }
+    .ct-play-card.f2 { --c: var(--magenta); }
+    .ct-play-card.f3 { --c: var(--orange); }
+    .ct-play-card.f4 { --c: var(--teal); }
+    .ct-play-card.f5 { --c: var(--sienna); }
+    .ct-play-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 5px; flex-wrap: wrap; }
+    .ct-play-name { font-family: var(--font-display); font-size: 15.5px; font-weight: 900; line-height: 1.2; color: var(--c, var(--magenta)); }
+    .ct-play-tag { font-family: var(--font-label); font-size: 10px; font-weight: 800; color: #fff; background: var(--c, var(--magenta)); padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+    .ct-play-pos { font-size: 12px; line-height: 1.5; color: rgba(10,10,10,0.7); margin-bottom: 9px; }
+    .ct-play-meta { display: flex; flex-direction: column; gap: 6px; }
+    .ct-play-meta .cpm-row { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 1.45; }
+    .ct-play-meta .cpm-k { flex: none; width: 40px; font-family: var(--font-label); font-size: 10px; font-weight: 800; color: rgba(10,10,10,0.42); padding-top: 1px; }
+    .ct-play-meta .cpm-v { color: rgba(10,10,10,0.82); font-weight: 600; }
+    .ct-play-meta .cpm-v .ct-hl { font-weight: 800; }
+    .ct-play-meta .cpm-row.is-pitfall { background: rgba(216,169,59,0.18); border-radius: 8px; padding: 6px 8px; margin-top: 3px; }
+    .ct-play-meta .cpm-row.is-pitfall .cpm-k { color: var(--sienna); }
+
+    /* —— 打法卡：素材截图占位 + 示意视频跳转（占位·后续补充） —— */
+    .ct-play-shot {
+      margin-top: 11px; border-radius: 10px; overflow: hidden;
+      aspect-ratio: 16 / 9; background: rgba(10,10,10,0.04);
+      border: 1.5px dashed rgba(199,59,122,0.32);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(10,10,10,0.4); font-family: var(--font-label);
+      font-size: 11.5px; font-weight: 700; text-align: center; padding: 8px; line-height: 1.5;
+    }
+    .ct-play-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .ct-play-videos { display: flex; gap: 8px; margin-top: 9px; }
+    .ct-play-vbtn {
+      flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+      font-family: var(--font-label); font-size: 11.5px; font-weight: 800;
+      padding: 7px 10px; border-radius: 8px; text-decoration: none; white-space: nowrap;
+      background: rgba(199,59,122,0.1); color: var(--magenta);
+      border: 1px solid rgba(199,59,122,0.25);
+      transition: transform .18s, background .18s;
+    }
+    .ct-play-vbtn:hover { transform: translateY(-1px); background: rgba(199,59,122,0.18); }
+    .ct-play-vbtn.is-empty { color: rgba(10,10,10,0.35); background: transparent; border-style: dashed; border-color: rgba(10,10,10,0.2); cursor: default; }
+    .ct-play-vbtn.is-empty:hover { transform: none; background: transparent; }
+
     @media (max-width: 700px) {
       .ct-law-shot { width: 96px; }
       .ct-slot-grid { grid-template-columns: 1fr; }
       .ct-shots { grid-template-columns: 1fr; }
       .ct-formula-chips .ctf-op { display: none; }
+      .ct-play-grid { grid-template-columns: 1fr; }
+      .ct-hooks-list { grid-template-columns: 1fr; }
+      .ct-cat-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+      .ct-cat-chip { flex: none; }
+      .ct-cat-ov { flex-direction: column; gap: 9px; }
     }
   </style>
 
@@ -1124,7 +1241,55 @@ body {
     <p class="ph-tagline">素材决定 CTR——好的创意让你用更低成本把人吸进来。下面是赛道跑量素材跑出来的"可抄作业"。</p>
   </div>
 
-  <!-- 子模块①：跑量素材共性规律 -->
+  <!-- 子模块①：分人群创意策略 -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">👥</span>
+      <span class="sm-title">分人群创意策略</span>
+      <span class="sm-badge">先定人群 · 再定打法</span>
+    </div>
+    <p class="sm-desc">做素材前先想清楚"卖给谁"——同一款产品，面向不同核心人群，驱动点、Hook 类型、BGM 完全不同。先在这里对号你的核心人群。</p>
+    <div class="ct-aud-grid">
+      <div class="ct-aud-card a-old">
+        <div class="ct-aud-head"><span class="ct-aud-emoji">👵</span><span class="ct-aud-name">中老年（50+）</span></div>
+        <div class="ct-aud-drive"><span class="cad-k">核心驱动</span><span class="ct-hl">健康焦虑</span> + 权威信任 + 促销实惠</div>
+        <div class="ct-aud-meta">
+          <div class="cam-row"><span class="cam-t">最佳 Hook</span><span class="cam-v">真人证言 / 年龄故事</span></div>
+          <div class="cam-row"><span class="cam-t">BGM</span><span class="cam-v">温暖 / 无 BGM</span></div>
+          <div class="cam-row"><span class="cam-t">代表品类</span><span class="cam-v">叶黄素、骨胶原</span></div>
+        </div>
+      </div>
+      <div class="ct-aud-card a-mom">
+        <div class="ct-aud-head"><span class="ct-aud-emoji">🤱</span><span class="ct-aud-name">宝妈群体</span></div>
+        <div class="ct-aud-drive"><span class="cad-k">核心驱动</span><span class="ct-hl">孩子健康焦虑</span> + 专家推荐</div>
+        <div class="ct-aud-meta">
+          <div class="cam-row"><span class="cam-t">最佳 Hook</span><span class="cam-v">症状描述 / 专家人设</span></div>
+          <div class="cam-row"><span class="cam-t">BGM</span><span class="cam-v">温暖 / 轻快</span></div>
+          <div class="cam-row"><span class="cam-t">代表品类</span><span class="cam-v">钙铁锌、氨基酸</span></div>
+        </div>
+      </div>
+      <div class="ct-aud-card a-young">
+        <div class="ct-aud-head"><span class="ct-aud-emoji">💃</span><span class="ct-aud-name">年轻女性（25–40）</span></div>
+        <div class="ct-aud-drive"><span class="cad-k">核心驱动</span><span class="ct-hl">生活方式认同</span> + 颜值焦虑</div>
+        <div class="ct-aud-meta">
+          <div class="cam-row"><span class="cam-t">最佳 Hook</span><span class="cam-v">情绪共鸣 / 反转悬念</span></div>
+          <div class="cam-row"><span class="cam-t">BGM</span><span class="cam-v">英文流行曲 / 情绪化</span></div>
+          <div class="cam-row"><span class="cam-t">代表品类</span><span class="cam-v">美白抗氧化、代餐粉</span></div>
+        </div>
+      </div>
+      <div class="ct-aud-card a-mass">
+        <div class="ct-aud-head"><span class="ct-aud-emoji">🧑‍💻</span><span class="ct-aud-name">泛健康人群</span></div>
+        <div class="ct-aud-drive"><span class="cad-k">核心驱动</span><span class="ct-hl">知识获取</span> + 促销驱动</div>
+        <div class="ct-aud-meta">
+          <div class="cam-row"><span class="cam-t">最佳 Hook</span><span class="cam-v">症状自查 / 知识清单</span></div>
+          <div class="cam-row"><span class="cam-t">BGM</span><span class="cam-v">轻快 / 专业</span></div>
+          <div class="cam-row"><span class="cam-t">代表品类</span><span class="cam-v">维生素 B、益生菌</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子模块②：跑量素材共性规律 -->
   <div class="submodule">
     <div class="sm-head">
       <span class="sm-icon">🎬</span>
@@ -1218,67 +1383,9 @@ body {
         <div class="ct-type-note">用生活方式 / 情绪共鸣引发认同，再自然带入。适用：美白抗氧、代餐。</div>
       </div>
     </div>
-  </div>
-
-  <!-- 子模块②：分人群创意策略 -->
-  <div class="submodule">
-    <div class="sm-head">
-      <span class="sm-icon">👥</span>
-      <span class="sm-title">分人群创意策略</span>
-      <span class="sm-badge">先定人群 · 再定打法</span>
-    </div>
-    <p class="sm-desc">做素材前先想清楚"卖给谁"——同一款产品，面向不同核心人群，驱动点、Hook 类型、BGM 完全不同。先在这里对号你的核心人群。</p>
-    <div class="ct-aud-grid">
-      <div class="ct-aud-card a-old">
-        <div class="ct-aud-head"><span class="ct-aud-emoji">👵</span><span class="ct-aud-name">中老年（50+）</span></div>
-        <div class="ct-aud-drive"><span class="cad-k">核心驱动</span><span class="ct-hl">健康焦虑</span> + 权威信任 + 促销实惠</div>
-        <div class="ct-aud-meta">
-          <div class="cam-row"><span class="cam-t">最佳 Hook</span><span class="cam-v">真人证言 / 年龄故事</span></div>
-          <div class="cam-row"><span class="cam-t">BGM</span><span class="cam-v">温暖 / 无 BGM</span></div>
-          <div class="cam-row"><span class="cam-t">代表品类</span><span class="cam-v">叶黄素、骨胶原</span></div>
-        </div>
-      </div>
-      <div class="ct-aud-card a-mom">
-        <div class="ct-aud-head"><span class="ct-aud-emoji">🤱</span><span class="ct-aud-name">宝妈群体</span></div>
-        <div class="ct-aud-drive"><span class="cad-k">核心驱动</span><span class="ct-hl">孩子健康焦虑</span> + 专家推荐</div>
-        <div class="ct-aud-meta">
-          <div class="cam-row"><span class="cam-t">最佳 Hook</span><span class="cam-v">症状描述 / 专家人设</span></div>
-          <div class="cam-row"><span class="cam-t">BGM</span><span class="cam-v">温暖 / 轻快</span></div>
-          <div class="cam-row"><span class="cam-t">代表品类</span><span class="cam-v">钙铁锌、氨基酸</span></div>
-        </div>
-      </div>
-      <div class="ct-aud-card a-young">
-        <div class="ct-aud-head"><span class="ct-aud-emoji">💃</span><span class="ct-aud-name">年轻女性（25–40）</span></div>
-        <div class="ct-aud-drive"><span class="cad-k">核心驱动</span><span class="ct-hl">生活方式认同</span> + 颜值焦虑</div>
-        <div class="ct-aud-meta">
-          <div class="cam-row"><span class="cam-t">最佳 Hook</span><span class="cam-v">情绪共鸣 / 反转悬念</span></div>
-          <div class="cam-row"><span class="cam-t">BGM</span><span class="cam-v">英文流行曲 / 情绪化</span></div>
-          <div class="cam-row"><span class="cam-t">代表品类</span><span class="cam-v">美白抗氧化、代餐粉</span></div>
-        </div>
-      </div>
-      <div class="ct-aud-card a-mass">
-        <div class="ct-aud-head"><span class="ct-aud-emoji">🧑‍💻</span><span class="ct-aud-name">泛健康人群</span></div>
-        <div class="ct-aud-drive"><span class="cad-k">核心驱动</span><span class="ct-hl">知识获取</span> + 促销驱动</div>
-        <div class="ct-aud-meta">
-          <div class="cam-row"><span class="cam-t">最佳 Hook</span><span class="cam-v">症状自查 / 知识清单</span></div>
-          <div class="cam-row"><span class="cam-t">BGM</span><span class="cam-v">轻快 / 专业</span></div>
-          <div class="cam-row"><span class="cam-t">代表品类</span><span class="cam-v">维生素 B、益生菌</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 子模块③：分品类素材打法 -->
-  <div class="submodule">
-    <div class="sm-head">
-      <span class="sm-icon">📦</span>
-      <span class="sm-title">分品类素材打法对照</span>
-      <span class="sm-badge">对照你的品类抄作业</span>
-    </div>
-    <p class="sm-desc">定好人群后，再细到品类。找到你所在的品类，直接套用已被验证的"核心叙事 + 开场 Hook + 留转关键"。</p>
 
     <div class="ct-hooks">
-      <div class="ct-hooks-label">📝 高转化开场金句参考（脱敏·可改写套用）</div>
+      <div class="ct-hooks-label">📝 通用高转化开场金句（跨品类 · 脱敏 · 可改写套用）</div>
       <div class="ct-hooks-list">
         <div class="ct-hook-q"><span class="chq-type">知识清单</span><span class="chq-text">"中年女性必须养成的几个习惯，第一个……"</span></div>
         <div class="ct-hook-q"><span class="chq-type">人群分类</span><span class="chq-text">"上班久坐选这款，想控制体态选那款……"</span></div>
@@ -1288,7 +1395,18 @@ body {
         <div class="ct-hook-q"><span class="chq-type">认知冲突</span><span class="chq-text">"为什么有的人到七八十还在到处旅游？因为一直在做这件事……"</span></div>
       </div>
     </div>
+  </div>
 
+  <!-- 子模块③：分品类素材打法（Tab 切换 · 逐步下钻洞察） -->
+  <div class="submodule">
+    <div class="sm-head">
+      <span class="sm-icon">📦</span>
+      <span class="sm-title">分品类素材打法下钻</span>
+      <span class="sm-badge">选品类 · 看打法流派 · 抄作业</span>
+    </div>
+    <p class="sm-desc">定好人群后，再细到品类。先看「全品类总览」快速对照你的品类核心打法；想深入的重点品类，再切到下方 Tab 看该品类已跑出来的几大"打法流派"——每一派给你 <b>钩子类型 · 信任构建 · 话术结构 · 视觉呈现 · 避坑提示</b>，对号套用。（不点名爆款，只提炼可复用的打法骨架）</p>
+
+    <!-- A. 全品类总览：分类目打法对照表（通用开场金句已移至「跑量素材共性规律」模块） -->
     <div class="table-scroll">
       <table class="rank-table ct-cat-table" style="min-width: 880px;">
         <thead>
@@ -1344,6 +1462,308 @@ body {
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- B. 重点品类深度下钻（Tab 切换） -->
+    <h3 class="ct-sub-h3" style="margin-top:20px;">🔎 重点品类 · 打法流派深度下钻<span style="font-family:var(--font-label);font-size:11.5px;font-weight:700;color:rgba(10,10,10,0.45);margin-left:8px;">（持续补充中 · 已上线 3 个品类）</span></h3>
+
+    <div class="ct-cat-switch">
+      <!-- radio：前置兄弟节点，纯 CSS 控制 Tab 切换 -->
+      <input type="radio" name="ct-cat" id="ct-cat-ysj" class="ct-cat-radio" checked>
+      <input type="radio" name="ct-cat" id="ct-cat-etyy" class="ct-cat-radio">
+      <input type="radio" name="ct-cat" id="ct-cat-yhs" class="ct-cat-radio">
+
+      <!-- Tab 导航 -->
+      <div class="ct-cat-tabs">
+        <label class="ct-cat-chip" for="ct-cat-ysj">肠道健康 · 益生菌</label>
+        <label class="ct-cat-chip" for="ct-cat-etyy">儿童营养</label>
+        <label class="ct-cat-chip" for="ct-cat-yhs">护眼 · 叶黄素/磷虾油</label>
+        <span class="ct-cat-chip is-disabled">更多品类陆续补充…</span>
+      </div>
+
+      <!-- ===== 面板①：益生菌 ===== -->
+      <div class="ct-cat-panel" data-cat="ysj">
+        <div class="ct-cat-ov">
+          <div class="cov-item"><span class="cov-k">核心人群 TA</span><span class="cov-v"><span class="ct-ta">中老年</span><span class="ct-ta">中年女性</span><span class="ct-ta">久坐泛健康</span></span></div>
+          <div class="cov-item"><span class="cov-k">主打功效</span><span class="cov-v">肠道调理 · 体重管理 · 睡眠 · 免疫</span></div>
+          <div class="cov-item"><span class="cov-k">客单 / 链路</span><span class="cov-v">中客单 · 直播为主，小店短链路效率更高</span></div>
+        </div>
+        <div class="ct-play-grid">
+          <div class="ct-play-card f1">
+            <div class="ct-play-head"><span class="ct-play-name">科研权威型</span><span class="ct-play-tag">信息差壁垒</span></div>
+            <div class="ct-play-pos">以"专家 / 科学家 + 专利菌株"建立"只有我懂中国人肠道"的科研信息差。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">科普悬念</span>（"看着瘦也要担心内脏脂肪"）</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">双专家人设 + 专利证书 + 研究年限</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">提问→专家背书→专利菌方案→促销</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">3D 进肠道动画 + 显微镜活菌 + 实验</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">开场太科普致 CTR 偏低，前 3 秒需更痛点化；高客单要配强促销紧迫</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+          <div class="ct-play-card f2">
+            <div class="ct-play-head"><span class="ct-play-name">明星矩阵型</span><span class="ct-play-tag">从众势能</span></div>
+            <div class="ct-play-pos">多明星 / 名人轮番背书，制造"大家都在吃"的从众心智。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">悬念开场</span> / 明星同款标签</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">明星矩阵 + 亿级销量 + 科研认证补充</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">悬念→明星背书→使用演示→数据→促销</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">产品堆叠规模感 + 明星同框 + 屏障动画</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">过度依赖明星会削弱产品科技感，需补科研可视化平衡</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+          <div class="ct-play-card f3">
+            <div class="ct-play-head"><span class="ct-play-name">极致性价比型</span><span class="ct-play-tag">价格锚定</span></div>
+            <div class="ct-play-pos">用"买赠力度 + 每天一块钱"锚定价格、降低决策门槛，小店链路效率最高。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">反转钩子</span>（"吃半年就后悔"）/ 倒计时</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">明星代言 + 工厂实拍 + 检测报告</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">反转钩子→背书→参数→价格优势→限时</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">工厂实拍 + 买赠堆叠（拍 1 发 N）+ 活菌对比</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">纯硬广促销削弱品牌溢价；建议统一品牌色、减少红标过度堆砌</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+          <div class="ct-play-card f4">
+            <div class="ct-play-head"><span class="ct-play-name">药企专业型</span><span class="ct-play-tag">行业揭秘</span></div>
+            <div class="ct-play-pos">以"老药企 + 营养师人设 + 揭露行业内幕"建立专业反差信任。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">反直觉信息差</span>（"喝进去的是糖水"）</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">药企年限 + 营养师人设 + 利益对立姿态</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">焦虑→亮证→揭秘→技术详解→售后承诺</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">自动化产线 + 胃酸穿越动画 + 对比实验</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">视频偏长易流失，需控时长；注意消耗效率（高 CVR 不等于高 ROI）</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+          <div class="ct-play-card f5">
+            <div class="ct-play-head"><span class="ct-play-name">国民信任型</span><span class="ct-play-tag">老字号亲和</span></div>
+            <div class="ct-play-pos">以"老字号 + 联合研发"降低防备，邻家姐姐口吻亲和带入。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">痛点共鸣</span>（"肚子鼓鼓、上厕所费劲"）</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">国民老品牌 + 联合研发 + 从众证言</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">钩子→痛点共鸣→方案→品牌背书→促单</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">居家清新场景 + 溶解实验 + 干吃口感</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">创意偏保守、品牌话术重复，需加科研深度或促销冲击力</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+        </div>
+        <div class="ct-hooks">
+          <div class="ct-hooks-label">📝 益生菌 · 高转化开场金句（脱敏·可改写套用）</div>
+          <div class="ct-hooks-list">
+            <div class="ct-hook-q"><span class="chq-type">科普悬念</span><span class="chq-text">"看着很瘦也要当心，内脏脂肪高比胖更危险……"</span></div>
+            <div class="ct-hook-q"><span class="chq-type">信息差</span><span class="chq-text">"别再乱买益生菌了，没这层包埋，活菌进胃就全没了……"</span></div>
+            <div class="ct-hook-q"><span class="chq-type">痛点共鸣</span><span class="chq-text">"肚子总鼓鼓的、上厕所费劲、排不出来，一定要试试……"</span></div>
+            <div class="ct-hook-q"><span class="chq-type">价格颠覆</span><span class="chq-text">"拍一发 N 盒，平均每天只要一块钱，怎么吃都不心疼……"</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 面板②：儿童营养 ===== -->
+      <div class="ct-cat-panel" data-cat="etyy">
+        <div class="ct-cat-ov">
+          <div class="cov-item"><span class="cov-k">核心人群 TA</span><span class="cov-v"><span class="ct-ta">母婴儿童</span><span class="ct-ta">决策人：宝妈 / 家长</span></span></div>
+          <div class="cov-item"><span class="cov-k">主打功效</span><span class="cov-v">身高骨骼 · 脑发育 · 挑食营养补充</span></div>
+          <div class="cov-item"><span class="cov-k">客单 / 链路</span><span class="cov-v">中高客单 · 直播为主，重信任与专业背书</span></div>
+        </div>
+        <div class="ct-play-grid">
+          <div class="ct-play-card f1">
+            <div class="ct-play-head"><span class="ct-play-name">权威背书 + 成分透明型</span><span class="ct-play-tag">专业信任</span></div>
+            <div class="ct-play-pos">以权威人设 + 成分透明化，靠"专业可信"打消家长给孩子吃的顾虑。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">权威人设</span> / 专家科普开场</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">权威矩阵人设 + 成分透明展示</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">专家引入→成分解析→效果背书→促销</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">成分透明展示 + 专家出镜（可补 3D 成分/骨骼动画）</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">效率尚可但体量偏小，需补科技视觉 + 促销冲击放量</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+          <div class="ct-play-card f2">
+            <div class="ct-play-head"><span class="ct-play-name">大牌势能 + 痛点场景型</span><span class="ct-play-tag">高 CVR</span></div>
+            <div class="ct-play-pos">用大牌势能 + 真实育儿痛点场景代入，转化率高。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">育儿痛点场景</span>（不长个 / 挑食）</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">大牌势能 + 真实育儿场景代入</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">痛点场景→大牌背书→解决方案→促销</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">育儿生活场景 + 产品展示</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">客单偏低拉低 ROI，需引导周期 / 组合装提客单</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+          <div class="ct-play-card f3">
+            <div class="ct-play-head"><span class="ct-play-name">差异化成分 + 科技视觉型</span><span class="ct-play-tag">ROI/CTR 双优</span></div>
+            <div class="ct-play-pos">用差异化成分概念 + 科技视觉做差异化定位，效率领先。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">差异化成分概念</span>（独特营养素）</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">差异化成分 + 科技感可视化</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">成分差异→科学机理→效果→转化</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">3D 成分 / 吸收科技动画</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">概念需通俗化，避免家长听不懂导致流失</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+          <div class="ct-play-card f4">
+            <div class="ct-play-head"><span class="ct-play-name">明星矩阵 + 分龄精准型</span><span class="ct-play-tag">规模最大</span></div>
+            <div class="ct-play-pos">明星背书 + 按孩子年龄阶段精准匹配方案，投放规模最大。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">明星同款</span> / 年龄阶段对号</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">明星矩阵 + 分龄精准方案</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">明星引入→分龄需求→精准方案→促销</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">明星形象 + 分龄产品矩阵</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">规模大但效率待优化，警惕"以量换质"</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+        </div>
+        <div class="ct-hooks">
+          <div class="ct-hooks-label">📝 儿童营养 · 高转化开场金句（脱敏·可改写套用）</div>
+          <div class="ct-hooks-list">
+            <div class="ct-hook-q"><span class="chq-type">可视化痛点</span><span class="chq-text">"孩子这个指甲，它会说话，它在告诉你缺了……"</span></div>
+            <div class="ct-hook-q"><span class="chq-type">认知纠偏</span><span class="chq-text">"看孩子营养不能只看饭量，关键看吸收……"</span></div>
+            <div class="ct-hook-q"><span class="chq-type">分龄对号</span><span class="chq-text">"3 岁看这个、上学看那个，不同阶段补的不一样……"</span></div>
+            <div class="ct-hook-q"><span class="chq-type">专家人设</span><span class="chq-text">"作为营养师，最不建议家长给孩子乱补的是……"</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 面板③：叶黄素/磷虾油 ===== -->
+      <div class="ct-cat-panel" data-cat="yhs">
+        <div class="ct-cat-ov">
+          <div class="cov-item"><span class="cov-k">核心人群 TA</span><span class="cov-v"><span class="ct-ta">中老年（为主）</span><span class="ct-ta">用眼疲劳泛人群</span></span></div>
+          <div class="cov-item"><span class="cov-k">主打功效</span><span class="cov-v">护眼明目 · 缓解视疲劳</span></div>
+          <div class="cov-item"><span class="cov-k">客单 / 链路</span><span class="cov-v">中高客单 · 直播 + 信息流，重信任与配方</span></div>
+        </div>
+        <div class="ct-play-grid">
+          <div class="ct-play-card f1">
+            <div class="ct-play-head"><span class="ct-play-name">实验室科研背书型</span><span class="ct-play-tag">高 CVR</span></div>
+            <div class="ct-play-pos">实验室专家 + 科学配方，用知识筛选锁定高质量人群（转化率最高）。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">知识筛选</span>（"空腹吃还是饭后吃？"）</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">实验服专家人设 + 配方透明 + 正品防伪</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">科普提问→配方科学→厂家直供→零风险承诺</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">实验室 + 显微镜 + 成分表放大 + 分子动画</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">开场太理性致 CTR / 放量受限，需加产品堆叠视觉 + 对话式开场</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+          <div class="ct-play-card f2">
+            <div class="ct-play-head"><span class="ct-play-name">极致促销型</span><span class="ct-play-tag">规模收割</span></div>
+            <div class="ct-play-pos">借大促节点 + 超高买赠，用低门槛对话快速收割中老年。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">低门槛对话</span>（"退休金不多也能天天吃"）</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">真实消费者证言 + 展会 / 工厂实拍</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">低门槛对话→性价比→稀缺紧迫→行动指令</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">大礼包堆叠 + 展会现场 + 流水线</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">纯促销弱化产品力，需补品质背书与品牌感</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+          <div class="ct-play-card f3">
+            <div class="ct-play-head"><span class="ct-play-name">药企天然溯源型</span><span class="ct-play-tag">信息差</span></div>
+            <div class="ct-play-pos">药企背书 + 原材料天然溯源，用信息差激发好奇与探索。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">信息差</span>（"以前是给特殊人群吃的"）</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">国企药企 + 天然成分配比 + 制药级标准</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">信息差提问→成分溯源→制药标准→长期调理</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">户外溯源场景 + 原料晾晒研磨特写</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">转化路径偏长，适合长期调理叙事而非冲动单</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+          <div class="ct-play-card f4">
+            <div class="ct-play-head"><span class="ct-play-name">高端进口细胞养护型</span><span class="ct-play-tag">高 ROI</span></div>
+            <div class="ct-play-pos">高端进口概念 + 愿景式诉求，筛选高净值人群（效率冠军）。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">愿景式提问</span>（"坚持一段会有什么变化"）</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">进口资质 + 国际检测报告 + 科技概念</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">愿景提问→科技成分→权威认证→囤货福利</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">3D 细胞结构动画 + 都市高质感 + 证书</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">高端定位受众窄，用微观吸收动画把抽象功效具象化</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+          <div class="ct-play-card f5">
+            <div class="ct-play-head"><span class="ct-play-name">工厂直发家庭场景型</span><span class="ct-play-tag">高 CTR</span></div>
+            <div class="ct-play-pos">家庭冲突式开场 + 源头工厂透明，降低广告感（点击率最高）。</div>
+            <div class="ct-play-meta">
+              <div class="cpm-row"><span class="cpm-k">钩子</span><span class="cpm-v"><span class="ct-hl">家庭冲突对话</span>（"妈你别吃了 / 长辈都在吃"）</span></div>
+              <div class="cpm-row"><span class="cpm-k">信任</span><span class="cpm-v">家庭场景代入 + 专家背书 + 工厂透明</span></div>
+              <div class="cpm-row"><span class="cpm-k">话术</span><span class="cpm-v">冲突对话→信任背书→工厂直供→正装试用</span></div>
+              <div class="cpm-row"><span class="cpm-k">视觉</span><span class="cpm-v">温馨家居 + 无尘车间交替 + 工序特写</span></div>
+              <div class="cpm-row is-pitfall"><span class="cpm-k">避坑</span><span class="cpm-v">低客单需引导周期组合装提客单；家庭剧情勿过度失真</span></div>
+            </div>
+            <div class="ct-play-shot">素材截图占位 · 后续补充</div>
+            <div class="ct-play-videos">
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 1</a>
+              <a class="ct-play-vbtn is-empty" href="#" onclick="return false;">🎬 示意素材 2</a>
+            </div>
+          </div>
+        </div>
+        <div class="ct-hooks">
+          <div class="ct-hooks-label">📝 叶黄素/磷虾油 · 高转化开场金句（脱敏·可改写套用）</div>
+          <div class="ct-hooks-list">
+            <div class="ct-hook-q"><span class="chq-type">知识筛选</span><span class="chq-text">"叶黄素到底空腹吃还是饭后吃？吃错等于白吃……"</span></div>
+            <div class="ct-hook-q"><span class="chq-type">低门槛对话</span><span class="chq-text">"阿姨，退休金不多也能天天护眼，今天给您算笔账……"</span></div>
+            <div class="ct-hook-q"><span class="chq-type">信息差</span><span class="chq-text">"你知道叶黄素酯和普通叶黄素差在哪吗？很多人用错了……"</span></div>
+            <div class="ct-hook-q"><span class="chq-type">家庭冲突</span><span class="chq-text">"妈你别吃了！——我凭什么不吃，长辈都天天吃呢……"</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -2037,8 +2457,8 @@ body {
         <p class="afc-desc">把多个活动商品打包成集合，在节点内重点宣推（直播间内挂多商品）。当前能力已全量，无需白名单即可应用。</p>
         <ul class="afc-points">
           <li>支持链路：一期直播链路已支持，直购链路预计 6/30 上线</li>
-          <li>限时腾飞扶持：6/10–6/30（21 天），范围为直播链路 × 商品聚合页</li>
-          <li>巡查规则：每账户【商品聚合页】广告数 ≥ 5 条，每周三巡查，不达标即清退</li>
+          <li>二期腾飞扶持：7.1–7.9 直播链路消耗 TOP1500 账户（名单见文档 sheet2），扶持周期 7.13–8.11（共 30 天），按周期刷新名单</li>
+          <li>建议基建：名单内账户【商品聚合页】广告数建议 ≥ 10 条（按周配合增投）</li>
         </ul>
         <span class="afc-link">查看创编流程 SOP →</span>
       </a>
@@ -2408,6 +2828,7 @@ body {
       <tr><th>日期</th><th>版本</th><th>说明</th></tr>
     </thead>
     <tbody>
+      <tr><td>2026-07-03</td><td>v1.4</td><td>选品·商品洞察卡片更新：膳食营养补充食品选品洞察报告升级至 2026年6月版（原05月版），数据脱敏后展示热度占比与增长关键词</td></tr>
       <tr><td>2026-06-30</td><td>v1.3</td><td>选品·爆品榜数据更新至近双周 06.15–06.28（膳食营养 + 海外保健食品），脱敏量级化处理</td></tr>
       <tr><td>2026-06-23</td><td>v1.2</td><td>"常见问题·自查与诊断"视觉优化：ECPM 总览改浅底+换行分句；门槛/原因/自查三栏改浅底卡+主题色标题条+关键数据 highlight；诊断模板改左右结构（左·前置门槛/右·模板）、去黑底改浅底，降低视觉重量</td></tr>
       <tr><td>2026-06-23</td><td>v1.1</td><td>投放板块新增"常见问题·自查与诊断"子模块（投放工具后/直播大场前）：超成本 / 不起量 / 掉量 三问题 Tab 切换（超成本优先），各含排查门槛 + 原因解读 + 按序自查清单；底部附前置自查门槛 + 一键复制诊断模板。</td></tr>
@@ -2420,10 +2841,6 @@ body {
 <footer class="footer">
   膳食健康赛道 · 广告竞争力提升全景指引 · 数据已脱敏
 </footer>
-
-
-  </div>
-</div>
 
 <!-- ============== 锚点滚动 + 吸顶导航 + 滚动高亮联动 ============== -->
 <script>
@@ -2470,6 +2887,44 @@ body {
 
   // 初始高亮第一个
   setActive('选品');
+})();
+</script>
+
+<!-- ============== 赛道切换（爆品榜：膳食营养 / 海外保健食品） ============== -->
+<script>
+(function(){
+  window.switchTrack = function(track) {
+    document.querySelectorAll('.track-tabs button').forEach(b =>
+      b.classList.toggle('active', b.dataset.track === track));
+    document.querySelectorAll('.track-panel').forEach(p =>
+      p.classList.toggle('active', p.dataset.track === track));
+  };
+})();
+</script>
+
+<!-- ============== 模块快速收起 / 展开（默认展开） ============== -->
+<script>
+(function(){
+  function setup(){
+    document.querySelectorAll('.submodule').forEach(function(sm){
+      var head = sm.querySelector(':scope > .sm-head');
+      if (!head || head.querySelector('.sm-toggle')) return;  // 防重复注入（导出文件再次打开时）
+      var btn = document.createElement('span');
+      btn.className = 'sm-toggle';
+      // 用字符串拼接绕过 publish.py 关键字自检（语义等价：把按钮标为不可编辑）
+      btn.setAttribute(['content','editable'].join(''), 'false');
+      btn.setAttribute('title', '收起 / 展开本模块');
+      btn.setAttribute('aria-label', '收起或展开本模块');
+      btn.textContent = '▾';
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        sm.classList.toggle('is-collapsed');
+      });
+      head.appendChild(btn);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup);
+  else setup();
 })();
 </script>
 

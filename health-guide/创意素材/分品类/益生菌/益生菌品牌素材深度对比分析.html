@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!-- ===== HEAD ===== -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>益生菌类目六大品牌 Top6 消耗素材深度对比分析</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Inter:wght@400;500;600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script>
+tailwind.config={theme:{extend:{
+  colors:{bg:'#EFEAD8',surface:'#F5F1E0',card:'#FBF8EC',ink:'#1A1814',muted:'#6B6557',border:'#D8D2BD',
+  hda:'#E8AFB8',wyl:'#7FA9C4',ntld:'#E8B89A',hbzy:'#A9C29B',jz:'#B8A7C9',lime:'#C9D86A'},
+  fontFamily:{serif:['"Noto Serif SC"','serif'],sans:['Inter','"PingFang SC"','sans-serif'],italic:['"Cormorant Garamond"','serif']}
+}}}
+</script>
+</head>
+<body class="bg-bg text-ink font-sans overflow-x-hidden">
+
+<!-- ===== HTML ===== -->
+<!-- FILE:index.html -->
+<div class="mx-auto" style="max-width:1440px">
+  <div class="px-6 md:px-20 py-12 md:py-20">
+
+    <!-- Header -->
+    <header class="border-b border-border pb-10 mb-16">
+      <p class="italic font-italic text-muted text-lg md:text-xl mb-6">Brand Creative Benchmark · 2025.06</p>
+      <h1 class="font-serif font-black text-4xl md:text-6xl leading-tight tracking-tight">益生菌类目六大品牌<br>Top6 消耗素材深度对比分析</h1>
+      <p class="mt-6 text-muted max-w-2xl leading-relaxed text-sm md:text-base">基于华大营养、万益蓝、诺特兰德、华北制药、江中益生菌五个品牌 Top6 消耗素材（共25条视频）的多模态逐帧分析与投放数据对比 · 分析周期 2025.06.05–06.25</p>
+    </header>
+
+    <!-- P00 核心结论速览 -->
+    <section class="mb-24">
+      <div class="mb-10">
+        <span class="font-italic italic text-muted text-sm">P00</span>
+        <h2 class="font-serif font-bold text-3xl md:text-4xl inline-block ml-3">核心结论速览</h2>
+        <p class="text-muted text-sm mt-2 ml-12">一页读懂五品牌竞争格局与华大营养行动方向</p>
+      </div>
+
+      <div class="bg-ink text-bg rounded-xl p-8 md:p-10 mb-12">
+        <p class="font-italic italic text-lime text-sm mb-4">▍ Core Conclusion</p>
+        <p class="font-serif text-xl md:text-2xl leading-relaxed">
+          华大营养以 <span class="text-lime">87.33 万元总消耗领跑全场</span>，但 CTR 仅 1.78% 为全场最低，存在"以量换质"特征——
+          应保留 <span class="text-lime">"双博士科研背书 + 专利菌株可视化"</span> 优势，重点补齐
+          <span class="text-lime">开场钩子吸引力、小店链路素材、真人使用对比</span> 三大短板，以效率驱动结构性增长。
+        </p>
+      </div>
+
+      <p class="text-muted text-sm mb-4">五品牌竞争定位</p>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
+        <div class="bg-card border border-border rounded-xl p-5"><div class="flex items-center gap-2 mb-3"><span class="w-2 h-2 rounded-full bg-hda"></span><span class="font-medium">华大营养</span></div><p class="font-serif text-base mb-3">科研权威 × 双博士背书</p><span class="inline-block text-xs px-2 py-1 rounded-full bg-hda/40">消耗第一 · CTR最低</span></div>
+        <div class="bg-card border border-border rounded-xl p-5"><div class="flex items-center gap-2 mb-3"><span class="w-2 h-2 rounded-full bg-wyl"></span><span class="font-medium">万益蓝</span></div><p class="font-serif text-base mb-3">明星矩阵 × 早蓝晚绿</p><span class="inline-block text-xs px-2 py-1 rounded-full bg-wyl/40">7亿瓶销量 · 全直播链路</span></div>
+        <div class="bg-card border border-border rounded-xl p-5"><div class="flex items-center gap-2 mb-3"><span class="w-2 h-2 rounded-full bg-ntld"></span><span class="font-medium">诺特兰德</span></div><p class="font-serif text-base mb-3">极致性价比 × 拍1发10</p><span class="inline-block text-xs px-2 py-1 rounded-full bg-ntld/40">ROI/CTR 双第一</span></div>
+        <div class="bg-card border border-border rounded-xl p-5"><div class="flex items-center gap-2 mb-3"><span class="w-2 h-2 rounded-full bg-hbzy"></span><span class="font-medium">华北制药</span></div><p class="font-serif text-base mb-3">药企专业 × 行业揭秘</p><span class="inline-block text-xs px-2 py-1 rounded-full bg-hbzy/40">CVR 第一 · 73年老药企</span></div>
+        <div class="bg-card border border-border rounded-xl p-5"><div class="flex items-center gap-2 mb-3"><span class="w-2 h-2 rounded-full bg-jz"></span><span class="font-medium">江中益生菌</span></div><p class="font-serif text-base mb-3">国民信任 × 50年老字号</p><span class="inline-block text-xs px-2 py-1 rounded-full bg-jz/40">ROI 最低 · 创意保守</span></div>
+      </div>
+
+      <p class="text-muted text-sm mb-4">华大营养三大优先行动</p>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="bg-lime/80 rounded-xl p-6"><div class="flex items-start gap-3 mb-3"><span class="font-italic italic text-xl">i.</span><div><p class="font-medium">开场钩子重构 <span class="text-xs text-muted ml-2 font-italic italic">优先级最高</span></p></div></div><p class="text-sm leading-relaxed">将偏科普感的"看着很瘦你就要担心了"改为"肚子大不是胖，是肠道在求救"，CTR 目标从 1.78% → 2.5%+</p></div>
+        <div class="bg-hda rounded-xl p-6"><div class="flex items-start gap-3 mb-3"><span class="font-italic italic text-xl">ii.</span><div><p class="font-medium">视觉升级</p></div></div><p class="text-sm leading-relaxed">真人使用前后对比 + "1+1>2菌群协同"3D动画，减少专家访谈比例，强化效果可视化</p></div>
+        <div class="bg-ntld rounded-xl p-6"><div class="flex items-start gap-3 mb-3"><span class="font-italic italic text-xl">iii.</span><div><p class="font-medium">小店链路放量</p></div></div><p class="text-sm leading-relaxed">为"成人压片糖果"开发专属小店素材，参考诺特兰德"拍1发10"打法，弥补 ROI 1.34 短板</p></div>
+      </div>
+    </section>
+
+    <!-- P01 数据概览 -->
+    <section class="border-t border-border pt-16 mb-24">
+      <div class="mb-10">
+        <span class="font-italic italic text-muted text-sm">P01</span>
+        <h2 class="font-serif font-bold text-3xl md:text-4xl inline-block ml-3">一、数据概览</h2>
+      </div>
+
+      <div class="bg-card border-l-4 border-hbzy rounded-r-xl p-6 mb-10">
+        <p class="text-sm text-muted mb-2">▶ 结论先行</p>
+        <p class="font-serif text-base md:text-lg leading-relaxed">诺特兰德 ROI 和 CTR 双第一；华北制药 CVR 6.88% 最高但 ROI 偏低；华大营养消耗 87.33万领跑（占大盘 50%+）但 CTR 1.78% 全场垫底；江中益生菌 ROI 1.43 呈现"创意保守"特征。</p>
+        <p class="text-sm font-medium mt-3">需重点关注：华大营养核心瓶颈不在素材规模，而在开场吸引力与小店链路。</p>
+      </div>
+
+      <!-- KPI cards -->
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-12" id="kpiGrid"></div>
+
+      <!-- Charts -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-card border border-border rounded-xl p-5"><p class="text-sm font-medium mb-2">Top6 总消耗（万元）</p><div id="chartConsume" style="height:340px"></div></div>
+        <div class="bg-card border border-border rounded-xl p-5"><p class="text-sm font-medium mb-2">效率指标对比（ROI / CVR% / CTR%）</p><div id="chartEff" style="height:340px"></div></div>
+      </div>
+    </section>
+
+    <!-- P02 八大维度 -->
+    <section class="border-t border-border pt-16 mb-24">
+      <div class="mb-10">
+        <span class="font-italic italic text-muted text-sm">P02</span>
+        <h2 class="font-serif font-bold text-3xl md:text-4xl inline-block ml-3">二、八大维度横向对比</h2>
+      </div>
+
+      <div class="bg-card border-l-4 border-wyl rounded-r-xl p-6 mb-8">
+        <p class="text-sm text-muted mb-2">▶ 结论先行</p>
+        <p class="font-serif text-base md:text-lg leading-relaxed">益生菌品类素材呈现"<b>科研可视化派</b>（华大/华北）—<b>明星促销派</b>（万益蓝/诺特兰德）—<b>亲和力派</b>（江中）"三大流派。3D动画+实拍实验已成为头部品牌标配。</p>
+      </div>
+
+      <!-- Tab nav -->
+      <div class="flex flex-wrap gap-x-6 gap-y-2 border-b border-border mb-6" id="tabNav"></div>
+      <div id="tabContent"></div>
+    </section>
+
+    <!-- P03 各品牌差异化打法 -->
+    <section class="border-t border-border pt-16 mb-24">
+      <div class="mb-10">
+        <span class="font-italic italic text-muted text-sm">P03</span>
+        <h2 class="font-serif font-bold text-3xl md:text-4xl inline-block ml-3">三、各品牌差异化打法深度解析</h2>
+        <p class="text-muted text-sm mt-2 ml-12">点击展开查看信任构建策略 / 信息差营销策略 / 核心短板</p>
+      </div>
+      <div id="accordion" class="space-y-3"></div>
+    </section>
+
+    <!-- P04 优化建议 -->
+    <section class="border-t border-border pt-16 mb-16">
+      <div class="mb-10">
+        <span class="font-italic italic text-muted text-sm">P04</span>
+        <h2 class="font-serif font-bold text-3xl md:text-4xl inline-block ml-3">四、目标品牌素材优化建议</h2>
+      </div>
+      <div id="optimGrid" class="space-y-10"></div>
+    </section>
+
+    <footer class="border-t border-border pt-8 text-xs text-muted flex justify-between font-italic italic">
+      <span>益生菌类目品牌创意基准 · Probiotics Creative Benchmark</span>
+      <span>Data: 益生菌跑量素材 06.05–06.25 · 25条视频多模态分析</span>
+    </footer>
+  </div>
+</div>
+<!-- /FILE:index.html -->
+
+<style>
+/* ===== STYLE ===== */
+/* FILE:style.css */
+html,body{background:#EFEAD8}
+body{font-family:Inter,'PingFang SC',sans-serif;color:#1A1814}
+.font-serif{font-family:'Noto Serif SC',serif}
+.font-italic{font-family:'Cormorant Garamond',serif;font-style:italic}
+.kpi-card{transition:transform .25s ease, box-shadow .25s ease}
+.kpi-card:hover{transform:translateY(-3px);box-shadow:0 12px 24px -16px rgba(26,24,20,.25)}
+.tab-btn{padding:10px 0;font-size:14px;color:#6B6557;border-bottom:2px solid transparent;cursor:pointer;transition:.2s;white-space:nowrap}
+.tab-btn.active{color:#1A1814;border-bottom-color:#1A1814;font-weight:600}
+.quote{font-family:'Noto Serif SC',serif;font-size:14px;line-height:1.7;background:#F5F1E0;border-left:3px solid #1A1814;padding:10px 14px;border-radius:4px;color:#1A1814}
+.q-tag{font-size:11px;color:#6B6557;margin-bottom:4px;display:block;font-family:'Cormorant Garamond',serif;font-style:italic}
+table.cmp{width:100%;border-collapse:collapse;font-size:13.5px}
+table.cmp th,table.cmp td{padding:14px 12px;text-align:left;vertical-align:top;border-bottom:1px solid #D8D2BD}
+table.cmp th{background:#F5F1E0;font-weight:600;color:#1A1814;font-size:12.5px;letter-spacing:.5px}
+table.cmp td.brand{font-family:'Noto Serif SC',serif;font-weight:600;white-space:nowrap}
+.acc-item{background:#FBF8EC;border:1px solid #D8D2BD;border-radius:12px;overflow:hidden}
+.acc-head{padding:18px 22px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.acc-head:hover{background:#F5F1E0}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease;padding:0 22px}
+.acc-item.open .acc-body{max-height:2000px;padding:0 22px 22px}
+.acc-item.open .acc-arrow{transform:rotate(180deg)}
+.acc-arrow{transition:.3s}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.chip{display:inline-block;padding:2px 10px;font-size:11px;border-radius:999px;background:#EFEAD8;color:#6B6557;margin-right:6px}
+.fade-in{animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+/* /FILE:style.css */
+</style>
+
+<script>
+/* ===== DATA ===== */
+/* FILE:data.js */
+window.D = {
+  brands:[
+    {key:'hda',name:'华大营养',color:'#E8AFB8',consume:87.33,roi:1.87,cvr:4.18,ctr:1.78,price:480,link:'直播5 / 小店1',tag:'消耗最大 · CTR最低'},
+    {key:'wyl',name:'万益蓝',color:'#7FA9C4',consume:43.23,roi:1.92,cvr:4.59,ctr:2.08,price:399,link:'直播6',tag:'明星矩阵驱动'},
+    {key:'ntld',name:'诺特兰德',color:'#E8B89A',consume:11.15,roi:2.01,cvr:5.48,ctr:4.04,price:185,link:'小店4 / 直播2',tag:'ROI/CTR 双第一'},
+    {key:'hbzy',name:'华北制药',color:'#A9C29B',consume:24.45,roi:1.64,cvr:6.88,ctr:3.46,price:260,link:'直播6',tag:'CVR 全场最高'},
+    {key:'jz',name:'江中益生菌',color:'#B8A7C9',consume:9.68,roi:1.43,cvr:3.99,ctr:2.25,price:220,link:'直播5 / 小店1',tag:'国民信任 · ROI最低'}
+  ],
+  tabs:[
+    {key:'visual',label:'视觉呈现',title:'2.1 视觉呈现维度',cols:['核心场景','人物出镜','画面风格','差异化视觉元素'],rows:[
+      ['hda','专家访谈+实验室+生活化肥胖/失眠场景','尹烨(CEO博士黑T)+肖亮(首席科学家紫夹克)+时尚模特+白大褂','科技感+色调明亮+专业严谨','3D动画演示益生菌进入肠道 / 显微镜活菌动态 / 专利证书ZL201811514219.8特写 / 模拟胃酸实验'],
+      ['wyl','书房办公+实验室+明星居家+咖啡厅','高志凯(学者)+秦海璐+李若彤+梅婷+陈蓉+程雷','克莱因蓝主色+玫粉小瓶+高饱和度','180瓶小蓝瓶堆叠视觉冲击 / 3D胃酸屏障 / DIY倒入东方树叶'],
+      ['ntld','明星访谈+居家+工厂实拍+展会拱门','郭涛(黑毛衣)+钟丽缇(灰亮片)+中老年女性+健身达人','高饱和促销风 + 蓝包装×红促销标签强对比','工厂实拍(检测中心+生产线+检验报告堆叠) / DNA螺旋动画 / 红色充气拱门"拍1发10盒"'],
+      ['hbzy','健身房+不锈钢发酵罐工厂+3D动画','营养师段小玲(深蓝西装+麦克风)+AI客服+健身女性+白色防护服工人','冷色调权威氛围 + 明快促销感','3D胃酸穿越动画 / 满地钞票夸张场景 / 自动化包装流水线'],
+      ['jz','居家餐桌厨房+产品特写+办公室','25-35岁都市女性(浅色居家服)+健康博主/宝妈','高亮度清新滤镜 + 蓝白暖白','益生菌粉末入水慢动作 / 3D肠道示意 / 品牌Logo常驻']
+    ]},
+    {key:'oral',label:'口播话术',title:'2.2 口播话术维度 · 含具体话术原文',cols:['开场钩子（前3秒）','核心卖点话术','促销话术','情绪基调'],rows:[
+      ['hda',
+        ['"看着很瘦，你就要担心了，你的内脏脂肪高，四肢反而纤细，那这个时候我们光说BMI没有意义。"','"如果你经常肚子胀、排便不顺，一定要试试华大营养这款益生菌！"','"你以为你肚子大是胖吗？其实是肠道里的『垃圾』太多了！"'],
+        '"发现了这一株专利减脂菌，命名格氏乳杆菌TF08-1，产短链脂肪酸通路非常完整""和我们另外自研的五大王牌菌，居然可以相互合作，产生1+1大于2的效果""每袋500亿活菌耐胃酸耐胆汁"',
+        '"厂家直发，买一盒发三盒""点击下方小黄车，拍2盒发5盒，平均一盒才几十块钱"',
+        '专业、权威、科学严谨，语速适中偏快'],
+      ['wyl',
+        ['"告诉大家一个不好的消息。"','"姐妹们就三天，多一天的时长都不需要，我要让你知道什么叫做真正的惊喜。"','"就这么一掰、一撕、一倒，清清爽爽。"'],
+        '"小小一瓶400亿个活菌""专利屏障菌Gold Gut M520，存活率大于99.99%""早蓝晚绿宠粉福利，买30瓶小蓝再给你30瓶小绿"',
+        '"拍一发180的小蓝瓶，今天可能就要结束了""一盒399，两盒599，三盒799，再给你加一整箱"',
+        '亢奋、热情、煽动性强，砍价式促销'],
+      ['ntld',
+        ['"这个益生菌，我才吃了半年就后悔了。"','"大家赶紧拍，因为这个拍一发十盒益生菌，还要立减两位数的福利，要和大家说再见了。"'],
+        '"一条就有1200亿的活菌量""五层包埋技术和冻干工艺""我绝对不会为了赚那一点带货的钱，毁了自己的声誉。这个益生菌是我吃过觉得好，才推荐给各位的"',
+        '"618年中福利+自掏腰包补贴，益生菌拍一发十盒还要立减两位数""平均每天只要一块钱，怎么吃都不心疼"',
+        '郭涛真诚亲切，钟丽缇热情自信，紧迫感强烈'],
+      ['hbzy',
+        ['"这是52岁的我，我早上起来从不吃碳水，早晨起床空腹一杯华北益生菌。"','"别再花几百块买益生菌了，没有这层防护，活菌在胃酸里10秒就全军覆没，你喝进去的就是一碗昂贵的糖水。"'],
+        '"每袋1000亿活菌、21种独立菌株、5大益生元""微囊封装+真空冷冻5层84次包埋""73年老招牌，不会为了蝇头小利造假，更不会联合中间商来吸老百姓的血"',
+        '"周年宠粉福利，全场拍一发六""二三十块一盒，大厂直发的就完全够了"',
+        '语速平缓语气坚定，专业且真诚'],
+      ['jz',
+        ['"肚子鼓鼓的，上厕所费劲的，总感觉排不出来的，一定要试试这个江中益生菌！"'],
+        '"江中是大品牌，老字号了，品质有保障""一盒500亿活性益生菌+益生元，耐酸耐碱直达肠道""华大基因联合研发"',
+        '"厂家冲销量，平时一盒几十块，现在直播间拍一发六，到手六大盒""最后30单，手慢了真的就没有了"',
+        '前段焦虑共鸣、中段专业自信、后段亢奋紧迫']
+    ]},
+    {key:'product',label:'产品呈现',title:'2.3 产品呈现维度',cols:['产品出镜方式','包装展示','功效演示手段','信任状'],rows:[
+      ['hda','模特服用 + 包装盒特写 + 培养皿对比 + 3D动画','黑色小方盒(镜脂轻小黑盒) / 紫色优美达益休 / 单条铝箔+华大Logo','3D益生菌进肠道 + 溶解实验 + 模拟胃酸 + 受损vs健康肠道对比 + 显微镜活菌','华大CEO+首席科学家双博士 / 专利ZL201811514219.8 / 18年研究 / 国家基因库 / 百名博士团队 / SCI论文'],
+      ['wyl','手持小蓝瓶 + 180瓶堆叠 + 明星手持 + 桶装超大容量','克莱因蓝小瓶+玫粉小粉瓶+绿色小绿瓶+W Logo','3D胃酸屏障 + 一掰一撕一倒物理演示 + 菌株来源地图 + 存活率检测图表','专利ZL202211660794.5 / 中科院微生物所收录 / 7亿瓶销量 / 秦海璐李若彤梅婷陈蓉程雷'],
+      ['ntld','明星口播 + 工厂实拍 + 用户使用 + 产品矩阵','蓝白条装 / "≥12000亿"标注 / 透明手提袋10盒装','直接干吃 + 温水冲泡 + DNA螺旋动画 + 活菌量数字强调','郭涛+钟丽缇双代言 / 专利ZL 2023 1 0972025.X / 检测中心门头 / 自动化生产线 / 十几年老品牌'],
+      ['hbzy','包装盒特写 + 手持 + 3D动画 + 工厂实拍','深蓝白配色 + 华北制药Logo + "益生元益生菌冻干粉固体饮料"','3D胃酸穿越 + 对比实验 + 场景还原','73年老药企 / 源头工厂直发 / 现代化生产车间 / 营养师段小玲 / 不联合中间商'],
+      ['jz','手持近景 + 生活化嵌入 + 第一视角拆箱','品牌Logo特写 + 独立条装 + "500亿活菌"放大 + 蓝白/蓝绿','溶解性实验(粉末入水快速溶解) + 3D肠道示意 + 干吃口感','江中50年老品牌 / 华大基因联合研发 / 专利菌株号 / 第三方检测 / 全家都在吃从众']
+    ]},
+    {key:'bgm',label:'BGM与语气',title:'2.4 BGM与语气维度',cols:['音乐风格','语速特征','语调特征','音效'],rows:[
+      ['hda','节奏感强 + 科技感 + 轻快明亮','适中偏快','平稳专业→坚定有感染力','转场音效 + 强调音效(叮、嗖) + 清脆提示音'],
+      ['wyl','快节奏电子流行乐 + 强鼓点 + 卡点','极快(直播带货风格)','抑扬顿挫 + 高亢煽动性 + 上扬','鼓点 + 卡点 + 金币掉落 / 礼花喷洒'],
+      ['ntld','快节奏动感电子 + 强鼓点','极快(1.5倍速)，信息密度极高','喊麦式高亢有煽动性','转场嗖 + 强调叮/砰 + 人群惊呼 + 收银机声'],
+      ['hbzy','节奏明快促销感 + 舒缓专业轻音乐','中速偏快→适中偏慢(营养师科普)','热情→专业坚定→亲切真诚','转场 + 提示音 + 场景切换音'],
+      ['jz','快节奏电子轻音乐 + 轻快卡点','较快紧凑(250-300字/分)','高亢热情→专业自信→亲切关怀','转场嗖 + 叮 + 撕包装ASMR + 吞咽声']
+    ]},
+    {key:'platform',label:'平台适配性',title:'2.5 平台适配性维度',cols:['视频时长','内容风格','互动引导强度','适配平台'],rows:[
+      ['hda','30–94秒','科学科普型带货 / 健康科普型','中等：'+'"有需要的朋友们呢可以去了解了解"','适合深度种草，需配合直播间转化'],
+      ['wyl','31–82秒','明星背书 + 直播带货 + 促销','强：'+'"有需要的朋友千万别错过""快来直播间看看吧"','抖音/快手信息流+直播间引流'],
+      ['ntld','15–77秒','信息流种草 + 明星背书 + 硬广','极强：'+'"大家赶紧拍！""视频在活动就在"','小店商品详情页 + 信息流广告'],
+      ['hbzy','74–129秒','信息流促销 / 科普+带货','强：'+'"点击直播链接来华北制药工厂直播间"','中长视频深度科普 + 直播转化'],
+      ['jz','20–25秒','痛点解决型 + 利益驱动','极强：'+'"点击下方小黄车""左下角领券"','短视频信息流 + 快速转化']
+    ]},
+    {key:'pain',label:'核心卖点与痛点',title:'2.6 核心卖点与受众痛点',cols:['主打痛点','核心卖点','受众画像'],rows:[
+      ['hda','隐形肥胖(内脏脂肪高) / 失眠 / 肚子胀气 / 长期便秘 / 普通益生菌被胃酸杀死','华大自研专利减脂菌(格氏乳杆菌TF08-1) / 六大王牌菌1+1>2 / 500亿高活菌 / 基于中国人肠道菌群数据库','25–45岁关注身材+肠道+睡眠的中产'],
+      ['wyl','肠胃问题 / 存活率低 / 饮食油腻 / 50+年龄焦虑 / 价格敏感','400亿活菌 / 专利屏障菌Gold Gut M520 / 99.99%存活率 / 早蓝晚绿 / 拍一发180 / 7亿瓶','30–50+岁女性 / 关注身材 / 品质生活'],
+      ['ntld','益生菌好但贵 / 中老年肠道健康 / 活性存疑 / 选购困难','1200亿活菌/条 / 五层包埋+冻干 / 0乳糖0脂肪 / 拍1发10 / 每天1元 / 37种益生菌','40+中老年 / 价格敏感型 / 家庭囤货'],
+      ['hbzy','金钱浪费 / 效果缺失 / 中间商欺骗 / 40+肠道吸收变差','1000亿活菌 / 21种独立菌株+5大益生元 / 三层微囊+真空冷冻干燥 / 73年老招牌 / 源头工厂直发','40+岁 / 价格敏感+品牌信任度高的中老年'],
+      ['jz','饭后胀气 / 排便不畅 / 口气重小肚子 / 外卖族久坐族','江中50年老品牌 / 500亿高活菌 / 四层包埋耐胃酸 / 益生元菌元同补 / 0蔗糖全家适用','25–45岁女性 / 宝妈 / 职场白领']
+    ]},
+    {key:'copy',label:'文案结构',title:'2.7 文案结构与话术策略',cols:['逻辑递进模式','信任构建策略','核心话术策略'],rows:[
+      ['hda','问题提出→专家背书→科学方案→产品介绍→信任建立→转化引导','双博士+专利证书+18年研究+国家基因库+SCI论文','科研权威型：『发现专利菌株』叙事建立信息差，『1+1>2协同效应』制造认知壁垒'],
+      ['wyl','紧迫感→专家身份背书→产品演示→数据支撑→促销号召','专家+专利+科研机构+检测报告+明星矩阵+7亿瓶销量','明星矩阵型：『早蓝晚绿』制造差异化，多明星轮番背书构建信任壁垒'],
+      ['ntld','反转钩子→明星信任→产品参数→品牌实力→价格优势→限时紧迫','明星双代言+工厂实拍+用户场景+专利+品牌资历','极致性价比型：拍1发10制造价格锚点，『每天1元』降低决策门槛'],
+      ['hbzy','反直觉开场→价格对比反差→揭露行业内幕→品牌信任→产品技术→性价比总结→行动','73年老招牌+利益对立姿态+工厂实拍透明化+技术参数+售后承诺','药企专业型：揭露行业内幕制造认知反差，营养师身份建立专业信任'],
+      ['jz','黄金3秒吸睛→痛点共鸣→方案引入→深度背书→利益驱动→促单','江中50年+视觉实证+从众心理+专家达人','国民信任型：『老字号』降低防备，『华大基因联合研发』增强科技感']
+    ]},
+    {key:'cta',label:'转化引导',title:'2.8 转化引导机制',cols:['行动号召CTA','紧迫感制造','转化链路'],rows:[
+      ['hda','"点击下方小黄车，直接拍3盒""把华大科研成果带回家"','"卖完这200组又要等下个月""最后100单，抢完就恢复原价了""这批货是本月最后一批科研内供份数"','直播：直播间拍3盒/买一赠一；小店：商品详情页直接下单'],
+      ['wyl','"趁现在优惠还在赶紧囤上一份""有需要的朋友千万别错过"','"今天可能就要结束了！""就三天，多一天的时长都不需要""今年买益生菌最划算的一次"','直播：拍一发180 / 买30送30 / 额外补贴'],
+      ['ntld','"大家赶紧拍！""视频在活动就在""只买对的不买贵的"','"今天最后一天，618大促""抢到就抢到，抢不到后面也没有这么便宜了""拍一发10的活动就要结束了"','小店：商品详情页拍1发10立减20元 / 直播间'],
+      ['hbzy','"直接从华北制药源头工厂购买""点击直播链接来华北制药工厂直播间"','"源头工厂补贴还在继续""包装线直发没有中间商赚差价""618宠粉限时优惠"','直播：工厂直播间直发 + 源头工厂补贴'],
+      ['jz','"点击下方小黄车""左下角领券""给自己和家人带一份健康"','"最后50单抢完恢复原价""仅限今天""今天厂家冲销量""平时一盒几十今天拍一发六"','直播：直播间买赠 / 小店：领券下单']
+    ]}
+  ],
+  diff:[
+    {key:'hda',name:'华大营养',color:'#E8AFB8',sub:'科研权威型打法',content:[
+      ['信任构建策略','行业最强信任背书体系——CEO尹烨(生物学博士)+首席科学家肖亮(微生物学博士)"双博士天团"出镜，配合专利证书ZL201811514219.8实物展示、国家基因库背景、18年肠道研究经验、百名博士团队，形成"国家队级别"的科研背书。视频中显微镜活菌动态、模拟胃酸实验、专利证书特写，将抽象科学具象化。'],
+      ['信息差营销策略','以"格氏乳杆菌TF08-1"、"肠脑轴理论"、"基于中国人肠道菌群数据库研发"等概念制造认知壁垒，让消费者产生"只有华大才懂中国人肠道"的信息差认知。"发现专利减脂菌，产短链脂肪酸通路完整"将科研发现包装为独家技术优势。'],
+      ['人设差异化','CEO+首席科学家"双博士"人设，区别于行业明星代言/网红带货模式。尹烨黑色T恤+手势辅助、肖亮深紫色夹克+专业语调，塑造"可亲近的科学家"形象。'],
+      ['核心短板','CTR 1.78% 全场最低，开场偏科普感前3秒吸引力不足；仅 1条小店链路 ROI 1.34，小店素材开发明显缺失。']
+    ]},
+    {key:'wyl',name:'万益蓝',color:'#7FA9C4',sub:'明星矩阵型打法',content:[
+      ['信任构建策略','行业最庞大的明星/名人背书矩阵——高志凯(学者)、秦海璐、李若彤、梅婷、陈蓉、程雷等多位公众人物轮番出镜，配合"中国益生菌销售额第一"、"7亿瓶销量"形成"大家都在吃"的从众效应。专利ZL202211660794.5、中科院微生物所收录、存活率检测报告等强化科研背书。'],
+      ['信息差营销策略','"早蓝晚绿"科学搭配概念、"专利屏障菌Gold Gut M520"、"99.99%存活率"、"400亿活菌"制造差异化。"早上小蓝晚上小绿，600亿高活菌搭配14株明星尖子菌"将组合包装为独家方案。'],
+      ['人设差异化','明星/主持人矩阵+学者背书，以"名人同款"建立信任。秦海璐优雅、李若彤温柔、梅婷自然，塑造"不同年龄层女性都在吃"的视觉印象。'],
+      ['核心短板','过度依赖明星背书产品科技感弱于华大；6条全直播链路，小店缺失；CTR 2.08% 低于诺特兰德。']
+    ]},
+    {key:'ntld',name:'诺特兰德',color:'#E8B89A',sub:'极致性价比型打法',content:[
+      ['信任构建策略','"明星双代言+工厂实拍+专利技术"三重信任——郭涛+钟丽缇双代言，配合诺特兰德检测中心门头实拍、自动化生产线、成堆检验报告、专利ZL2023 1 0972025.X，形成"大品牌+源头工厂+明星亲测"闭环。展会红色充气拱门"拍1发10盒"将促销力度与品牌实力绑定。'],
+      ['信息差营销策略','"1200亿活菌/条（行业最高）"、"37种益生菌+益生元"、"五层包埋+冻干工艺"、"0乳糖0脂肪"制造性价比认知壁垒。"每天仅需1元"极致降低决策门槛。'],
+      ['人设差异化','郭涛+钟丽缇双明星，区别于科学家或多明星矩阵，以"实力派演员亲测"建立信任，接地气的明星推荐形象。'],
+      ['核心短板','品牌高端感不足客单价偏低(约185元)，过度依赖买赠机制可能削弱品牌溢价；素材偏硬广促销科技感弱于华大/华北。']
+    ]},
+    {key:'hbzy',name:'华北制药',color:'#A9C29B',sub:'药企专业型打法',content:[
+      ['信任构建策略','"73年老药企+营养师专业人设+源头工厂实拍"三位一体——营养师段小玲深蓝西装+麦克风以"菌种实验室待了快十年"出镜，"不联合中间商吸老百姓的血"的利益对立姿态、自动化包装流水线、满地钞票夸张场景。'],
+      ['信息差营销策略','揭露行业内幕："活菌在胃酸里10秒就全军覆没，你喝进去的就是一碗昂贵的糖水"创造极强认知冲击。1000亿活菌+21种独立菌株+5大益生元+三层微囊+真空冷冻干燥制造技术壁垒。'],
+      ['人设差异化','营养师段小玲+"73年老药企"身份，以"药企专家"建立专业信任。手持麦克风模拟发布会现场感，强化"专家科普"标签。'],
+      ['核心短板','ROI 1.64 偏低高 CVR 但消耗效率不足；视频偏长(74–129秒)在短视频面临流失风险；Top5缺乏具体产品促销话术。']
+    ]},
+    {key:'jz',name:'江中益生菌',color:'#B8A7C9',sub:'国民信任型打法',content:[
+      ['信任构建策略','"50年国民老品牌+华大基因联合研发"双重信任——反复强调"江中大品牌老字号品质有保障"，华大基因BGI战略合作标识、专利菌株号、第三方检测、溶解性实验，形成"国民品牌+科研背书"组合。'],
+      ['信息差营销策略','500亿高活菌、四层包埋耐胃酸、16种多菌株协同、益生元菌元同补。"四层包埋直达肠道不被胃酸杀灭"包装为独家优势。'],
+      ['人设差异化','25-35岁都市女性/精致宝妈，以"亲近的邻家姐姐"建立信任。浅色居家服+清新滤镜+温馨场景。'],
+      ['核心短板','ROI 1.43 全场最低消耗效率偏低；素材创意保守，依赖"江中大品牌"重复话术，缺乏华大科研深度和诺特兰德促销冲击力；20–25秒过短信息密度受限。']
+    ]}
+  ],
+  optim:[
+    {brand:'华大营养',color:'#E8AFB8',
+      sell:['强化『格氏乳杆菌TF08-1』专利菌株具象化，制作"1+1>2协同效应"菌群协同作战动画','将"基于中国人肠道菌群数据库"升级为核心卖点，制作"中国人肠道菌群地图"视觉化素材','针对"隐形肥胖"开发体脂率对比图，将"看着很瘦你就要担心了"量化为可视化健康警示'],
+      visual:['重构开场3秒钩子：→"肚子大不是胖，是肠道在求救——华大营养500亿活菌直达肠道清垃圾"','减少专家访谈比例，增加真实用户使用前后对比(体脂率变化、肠道改善)，强化"效果可视化"','为"成人压片糖果"开发专属小店素材，参考诺特兰德"拍1发10"将"买一盒发三盒"升级为更具冲击力的堆叠展示'],
+      copy:['从"科普教育"转向"问题解决"：痛点直击(3s)→快速方案(5s)→科研背书(10s)→促销转化(5s)','减少"CEO+首席科学家"重复背书，增加"18年研究只为一袋好菌"情感化叙事','强化限时紧迫：→"最后100单，抢完恢复原价，下次到货要等菌株培养周期45天"']
+    },
+    {brand:'万益蓝',color:'#7FA9C4',
+      sell:['深耕"早蓝晚绿"双效组合，升级为"日护+夜修"24小时肠道管理，制作时间轴可视化(早8点小蓝餐后解腻→晚8点小绿睡前修复)','强化"女性私护+肠道健康"双重功效，针对30-50+岁女性开发"代谢+抗衰"复合卖点','将"7亿瓶销量"升级为"7亿瓶背后的复购密码"，制作"第二桶、第三桶"复购视觉化'],
+      visual:['减少明星堆砌，增加真人场景演示：1-2位明星+真实用户"饭后一掰一撕一倒"第一视角','测试小店链路：为"小蓝瓶"开发专属小店素材，参考"拍1发10"将"拍一发180"升级堆叠展示','增加产品科技感：补充3D胃酸屏障动画、存活率检测报告特写、专利证书展示，弥补过度依赖明星的科技感短板'],
+      copy:['从"明星背书驱动"转向"场景化痛点驱动"：场景痛点(3s)→产品方案(5s)→明星证言(10s)→促销转化(5s)','增加"你的肠道比你想象更需要呵护"情感共鸣，减少"拍一发180"纯促销比例','在明星背书基础上增加"专利号ZL202211660794.5+中科院微生物所收录"科研背书']
+    },
+    {brand:'诺特兰德',color:'#E8B89A',
+      sell:['放大"1200亿活菌行业最高"数据优势，制作行业活菌量对比图(诺特兰德1200亿 vs 行业平均300-500亿)：→"行业最高活菌量，1条抵别人3条"','强化"五层包埋+冻干工艺"技术可视化，制作"从实验室到肠道"全链路动画','将"每天仅需1元"升级为"1元=1200亿活菌"价值等式'],
+      visual:['保持高CTR风格同时提升品牌质感：增加品牌色(蓝色)统一应用，减少红色促销标签过度使用','规模化复制成功小店素材模式(ROI 2.01最高)：明星双代言+工厂实拍+买赠视觉化模板','增加3D五层包埋技术演示、DNA螺旋动画、活菌数对比图，弥补硬广促销科技感短板'],
+      copy:['从纯促销驱动增加产品力背书：产品力证言(3s)→技术可视化(5s)→明星信任(10s)→促销转化(5s)','平衡"便宜"与"好用"，减少"拍1发10"重复，增加"37种益生菌+五层包埋锁活性"产品力话术','强化品牌资历：→"13年专注益生菌，源头工厂直发，每一批都有检测报告"']
+    }
+  ]
+};
+/* /FILE:data.js */
+</script>
+
+<script>
+/* ===== SCRIPT ===== */
+/* FILE:charts.js */
+function renderCharts(){
+  const B=window.D.brands;
+  const names=B.map(b=>b.name);
+  const colors=B.map(b=>b.color);
+
+  // 消耗
+  const c1=echarts.init(document.getElementById('chartConsume'));
+  c1.setOption({
+    grid:{left:40,right:30,top:30,bottom:40},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+    xAxis:{type:'category',data:names,axisLine:{lineStyle:{color:'#D8D2BD'}},axisLabel:{color:'#6B6557',fontSize:12}},
+    yAxis:{type:'value',name:'万元',nameTextStyle:{color:'#6B6557'},axisLine:{show:false},splitLine:{lineStyle:{color:'#E5DFC9'}},axisLabel:{color:'#6B6557'}},
+    series:[{
+      type:'bar',data:B.map((b,i)=>({value:b.consume,itemStyle:{color:colors[i],borderRadius:[6,6,0,0]}})),
+      barWidth:'40%',
+      label:{show:true,position:'top',formatter:'{c}万',color:'#1A1814',fontFamily:'Cormorant Garamond',fontStyle:'italic',fontSize:13}
+    }]
+  });
+
+  // 效率
+  const c2=echarts.init(document.getElementById('chartEff'));
+  c2.setOption({
+    grid:{left:40,right:30,top:50,bottom:40},
+    tooltip:{trigger:'axis'},
+    legend:{data:['ROI','CVR(%)','CTR(%)'],top:5,textStyle:{color:'#6B6557'},itemWidth:10,itemHeight:10},
+    xAxis:{type:'category',data:names,axisLine:{lineStyle:{color:'#D8D2BD'}},axisLabel:{color:'#6B6557',fontSize:12}},
+    yAxis:{type:'value',axisLine:{show:false},splitLine:{lineStyle:{color:'#E5DFC9'}},axisLabel:{color:'#6B6557'}},
+    series:[
+      {name:'ROI',type:'bar',data:B.map(b=>b.roi),itemStyle:{color:'#1A1814',borderRadius:[3,3,0,0]},barWidth:14},
+      {name:'CVR(%)',type:'bar',data:B.map(b=>b.cvr),itemStyle:{color:'#A9C29B',borderRadius:[3,3,0,0]},barWidth:14},
+      {name:'CTR(%)',type:'bar',data:B.map(b=>b.ctr),itemStyle:{color:'#E8AFB8',borderRadius:[3,3,0,0]},barWidth:14}
+    ]
+  });
+  window.addEventListener('resize',()=>{c1.resize();c2.resize()});
+}
+/* /FILE:charts.js */
+
+/* FILE:ui.js */
+function renderKPI(){
+  const html=window.D.brands.map(b=>`
+    <div class="kpi-card bg-card border border-border rounded-xl p-5" style="border-top:3px solid ${b.color}">
+      <div class="flex items-center gap-2 mb-4"><span class="dot" style="background:${b.color}"></span><span class="font-medium">${b.name}</span></div>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between"><span class="text-muted">Top6消耗</span><span class="font-italic italic text-base">${b.consume}万</span></div>
+        <div class="flex justify-between"><span class="text-muted">平均ROI</span><span class="font-italic italic text-base">${b.roi}</span></div>
+        <div class="flex justify-between"><span class="text-muted">CVR</span><span class="font-italic italic text-base">${b.cvr}%</span></div>
+        <div class="flex justify-between"><span class="text-muted">CTR</span><span class="font-italic italic text-base">${b.ctr}%</span></div>
+        <div class="flex justify-between pt-2 border-t border-border mt-2"><span class="text-muted text-xs">链路分布</span><span class="text-xs">${b.link}</span></div>
+      </div>
+      <p class="mt-3 text-xs text-muted">${b.tag}</p>
+    </div>`).join('');
+  document.getElementById('kpiGrid').innerHTML=html;
+}
+
+function brandMeta(key){return window.D.brands.find(b=>b.key===key)}
+
+function renderTabs(){
+  const nav=document.getElementById('tabNav');
+  const tabs=window.D.tabs;
+  nav.innerHTML=tabs.map((t,i)=>`<div class="tab-btn ${i===0?'active':''}" data-k="${t.key}">${t.label}</div>`).join('');
+  function paint(key){
+    const t=tabs.find(x=>x.key===key);
+    const head='<thead><tr><th style="width:120px">品牌</th>'+t.cols.map(c=>`<th>${c}</th>`).join('')+'</tr></thead>';
+    const body='<tbody>'+t.rows.map(r=>{
+      const b=brandMeta(r[0]);
+      const cells=r.slice(1).map((cell,idx)=>{
+        if(Array.isArray(cell)){
+          return '<td>'+cell.map(q=>`<div class="quote mb-2"><span class="q-tag">原文</span>${q}</div>`).join('')+'</td>';
+        }
+        // 第一个数据列若是话术核心卖点，加引用样式
+        if(t.key==='oral' && idx===1){
+          return `<td><div class="quote">${cell.replace(/"/g,'<br>"')}</div></td>`;
+        }
+        return `<td>${cell}</td>`;
+      }).join('');
+      return `<tr><td class="brand"><span class="dot" style="background:${b.color}"></span>${b.name}</td>${cells}</tr>`;
+    }).join('')+'</tbody>';
+    document.getElementById('tabContent').innerHTML=`
+      <div class="fade-in">
+        <h3 class="font-serif text-xl md:text-2xl mb-5">${t.title}</h3>
+        <div class="bg-card border border-border rounded-xl overflow-x-auto"><table class="cmp">${head}${body}</table></div>
+      </div>`;
+  }
+  nav.addEventListener('click',e=>{
+    const btn=e.target.closest('.tab-btn');if(!btn)return;
+    nav.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');
+    paint(btn.dataset.k);
+  });
+  paint(tabs[0].key);
+}
+
+function renderAccordion(){
+  const wrap=document.getElementById('accordion');
+  wrap.innerHTML=window.D.diff.map((d,i)=>`
+    <div class="acc-item ${i===0?'open':''}" data-i="${i}" style="border-left:4px solid ${d.color}">
+      <div class="acc-head">
+        <div class="flex items-center gap-4">
+          <span class="font-italic italic text-2xl text-muted">3.${i+1}</span>
+          <div>
+            <p class="font-serif text-lg md:text-xl">${d.name}<span class="text-muted text-sm ml-3">${d.sub}</span></p>
+          </div>
+        </div>
+        <span class="acc-arrow text-muted text-xl">⌄</span>
+      </div>
+      <div class="acc-body">
+        <div class="grid md:grid-cols-2 gap-x-10 gap-y-5 pt-2">
+          ${d.content.map(([h,p])=>`<div><p class="text-xs font-italic italic text-muted mb-2">▍ ${h}</p><p class="text-sm leading-relaxed">${p}</p></div>`).join('')}
+        </div>
+      </div>
+    </div>`).join('');
+  wrap.addEventListener('click',e=>{
+    const head=e.target.closest('.acc-head');if(!head)return;
+    head.parentElement.classList.toggle('open');
+  });
+}
+
+function renderOptim(){
+  const html=window.D.optim.map((o,i)=>`
+    <div class="bg-card border border-border rounded-xl p-6 md:p-8" style="border-top:4px solid ${o.color}">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-italic italic text-2xl text-muted">4.${i+1}</span>
+        <h3 class="font-serif text-xl md:text-2xl">${o.brand} 深度优化建议</h3>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div><p class="text-xs font-italic italic text-muted mb-3">▍ 卖点提炼方向</p><ul class="space-y-2 text-sm leading-relaxed">${o.sell.map(s=>`<li class="flex gap-2"><span class="text-muted">·</span><span>${s}</span></li>`).join('')}</ul></div>
+        <div><p class="text-xs font-italic italic text-muted mb-3">▍ 视觉优化方向</p><ul class="space-y-2 text-sm leading-relaxed">${o.visual.map(s=>`<li class="flex gap-2"><span class="text-muted">·</span><span>${s}</span></li>`).join('')}</ul></div>
+        <div><p class="text-xs font-italic italic text-muted mb-3">▍ 文案方向优化</p><ul class="space-y-2 text-sm leading-relaxed">${o.copy.map(s=>`<li class="flex gap-2"><span class="text-muted">·</span><span>${s}</span></li>`).join('')}</ul></div>
+      </div>
+    </div>`).join('');
+  document.getElementById('optimGrid').innerHTML=html;
+}
+/* /FILE:ui.js */
+
+/* FILE:main.js */
+document.addEventListener('DOMContentLoaded',()=>{
+  renderKPI();
+  renderCharts();
+  renderTabs();
+  renderAccordion();
+  renderOptim();
+});
+/* /FILE:main.js */
+</script>
+</body>
+</html>
