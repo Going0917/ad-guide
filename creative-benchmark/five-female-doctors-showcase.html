@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>五个女博士 × 膳食营养起量Showcase</title>
+<style>
+  @font-face {
+    font-family: 'TencentSans';
+    src: url('ot_cff/TencentSans-W3.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TencentSans';
+    src: url('ot_cff/TencentSans-W7.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'TencentSans', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-weight: 300;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-height: 100vh;
+    padding: 0;
+    gap: 0;
+  }
+
+  html { zoom: 1.5; }
+
+  .slide {
+    width: 100%;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: none;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .topbar {
+    height: 38px;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    flex-shrink: 0;
+  }
+  .topbar-logo { font-size: 14px; font-weight: 700; color: #0052d9; letter-spacing: 1px; }
+  .topbar-tag {
+    background: #e6f0ff;
+    color: #0052d9;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 4px;
+    border: 1px solid #b3d1ff;
+  }
+
+  .title-bar {
+    height: 44px;
+    background: linear-gradient(135deg, #0052d9 0%, #2b7bff 50%, #5ca0ff 100%);
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .title-bar h1 {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .adv-section {
+    padding: 8px 28px 6px;
+    flex-shrink: 0;
+  }
+  .adv-header {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  .adv-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .adv-card {
+    background: linear-gradient(135deg, #0052d9 0%, #2b7bff 60%, #5ca0ff 100%);
+    border-radius: 8px;
+    padding: 8px 6px 7px;
+    color: #fff;
+    text-align: center;
+  }
+  .adv-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 3px;
+  }
+  .adv-card-num {
+    font-size: 9px;
+    font-weight: 700;
+    color: #0052d9;
+    background: #fff;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .adv-card-title { font-size: 12px; font-weight: 700; color: #fff; }
+  .adv-card-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffe082;
+    line-height: 1.15;
+    margin: 2px 0;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .adv-card-desc {
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.4;
+  }
+
+  .main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 6px 28px 4px;
+    flex: 1;
+  }
+  .left-col {
+    padding-right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .right-col {
+    padding-left: 12px;
+    border-left: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .sec-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2px 5px;
+    flex-shrink: 0;
+  }
+  .sec-title .dot {
+    width: 4px; height: 4px;
+    background: #0052d9;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  /* 品类矩阵卡 */
+  .category-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+  .cat-card {
+    background: #f8faff;
+    border: 1px solid #e8edf5;
+    border-radius: 6px;
+    padding: 5px 7px;
+  }
+  .cat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+  }
+  .cat-name {
+    font-size: 10px;
+    font-weight: 700;
+    color: #0052d9;
+  }
+  .cat-trend {
+    font-size: 8px;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: 2px;
+  }
+  .cat-trend.up { background: #eef8ee; color: #2ba245; }
+  .cat-trend.down { background: #ffeeed; color: #d9534f; }
+  .cat-trend.stable { background: #f0f0f0; color: #888; }
+  .cat-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 6px;
+  }
+  .cm {
+    font-size: 7.5px;
+    color: #555;
+  }
+  .cm b { color: #333; font-weight: 700; }
+
+  /* 对比表 */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .data-table th {
+    background: #0052d9;
+    color: #fff;
+    font-weight: 700;
+    padding: 3px 4px;
+    text-align: center;
+    font-size: 7.5px;
+  }
+  .data-table td {
+    padding: 3px 4px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    font-size: 7.5px;
+    color: #444;
+  }
+  .data-table tr:nth-child(even) td { background: #f8faff; }
+  .data-table td.hl { color: #e8870b; font-weight: 700; }
+  .data-table td.good { color: #2ba245; font-weight: 700; }
+  .data-table td.bad { color: #d9534f; font-weight: 700; }
+
+  /* 策略卡 */
+  .strat-card {
+    background: #fafafa;
+    border-radius: 6px;
+    padding: 5px 8px;
+    border: 1px solid #eee;
+  }
+  .strat-card h5 {
+    font-size: 10px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 3px;
+  }
+  .strat-card li {
+    font-size: 8px;
+    color: #555;
+    line-height: 1.55;
+    list-style: none;
+    padding-left: 10px;
+    position: relative;
+    margin-bottom: 1px;
+  }
+  .strat-card li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #2ba245;
+    font-weight: 700;
+    font-size: 8px;
+  }
+  .strat-card li b { color: #222; font-weight: 700; }
+  .strat-card li strong { color: #0052d9; font-weight: 700; }
+
+  /* 洞察框 */
+  .insight-box {
+    background: linear-gradient(135deg, #fffbf0, #fff8e6);
+    border: 1px solid #ffe082;
+    border-radius: 6px;
+    padding: 5px 8px;
+    margin-top: 2px;
+  }
+  .insight-box h5 {
+    font-size: 9px;
+    font-weight: 700;
+    color: #e8870b;
+    margin-bottom: 2px;
+  }
+  .insight-box p {
+    font-size: 7.5px;
+    color: #666;
+    line-height: 1.5;
+  }
+  .insight-box p b { color: #e8870b; }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin-top: 2px;
+  }
+  .m-tag {
+    display: inline-block;
+    font-size: 7px;
+    font-weight: 700;
+    padding: 1.5px 5px;
+    border-radius: 2px;
+  }
+  .m-tag.orange { background: #fff5e6; color: #e8870b; }
+  .m-tag.green { background: #eef8ee; color: #2ba245; }
+  .m-tag.blue { background: #e6f0ff; color: #0052d9; }
+  .m-tag.red { background: #ffeeed; color: #d9534f; }
+
+  /* 展播效果高亮 */
+  .showcase-highlight {
+    background: linear-gradient(135deg, #e6f0ff, #f0f5ff);
+    border: 1px solid #b3d1ff;
+    border-radius: 6px;
+    padding: 5px 8px;
+  }
+  .showcase-highlight h5 {
+    font-size: 10px;
+    font-weight: 700;
+    color: #0052d9;
+    margin-bottom: 3px;
+  }
+  .sh-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    margin-top: 3px;
+  }
+  .sh-item {
+    text-align: center;
+    padding: 3px 0;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid #dce6f5;
+  }
+  .sh-label {
+    font-size: 7px;
+    color: #888;
+    margin-bottom: 1px;
+  }
+  .sh-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0052d9;
+  }
+  .sh-value.gold { color: #e8870b; }
+
+  .slide-footer {
+    height: 22px;
+    background: #f5f8ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    font-size: 7px;
+    color: #bbb;
+    border-top: 1px solid #e8edf5;
+    flex-shrink: 0;
+  }
+
+  /* ====== Slide 2: Material Types ====== */
+  .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px 28px; }
+  .type-card { background: #fff; border: 1.5px solid #e8edf5; border-radius: 8px; overflow: hidden; display: grid; grid-template-columns: 160px 1fr; min-height: 220px; }
+  .type-card .video-area { position: relative; background: #111; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .type-card .video-area video { width: 100%; height: 100%; object-fit: cover; }
+  .type-card .video-area .play-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.35); cursor: pointer; transition: opacity 0.2s; }
+  .type-card .video-area .play-overlay:hover { background: rgba(0,0,0,0.15); }
+  .type-card .video-area .play-btn { width: 36px; height: 36px; background: rgba(255,255,255,0.92); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .type-card .video-area .play-btn::after { content: ''; width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 13px; border-color: transparent transparent transparent #0052d9; margin-left: 2px; }
+  .type-card .video-area .video-label { position: absolute; bottom: 6px; left: 6px; font-size: 8px; font-weight: 700; color: #fff; background: rgba(0,0,0,0.65); padding: 2px 6px; border-radius: 3px; }
+  .type-card .content-area { padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+  .type-card .card-header { display: flex; justify-content: space-between; align-items: center; }
+  .type-card .card-title { font-size: 12px; font-weight: 700; color: #222; }
+  .type-card .card-badge { font-size: 8px; font-weight: 700; padding: 3px 8px; border-radius: 4px; }
+  .badge-cost { background: #fff5e6; color: #e8870b; }
+  .badge-stable { background: #e6f0ff; color: #0052d9; }
+  .badge-cvr { background: #eef8ee; color: #2ba245; }
+  .badge-premium { background: #f3e8ff; color: #7c3aed; }
+  .type-card .color-strip { height: 3px; border-radius: 2px; }
+  .strip-cost { background: linear-gradient(90deg, #e8870b, #f5a623); }
+  .strip-stable { background: linear-gradient(90deg, #0052d9, #5ca0ff); }
+  .strip-cvr { background: linear-gradient(90deg, #2ba245, #5fd47a); }
+  .strip-premium { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+  .metrics-row { display: flex; flex-wrap: wrap; gap: 4px; }
+  .metric-chip { font-size: 9px; color: #555; background: #f5f7fa; padding: 3px 7px; border-radius: 3px; border: 1px solid #eee; }
+  .metric-chip b { color: #0052d9; font-weight: 700; }
+  .metric-chip.best b { color: #e8870b; }
+  .type-desc { font-size: 10px; color: #444; line-height: 1.7; }
+  .type-desc b { color: #222; font-weight: 700; }
+  .type-desc strong { color: #0052d9; font-weight: 700; }
+  .quote-box { background: #f8faff; border-left: 3px solid #0052d9; padding: 5px 8px; border-radius: 0 4px 4px 0; font-size: 9px; color: #666; line-height: 1.5; font-style: italic; }
+  .formula-box { margin: 8px 28px; background: linear-gradient(135deg, #0052d9 0%, #2b7bff 50%, #5ca0ff 100%); border-radius: 8px; padding: 10px 18px; display: flex; align-items: center; justify-content: space-between; }
+  .formula-box .formula-left { color: #fff; }
+  .formula-box .fl-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.75); margin-bottom: 3px; }
+  .formula-box .fl-text { font-size: 14px; font-weight: 700; color: #ffe082; }
+  .formula-box .formula-right { display: flex; gap: 6px; }
+  .formula-box .fr-item { text-align: center; background: rgba(255,255,255,0.12); border-radius: 6px; padding: 5px 8px; min-width: 70px; }
+  .formula-box .fr-icon { font-size: 14px; margin-bottom: 1px; }
+  .formula-box .fr-name { font-size: 9px; font-weight: 700; color: #fff; }
+  .formula-box .fr-desc { font-size: 7px; color: rgba(255,255,255,0.7); }
+  .rules-section { padding: 6px 28px 8px; }
+  .rules-title { font-size: 13px; font-weight: 700; color: #333; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+  .rules-title .rdot { width: 5px; height: 5px; background: #0052d9; border-radius: 50%; }
+  .rule-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .rule-item { text-align: center; background: #f8faff; border: 1px solid #e8edf5; border-radius: 6px; padding: 8px 5px; }
+  .rule-item .rule-icon { font-size: 16px; margin-bottom: 3px; }
+  .rule-item .rule-name { font-size: 10px; font-weight: 700; color: #333; margin-bottom: 2px; }
+  .rule-item .rule-desc { font-size: 8px; color: #888; line-height: 1.4; }
+  .action-section { padding: 6px 28px 8px; }
+  .action-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+  .action-card { background: #fafafa; border: 1px solid #eee; border-radius: 6px; padding: 9px 11px; }
+  .action-card .ac-header { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
+  .action-card .ac-priority { font-size: 8px; font-weight: 700; padding: 2px 5px; border-radius: 3px; }
+  .ac-priority.p0 { background: #ffeeed; color: #d9534f; }
+  .ac-priority.p1 { background: #e6f0ff; color: #0052d9; }
+  .action-card .ac-title { font-size: 11px; font-weight: 700; color: #222; }
+  .action-card .ac-desc { font-size: 10px; color: #555; line-height: 1.6; }
+  .action-card .ac-desc b { color: #222; font-weight: 700; }
+  .action-card .ac-desc strong { color: #e8870b; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="slide">
+
+  <div class="topbar">
+    <div class="topbar-logo">腾讯广告 · 膳食营养</div>
+    <div class="topbar-tag">腰客起量标杆</div>
+  </div>
+
+  <div class="title-bar">
+    <h1>五个女博士：4品类矩阵运营，基建收敛+智投渗透驱动效率跃升</h1>
+  </div>
+
+  <!-- 5大核心指标 -->
+  <div class="adv-section">
+    <div class="adv-header">🔥 5大核心优化成果</div>
+    <div class="adv-grid">
+      <div class="adv-card">
+        <div class="adv-card-head">
+          <div class="adv-card-num">①</div>
+          <div class="adv-card-title">4品类矩阵</div>
+        </div>
+        <div class="adv-card-value">557.6万</div>
+        <div class="adv-card-desc">Q1总消耗<br>胶原+虾青素+富铁+液体钙</div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-card-head">
+          <div class="adv-card-num">②</div>
+          <div class="adv-card-title">基建收敛</div>
+        </div>
+        <div class="adv-card-value">24→13</div>
+        <div class="adv-card-desc">活跃直播间数<br>消耗向头部集中</div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-card-head">
+          <div class="adv-card-num">③</div>
+          <div class="adv-card-title">智投渗透</div>
+        </div>
+        <div class="adv-card-value">50.3%</div>
+        <div class="adv-card-desc">智投占比<br>从15.5%→50.3%</div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-card-head">
+          <div class="adv-card-num">④</div>
+          <div class="adv-card-title">展播爆发</div>
+        </div>
+        <div class="adv-card-value">+829%</div>
+        <div class="adv-card-desc">虾青素PRO<br>日耗0.28→2.64万</div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-card-head">
+          <div class="adv-card-num">⑤</div>
+          <div class="adv-card-title">小店链路</div>
+        </div>
+        <div class="adv-card-value">ROI 2.68</div>
+        <div class="adv-card-desc">小店直购ROI<br>持续攀升至2.68</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主内容 -->
+  <div class="main-content">
+
+    <div class="left-col">
+
+      <!-- 4品类矩阵 -->
+      <div class="sec-title"><span class="dot"></span>4大品类矩阵全景（Q1）</div>
+      <div class="category-grid">
+        <div class="cat-card">
+          <div class="cat-card-header">
+            <span class="cat-name">💊 胶原蛋白</span>
+            <span class="cat-trend up">📈 放量中</span>
+          </div>
+          <div class="cat-metrics">
+            <span class="cm">Q1 <b>305.3万</b></span>
+            <span class="cm">ROI <b>1.94</b></span>
+            <span class="cm">日耗 4.01→<b>6.04万</b></span>
+          </div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-card-header">
+            <span class="cat-name">🦐 虾青素</span>
+            <span class="cat-trend down">📉 下滑中</span>
+          </div>
+          <div class="cat-metrics">
+            <span class="cm">Q1 <b>180.7万</b></span>
+            <span class="cm">ROI <b>1.90</b></span>
+            <span class="cm">日耗 2.51→<b>1.64万</b></span>
+          </div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-card-header">
+            <span class="cat-name">🍬 富铁软糖</span>
+            <span class="cat-trend stable">➡️ 最稳定</span>
+          </div>
+          <div class="cat-metrics">
+            <span class="cm">Q1 <b>45.9万</b></span>
+            <span class="cm">ROI <b>1.51</b></span>
+            <span class="cm">CVR <b>11.32%</b>✅</span>
+          </div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-card-header">
+            <span class="cat-name">💧 液体钙</span>
+            <span class="cat-trend up">📈 爬坡中</span>
+          </div>
+          <div class="cat-metrics">
+            <span class="cm">Q1 <b>18.4万</b></span>
+            <span class="cm">ROI 1.26→<b>1.83</b></span>
+            <span class="cm">客单价 <b>573元</b></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 基建收敛对比 -->
+      <div class="sec-title"><span class="dot"></span>基建收敛效果（核心优化动作）</div>
+      <table class="data-table">
+        <tr><th>指标</th><th>Q1初期(至3.11)</th><th>展播后(3.22-3.29)</th><th>变化</th></tr>
+        <tr><td>活跃直播间</td><td>24个</td><td class="hl">13个</td><td class="good">-46%</td></tr>
+        <tr><td>日耗≥1万的间数</td><td>2个</td><td>2个</td><td>持平</td></tr>
+        <tr><td>日耗<1000元</td><td>12个</td><td class="hl">收敛中</td><td class="good">↓</td></tr>
+        <tr><td>日均广告数</td><td>54</td><td class="hl">35</td><td class="good">-35%</td></tr>
+        <tr><td>日均创意数</td><td>610</td><td class="hl">352</td><td class="good">-42%</td></tr>
+        <tr><td>TOP3直播间集中度</td><td>62%</td><td class="hl">79%</td><td class="good">+17pp</td></tr>
+      </table>
+
+      <!-- 智投渗透 -->
+      <div class="sec-title" style="margin-top:4px"><span class="dot"></span>智投工具效率对比</div>
+      <table class="data-table">
+        <tr><th>工具</th><th>消耗占比</th><th>ROI</th><th>CPA</th><th>计价率</th></tr>
+        <tr><td>非智投(ADQ 3.0)</td><td>72.4%→49.7%</td><td>1.72</td><td>177元</td><td>1.17</td></tr>
+        <tr><td class="hl">全域通直购</td><td class="hl">6.8%</td><td class="good">2.44</td><td class="good">93元</td><td class="good">0.66</td></tr>
+        <tr><td class="hl">短直双开</td><td class="hl">13.8%</td><td class="good">1.98</td><td class="good">115元</td><td class="good">0.82</td></tr>
+        <tr><td>推直播</td><td>2.4%→42%*</td><td>1.65</td><td>129元</td><td>1.07</td></tr>
+      </table>
+      <div style="font-size:6.5px;color:#999;margin-top:1px">* 42%为虾青素PRO展播后"推直播"在该直播间内的占比</div>
+
+    </div>
+
+    <div class="right-col">
+
+      <!-- 展播效果高亮 -->
+      <div class="sec-title"><span class="dot"></span>虾青素PRO展播效果 ⭐（3.19-3.21）</div>
+      <div class="showcase-highlight">
+        <h5>展播3天 → 日耗+829% → 展播后持续维持</h5>
+        <div class="sh-metrics">
+          <div class="sh-item">
+            <div class="sh-label">日耗变化</div>
+            <div class="sh-value gold">0.28→2.64万</div>
+          </div>
+          <div class="sh-item">
+            <div class="sh-label">ROI提升</div>
+            <div class="sh-value">1.45→1.76</div>
+          </div>
+          <div class="sh-item">
+            <div class="sh-label">CPA降低</div>
+            <div class="sh-value">167→129元</div>
+          </div>
+          <div class="sh-item">
+            <div class="sh-label">CVR提升</div>
+            <div class="sh-value">3.59→4.83%</div>
+          </div>
+          <div class="sh-item">
+            <div class="sh-label">智投占比</div>
+            <div class="sh-value gold">49→74%</div>
+          </div>
+          <div class="sh-item">
+            <div class="sh-label">推直播占比</div>
+            <div class="sh-value gold">0→42%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3大策略 -->
+      <div class="sec-title"><span class="dot"></span>三大核心优化策略</div>
+
+      <div class="strat-card">
+        <h5>🔥 策略1：直播间收敛聚焦</h5>
+        <ul>
+          <li>24个直播间→<b>13个</b>，关停50%的日耗&lt;1000元低效直播间</li>
+          <li>前3名直播间占消耗从62%→<b>79%</b>，资源集中→模型更快学习</li>
+          <li>标杆参考：<b>富铁软糖</b>聚焦1个核心间，CVR <b>11.32%</b>（全品类最优）</li>
+        </ul>
+      </div>
+
+      <div class="strat-card">
+        <h5>🔥 策略2：智投工具渗透提升</h5>
+        <ul>
+          <li>智投占比从<b>15.5%→50.3%</b>，智投ROI <b>2.05</b> vs 非智投 <b>1.72</b>（高19%）</li>
+          <li><strong>全域通直购ROI 2.44最优</strong>（计价率仅0.66），版位分布最均衡</li>
+          <li>虾青素PRO展播后"<b>推直播</b>"占42%成为最大消耗来源，效果维持</li>
+        </ul>
+      </div>
+
+      <div class="strat-card">
+        <h5>🔥 策略3：小店直购链路深耕</h5>
+        <ul>
+          <li>小店ROI持续提升：<b>2.02→2.28→2.68</b>，CPA仅87元（远优于直播267元）</li>
+          <li>展播后小店日耗<b>+139%</b>（1.03→2.46万），占比从14%→29%</li>
+          <li>小店链路76%消耗来自智投（短直双开42%+全域通34%），<strong>智投是小店链路高效率引擎</strong></li>
+        </ul>
+      </div>
+
+      <div class="insight-box">
+        <h5>💡 服务商可复制的核心经验</h5>
+        <p>五个女博士的优化本质：<b>从"广撒网24间"到"聚焦13间"的基建收敛 → 配合智投工具渗透率从15%→50% → 小店链路ROI 2.68成为确定性最高的增长引擎</b>。多品类客户的关键是"每品类聚焦1-2个核心直播间"，用聚焦换模型学习效率。</p>
+      </div>
+
+      <div class="tag-row">
+        <span class="m-tag orange">起量类型：基建收敛+智投渗透型</span>
+        <span class="m-tag blue">4品类矩阵</span>
+        <span class="m-tag green">小店ROI 2.68</span>
+        <span class="m-tag blue">展播PRO +829%</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="slide-footer">
+    <span>腾讯广告 · 膳食营养行业运营</span>
+    <span>数据周期：Q1 2026.01—03 + 展播 2026.03.19—03.21</span>
+    <span>品牌：五个女博士 · 胶原蛋白+虾青素+富铁软糖+液体钙</span>
+    <span>⚠️ 虾青素旗舰店CVR持续下滑需关注</span>
+  </div>
+
+</div>
+
+<!-- ========== Slide 2: Oral Beauty Material Type Guide ========== -->
+<div class="slide">
+
+  <div class="topbar">
+    <div class="topbar-logo">腾讯广告 · 膳食营养</div>
+    <div class="topbar-tag">口服美容 · 素材打法</div>
+  </div>
+
+  <div class="title-bar">
+    <h1>口服美容品类：4大素材类型 × Top素材实例，服务商创意制作参考</h1>
+  </div>
+
+  <!-- 4 Material Type Cards -->
+  <div class="type-grid">
+
+    <!-- Type 1: Low-price Volume -->
+    <div class="type-card">
+      <div class="video-area">
+        <video preload="metadata" muted>
+          <source src="http://adsmind.gdtimg.com/ads_svp_video__0b53t4bcgaacjqai3yjnqbvbrhyeeopqei2a.f0.mp4?dis_k=dd611d5e6d7c32951d0590213130e4d9&dis_t=1781509971&m=5dd5c99ce4f8d8a99b5bace4d4afa2c5" type="video/mp4">
+        </video>
+        <div class="play-overlay" onclick="toggleVideo(this)">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-label">▶ Top1 · 品牌A（消耗7.34万）</div>
+      </div>
+      <div class="content-area">
+        <div class="card-header">
+          <span class="card-title">💰 极致低价走量型</span>
+          <span class="card-badge badge-cost">消耗最高 · 25万+</span>
+        </div>
+        <div class="color-strip strip-cost"></div>
+        <div class="metrics-row">
+          <span class="metric-chip best">消耗 <b>25-26万</b></span>
+          <span class="metric-chip">ROI <b>1.84</b></span>
+          <span class="metric-chip">CVR <b>8.21%</b></span>
+          <span class="metric-chip">时长 <b>60s</b></span>
+        </div>
+        <div class="type-desc">
+          <b>核心打法</b>：几十元7瓶极致性价比 + 源头工厂背书 → <strong>利益直给秒抓注意力</strong><br>
+          <b>话术</b>：利益吸引→达人背书→成分科普→行动号召，全程高密度直给<br>
+          <b>信任状</b>：源头工厂+第三方检测报告+达人矩阵（贾乃亮/亮亮）<br>
+          <b>适用</b>：五个女博士富铁软糖等低客单产品，追求规模效应
+        </div>
+        <div class="quote-box">
+          "拍一发五瓶烟酰胺，再送两瓶维生素B，到手七瓶连100都不要，足足420粒。错过这次双重福利，下次再买就没这价了……"
+        </div>
+      </div>
+    </div>
+
+    <!-- Type 2: Mid-price Stable -->
+    <div class="type-card">
+      <div class="video-area">
+        <video preload="metadata" muted>
+          <source src="http://adsmind.gdtimg.com/ads_svp_video__0bc36yaayaaatyaasbz26fvbv5qebt3aadca.f0.mp4?dis_k=973ab0498178e957d70425921d695fee&dis_t=1784273274&m=d83bad4e4c627568cf0d859e4bd31189" type="video/mp4">
+        </video>
+        <div class="play-overlay" onclick="toggleVideo(this)">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-label">▶ Top1 · 品牌B（消耗1.14万）</div>
+      </div>
+      <div class="content-area">
+        <div class="card-header">
+          <span class="card-title">👩 达人矩阵稳态型</span>
+          <span class="card-badge badge-stable">中价段 · 稳态跑量</span>
+        </div>
+        <div class="color-strip strip-stable"></div>
+        <div class="metrics-row">
+          <span class="metric-chip">消耗 <b>8-9万</b></span>
+          <span class="metric-chip">ROI <b>1.67</b></span>
+          <span class="metric-chip">CVR <b>6.71%</b></span>
+          <span class="metric-chip">时长 <b>30-45s</b></span>
+        </div>
+        <div class="type-desc">
+          <b>核心打法</b>：达人痛点开场→使用场景→前后对比→折扣促单 → <strong>亲和场景化种草</strong><br>
+          <b>话术</b>：邻家型亲和语气，轻快流行BGM，中等语速<br>
+          <b>信任状</b>：达人真人反馈+品牌背书+用户UGC<br>
+          <b>适用</b>：五个女博士胶原蛋白¥199档，抖音/小红书双投
+        </div>
+        <div class="quote-box">
+          "姐妹们这瓶胶原蛋白真的绝了！喝了两个月，毛孔看得见变细，素颜出门完全OK……今天买一送一还赠面膜！"
+        </div>
+      </div>
+    </div>
+
+    <!-- Type 3: High-end Premium -->
+    <div class="type-card">
+      <div class="video-area">
+        <video preload="metadata" muted>
+          <source src="http://adsmind.gdtimg.com/ads_svp_video__0bc3kycqoaaf24akjacgbbvb6vqea5lakb2a.f0.mp4?dis_k=b585dccfd6743257cdb461434821337f&dis_t=1782818230&m=181a0dd36f75ef20819a143cc3db9756" type="video/mp4">
+        </video>
+        <div class="play-overlay" onclick="toggleVideo(this)">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-label">▶ Top1 · 品牌C（消耗1.08万）</div>
+      </div>
+      <div class="content-area">
+        <div class="card-header">
+          <span class="card-title">✨ 高端明星深度种草型</span>
+          <span class="card-badge badge-cvr">CVR最高 · 8.45%</span>
+        </div>
+        <div class="color-strip strip-cvr"></div>
+        <div class="metrics-row">
+          <span class="metric-chip">消耗 <b>4-5万</b></span>
+          <span class="metric-chip">ROI <b>0.96</b></span>
+          <span class="metric-chip best">CVR <b>8.45%</b></span>
+          <span class="metric-chip">时长 <b>142s</b></span>
+        </div>
+        <div class="type-desc">
+          <b>核心打法</b>：悬念开场→明星谈判剧情→深度成分科普→多次引导 → <strong>半价锚点高转化</strong><br>
+          <b>话术</b>：专业科普型语气，悬疑→轻快BGM切换，节奏起伏强<br>
+          <b>信任状</b>：明星背书+国际专利认证+AI科技可视化<br>
+          <b>适用</b>：五个女博士虾青素/液体钙等高客单品，视频号深度种草
+        </div>
+        <div class="quote-box">
+          "什么？周年庆半价？半价半价，真的半价！麦角硫因要吃完的朋友注意了……六大件福利就要结束了……"
+        </div>
+      </div>
+    </div>
+
+    <!-- Type 4: Female Targeted -->
+    <div class="type-card">
+      <div class="video-area">
+        <video preload="metadata" muted>
+          <source src="http://adsmind.gdtimg.com/ads_svp_video__0bc3dibdaaac4iaaf2y4i5vbqgqeganaemca.f0.mp4?dis_k=b577abfe5d72afac7811b56df02c5c08&dis_t=1780364287&m=6de48f1dc88eed4424d8481433d435b8" type="video/mp4">
+        </video>
+        <div class="play-overlay" onclick="toggleVideo(this)">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-label">▶ Top1 · 品牌A'（女性向）</div>
+      </div>
+      <div class="content-area">
+        <div class="card-header">
+          <span class="card-title">🎀 女性专向情感型</span>
+          <span class="card-badge badge-premium">CTR最高 · 6.26%</span>
+        </div>
+        <div class="color-strip strip-premium"></div>
+        <div class="metrics-row">
+          <span class="metric-chip">消耗 <b>0.2万</b></span>
+          <span class="metric-chip">ROI <b>1.59</b></span>
+          <span class="metric-chip">CVR <b>5.65%</b></span>
+          <span class="metric-chip best">CTR <b>6.26%</b></span>
+        </div>
+        <div class="type-desc">
+          <b>核心打法</b>：情感痛点→成分卖点→女性代言→限时优惠 → <strong>精准女性向高CTR</strong><br>
+          <b>话术</b>：轻柔流行BGM，代言人亲和口吻，情感共鸣型<br>
+          <b>信任状</b>：主品牌背书+女性代言人+细分人群认同<br>
+          <b>适用</b>：五个女博士品牌本身=女性向，可借鉴情感切入拉CTR
+        </div>
+        <div class="quote-box">
+          "25岁以后的女孩子，胶原蛋白每年流失1%……与其花大钱打水光针，不如每天喝一袋，从源头养出好气色……"
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Success Formula -->
+  <div class="formula-box">
+    <div class="formula-left">
+      <div class="fl-label">📐 口服美容品类 · 高消耗素材成功公式</div>
+      <div class="fl-text">利益钩子先行 + 内养概念渗透 + 信任状分层 + 多模态快节奏咬合</div>
+    </div>
+    <div class="formula-right">
+      <div class="fr-item">
+        <div class="fr-icon">💰</div>
+        <div class="fr-name">利益钩子</div>
+        <div class="fr-desc">0-3s必抛福利</div>
+      </div>
+      <div class="fr-item">
+        <div class="fr-icon">🧬</div>
+        <div class="fr-name">内养概念</div>
+        <div class="fr-desc">"从源头改善"</div>
+      </div>
+      <div class="fr-item">
+        <div class="fr-icon">🛡️</div>
+        <div class="fr-name">信任分层</div>
+        <div class="fr-desc">低价→工厂/高端→明星</div>
+      </div>
+      <div class="fr-item">
+        <div class="fr-icon">🎵</div>
+        <div class="fr-name">多模态咬合</div>
+        <div class="fr-desc">1-2s/镜头+鼓点BGM</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 Key Insights -->
+  <div class="rules-section">
+    <div class="rules-title"><span class="rdot"></span>7大核心洞察（基于31条Top素材提炼）</div>
+    <div class="rule-row">
+      <div class="rule-item">
+        <div class="rule-icon">💰</div>
+        <div class="rule-name">利益钩子必备</div>
+        <div class="rule-desc">0-3s内必抛"半价/买一发七/限时"钩子</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon">🧬</div>
+        <div class="rule-name">"内养"锚点</div>
+        <div class="rule-desc">"不要瞎涂瞎抹，从源头改善"品类通用</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon">🛡️</div>
+        <div class="rule-name">信任状分层</div>
+        <div class="rule-desc">低价→源头工厂+检测；高端→明星+专利</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon">🎵</div>
+        <div class="rule-name">多模态节奏</div>
+        <div class="rule-desc">1.5-2s/镜头+快节奏BGM+"停不下来"</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon">🎯</div>
+        <div class="rule-name">三段触发点</div>
+        <div class="rule-desc">①价格首曝(15-20s) ②加赠强调 ③限时紧迫</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Improvement Directions for 五个女博士 -->
+  <div class="action-section">
+    <div class="sec-title"><span class="dot"></span>五个女博士 → 可借鉴口服美容品类的提升方向</div>
+    <div class="action-grid">
+      <div class="action-card">
+        <div class="ac-header">
+          <span class="ac-priority p0">P0</span>
+          <span class="ac-title">胶原蛋白：利益钩子前置</span>
+        </div>
+        <div class="ac-desc">
+          当前胶原蛋白素材开场偏品牌科普；借鉴品牌A → <strong>0-3秒直抛"买一送一/到手价XX元"利益钩子</strong>，显著降低跳出率
+        </div>
+      </div>
+      <div class="action-card">
+        <div class="ac-header">
+          <span class="ac-priority p0">P0</span>
+          <span class="ac-title">"内养"概念强化</span>
+        </div>
+        <div class="ac-desc">
+          品类共性锚点：<b>"不要瞎涂瞎抹，从源头改善"</b>——五个女博士需在所有品类素材中统一植入内养vs外用的对比逻辑
+        </div>
+      </div>
+      <div class="action-card">
+        <div class="ac-header">
+          <span class="ac-priority p0">P0</span>
+          <span class="ac-title">虾青素/液体钙：半价锚点</span>
+        </div>
+        <div class="ac-desc">
+          高客单品参考品牌C → <strong>"原价XX→现在半价"锚点对比策略</strong>，CVR从6%提升至8%+，适配视频号深度种草
+        </div>
+      </div>
+      <div class="action-card">
+        <div class="ac-header">
+          <span class="ac-priority p1">P1</span>
+          <span class="ac-title">快节奏多模态升级</span>
+        </div>
+        <div class="ac-desc">
+          当前素材节奏偏慢（3-4s/镜头）；提升至<b>1.5-2s/镜头快切</b>+电商鼓点BGM，形成"停不下来"的观感
+        </div>
+      </div>
+      <div class="action-card">
+        <div class="ac-header">
+          <span class="ac-priority p1">P1</span>
+          <span class="ac-title">女性情感切入拉CTR</span>
+        </div>
+        <div class="ac-desc">
+          借鉴品牌A'女性向打法：<strong>情感痛点开场</strong>（"25岁后胶原蛋白每年流失1%"）+ 女性代言人亲和推荐，CTR可达6%+
+        </div>
+      </div>
+      <div class="action-card">
+        <div class="ac-header">
+          <span class="ac-priority p1">P1</span>
+          <span class="ac-title">信任状矩阵差异化</span>
+        </div>
+        <div class="ac-desc">
+          富铁软糖（低客单）→<b>源头工厂+检测报告</b>；虾青素/液体钙（高客单）→<b>明星背书+国际认证+专利数据</b>，分层构建
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>腾讯广告 · 膳食营养行业运营</span>
+    <span>数据来源：口服美容品类 4品牌31条Top素材 · 总消耗38.09万</span>
+    <span>适用：五个女博士 × 微盟服务商 · 素材制作参考</span>
+    <span>点击视频 ▶ 可直接播放查看素材原片</span>
+  </div>
+
+</div>
+
+<script>
+// Video Play/Pause Toggle
+function toggleVideo(overlay) {
+  const videoArea = overlay.parentElement;
+  const video = videoArea.querySelector('video');
+  if (video.paused) {
+    video.play();
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+    video.addEventListener('ended', () => {
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'auto';
+    }, { once: true });
+    video.onclick = () => {
+      video.pause();
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'auto';
+      video.onclick = null;
+    };
+  }
+}
+// Jump to 1s as preview frame
+document.querySelectorAll('.video-area video').forEach(v => {
+  v.addEventListener('loadedmetadata', () => { v.currentTime = 1; });
+});
+</script>
+
+</body>
+</html>
