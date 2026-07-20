@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>养能健 × 膳食营养起量Showcase</title>
+<style>
+  @font-face {
+    font-family: 'TencentSans';
+    src: url('ot_cff/TencentSans-W3.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TencentSans';
+    src: url('ot_cff/TencentSans-W7.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { zoom: 1.5; }
+
+  body {
+    font-family: 'TencentSans', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-weight: 300;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-height: 100vh;
+    padding: 0;
+    gap: 0;
+  }
+
+  .slide {
+    width: 100%;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: none;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ====== Top Bar ====== */
+  .topbar {
+    height: 38px;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    flex-shrink: 0;
+  }
+  .topbar-logo { font-size: 14px; font-weight: 700; color: #0052d9; letter-spacing: 1px; }
+  .topbar-tag {
+    background: #e6f0ff;
+    color: #0052d9;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 4px;
+    border: 1px solid #b3d1ff;
+  }
+
+  /* ====== Main Title ====== */
+  .title-bar {
+    height: 44px;
+    background: linear-gradient(135deg, #0052d9 0%, #2b7bff 50%, #5ca0ff 100%);
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .title-bar h1 {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  /* ====== 5 Core Metrics ====== */
+  .adv-section {
+    padding: 8px 28px 6px;
+    flex-shrink: 0;
+  }
+  .adv-header {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  .adv-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .adv-card {
+    background: linear-gradient(135deg, #0052d9 0%, #2b7bff 60%, #5ca0ff 100%);
+    border-radius: 8px;
+    padding: 8px 6px 7px;
+    color: #fff;
+    text-align: center;
+  }
+  .adv-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 3px;
+  }
+  .adv-card-num {
+    font-size: 9px;
+    font-weight: 700;
+    color: #0052d9;
+    background: #fff;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .adv-card-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .adv-card-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffe082;
+    line-height: 1.15;
+    margin: 2px 0;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .adv-card-desc {
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.4;
+  }
+
+  /* ====== Main Content Area ====== */
+  .main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 6px 28px 4px;
+    flex: 1;
+  }
+  .left-col {
+    padding-right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .right-col {
+    padding-left: 12px;
+    border-left: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .sec-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2px 5px;
+    flex-shrink: 0;
+  }
+  .sec-title .dot {
+    width: 4px; height: 4px;
+    background: #0052d9;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  /* ====== Phase Timeline ====== */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .phase-row {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 6px;
+    align-items: start;
+  }
+  .phase-label {
+    background: linear-gradient(135deg, #0052d9, #5ca0ff);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 4px 6px;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .phase-content {
+    background: #f8faff;
+    border: 1px solid #e8edf5;
+    border-radius: 4px;
+    padding: 4px 7px;
+  }
+  .phase-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 8px;
+    margin-bottom: 2px;
+  }
+  .pm {
+    font-size: 8px;
+    color: #555;
+    line-height: 1.3;
+  }
+  .pm b { color: #0052d9; font-weight: 700; }
+  .pm.highlight b { color: #e8870b; }
+  .phase-note {
+    font-size: 7.5px;
+    color: #888;
+    line-height: 1.3;
+    border-top: 1px dashed #ddd;
+    padding-top: 2px;
+    margin-top: 2px;
+  }
+
+  /* ====== Strategy Cards ====== */
+  .strategy-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .strat-card {
+    background: #fafafa;
+    border-radius: 6px;
+    padding: 6px 8px;
+    border: 1px solid #eee;
+  }
+  .strat-card h5 {
+    font-size: 10px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 3px;
+  }
+  .strat-card li {
+    font-size: 8px;
+    color: #555;
+    line-height: 1.55;
+    list-style: none;
+    padding-left: 10px;
+    position: relative;
+    margin-bottom: 1px;
+  }
+  .strat-card li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #2ba245;
+    font-weight: 700;
+    font-size: 8px;
+  }
+  .strat-card li b { color: #222; font-weight: 700; }
+  .strat-card li strong { color: #0052d9; font-weight: 700; }
+
+  /* ====== Data Table ====== */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8px;
+  }
+  .data-table th {
+    background: #0052d9;
+    color: #fff;
+    font-weight: 700;
+    padding: 3px 5px;
+    text-align: center;
+    font-size: 7.5px;
+  }
+  .data-table td {
+    padding: 3px 5px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    font-size: 7.5px;
+    color: #444;
+  }
+  .data-table tr:nth-child(even) td { background: #f8faff; }
+  .data-table td.highlight { color: #e8870b; font-weight: 700; }
+  .data-table td.good { color: #2ba245; font-weight: 700; }
+
+  /* ====== Tags ====== */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin-top: 3px;
+  }
+  .m-tag {
+    display: inline-block;
+    font-size: 7px;
+    font-weight: 700;
+    padding: 1.5px 5px;
+    border-radius: 2px;
+  }
+  .m-tag.orange { background: #fff5e6; color: #e8870b; }
+  .m-tag.green { background: #eef8ee; color: #2ba245; }
+  .m-tag.blue { background: #e6f0ff; color: #0052d9; }
+  .m-tag.red { background: #ffeeed; color: #d9534f; }
+
+  /* ====== Footer ====== */
+  .slide-footer {
+    height: 22px;
+    background: #f5f8ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    font-size: 7px;
+    color: #bbb;
+    border-top: 1px solid #e8edf5;
+    flex-shrink: 0;
+  }
+
+  /* ====== Insight Box ====== */
+  .insight-box {
+    background: linear-gradient(135deg, #fffbf0, #fff8e6);
+    border: 1px solid #ffe082;
+    border-radius: 6px;
+    padding: 5px 8px;
+    margin-top: 3px;
+  }
+  .insight-box h5 {
+    font-size: 9px;
+    font-weight: 700;
+    color: #e8870b;
+    margin-bottom: 2px;
+  }
+  .insight-box p {
+    font-size: 7.5px;
+    color: #666;
+    line-height: 1.5;
+  }
+  .insight-box p b { color: #e8870b; }
+
+  /* ====== Slide 2: Material Types (Video Edition) ====== */
+  .type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px 28px;
+  }
+  .type-card {
+    background: #fff;
+    border: 1.5px solid #e8edf5;
+    border-radius: 8px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    min-height: 220px;
+  }
+  .type-card .video-area {
+    position: relative;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .type-card .video-area video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .type-card .video-area .play-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.35);
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .type-card .video-area .play-overlay:hover {
+    background: rgba(0,0,0,0.15);
+  }
+  .type-card .video-area .play-btn {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .type-card .video-area .play-btn::after {
+    content: '';
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 7px 0 7px 13px;
+    border-color: transparent transparent transparent #0052d9;
+    margin-left: 2px;
+  }
+  .type-card .video-area .video-label {
+    position: absolute;
+    bottom: 6px; left: 6px;
+    font-size: 8px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0,0,0,0.65);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+  .type-card .content-area {
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .type-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .type-card .card-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #222;
+  }
+  .type-card .card-badge {
+    font-size: 8px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .badge-star { background: #fff5e6; color: #e8870b; }
+  .badge-expert { background: #e6f0ff; color: #0052d9; }
+  .badge-form { background: #eef8ee; color: #2ba245; }
+  .badge-combo { background: #f3e8ff; color: #7c3aed; }
+  .type-card .color-strip {
+    height: 3px;
+    border-radius: 2px;
+  }
+  .strip-star { background: linear-gradient(90deg, #e8870b, #f5a623); }
+  .strip-expert { background: linear-gradient(90deg, #0052d9, #5ca0ff); }
+  .strip-form { background: linear-gradient(90deg, #2ba245, #5fd47a); }
+  .strip-combo { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+  .metrics-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .metric-chip {
+    font-size: 9px;
+    color: #555;
+    background: #f5f7fa;
+    padding: 3px 7px;
+    border-radius: 3px;
+    border: 1px solid #eee;
+  }
+  .metric-chip b { color: #0052d9; font-weight: 700; }
+  .metric-chip.best b { color: #e8870b; }
+  .type-desc {
+    font-size: 10px;
+    color: #444;
+    line-height: 1.7;
+  }
+  .type-desc b { color: #222; font-weight: 700; }
+  .type-desc strong { color: #0052d9; font-weight: 700; }
+  .quote-box {
+    background: #f8faff;
+    border-left: 3px solid #0052d9;
+    padding: 5px 8px;
+    border-radius: 0 4px 4px 0;
+    font-size: 9px;
+    color: #666;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .formula-box {
+    margin: 8px 28px;
+    background: linear-gradient(135deg, #0052d9 0%, #2b7bff 50%, #5ca0ff 100%);
+    border-radius: 8px;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .formula-box .formula-left { color: #fff; }
+  .formula-box .fl-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 3px;
+    letter-spacing: 0.5px;
+  }
+  .formula-box .fl-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffe082;
+    letter-spacing: 0.3px;
+  }
+  .formula-box .formula-right {
+    display: flex;
+    gap: 6px;
+  }
+  .formula-box .fr-item {
+    text-align: center;
+    background: rgba(255,255,255,0.12);
+    border-radius: 6px;
+    padding: 5px 8px;
+    min-width: 70px;
+  }
+  .formula-box .fr-icon { font-size: 14px; margin-bottom: 1px; }
+  .formula-box .fr-name { font-size: 9px; font-weight: 700; color: #fff; }
+  .formula-box .fr-desc { font-size: 7px; color: rgba(255,255,255,0.7); }
+
+  .rules-section { padding: 6px 28px 8px; }
+  .rules-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .rules-title .dot {
+    width: 5px; height: 5px;
+    background: #0052d9;
+    border-radius: 50%;
+  }
+  .rule-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .rule-item {
+    text-align: center;
+    background: #f8faff;
+    border: 1px solid #e8edf5;
+    border-radius: 6px;
+    padding: 8px 5px;
+  }
+  .rule-item .rule-icon {
+    font-size: 16px;
+    margin-bottom: 3px;
+  }
+  .rule-item .rule-name {
+    font-size: 10px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2px;
+  }
+  .rule-item .rule-desc {
+    font-size: 8px;
+    color: #888;
+    line-height: 1.4;
+  }
+
+  .action-section {
+    padding: 6px 28px 8px;
+  }
+  .action-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+  .action-card {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 9px 11px;
+  }
+  .action-card .ac-header {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+  .action-card .ac-priority {
+    font-size: 8px;
+    font-weight: 700;
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+  .ac-priority.p0 { background: #ffeeed; color: #d9534f; }
+  .ac-priority.p1 { background: #e6f0ff; color: #0052d9; }
+  .action-card .ac-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #222;
+  }
+  .action-card .ac-desc {
+    font-size: 10px;
+    color: #555;
+    line-height: 1.6;
+  }
+  .action-card .ac-desc b { color: #222; font-weight: 700; }
+  .action-card .ac-desc strong { color: #e8870b; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="slide">
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="topbar-logo">腾讯广告 · 膳食营养</div>
+    <div class="topbar-tag">腰客起量标杆</div>
+  </div>
+
+  <!-- Main Title -->
+  <div class="title-bar">
+    <h1>养能健：基建爆发驱动5.2倍起量，55天日耗从0.01万→19.17万</h1>
+  </div>
+
+  <!-- 5 Core Metrics -->
+  <div class="adv-section">
+    <div class="adv-header">🔥 5大核心起量指标</div>
+    <div class="adv-grid">
+      <div class="adv-card">
+        <div class="adv-card-head">
+          <div class="adv-card-num">①</div>
+          <div class="adv-card-title">起量倍数</div>
+        </div>
+        <div class="adv-card-value">5.2×</div>
+        <div class="adv-card-desc">日均消耗<br>1.88万→9.87万</div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-card-head">
+          <div class="adv-card-num">②</div>
+          <div class="adv-card-title">ROI稳定</div>
+        </div>
+        <div class="adv-card-value">2.06</div>
+        <div class="adv-card-desc">55天整体ROI<br>爆发期达2.27</div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-card-head">
+          <div class="adv-card-num">③</div>
+          <div class="adv-card-title">基建扩张</div>
+        </div>
+        <div class="adv-card-value">21.6×</div>
+        <div class="adv-card-desc">创意数<br>41→886个/天</div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-card-head">
+          <div class="adv-card-num">④</div>
+          <div class="adv-card-title">CVR最优</div>
+        </div>
+        <div class="adv-card-value">5.65%</div>
+        <div class="adv-card-desc">爆发期CVR<br>远超赛道均值</div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-card-head">
+          <div class="adv-card-num">⑤</div>
+          <div class="adv-card-title">计价率回归</div>
+        </div>
+        <div class="adv-card-value">1.00</div>
+        <div class="adv-card-desc">从1.17超成本<br>回归完美控制</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <!-- Left Column: Growth Timeline -->
+    <div class="left-col">
+
+      <div class="sec-title"><span class="dot"></span>起量历程：5阶段跃迁全景</div>
+
+      <div class="timeline">
+        <!-- Phase1 -->
+        <div class="phase-row">
+          <div class="phase-label">Phase1<br>初始试投<br><span style="font-size:7px;opacity:0.8">1/4-1/8</span></div>
+          <div class="phase-content">
+            <div class="phase-metrics">
+              <span class="pm">日均 <b>1.88万</b></span>
+              <span class="pm">ROI <b>1.77</b></span>
+              <span class="pm">创意 <b>41</b>个</span>
+              <span class="pm">CTR <b>3.12%</b></span>
+            </div>
+            <div class="phase-note">CPA下单出价，仅2个账户，首日消耗仅100元</div>
+          </div>
+        </div>
+
+        <!-- Phase2 -->
+        <div class="phase-row">
+          <div class="phase-label">Phase2<br>上量探索<br><span style="font-size:7px;opacity:0.8">1/9-2/2</span></div>
+          <div class="phase-content">
+            <div class="phase-metrics">
+              <span class="pm">日均 <b>0.99万</b></span>
+              <span class="pm">ROI <b>1.85</b></span>
+              <span class="pm">创意 <b>170</b>个</span>
+              <span class="pm highlight">计价率 <b>1.14⚠️</b></span>
+            </div>
+            <div class="phase-note">基建扩张+开始试水ROI出价（1.9），但计价率偏高导致系统限流</div>
+          </div>
+        </div>
+
+        <!-- Phase3 -->
+        <div class="phase-row">
+          <div class="phase-label">Phase3<br>节前放量<br><span style="font-size:7px;opacity:0.8">2/3-2/15</span></div>
+          <div class="phase-content">
+            <div class="phase-metrics">
+              <span class="pm">日均 <b>2.54万</b></span>
+              <span class="pm">ROI <b>1.65</b></span>
+              <span class="pm highlight">创意 <b>631</b>个</span>
+              <span class="pm highlight">计价率 <b>1.17⚠️</b></span>
+            </div>
+            <div class="phase-note">基建大规模扩张→系统积累大量数据样本，ROI出价占比首超CPA（50.8%）</div>
+          </div>
+        </div>
+
+        <!-- Phase4 -->
+        <div class="phase-row">
+          <div class="phase-label" style="background:linear-gradient(135deg,#5ca0ff,#8ec5ff)">Phase4<br>春节低谷<br><span style="font-size:7px;opacity:0.8">2/16-2/18</span></div>
+          <div class="phase-content">
+            <div class="phase-metrics">
+              <span class="pm">日均 <b>3.60万</b></span>
+              <span class="pm">ROI <b>2.27</b></span>
+              <span class="pm">CPM <b>152元</b>（全期最低）</span>
+            </div>
+            <div class="phase-note">🔑 春节不停投！利用低竞争窗口完成模型优化和出价验证</div>
+          </div>
+        </div>
+
+        <!-- Phase5 -->
+        <div class="phase-row">
+          <div class="phase-label" style="background:linear-gradient(135deg,#e8870b,#f5a623)">Phase5<br>节后爆发<br><span style="font-size:7px;opacity:0.8">2/19-2/27</span></div>
+          <div class="phase-content">
+            <div class="phase-metrics">
+              <span class="pm highlight">日均 <b>9.87万🔥</b></span>
+              <span class="pm">ROI <b>2.27</b></span>
+              <span class="pm">创意 <b>886</b>个</span>
+              <span class="pm" style="color:#2ba245">计价率 <b style="color:#2ba245">1.00✅</b></span>
+            </div>
+            <div class="phase-note">ROI出价锁定2.0 + 基建成熟 + CVR 5.65%（全期最优），日耗峰值19.17万</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Core Data Table -->
+      <div style="margin-top:3px">
+        <div class="sec-title"><span class="dot"></span>关键指标月度对比</div>
+        <table class="data-table">
+          <tr>
+            <th>指标</th><th>1月</th><th>2月</th><th>变化</th>
+          </tr>
+          <tr>
+            <td>日均消耗</td><td>1.18万</td><td class="highlight">4.96万</td><td class="good">+320%</td>
+          </tr>
+          <tr>
+            <td>ROI</td><td>1.83</td><td class="highlight">2.12</td><td class="good">+15.6%</td>
+          </tr>
+          <tr>
+            <td>ROI出价占比</td><td>0.1%</td><td class="highlight">50.9%</td><td class="good">核心切换</td>
+          </tr>
+          <tr>
+            <td>智投渗透率</td><td>9.8%</td><td class="highlight">20.0%</td><td class="good">+10pp</td>
+          </tr>
+          <tr>
+            <td>日均创意数</td><td>130</td><td class="highlight">660</td><td class="good">+408%</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Strategy + Insights -->
+    <div class="right-col">
+
+      <div class="sec-title"><span class="dot"></span>起量7大驱动因素（按重要程度排序）</div>
+
+      <div class="strategy-section">
+        <div class="strat-card">
+          <h5>🔥 因素1：基建量级爆发（最核心）</h5>
+          <ul>
+            <li><b>创意数从41→886个</b>（21.6倍扩张），886个流量入口=日消耗从1万→10万的物理基础</li>
+            <li>单创意日耗从Phase2的<b>58元→Phase5的111元</b>，模型探索后效率反弹，说明是高质量增长</li>
+            <li>基建为系统提供充足数据样本，帮助模型<strong>找到正确人群</strong></li>
+          </ul>
+        </div>
+
+        <div class="strat-card">
+          <h5>🔥 因素2：计价率从超成本→1.0</h5>
+          <ul>
+            <li>Phase2-3计价率<b>1.14-1.17</b>（超成本被系统打压）→ Phase5<b>降至1.00</b>（完美控制）</li>
+            <li>计价率下降是<strong>基建扩张→模型学习→预估准确</strong>的链式反应结果</li>
+          </ul>
+        </div>
+
+        <div class="strat-card">
+          <h5>🔥 因素3：出价CPA→ROI模式切换</h5>
+          <ul>
+            <li>ROI出价从<b>0→68.13万/月</b>成为主力，计价率更优（1.03 vs CPA的1.09）</li>
+            <li>⚠️ ROI出价从1.6→2.0本质是<b>降低竞争力</b>，起量靠基建+CVR共振</li>
+          </ul>
+        </div>
+
+        <div class="strat-card">
+          <h5>📈 因素4-7</h5>
+          <ul>
+            <li><b>CVR 4.48%→5.65%</b>（+26%）：基建→数据→模型→人群精准的链式结果</li>
+            <li><b>蓝能瓶氨基丁酸</b>单品占比95.6%：极致聚焦，资源不分散+模型最优</li>
+            <li><b>「奥运营养师吕爸」</b>直播间占比95.6%：人设×品类深度匹配</li>
+            <li><b>微信视频号</b>始终保持84%+主力，版位策略稳定聚焦</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Key Insights -->
+      <div class="insight-box">
+        <h5>💡 服务商可复制的核心经验</h5>
+        <p>养能健起量的本质逻辑：<b>基建扩张是规模化的基础 → 数据积累让模型找到正确人群 → 计价率回归释放系统放量空间</b>。出价调整（CPA→ROI）更多是配合基建成熟期的效率优化手段，而非起量的核心驱动力。</p>
+      </div>
+
+      <!-- Tags -->
+      <div class="tag-row">
+        <span class="m-tag orange">起量类型：基建爆发型</span>
+        <span class="m-tag blue">品类：氨基酸/肽类</span>
+        <span class="m-tag green">客单价：447元</span>
+        <span class="m-tag blue">链路：直播为主</span>
+        <span class="m-tag green">智投ROI 2.45</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="slide-footer">
+    <span>腾讯广告 · 膳食营养行业运营</span>
+    <span>数据周期：2026.01.04 — 2026.02.27</span>
+    <span>品牌：养能健 · 增强体质 · 氨基丁酸</span>
+    <span>⚠️ 直播间集中度95.6%，存在单点风险</span>
+  </div>
+
+</div>
+
+<!-- ========== Slide 2: Material Type Guide (Video Edition) ========== -->
+<div class="slide">
+
+  <div class="topbar">
+    <div class="topbar-logo">腾讯广告 · 膳食营养</div>
+    <div class="topbar-tag">儿童营养 · 素材打法</div>
+  </div>
+
+  <div class="title-bar">
+    <h1>儿童营养品类：4大素材类型 × Top素材实例，服务商创意制作参考</h1>
+  </div>
+
+  <!-- 4 Material Type Cards (with video) -->
+  <div class="type-grid">
+
+    <!-- Type 1: Celebrity Driven -->
+    <div class="type-card">
+      <div class="video-area">
+        <video preload="metadata" muted>
+          <source src="http://adsmind.gdtimg.com/ads_svp_video__0bc3wmafmaaagqaluobqrrvbxmyek2zqavsa.f0.mp4?dis_k=6efdc50800cbdd73f819c2c33f400fef&dis_t=1781591186&m=14cabca7e2a5ea50a9d7d40f6fdd5bdc" type="video/mp4">
+        </video>
+        <div class="play-overlay" onclick="toggleVideo(this)">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-label">▶ Top1 · 某明星代言品牌</div>
+      </div>
+      <div class="content-area">
+        <div class="card-header">
+          <span class="card-title">⭐ 明星驱动型</span>
+          <span class="card-badge badge-star">消耗最高</span>
+        </div>
+        <div class="color-strip strip-star"></div>
+        <div class="metrics-row">
+          <span class="metric-chip best">消耗 <b>50-55万</b></span>
+          <span class="metric-chip">ROI <b>2.7-2.9</b></span>
+          <span class="metric-chip">CVR <b>2.4-9.5%</b></span>
+          <span class="metric-chip">时长 <b>40-60s</b></span>
+        </div>
+        <div class="type-desc">
+          <b>核心打法</b>：央视主持人/明星爸爸正装出镜 → <strong>国家级信任光环3秒建立</strong><br>
+          <b>话术</b>：五段式（痛点→权威→成分→证言→促销），语速260-280字/分钟<br>
+          <b>信任状</b>：明星背书+专家科普+专利证书+3D医学动画+检测报告<br>
+          <b>适用</b>：预算充足品牌，40+家长群体转化最优
+        </div>
+        <div class="quote-box">
+          "你以为孩子上学没精神只是没休息好？铁元素缺乏影响血氧供给！350mg柠檬酸钙+专利蛋黄多肽，今天拍三发六……"
+        </div>
+      </div>
+    </div>
+
+    <!-- Type 2: Expert Endorsement -->
+    <div class="type-card">
+      <div class="video-area">
+        <video preload="metadata" muted>
+          <source src="http://adsmind.gdtimg.com/ads_svp_video__0b53ziadwaaagiafrjshmjvbvsqehpfaao2a.f0.mp4?dis_k=ad82c9abc9817e5e27de82eec48c2349&dis_t=1783567737&m=1ea0af7c27bfcffbf515b95b60a61350" type="video/mp4">
+        </video>
+        <div class="play-overlay" onclick="toggleVideo(this)">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-label">▶ Top素材 · 林诺德（博士科研）</div>
+      </div>
+      <div class="content-area">
+        <div class="card-header">
+          <span class="card-title">🔬 权威背书型（专家科研）</span>
+          <span class="card-badge badge-expert">CTR最高</span>
+        </div>
+        <div class="color-strip strip-expert"></div>
+        <div class="metrics-row">
+          <span class="metric-chip">消耗 <b>5-8万</b></span>
+          <span class="metric-chip">ROI <b>1.85-2.0</b></span>
+          <span class="metric-chip">CVR <b>5.0-6.8%</b></span>
+          <span class="metric-chip best">CTR <b>3.2-3.4%</b></span>
+        </div>
+        <div class="type-desc">
+          <b>核心打法</b>：博士IP+实验室场景，<strong>科研路线建信任</strong>，避开明星红海差异化竞争<br>
+          <b>话术</b>：痛点→科学引入→成分数据化→信任状→促销，语速220字/分钟<br>
+          <b>养能健适配</b>：「奥运营养师吕爸」人设×蓝能瓶=专业+运动双背书<br>
+          <b>提升方向</b>：补情景化开场（3秒痛点画面替代纯口播），提CVR
+        </div>
+        <div class="quote-box">
+          "我是吕清政，前奥组委驻队营养师。孩子每天吃两颗，摄入300mg有机钙+A/D/B1/B2等十几种营养元素……"
+        </div>
+      </div>
+    </div>
+
+    <!-- Type 3: Format Innovation -->
+    <div class="type-card">
+      <div class="video-area">
+        <video preload="metadata" muted>
+          <source src="http://adsmind.gdtimg.com/ads_svp_video__0b53gycs6aaf5maaf6py2fur6nqef43akl2a.f0.mp4?dis_k=3e2373e5caaabc9fe1285f84a1e719b6&dis_t=1778200033&m=412cbd01c3039695cf986d7f1670f814" type="video/mp4">
+        </video>
+        <div class="play-overlay" onclick="toggleVideo(this)">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-label">▶ Top1 · 某中医药品牌</div>
+      </div>
+      <div class="content-area">
+        <div class="card-header">
+          <span class="card-title">🍬 形态创新型</span>
+          <span class="card-badge badge-form">CVR领跑</span>
+        </div>
+        <div class="color-strip strip-form"></div>
+        <div class="metrics-row">
+          <span class="metric-chip">消耗 <b>7-8万</b></span>
+          <span class="metric-chip">ROI <b>1.5-1.7</b></span>
+          <span class="metric-chip best">CVR <b>10.2-10.5%</b></span>
+          <span class="metric-chip">时长 <b>30-45s</b></span>
+        </div>
+        <div class="type-desc">
+          <b>核心打法</b>：微痛点切入（孩子啃指甲/走神）+<strong>软糖形态解决"不爱吃"痛点</strong><br>
+          <b>话术</b>：短三段式（痛点→产品→促销），亲和分享型语气，200字/分钟<br>
+          <b>制作成本</b>：最低！30-45s短素材+生活化场景+无需明星/实验室<br>
+          <b>适用</b>：朋友圈版位、低预算客户、有形态差异化的产品
+        </div>
+        <div class="quote-box">
+          "很多妈妈不知道，孩子啃指甲、咬衣领，不是坏习惯，是身体在发出信号。每天一颗氨基丁酸软糖……"
+        </div>
+      </div>
+    </div>
+
+    <!-- Type 4: Composite Endorsement -->
+    <div class="type-card">
+      <div class="video-area">
+        <video preload="metadata" muted>
+          <source src="http://adsmind.gdtimg.com/ads_svp_video__0b53yub5saadluanfxrrm5vbtrie3hcqhwka.f0.mp4?dis_k=ee15b57feeae23ab9369dae43c505168&dis_t=1781664671&m=8d29b29491bfe3c92db8ea276a131b12" type="video/mp4">
+        </video>
+        <div class="play-overlay" onclick="toggleVideo(this)">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-label">▶ Top素材 · 养能健（王皓+吕爸）</div>
+      </div>
+      <div class="content-area">
+        <div class="card-header">
+          <span class="card-title">🏅 复合背书型（三重信任矩阵）</span>
+          <span class="card-badge badge-combo">最均衡 · 养能健主力</span>
+        </div>
+        <div class="color-strip strip-combo"></div>
+        <div class="metrics-row">
+          <span class="metric-chip">消耗 <b>7-8万</b></span>
+          <span class="metric-chip">ROI <b>1.7-2.0</b></span>
+          <span class="metric-chip">CVR <b>6.5-8.0%</b></span>
+          <span class="metric-chip best">背书 <b>三重</b></span>
+        </div>
+        <div class="type-desc">
+          <b>核心打法</b>：世界冠军王皓+国家营养师吕清政+SGS检测 → <strong>三重信任矩阵</strong><br>
+          <b>话术</b>：五段式（冠军引入→场景痛点→权威亮证→成分数据化→大促引导）<br>
+          <b>核心价值</b>：同时解决"有没有效"和"安不安全"两大家长核心痛点<br>
+          <b>养能健当前主力模式</b>，各维度最均衡，可叠加情景化开场进一步提升
+        </div>
+        <div class="quote-box">
+          "连王皓都震惊的信息差……皓哥，你也给孩子吃蓝能瓶？……我是吕清政，前奥组委驻队营养师。300mg有机钙+SGS送检无激素……"
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Success Formula -->
+  <div class="formula-box">
+    <div class="formula-left">
+      <div class="fl-label">📐 儿童营养品类 · 高消耗素材成功公式</div>
+      <div class="fl-text">3秒情景化钩子 + 五段式话术 + 成分数据化 + 多维信任状 + 双转化触发点</div>
+    </div>
+    <div class="formula-right">
+      <div class="fr-item">
+        <div class="fr-icon">⚡</div>
+        <div class="fr-name">3秒定生死</div>
+        <div class="fr-desc">痛点/权威开场</div>
+      </div>
+      <div class="fr-item">
+        <div class="fr-icon">🔢</div>
+        <div class="fr-name">成分数据化</div>
+        <div class="fr-desc">350mg>"高钙"</div>
+      </div>
+      <div class="fr-item">
+        <div class="fr-icon">⚠️</div>
+        <div class="fr-name">15-30s危险区</div>
+        <div class="fr-desc">插3D动画/大字报</div>
+      </div>
+      <div class="fr-item">
+        <div class="fr-icon">🎯</div>
+        <div class="fr-name">双促销触发</div>
+        <div class="fr-desc">20s+结尾各一次</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 Common Patterns -->
+  <div class="rules-section">
+    <div class="rules-title"><span class="dot"></span>5大共性规律（基于TOP23素材提炼）</div>
+    <div class="rule-row">
+      <div class="rule-item">
+        <div class="rule-icon">⚡</div>
+        <div class="rule-name">开场3秒定生死</div>
+        <div class="rule-desc">3秒内完成"痛点唤醒"或"权威背书"，决定是否继续观看</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon">📋</div>
+        <div class="rule-name">五段式话术结构</div>
+        <div class="rule-desc">痛点→权威→成分→信任状→促销，情绪从焦虑→向往→紧迫</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon">🔢</div>
+        <div class="rule-name">成分数据化表达</div>
+        <div class="rule-desc">不说"高钙"说"350mg柠檬酸钙"，不说"补脑"说"神经酸+DHA+PS"</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon">⚠️</div>
+        <div class="rule-name">15-30秒流失高峰</div>
+        <div class="rule-desc">成分科普期是流失高风险区，需用视觉刺激维持注意力</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon">🎯</div>
+        <div class="rule-name">双转化触发点</div>
+        <div class="rule-desc">第一波~20s成分确立后，第二波结尾价格+赠品释放</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Improvement Directions -->
+  <div class="action-section">
+    <div class="sec-title"><span class="dot"></span>养能健（复合背书型）→ 可借鉴其他类型的提升方向</div>
+    <div class="action-grid">
+      <div class="action-card">
+        <div class="ac-header">
+          <span class="ac-priority p0">P0</span>
+          <span class="ac-title">情景化开场</span>
+        </div>
+        <div class="ac-desc">
+          当前纯口播开场CTR高但CVR一般；借鉴形态创新型→<strong>3秒痛点场景</strong>（孩子走神/作业错题/上课打瞌睡）替代纯口播，提升CVR
+        </div>
+      </div>
+      <div class="action-card">
+        <div class="ac-header">
+          <span class="ac-priority p0">P0</span>
+          <span class="ac-title">成分3D动画</span>
+        </div>
+        <div class="ac-desc">
+          补15-30秒流失高峰；制作<b>氨基丁酸分子动画</b>贴片（5-8秒），在科普段插入视觉刺激，降低完播流失率
+        </div>
+      </div>
+      <div class="action-card">
+        <div class="ac-header">
+          <span class="ac-priority p0">P0</span>
+          <span class="ac-title">30-45s短版素材</span>
+        </div>
+        <div class="ac-desc">
+          当前素材偏长（50-65s）；精简为<strong>三段式短版</strong>拓展朋友圈版位，参考形态创新型CVR 10%+的短素材逻辑
+        </div>
+      </div>
+      <div class="action-card">
+        <div class="ac-header">
+          <span class="ac-priority p1">P1</span>
+          <span class="ac-title">真人证言矩阵</span>
+        </div>
+        <div class="ac-desc">
+          征集<b>高知家长+孩子改善画面</b>证言，完善信任状从"专家说有效"→"家长验证有效"的闭环
+        </div>
+      </div>
+      <div class="action-card">
+        <div class="ac-header">
+          <span class="ac-priority p1">P1</span>
+          <span class="ac-title">双促销触发点</span>
+        </div>
+        <div class="ac-desc">
+          在<strong>20秒</strong>（成分优势确立）和<strong>55秒</strong>（结尾）分别设置大字报钩子，双节点最大化转化效率
+        </div>
+      </div>
+      <div class="action-card">
+        <div class="ac-header">
+          <span class="ac-priority p1">P1</span>
+          <span class="ac-title">暑期节点素材</span>
+        </div>
+        <div class="ac-desc">
+          年度最大窗口：<b>"长高黄金期"</b>+<b>"暑期补脑弯道超车"</b>+<b>"开学专注力冲刺"</b>三波主题覆盖7-9月
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>腾讯广告 · 膳食营养行业运营</span>
+    <span>数据来源：儿童营养品类 TOP23 高消耗素材多模态拆解</span>
+    <span>适用：养能健 × 微盟服务商 · 素材制作参考</span>
+    <span>点击视频 ▶ 可直接播放查看素材原片</span>
+  </div>
+
+</div>
+
+<script>
+// ====== Video Play/Pause Toggle ======
+function toggleVideo(overlay) {
+  const videoArea = overlay.parentElement;
+  const video = videoArea.querySelector('video');
+  if (video.paused) {
+    video.play();
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+    video.addEventListener('ended', () => {
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'auto';
+    }, { once: true });
+    video.onclick = () => {
+      video.pause();
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'auto';
+      video.onclick = null;
+    };
+  }
+}
+// Jump to 1s as preview frame after metadata loaded
+document.querySelectorAll('.video-area video').forEach(v => {
+  v.addEventListener('loadedmetadata', () => {
+    v.currentTime = 1;
+  });
+});
+</script>
+
+</body>
+</html>
