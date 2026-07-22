@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!-- ===== HEAD ===== -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>华大营养 2026 H1 TOP10 跑量素材深度分析</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme:{ extend:{
+    colors:{
+      background:'#F5F0E8', foreground:'#2B2925', muted:'#8A857C',
+      card:'#FFFFFF', primary:'#4A90A4', accent:'#C97B4A',
+      success:'#5B8C6B', warning:'#C97B4A', danger:'#B85450',
+      border:'#E5DDD0', 'border-strong':'#D4C8B3',
+    },
+    fontFamily:{
+      sans:['"Noto Sans SC"','"PingFang SC"','system-ui','sans-serif'],
+      serif:['"Noto Serif SC"','"Source Han Serif SC"','serif'],
+    }
+  }}
+}
+</script>
+</head>
+<body class="bg-background text-foreground font-sans overflow-x-hidden antialiased">
+
+<!-- ===== HTML ===== -->
+<!-- FILE:index.html -->
+<div class="mx-auto" style="max-width:1440px">
+
+  <!-- HERO -->
+  <header class="px-5 md:px-12 pt-12 md:pt-20 pb-10 md:pb-16">
+    <div class="flex items-center gap-3 text-primary text-xs md:text-sm tracking-[0.3em] uppercase mb-6">
+      <span class="inline-block w-8 h-px bg-primary"></span>
+      <span>HUADA · 2026 H1 REPORT</span>
+    </div>
+    <h1 class="font-serif font-black text-4xl md:text-6xl leading-tight text-foreground">
+      华大营养 <span class="text-primary">TOP 10</span><br>
+      跑量素材深度分析
+    </h1>
+    <p class="mt-6 max-w-3xl text-muted text-base md:text-lg leading-relaxed">
+      基于 2026 年 1 月 1 日 - 6 月 30 日膳食营养行业投放数据，对消耗排名前十的核心跑量素材进行系统性拆解，
+      结合六大维度多模态分析，揭示高消耗素材背后的科研背书、话术结构与平台适配规律。
+    </p>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-12">
+      <div class="bg-card border border-border rounded-xl p-5 md:p-6">
+        <div class="text-muted text-xs md:text-sm mb-2">总消耗 · TOTAL SPEND</div>
+        <div class="font-serif text-3xl md:text-4xl font-bold text-foreground">492.24<span class="text-base md:text-lg ml-1 text-muted font-sans font-normal">万元</span></div>
+        <div class="mt-3 text-xs text-muted">TOP10 素材合计</div>
+      </div>
+      <div class="bg-card border border-border rounded-xl p-5 md:p-6">
+        <div class="text-muted text-xs md:text-sm mb-2">平均 ROI</div>
+        <div class="font-serif text-3xl md:text-4xl font-bold text-primary">1.97</div>
+        <div class="mt-3 text-xs text-muted">高于行业基准</div>
+      </div>
+      <div class="bg-card border border-border rounded-xl p-5 md:p-6">
+        <div class="text-muted text-xs md:text-sm mb-2">平均 CTR</div>
+        <div class="font-serif text-3xl md:text-4xl font-bold text-accent">2.18<span class="text-base md:text-lg ml-1 text-muted font-sans font-normal">%</span></div>
+        <div class="mt-3 text-xs text-muted">最高 4.84% · TOP6</div>
+      </div>
+      <div class="bg-card border border-border rounded-xl p-5 md:p-6">
+        <div class="text-muted text-xs md:text-sm mb-2">平均 CVR</div>
+        <div class="font-serif text-3xl md:text-4xl font-bold text-success">2.40<span class="text-base md:text-lg ml-1 text-muted font-sans font-normal">%</span></div>
+        <div class="mt-3 text-xs text-muted">最高 3.94% · TOP5</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 数据概览 -->
+  <section class="px-5 md:px-12 py-12 md:py-16">
+    <div class="section-title">
+      <span class="idx">01</span>
+      <h2>数据概览</h2>
+      <p>三张核心图表快速看清 TOP10 消耗分布、标杆素材多维表现与 ROI × 消耗散点格局。</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
+      <div class="chart-card lg:col-span-2">
+        <div class="chart-header">
+          <h3>TOP10 消耗排名</h3>
+          <span class="text-xs text-muted">单位：万元</span>
+        </div>
+        <div id="chart-bar" style="height:380px"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>标杆素材多维对比</h3>
+          <span class="text-xs text-muted">TOP1 / TOP5 / TOP6 / TOP9</span>
+        </div>
+        <div id="chart-radar" style="height:400px"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>ROI × 消耗 散点分布</h3>
+          <span class="text-xs text-muted">气泡大小 = CVR</span>
+        </div>
+        <div id="chart-scatter" style="height:400px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOP10 逐条卡片 -->
+  <section class="px-5 md:px-12 py-12 md:py-16">
+    <div class="section-title">
+      <span class="idx">02</span>
+      <h2>TOP10 素材逐条分析</h2>
+      <p>点击任一卡片展开优劣势、跑量原因与口播词摘录。</p>
+    </div>
+    <div id="cards-list" class="mt-10 space-y-4"></div>
+  </section>
+
+  <!-- 6 维度 Tab -->
+  <section class="px-5 md:px-12 py-12 md:py-16">
+    <div class="section-title">
+      <span class="idx">03</span>
+      <h2>六大维度横向对比</h2>
+      <p>从视觉、话术、产品、流失、视听、平台六个维度提炼跨素材共性。</p>
+    </div>
+    <div class="mt-10 bg-card border border-border rounded-2xl overflow-hidden">
+      <div id="dim-tabs" class="flex flex-wrap border-b border-border"></div>
+      <div id="dim-content" class="p-6 md:p-10"></div>
+    </div>
+  </section>
+
+  <!-- 成功因子 -->
+  <section class="px-5 md:px-12 py-12 md:py-16">
+    <div class="section-title">
+      <span class="idx">04</span>
+      <h2>成功因子共性</h2>
+      <p>四条从 TOP10 中提炼的可复用范式。</p>
+    </div>
+    <div id="factors" class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"></div>
+  </section>
+
+  <!-- 优化建议 -->
+  <section class="px-5 md:px-12 py-12 md:py-16">
+    <div class="section-title">
+      <span class="idx">05</span>
+      <h2>优化建议</h2>
+      <p>可折叠 · 分层落地方案</p>
+    </div>
+    <div id="suggestions" class="mt-10 space-y-3"></div>
+  </section>
+
+  <footer class="px-5 md:px-12 py-10 border-t border-border mt-8">
+    <div class="flex flex-col md:flex-row justify-between gap-4 text-xs text-muted">
+      <div>© 2026 华大营养 · 膳食营养行业投放数据分析</div>
+      <div>数据周期：2026.01.01 – 2026.06.30 · TOP10 合计消耗 492.24 万元</div>
+    </div>
+  </footer>
+</div>
+<!-- /FILE:index.html -->
+
+<style>
+/* ===== STYLE ===== */
+/* FILE:style.css */
+html,body{scroll-behavior:smooth}
+body{background:#F5F0E8}
+.section-title{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;border-bottom:1px solid #E5DDD0;padding-bottom:1rem}
+.section-title .idx{font-family:"Noto Serif SC",serif;font-weight:700;color:#4A90A4;font-size:1rem;letter-spacing:.15em}
+.section-title h2{font-family:"Noto Serif SC",serif;font-weight:900;font-size:1.75rem;color:#2B2925}
+@media(min-width:768px){.section-title h2{font-size:2.25rem}}
+.section-title p{color:#8A857C;font-size:.875rem;flex:1;min-width:200px}
+
+.chart-card{background:#fff;border:1px solid #E5DDD0;border-radius:1rem;padding:1.25rem 1.25rem 1rem}
+@media(min-width:768px){.chart-card{padding:1.75rem}}
+.chart-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.75rem;padding-bottom:.75rem;border-bottom:1px dashed #E5DDD0}
+.chart-header h3{font-family:"Noto Serif SC",serif;font-weight:700;font-size:1.125rem;color:#2B2925}
+
+/* card */
+.tcard{background:#fff;border:1px solid #E5DDD0;border-radius:1rem;overflow:hidden;transition:box-shadow .2s,border-color .2s}
+.tcard:hover{border-color:#D4C8B3;box-shadow:0 4px 24px -12px rgba(74,144,164,.25)}
+.tcard-head{display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;cursor:pointer;user-select:none}
+.tcard-rank{font-family:"Noto Serif SC",serif;font-weight:900;font-size:2rem;line-height:1;color:#4A90A4;min-width:3.5rem}
+.tcard-rank .r{font-size:.75rem;color:#8A857C;font-weight:400;letter-spacing:.1em;display:block;margin-bottom:.15rem;font-family:"Noto Sans SC",sans-serif}
+.tcard-title{font-family:"Noto Serif SC",serif;font-weight:700;font-size:1.125rem;color:#2B2925}
+.tcard-meta{font-size:.8rem;color:#8A857C;margin-top:.25rem}
+.tcard-metrics{display:flex;gap:1.25rem;font-size:.8rem;color:#8A857C;margin-left:auto;flex-wrap:wrap}
+.tcard-metrics b{color:#2B2925;font-weight:600;margin-left:.25rem}
+.tcard-toggle{color:#4A90A4;transition:transform .3s}
+.tcard.open .tcard-toggle{transform:rotate(180deg)}
+.tcard-body{display:none;padding:0 1.5rem 1.5rem;border-top:1px dashed #E5DDD0}
+.tcard.open .tcard-body{display:block}
+.tag-pill{display:inline-block;padding:.2rem .6rem;border-radius:999px;font-size:.7rem;font-weight:500;letter-spacing:.05em}
+.tag-primary{background:rgba(74,144,164,.12);color:#4A90A4}
+.tag-accent{background:rgba(201,123,74,.14);color:#C97B4A}
+.tag-success{background:rgba(91,140,107,.14);color:#5B8C6B}
+.tag-warning{background:rgba(201,123,74,.14);color:#C97B4A}
+.tag-danger{background:rgba(184,84,80,.14);color:#B85450}
+.tag-muted{background:rgba(138,133,124,.14);color:#8A857C}
+
+.pill-list{display:flex;flex-wrap:wrap;gap:.5rem}
+
+/* tabs */
+.dim-tab{padding:.9rem 1.2rem;font-size:.9rem;color:#8A857C;cursor:pointer;border-bottom:2px solid transparent;display:flex;align-items:center;gap:.5rem;transition:all .2s;white-space:nowrap}
+.dim-tab:hover{color:#2B2925}
+.dim-tab.active{color:#4A90A4;border-color:#4A90A4;background:rgba(74,144,164,.04)}
+.dim-tab svg{width:16px;height:16px}
+
+/* accordion */
+.acc-item{background:#fff;border:1px solid #E5DDD0;border-radius:.75rem;overflow:hidden}
+.acc-head{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;cursor:pointer;user-select:none}
+.acc-head .idx{font-family:"Noto Serif SC",serif;color:#4A90A4;font-weight:700;font-size:.9rem;min-width:1.5rem}
+.acc-head .t{font-weight:600;color:#2B2925;flex:1;font-size:.95rem}
+.acc-head .arrow{color:#8A857C;transition:transform .3s}
+.acc-item.open .acc-head .arrow{transform:rotate(180deg);color:#4A90A4}
+.acc-body{display:none;padding:0 1.25rem 1.25rem;color:#4a4640;line-height:1.75;font-size:.9rem;border-top:1px dashed #E5DDD0}
+.acc-item.open .acc-body{display:block;padding-top:1rem}
+
+/* fade in on scroll */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+/* /FILE:style.css */
+</style>
+
+<script>
+/* ===== DATA ===== */
+// FILE:data.js
+const VIDEO_URLS = {
+  1: 'https://venus-vedas-1258344701.cos-internal.ap-guangzhou.tencentcos.cn//formal/20260715/vedas-formal-pod-20260715130023-4033c0/642df1d9-3e11-4453-9b88-0d2ad3a7f30e-v1.mp4',
+  2: 'https://venus-vedas-1258344701.cos-internal.ap-guangzhou.tencentcos.cn//formal/20260715/vedas-formal-pod-20260715130023-4033c0/e930e02d-8ff9-4c44-b773-dc817e6ce98b-v1.mp4',
+  3: 'https://venus-vedas-1258344701.cos-internal.ap-guangzhou.tencentcos.cn//formal/20260715/vedas-formal-pod-20260715130023-4033c0/07944fa0-603a-442f-af07-5addd7425c2e-v1.mp4',
+  4: 'https://venus-vedas-1258344701.cos-internal.ap-guangzhou.tencentcos.cn//formal/20260715/vedas-formal-pod-20260715130023-4033c0/305162a0-7df4-497c-b133-94bfb2da2490-v1.mp4',
+  5: 'https://venus-vedas-1258344701.cos-internal.ap-guangzhou.tencentcos.cn//formal/20260715/vedas-formal-pod-20260715130023-4033c0/7a7dba33-b87f-4d9d-858d-0340545dc5f4-v1.mp4',
+  6: 'https://venus-vedas-1258344701.cos-internal.ap-guangzhou.tencentcos.cn//formal/20260715/vedas-formal-pod-20260715130023-4033c0/7240d867-a464-41d9-ae8b-847951b35692-v1.mp4',
+  7: 'https://venus-vedas-1258344701.cos-internal.ap-guangzhou.tencentcos.cn//formal/20260715/vedas-formal-pod-20260715130023-4033c0/fad79354-4da7-459c-83fc-cd2305fb8918-v1.mp4',
+  8: 'https://venus-vedas-1258344701.cos-internal.ap-guangzhou.tencentcos.cn//formal/20260715/vedas-formal-pod-20260715130023-4033c0/8bb24cd7-2729-44bb-9643-a01a03112534-v1.mp4',
+  9: 'https://venus-vedas-1258344701.cos-internal.ap-guangzhou.tencentcos.cn//formal/20260715/vedas-formal-pod-20260715130023-4033c0/5b3221b7-9272-44b1-9ccc-5928e254b182-v1.mp4',
+  10:'https://venus-vedas-1258344701.cos-internal.ap-guangzhou.tencentcos.cn//formal/20260715/vedas-formal-pod-20260715130023-4033c0/6761da58-a9c0-48ac-b709-467fa13817b8-v1.mp4',
+};
+window.appData = {
+  summary: { totalSpend:492.24, avgROI:1.97, avgCTR:2.18, avgCVR:2.40, avgPrice:928.82, avgCTCVR:4.84 },
+  top10: [
+    {rank:1, spend:94.64, roi:2.04, cvr:2.21, ctr:1.82, price:1016.42, ctcvr:4.03},
+    {rank:2, spend:61.33, roi:1.94, cvr:2.39, ctr:2.17, price:892.70,  ctcvr:5.19},
+    {rank:3, spend:56.80, roi:1.67, cvr:1.80, ctr:1.61, price:681.01,  ctcvr:2.91},
+    {rank:4, spend:49.76, roi:1.73, cvr:1.94, ctr:1.48, price:722.49,  ctcvr:2.88},
+    {rank:5, spend:41.20, roi:2.56, cvr:3.94, ctr:2.56, price:1083.80, ctcvr:10.07},
+    {rank:6, spend:41.18, roi:2.11, cvr:1.34, ctr:4.84, price:1003.62, ctcvr:6.50},
+    {rank:7, spend:39.35, roi:2.03, cvr:3.55, ctr:1.99, price:899.74,  ctcvr:7.07},
+    {rank:8, spend:38.00, roi:1.84, cvr:3.79, ctr:0.81, price:1037.03, ctcvr:3.05},
+    {rank:9, spend:35.64, roi:2.16, cvr:1.78, ctr:2.75, price:1170.36, ctcvr:4.88},
+    {rank:10,spend:34.34, roi:1.62, cvr:2.39, ctr:0.76, price:681.01,  ctcvr:1.81},
+  ],
+  cards: [
+    {rank:1, title:'规模化消耗标杆', tag:'消耗之王', tagColor:'primary',
+      hook:'问题科普型', hookLine:'"益生菌需要吃多久？" — 双博士访谈',
+      pros:['极强科研权威感，"5万株菌株库"建立信任门槛','双博士出镜，科研降维打击','精准切入益生菌定植深度痛点'],
+      cons:['专业术语较多','40s 后存在理解门槛导致流失'],
+      reason:'双博士出镜建立的"科研降维打击"心智，极大降低了高客单价产品的决策成本；精准切入益生菌定植这一深度科普痛点，吸引高质人群停留。',
+      script:'肖亮博士：益生菌需要吃多久？最短是三个月。但是一旦定植了以后，菌自己繁殖复制…… 尹烨CEO：嗯嗯不畅，就应该来这个。表面看起来有点小贵，但吃完一个周期，您能感受到它的与众不同。'
+    },
+    {rank:2, title:'高互动破价模版', tag:'CEO 破价', tagColor:'accent',
+      hook:'利益破价型', hookLine:'CEO 尹烨手持破价牌 · "有钱捧钱场"',
+      pros:['CEO 亲和力互动，手持实物展示','连续3年国产销量第一，从众心理转化','品牌 IP 高强度曝光'],
+      cons:['品牌调性略显"江湖气"','对极高端人群可能有排斥'],
+      reason:'CEO 亲自下场"破价"的视觉冲击力，配合限时福利话术，极具促单爆发力；TOP7 与本素材内容完全一致，验证模版可复制性。',
+      script:'尹烨：有钱的捧个钱场，没钱的捧个人场…华大连续3年蝉联国产益生菌销量第一，核心菌株来自健康国人的肠道。'
+    },
+    {rank:3, title:'稳健低价跑量型', tag:'低单价', tagColor:'success',
+      hook:'低价钩子', hookLine:'下单单价 681 元，全场最低档',
+      pros:['价格门槛低，覆盖泛人群','大规格组合或入门赠品策略','规模化消耗稳定'],
+      cons:['ROI 1.67 低于均值 15%','转化质量有待提升'],
+      reason:'通过低客单价策略降低试错成本，实现大规模人群覆盖；作为漏斗顶端拉新素材，为高单价 SKU 沉淀池。',
+      script:'（低单价大规格组合话术，侧重"入门尝鲜 + 华大品质"心智）'
+    },
+    {rank:4, title:'品牌基础支撑型', tag:'大盘支撑', tagColor:'muted',
+      hook:'品牌钩子', hookLine:'依托华大品牌基础流量',
+      pros:['消耗量级稳定','品牌预估转化率支撑'],
+      cons:['CTR 1.48% 偏低','开场钩子吸引力不足'],
+      reason:'依靠华大品牌基础流量与稳定的系统预估转化率维持跑量，属于常态化补量素材。',
+      script:'（常规品牌话术，无强钩子设计）'
+    },
+    {rank:5, title:'ROI 之王 · 高效转化', tag:'ROI 2.56', tagColor:'danger',
+      hook:'精准痛点型', hookLine:'CVR 3.94% 全场最高 · CTCVR 10.07‱',
+      pros:['ROI 2.56 全场最高','CVR 3.94% 全场最高','CTCVR 达均值 2 倍，具备扩量潜力'],
+      cons:['消耗规模尚未完全打开','人群覆盖偏窄'],
+      reason:'极高的精准度，可能针对特定高转化人群（老客复购或深度痛点人群）做了定向内容优化；建议提炼话术模版进行全量复刻。',
+      script:'（深度痛点 + 长期定植科普 + 高净值人群定向）'
+    },
+    {rank:6, title:'CTR 之王 · 女神节借势', tag:'CTR 4.84%', tagColor:'accent',
+      hook:'情感共鸣型', hookLine:'"女性是最伟大的物种" — 女神节定制',
+      pros:['CTR 4.84% 全场最高','情感钩子低成本引流','完播率 35-45% 表现优秀'],
+      cons:['产品硬核背书相对偏弱','情感向营销依赖节日节点'],
+      reason:'节日借势 + 情感钩子，精准击中女性用户心理，实现低成本引流；建议将"女神节"模式常态化，开发职场压力/熬夜修复等场景。',
+      script:'尹烨：男性对于人类的贡献几乎没有…在这里祝所有的女神们节日快乐。希望每位女神都能有自己的健康节律，身形也好。'
+    },
+    {rank:7, title:'高互动破价模版（复刻）', tag:'TOP2 同款', tagColor:'primary',
+      hook:'利益破价型', hookLine:'与 TOP2 素材内容完全一致',
+      pros:['验证 CEO 破价模版可复用性','单素材双投跑量'],
+      cons:['同一模版存在审美疲劳风险'],
+      reason:'TOP2 模版复投版本，说明"CEO 破价 + 销量第一"结构在膳食营养赛道具有强跑量确定性。',
+      script:'（同 TOP2 口播词）'
+    },
+    {rank:8, title:'周年庆福利模版', tag:'10 周年', tagColor:'warning',
+      hook:'周年破价型', hookLine:'华大营养成立十周年 · 创始人自用',
+      pros:['创始人自用背书，真实感强','10 周年重大节点，情感浓度高','完播率 35-45%'],
+      cons:['CTR 0.81% 偏低','封面或前 3s 视觉吸引力不足'],
+      reason:'利用"10 周年"重大品牌节点，通过利益点让步实现老粉收割；创始人自用话术增强产品真实感。',
+      script:'尹烨：2026年是华大营养成立的十周年…有一款产品也是我自己用了很久，叫做"优美达益畅"。'
+    },
+    {rank:9, title:'高客单收割机', tag:'单价 1170', tagColor:'danger',
+      hook:'高净值定向', hookLine:'下单单价 1170.36 元 · 全场最高',
+      pros:['最高单价下 ROI 仍达 2.16','高净值人群精准筛选','强溢价能力'],
+      cons:['受众相对窄','规模化空间有限'],
+      reason:'成功筛选并转化了高净值人群，内容可能侧重于长期健康投资价值与基因测序深度背书。',
+      script:'（高客单话术，聚焦长期健康投资 + 基因测序权威）'
+    },
+    {rank:10, title:'低价引流尝试', tag:'末位', tagColor:'muted',
+      hook:'低价捡漏型', hookLine:'ROI 1.62 · CTR 0.76% 双末位',
+      pros:['单价 681 元，价格优势明显'],
+      cons:['ROI 1.62 全场最低','CTR 0.76% 全场最低','素材生命周期接近尾声'],
+      reason:'通过低价策略在流量池末端进行捡漏式转化，建议尽快替换或迭代。',
+      script:'（低价拉新话术，效率末位）'
+    },
+  ],
+  dimensions: [
+    { key:'visual', name:'视觉呈现', icon:'image',
+      points:[
+        ['画面节奏','统一采用 2-3s/镜头快剪风格，信息密度极高'],
+        ['画面构成','TOP1：产品特写 40% + 实验室背书 40% + 使用场景 20%'],
+        ['视觉钩子','开场文字切入痛点（如"益生菌需要吃多久？"）'],
+        ['场景搭配','实验室 / 办公室访谈 / 生活场景 三类反复复用'],
+      ]},
+    { key:'script', name:'口播话术', icon:'mic',
+      points:[
+        ['开场结构','问题科普型 / 利益破价型 / 情感共鸣型 / 周年破价型'],
+        ['逻辑闭环','痛点唤起 → 产品引入 → 科研背书 → 价格心理建设 → 限时促单'],
+        ['价格话术','统一"承认贵 + 给福利"：先"表面小贵"筛选人群，再"尹哥给福利"闭环'],
+        ['信任状','5 万株菌株库 / 连续 3 年销量第一 / 全基因组测序'],
+      ]},
+    { key:'product', name:'产品呈现', icon:'package',
+      points:[
+        ['主推 SKU','优美达益畅（5 株核心菌 + 3 大益生元，180 亿活菌）'],
+        ['技术背书','耐胃酸 / 耐肠液 / 耐胆盐 三重实验'],
+        ['差异化','源自"健康国人肠道"的民族菌株'],
+        ['价格锚点','681 - 1170 元区间，客单价梯度覆盖'],
+      ]},
+    { key:'churn', name:'用户流失', icon:'trending-down',
+      points:[
+        ['开场 3s 流失','TOP1 仅 10-15%（极低）；TOP2/7 达 20-25%'],
+        ['中段流失点','12-20s（营销转折）、25-32s（硬核数据）、40-45s（专业术语）'],
+        ['完播率','TOP1/6/8 达 35-45%；TOP2/7 仅 15-20%'],
+        ['优化方向','降低专业术语门槛 / 加强前 3s 视觉钩子'],
+      ]},
+    { key:'audio', name:'BGM 与语气', icon:'music',
+      points:[
+        ['BGM 风格','快节奏科技感为主，节日素材切轻情感调'],
+        ['语速','偏快，配合快剪节奏'],
+        ['语气','尹烨博士亲和 + 权威兼具，"江湖气 + 科研范"混搭'],
+        ['情绪曲线','平静科普 → 价格转折 → 促单高潮'],
+      ]},
+    { key:'platform', name:'平台适配', icon:'smartphone',
+      points:[
+        ['尺寸','全量 9:16 竖屏，适配信息流'],
+        ['时长','30-70s 黄金区间（34s / 55s / 60s / 70s）'],
+        ['封面','CEO 出镜 + 大字利益点是通用范式'],
+        ['引流链路','部分素材承接直播间，强互动引导'],
+      ]},
+  ],
+  factors:[
+    {icon:'target', title:'钩子策略', desc:'0-3s 内完成身份（华大 CEO）或利益（破价/科普结论）的强输出，不拖泥带水。'},
+    {icon:'shield-check', title:'信任状模式', desc:'以尹烨博士为核心 IP，将华大基因的科研实力（菌株库、基因测序）转化为产品信任。'},
+    {icon:'tag', title:'价格话术', desc:'统一"承认贵 + 给福利"逻辑：先"表面小贵"筛选人群，再"尹哥给福利"完成闭环。'},
+    {icon:'smartphone', title:'平台适配', desc:'全量 9:16 竖屏 + 30-70s 黄金区间 + 2-3s/镜头快剪，确保完播。'},
+  ],
+  suggestions:[
+    {title:'高 ROI 素材复刻（TOP5 / TOP9）', body:'提炼针对高净值人群的话术模版，特别是"长期定植"和"基因测序"的深度说服逻辑。TOP5 具备扩量潜力，建议加大预算测试。'},
+    {title:'高 CTR 情感钩子常态化（TOP6）', body:'节日借势与情感共鸣是低成本引流的关键。将"女神节"模式扩展至母亲节、520、七夕，并开发针对"职场压力"、"熬夜修复"等场景的情感钩子。'},
+    {title:'规模化跑量主力（TOP1）', body:'双博士访谈的专业感是规模化投放的基石。保持"专业科普 + CEO 促单"的双人配合结构，作为品牌常态化跑量主力。'},
+    {title:'低效素材迭代（TOP10）', body:'TOP10 各项效率指标均处于末位，建议尽快替换。可将 TOP3 低单价 + TOP6 情感钩子组合，探索新的低价引流模版。'},
+    {title:'专业术语门槛优化（TOP1）', body:'40s 后专业术语流失点明显，可在关键术语处插入字幕注释或短镜头动画演示，降低理解门槛。'},
+  ]
+};
+// /FILE:data.js
+</script>
+
+<script>
+/* ===== SCRIPT ===== */
+// FILE:charts.js
+const COLORS = {primary:'#4A90A4', accent:'#C97B4A', success:'#5B8C6B', danger:'#B85450', muted:'#8A857C', border:'#E5DDD0', text:'#2B2925'};
+const AXIS_STYLE = {
+  axisLine:{lineStyle:{color:'#D4C8B3'}},
+  axisLabel:{color:'#8A857C', fontSize:11},
+  splitLine:{lineStyle:{color:'#EFE8DA', type:'dashed'}}
+};
+
+function initBar(){
+  const el=document.getElementById('chart-bar');
+  const chart=echarts.init(el);
+  const data=window.appData.top10;
+  chart.setOption({
+    grid:{left:50,right:30,top:30,bottom:40},
+    tooltip:{trigger:'axis', axisPointer:{type:'shadow'},
+      backgroundColor:'#fff',borderColor:COLORS.border,textStyle:{color:COLORS.text},
+      formatter:p=>{const d=p[0];const r=data[d.dataIndex];
+        return `<b>TOP${r.rank}</b><br>消耗：${r.spend} 万<br>ROI：${r.roi}<br>CVR：${r.cvr}%`;
+      }},
+    xAxis:{type:'category', data:data.map(d=>'TOP'+d.rank), ...AXIS_STYLE},
+    yAxis:{type:'value', name:'万元', nameTextStyle:{color:COLORS.muted,fontSize:11}, ...AXIS_STYLE},
+    series:[{
+      type:'bar', data:data.map((d,i)=>({
+        value:d.spend,
+        itemStyle:{color: i===0?COLORS.primary : (d.roi>=2 ? COLORS.accent : '#8FB6C1'), borderRadius:[4,4,0,0]}
+      })),
+      label:{show:true,position:'top',color:COLORS.text,fontSize:11,formatter:'{c}'},
+      markLine:{silent:true, symbol:'none', lineStyle:{color:COLORS.danger,type:'dashed'},
+        data:[{yAxis:49.22, label:{formatter:'均值 49.22', color:COLORS.danger, fontSize:10, position:'end'}}]}
+    }]
+  });
+  return chart;
+}
+
+function initRadar(){
+  const chart=echarts.init(document.getElementById('chart-radar'));
+  const d=window.appData.top10;
+  const pick=r=>d.find(x=>x.rank===r);
+  // normalize to 0-100
+  const max={spend:100, roi:3, cvr:4, ctr:5, ctcvr:11};
+  const norm=r=>[r.spend/max.spend*100, r.roi/max.roi*100, r.cvr/max.cvr*100, r.ctr/max.ctr*100, r.ctcvr/max.ctcvr*100];
+  const targets=[1,5,6,9];
+  const colors=[COLORS.primary,COLORS.danger,COLORS.accent,COLORS.success];
+  chart.setOption({
+    tooltip:{backgroundColor:'#fff',borderColor:COLORS.border,textStyle:{color:COLORS.text}},
+    legend:{data:targets.map(r=>'TOP'+r), bottom:0, textStyle:{color:COLORS.muted,fontSize:12}, itemWidth:12, itemHeight:8},
+    radar:{
+      indicator:[{name:'消耗',max:100},{name:'ROI',max:100},{name:'CVR',max:100},{name:'CTR',max:100},{name:'CTCVR',max:100}],
+      center:['50%','48%'], radius:'62%',
+      axisName:{color:COLORS.text,fontSize:12,fontWeight:500},
+      splitLine:{lineStyle:{color:'#E5DDD0'}},
+      splitArea:{areaStyle:{color:['rgba(245,240,232,.3)','rgba(245,240,232,.6)']}},
+      axisLine:{lineStyle:{color:'#E5DDD0'}}
+    },
+    series:[{type:'radar', data:targets.map((r,i)=>({
+      name:'TOP'+r, value:norm(pick(r)),
+      itemStyle:{color:colors[i]},
+      lineStyle:{color:colors[i],width:2},
+      areaStyle:{color:colors[i],opacity:.12},
+      symbol:'circle', symbolSize:5
+    }))}]
+  });
+  return chart;
+}
+
+function initScatter(){
+  const chart=echarts.init(document.getElementById('chart-scatter'));
+  const data=window.appData.top10;
+  chart.setOption({
+    grid:{left:55,right:30,top:30,bottom:50},
+    tooltip:{trigger:'item',backgroundColor:'#fff',borderColor:COLORS.border,textStyle:{color:COLORS.text},
+      formatter:p=>{const r=data[p.dataIndex];
+        return `<b>TOP${r.rank}</b><br>消耗：${r.spend} 万<br>ROI：${r.roi}<br>CVR：${r.cvr}%`;}},
+    xAxis:{type:'value',name:'消耗（万元）',nameLocation:'middle',nameGap:32,nameTextStyle:{color:COLORS.muted,fontSize:11},...AXIS_STYLE},
+    yAxis:{type:'value',name:'ROI',nameTextStyle:{color:COLORS.muted,fontSize:11},min:1.5,max:2.8,...AXIS_STYLE},
+    series:[{
+      type:'scatter',
+      data:data.map(d=>[d.spend,d.roi,d.cvr,d.rank]),
+      symbolSize:v=>10+v[2]*6,
+      itemStyle:{color:p=>{const roi=p.value[1]; return roi>=2.2?COLORS.danger : roi>=1.9?COLORS.accent : COLORS.primary;}, opacity:.75, borderColor:'#fff',borderWidth:1},
+      label:{show:true, formatter:p=>'TOP'+p.value[3], color:COLORS.text, fontSize:10, position:'right'}
+    },
+    {type:'line', markLine:{silent:true, symbol:'none', lineStyle:{color:COLORS.muted,type:'dashed',width:1},
+      data:[{yAxis:1.97, label:{formatter:'均值 1.97', color:COLORS.muted, fontSize:10}}]}}
+    ]
+  });
+  return chart;
+}
+
+function initAllCharts(){
+  const charts=[initBar(), initRadar(), initScatter()];
+  window.addEventListener('resize', ()=>charts.forEach(c=>c.resize()));
+}
+// /FILE:charts.js
+
+// FILE:interactions.js
+function renderCards(){
+  const wrap=document.getElementById('cards-list');
+  wrap.innerHTML = window.appData.cards.map((c,idx)=>{
+    const row=window.appData.top10.find(x=>x.rank===c.rank);
+    return `
+    <div class="tcard reveal" data-idx="${idx}">
+      <div class="tcard-head" onclick="toggleCard(this)">
+        <div class="tcard-rank"><span class="r">TOP</span>${String(c.rank).padStart(2,'0')}</div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="tcard-title">${c.title}</span>
+            <span class="tag-pill tag-${c.tagColor}">${c.tag}</span>
+          </div>
+          <div class="tcard-meta">${c.hook} · ${c.hookLine}</div>
+        </div>
+        <div class="tcard-metrics hidden md:flex">
+          <span>消耗<b>${row.spend}万</b></span>
+          <span>ROI<b>${row.roi}</b></span>
+          <span>CTR<b>${row.ctr}%</b></span>
+          <span>CVR<b>${row.cvr}%</b></span>
+        </div>
+        <svg class="tcard-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="tcard-body">
+        <div class="tcard-video mt-4 mb-2">
+          <video controls preload="none" playsinline
+            poster=""
+            src="${VIDEO_URLS[c.rank]}"
+            class="w-full rounded-xl bg-black aspect-[9/16] md:aspect-video object-contain"></video>
+          <div class="text-xs text-muted mt-2">▸ 素材原片 · TOP${c.rank}｜点击播放查看完整口播与画面</div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4 py-4 mb-2 border-b border-dashed border-border md:hidden">
+          <div><div class="text-xs text-muted">消耗</div><div class="font-serif font-bold">${row.spend}<span class="text-xs text-muted ml-1">万</span></div></div>
+          <div><div class="text-xs text-muted">ROI</div><div class="font-serif font-bold">${row.roi}</div></div>
+          <div><div class="text-xs text-muted">CTR</div><div class="font-serif font-bold">${row.ctr}%</div></div>
+          <div><div class="text-xs text-muted">CVR</div><div class="font-serif font-bold">${row.cvr}%</div></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-5">
+          <div>
+            <div class="text-xs font-medium text-success mb-2 tracking-wider">✓ 优势分析</div>
+            <ul class="space-y-1.5 text-sm text-foreground leading-relaxed">
+              ${c.pros.map(p=>`<li class="flex gap-2"><span class="text-success mt-0.5">▪</span><span>${p}</span></li>`).join('')}
+            </ul>
+          </div>
+          <div>
+            <div class="text-xs font-medium text-danger mb-2 tracking-wider">! 劣势分析</div>
+            <ul class="space-y-1.5 text-sm text-foreground leading-relaxed">
+              ${c.cons.map(p=>`<li class="flex gap-2"><span class="text-danger mt-0.5">▪</span><span>${p}</span></li>`).join('')}
+            </ul>
+          </div>
+        </div>
+        <div class="mt-5 p-4 rounded-lg" style="background:rgba(74,144,164,.06);border-left:3px solid #4A90A4">
+          <div class="text-xs font-medium text-primary mb-1.5 tracking-wider">跑量原因解析</div>
+          <div class="text-sm text-foreground leading-relaxed">${c.reason}</div>
+        </div>
+        <div class="mt-4 p-4 rounded-lg bg-background/60 border border-border">
+          <div class="text-xs font-medium text-muted mb-1.5 tracking-wider">口播词摘录</div>
+          <div class="text-sm text-foreground/80 leading-relaxed font-serif italic">"${c.script}"</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCard(el){ el.parentElement.classList.toggle('open'); }
+
+function renderTabs(){
+  const dims=window.appData.dimensions;
+  const tabsEl=document.getElementById('dim-tabs');
+  tabsEl.innerHTML = dims.map((d,i)=>`
+    <div class="dim-tab ${i===0?'active':''}" data-idx="${i}" onclick="switchTab(${i})">
+      <i data-lucide="${d.icon}"></i><span>${d.name}</span>
+    </div>`).join('');
+  switchTab(0);
+}
+
+function switchTab(i){
+  document.querySelectorAll('.dim-tab').forEach((t,idx)=>t.classList.toggle('active', idx===i));
+  const d=window.appData.dimensions[i];
+  document.getElementById('dim-content').innerHTML = `
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      ${d.points.map(([k,v])=>`
+        <div class="p-5 rounded-xl border border-border" style="background:#FAF6EE">
+          <div class="text-xs font-medium text-primary tracking-wider mb-2">${k}</div>
+          <div class="text-sm text-foreground leading-relaxed">${v}</div>
+        </div>`).join('')}
+    </div>`;
+  if(window.lucide) lucide.createIcons();
+}
+
+function renderFactors(){
+  document.getElementById('factors').innerHTML = window.appData.factors.map((f,i)=>`
+    <div class="reveal p-6 rounded-2xl bg-card border border-border relative overflow-hidden">
+      <div class="absolute top-3 right-4 font-serif text-5xl font-black" style="color:rgba(74,144,164,.08)">0${i+1}</div>
+      <div class="w-11 h-11 rounded-lg flex items-center justify-center mb-4" style="background:rgba(74,144,164,.1);color:#4A90A4">
+        <i data-lucide="${f.icon}" style="width:22px;height:22px"></i>
+      </div>
+      <div class="font-serif font-bold text-lg text-foreground mb-2">${f.title}</div>
+      <div class="text-sm text-muted leading-relaxed">${f.desc}</div>
+    </div>`).join('');
+}
+
+function renderSuggestions(){
+  document.getElementById('suggestions').innerHTML = window.appData.suggestions.map((s,i)=>`
+    <div class="acc-item reveal ${i===0?'open':''}">
+      <div class="acc-head" onclick="this.parentElement.classList.toggle('open')">
+        <span class="idx">0${i+1}</span>
+        <span class="t">${s.title}</span>
+        <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="acc-body">${s.body}</div>
+    </div>`).join('');
+}
+
+function initReveal(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}
+// /FILE:interactions.js
+
+// FILE:main.js
+document.addEventListener('DOMContentLoaded', ()=>{
+  renderCards();
+  renderTabs();
+  renderFactors();
+  renderSuggestions();
+  initAllCharts();
+  if(window.lucide) lucide.createIcons();
+  initReveal();
+});
+// /FILE:main.js
+</script>
+</body>
+</html>
