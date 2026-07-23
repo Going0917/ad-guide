@@ -1218,8 +1218,23 @@ body {
     .ct-cat-table td.ct-col { white-space: normal; min-width: 150px; max-width: 220px; line-height: 1.55; font-size: 12px; }
     .ct-cat-table .rank-table th { background: var(--magenta); }
 
-    /* —— 儿童营养品类 · 4 大素材类型卡（统一风格：paper底+magenta色条+视频） —— */
-    .ct-cat-detail { margin-top: 16px; }
+    /* —— 分品类 Tab 容器（可扩展：新增品类只需加 button + panel） —— */
+    .ct-cat-tabs { display: flex; gap: 6px; margin: 14px 0 14px; flex-wrap: wrap; }
+    .ct-cat-tab {
+      font-family: var(--font-label); font-size: 13px; font-weight: 800;
+      padding: 8px 16px; border-radius: var(--radius-pill);
+      background: var(--paper); color: rgba(10,10,10,0.62);
+      border: 2px solid transparent; cursor: pointer; transition: all 0.18s;
+      letter-spacing: 0.01em;
+    }
+    .ct-cat-tab:hover { color: var(--ink); border-color: rgba(199,59,122,0.25); }
+    .ct-cat-tab.active { background: var(--magenta); color: #fff; border-color: var(--magenta); }
+    .ct-cat-panel { display: none; animation: fadeIn 0.25s ease; }
+    .ct-cat-panel.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+    /* —— 单品类 · 标题 + 简介 —— */
+    .ct-cat-detail { margin-top: 4px; }
     .ct-cat-detail .ccd-title {
       font-family: var(--font-display); font-size: 16px; font-weight: 900;
       margin-bottom: 4px;
@@ -1580,139 +1595,148 @@ body {
       </table>
     </div>
 
-    <!-- 儿童营养品类 · 4 大素材类型实例（仅此品类展开，视频可直接播放） -->
-    <div class="ct-cat-detail">
-      <div class="ccd-title">🍼 儿童营养品类 · 4 大素材类型实例</div>
-      <div class="ccd-sub">基于该品类 Top 高消耗素材的多模态拆解，提炼 4 种已被验证的素材类型——含核心打法、话术结构、信任状、适用场景与高转化金句。点击左侧 ▶ 可直接播放素材原片。</div>
-      <div class="ct-cat-detail-grid">
-        <!-- 类型1：明星驱动型 -->
-        <div class="ccd-card">
-          <div class="ccd-video">
-            <video preload="metadata" muted><source src="http://adsmind.gdtimg.com/ads_svp_video__0bc3wmafmaaagqaluobqrrvbxmyek2zqavsa.f0.mp4?dis_k=6efdc50800cbdd73f819c2c33f400fef&dis_t=1781591186&m=14cabca7e2a5ea50a9d7d40f6fdd5bdc" type="video/mp4"></video>
-            <div class="ccd-play" onclick="toggleCcdVideo(this)"><div class="ccd-play-btn"></div></div>
-            <span class="ccd-vlabel">▶ Top1 · 某明星代言品牌</span>
-          </div>
-          <div class="ccd-body">
-            <div class="ccd-head"><span class="ccd-name">⭐ 明星驱动型</span><span class="ccd-badge b-star">消耗最高</span></div>
-            <div class="ccd-strip"></div>
-            <div class="ccd-metrics">
-              <span class="ccd-metric best">消耗 <b>50–55万</b></span>
-              <span class="ccd-metric">ROI <b>2.7–2.9</b></span>
-              <span class="ccd-metric">CVR <b>2.4–9.5%</b></span>
-              <span class="ccd-metric">时长 <b>40–60s</b></span>
-            </div>
-            <div class="ccd-desc">
-              <b>核心打法</b>：央视主持人 / 明星爸爸正装出镜 → <strong>国家级信任光环 3 秒建立</strong><br>
-              <b>话术结构</b>：五段式（痛点→权威→成分→证言→促销），语速 260–280 字/分钟<br>
-              <b>信任状</b>：明星背书 + 专家科普 + 专利证书 + 3D 医学动画 + 检测报告<br>
-              <b>适用</b>：预算充足品牌，40+ 家长群体转化最优
-            </div>
-            <div class="ccd-quote">"你以为孩子上学没精神只是没休息好？铁元素缺乏影响血氧供给！350mg 柠檬酸钙+专利蛋黄多肽，今天拍三发六……"</div>
-          </div>
-        </div>
-        <!-- 类型2：权威背书型 -->
-        <div class="ccd-card">
-          <div class="ccd-video">
-            <video preload="metadata" muted><source src="http://adsmind.gdtimg.com/ads_svp_video__0b53ziadwaaagiafrjshmjvbvsqehpfaao2a.f0.mp4?dis_k=ad82c9abc9817e5e27de82eec48c2349&dis_t=1783567737&m=1ea0af7c27bfcffbf515b95b60a61350" type="video/mp4"></video>
-            <div class="ccd-play" onclick="toggleCcdVideo(this)"><div class="ccd-play-btn"></div></div>
-            <span class="ccd-vlabel">▶ Top · 某博士科研品牌</span>
-          </div>
-          <div class="ccd-body">
-            <div class="ccd-head"><span class="ccd-name">🔬 权威背书型（专家科研）</span><span class="ccd-badge b-expert">CTR 最高</span></div>
-            <div class="ccd-strip"></div>
-            <div class="ccd-metrics">
-              <span class="ccd-metric">消耗 <b>5–8万</b></span>
-              <span class="ccd-metric best">CTR <b>3.2–3.4%</b></span>
-              <span class="ccd-metric">CVR <b>5.0–6.8%</b></span>
-              <span class="ccd-metric">时长 <b>45–70s</b></span>
-            </div>
-            <div class="ccd-desc">
-              <b>核心打法</b>：博士 IP + 实验室场景，<strong>科研路线建信任</strong>，避开明星红海差异化竞争<br>
-              <b>话术结构</b>：痛点→科学引入→成分数据化→信任状→促销，语速 220 字/分钟<br>
-              <b>人设价值</b>：「驻队营养师」人设 × 核心单品 = 专业 + 运动双背书<br>
-              <b>提升方向</b>：补情景化开场（3 秒痛点画面替代纯口播），可进一步提 CVR
-            </div>
-            <div class="ccd-quote">"我是前奥组委驻队营养师。孩子每天吃两颗，摄入 300mg 有机钙 + A/D/B1/B2 等十几种营养元素……"</div>
-          </div>
-        </div>
-        <!-- 类型3：形态创新型 -->
-        <div class="ccd-card">
-          <div class="ccd-video">
-            <video preload="metadata" muted><source src="http://adsmind.gdtimg.com/ads_svp_video__0b53gycs6aaf5maaf6py2fur6nqef43akl2a.f0.mp4?dis_k=3e2373e5caaabc9fe1285f84a1e719b6&dis_t=1778200033&m=412cbd01c3039695cf986d7f1670f814" type="video/mp4"></video>
-            <div class="ccd-play" onclick="toggleCcdVideo(this)"><div class="ccd-play-btn"></div></div>
-            <span class="ccd-vlabel">▶ Top1 · 某软糖形态品牌</span>
-          </div>
-          <div class="ccd-body">
-            <div class="ccd-head"><span class="ccd-name">🍬 形态创新型</span><span class="ccd-badge b-form">CVR 领跑</span></div>
-            <div class="ccd-strip"></div>
-            <div class="ccd-metrics">
-              <span class="ccd-metric">消耗 <b>7–8万</b></span>
-              <span class="ccd-metric">ROI <b>1.5–1.7</b></span>
-              <span class="ccd-metric best">CVR <b>10.2–10.5%</b></span>
-              <span class="ccd-metric">时长 <b>30–45s</b></span>
-            </div>
-            <div class="ccd-desc">
-              <b>核心打法</b>：微痛点切入（孩子啃指甲 / 走神）+ <strong>软糖形态解决"不爱吃"痛点</strong><br>
-              <b>话术结构</b>：短三段式（痛点→产品→促销），亲和分享型语气，200 字/分钟<br>
-              <b>制作成本</b>：最低！30–45s 短素材 + 生活化场景 + 无需明星 / 实验室<br>
-              <b>适用</b>：朋友圈版位、低预算客户、有形态差异化的产品
-            </div>
-            <div class="ccd-quote">"很多妈妈不知道，孩子啃指甲、咬衣领，不是坏习惯，是身体在发出信号。每天一颗氨基丁酸软糖……"</div>
+    <!-- ========== 全新品类素材展示模块（v2·自包含·可扩展） ========== -->
+    <style>
+      .cx-tabs { display:flex; gap:6px; margin:14px 0; flex-wrap:wrap; }
+      .cx-tabs button { font-family:var(--font-label); font-size:13px; font-weight:800; padding:8px 16px; border-radius:var(--radius-pill); background:var(--paper); color:rgba(10,10,10,0.6); border:2px solid transparent; cursor:pointer; transition:all .18s; }
+      .cx-tabs button:hover { color:var(--ink); border-color:rgba(199,59,122,0.25); }
+      .cx-tabs button.on { background:var(--magenta); color:#fff; border-color:var(--magenta); }
+      .cx-pane { display:none; }
+      .cx-pane.show { display:block; }
+      .cx-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+      .cx-card { background:var(--paper); border-radius:18px; border-top:4px solid var(--magenta); padding:14px; display:flex; flex-direction:row; gap:12px; }
+      .cx-card-shot { flex:0 0 120px; width:120px; height:200px; border-radius:10px; overflow:hidden; background:#111; position:relative; }
+      .cx-card-shot img, .cx-card-shot video.cx-card-video { width:100%; height:100%; object-fit:cover; display:block; }
+      .cx-card-shot .cx-shot-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.3); cursor:pointer; }
+      .cx-card-shot .cx-shot-overlay:hover { background:rgba(0,0,0,0.15); }
+      .cx-shot-play { width:32px; height:32px; background:rgba(255,255,255,0.9); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--magenta); font-size:14px; padding-left:3px; }
+      .cx-shot-label { position:absolute; bottom:4px; left:4px; font-family:var(--font-label); font-size:8.5px; font-weight:800; color:#fff; background:rgba(0,0,0,0.6); padding:2px 6px; border-radius:3px; }
+      .cx-card-body { flex:1; display:flex; flex-direction:column; gap:7px; min-width:0; }
+      .cx-card-head { display:flex; justify-content:space-between; align-items:center; }
+      .cx-card-name { font-family:var(--font-display); font-size:14.5px; font-weight:900; }
+      .cx-card-badge { font-family:var(--font-label); font-size:9.5px; font-weight:800; padding:3px 9px; border-radius:5px; background:rgba(199,59,122,0.12); color:var(--magenta); }
+      .cx-metrics { display:flex; flex-wrap:wrap; gap:5px; }
+      .cx-metrics span { font-size:10.5px; color:rgba(10,10,10,0.65); background:rgba(10,10,10,0.05); padding:3px 8px; border-radius:4px; }
+      .cx-metrics span b { color:var(--ink); font-weight:800; }
+      .cx-metrics span.best b { color:var(--orange); }
+      .cx-desc { font-size:12px; color:rgba(10,10,10,0.78); line-height:1.65; }
+      .cx-desc b { color:var(--ink); font-weight:800; }
+      .cx-desc strong { color:var(--magenta); font-weight:700; }
+      .cx-quote { background:rgba(199,59,122,0.06); border-left:3px solid var(--magenta); padding:7px 11px; border-radius:0 6px 6px 0; font-size:11px; color:rgba(10,10,10,0.7); line-height:1.5; font-style:italic; }
+      .cx-video-wrap { position:relative; width:100%; aspect-ratio:9/16; max-height:180px; border-radius:10px; overflow:hidden; background:#111; margin-bottom:4px; }
+      .cx-video-wrap video { width:100%; height:100%; object-fit:cover; }
+      .cx-video-wrap .cx-play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.35); cursor:pointer; }
+      .cx-video-wrap .cx-play:hover { background:rgba(0,0,0,0.15); }
+      .cx-video-wrap .cx-pbtn { width:30px; height:30px; background:rgba(255,255,255,0.9); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+      .cx-video-wrap .cx-pbtn::after { content:''; border-style:solid; border-width:5px 0 5px 9px; border-color:transparent transparent transparent var(--magenta); margin-left:2px; }
+      .cx-video-wrap .cx-vlabel { position:absolute; bottom:4px; left:4px; font-family:var(--font-label); font-size:8.5px; font-weight:800; color:#fff; background:rgba(0,0,0,0.6); padding:2px 6px; border-radius:3px; }
+      .cx-placeholder { width:100%; aspect-ratio:9/16; max-height:180px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:28px; margin-bottom:4px; }
+      @media(max-width:700px){ .cx-grid{grid-template-columns:1fr;} }
+    </style>
+
+    <div class="cx-tabs" id="cxTabs">
+      <button class="on" onclick="cxSwitch('etn')">🍼 儿童营养</button>
+      <button onclick="cxSwitch('prb')">🦠 益生菌</button>
+    </div>
+    <script>
+    function cxSwitch(id){
+      document.querySelectorAll('#cxTabs button').forEach(function(b){b.className=b.textContent.indexOf(id==='etn'?'儿童':'益生')>=0?'on':'';});
+      document.querySelectorAll('.cx-pane').forEach(function(p){p.className='cx-pane'+(p.id==='cx-'+id?' show':'');});
+    }
+    function cxPlay(el){
+      var v=el.parentElement.querySelector('video');
+      if(v&&v.paused){v.play();el.style.display='none';v.onclick=function(){v.pause();el.style.display='flex';v.onclick=null;};}
+    }
+    </script>
+
+    <!-- === Panel: 儿童营养 === -->
+    <!-- === Panel: 儿童营养 (新 cx-card 纯 flex 布局，不依赖 grid-template-columns) === -->
+    <div class="cx-pane show" id="cx-etn">
+      <div class="cx-grid">
+        <div class="cx-card">
+          <div class="cx-card-shot"><video class="cx-card-video" preload="metadata" muted playsinline onclick="var v=this;var o=v.nextElementSibling;if(v.paused){v.play();o.style.display='none';}else{v.pause();o.style.display='flex';}"><source src="http://adsmind.gdtimg.com/ads_svp_video__0bc3wmafmaaagqaluobqrrvbxmyek2zqavsa.f0.mp4?dis_k=6efdc50800cbdd73f819c2c33f400fef&dis_t=1781591186&m=14cabca7e2a5ea50a9d7d40f6fdd5bdc" type="video/mp4"></video><div class="cx-shot-overlay" onclick="this.previousElementSibling.play();this.style.display='none';"><div class="cx-shot-play">▶</div></div><span class="cx-shot-label">Top1 · 某明星代言品牌</span></div>
+          <div class="cx-card-body">
+          <div class="cx-card-head"><span class="cx-card-name">⭐ 明星驱动型</span><span class="cx-card-badge">消耗最高</span></div>
+          <div class="cx-metrics"><span class="best">消耗 <b>50–55万</b></span><span>ROI <b>2.7–2.9</b></span><span>CVR <b>2.4–9.5%</b></span><span>时长 <b>40–60s</b></span></div>
+          <div class="cx-desc"><b>核心打法</b>：央视主持人 / 明星爸爸正装出镜 → <strong>国家级信任光环 3 秒建立</strong><br><b>话术结构</b>：五段式（痛点→权威→成分→证言→促销），语速 260–280 字/分钟<br><b>信任状</b>：明星背书 + 专家科普 + 专利证书 + 3D 医学动画 + 检测报告<br><b>适用</b>：预算充足品牌，40+ 家长群体转化最优</div>
+          <div class="cx-quote">"你以为孩子上学没精神只是没休息好？铁元素缺乏影响血氧供给！350mg 柠檬酸钙+专利蛋黄多肽，今天拍三发六……"</div>
           </div>
         </div>
-        <!-- 类型4：复合背书型 -->
-        <div class="ccd-card">
-          <div class="ccd-video">
-            <video preload="metadata" muted><source src="http://adsmind.gdtimg.com/ads_svp_video__0b53yub5saadluanfxrrm5vbtrie3hcqhwka.f0.mp4?dis_k=ee15b57feeae23ab9369dae43c505168&dis_t=1781664671&m=8d29b29491bfe3c92db8ea276a131b12" type="video/mp4"></video>
-            <div class="ccd-play" onclick="toggleCcdVideo(this)"><div class="ccd-play-btn"></div></div>
-            <span class="ccd-vlabel">▶ Top · 某复合背书品牌</span>
+        <div class="cx-card">
+          <div class="cx-card-shot"><video class="cx-card-video" preload="metadata" muted playsinline onclick="var v=this;var o=v.nextElementSibling;if(v.paused){v.play();o.style.display='none';}else{v.pause();o.style.display='flex';}"><source src="http://adsmind.gdtimg.com/ads_svp_video__0b53ziadwaaagiafrjshmjvbvsqehpfaao2a.f0.mp4?dis_k=ad82c9abc9817e5e27de82eec48c2349&dis_t=1783567737&m=1ea0af7c27bfcffbf515b95b60a61350" type="video/mp4"></video><div class="cx-shot-overlay" onclick="this.previousElementSibling.play();this.style.display='none';"><div class="cx-shot-play">▶</div></div><span class="cx-shot-label">Top素材 · 某博士科研品牌</span></div>
+          <div class="cx-card-body">
+          <div class="cx-card-head"><span class="cx-card-name">🔬 权威背书型（专家科研）</span><span class="cx-card-badge">CTR 最高</span></div>
+          <div class="cx-metrics"><span>消耗 <b>5–8万</b></span><span class="best">CTR <b>3.2–3.4%</b></span><span>CVR <b>5.0–6.8%</b></span><span>时长 <b>45–70s</b></span></div>
+          <div class="cx-desc"><b>核心打法</b>：博士 IP + 实验室场景，<strong>科研路线建信任</strong>，避开明星红海差异化竞争<br><b>话术结构</b>：痛点→科学引入→成分数据化→信任状→促销，语速 220 字/分钟<br><b>人设价值</b>：「驻队营养师」人设 × 核心单品 = 专业 + 运动双背书<br><b>提升方向</b>：补情景化开场（3 秒痛点画面替代纯口播），可进一步提 CVR</div>
+          <div class="cx-quote">"我是前奥组委驻队营养师。孩子每天吃两颗，摄入 300mg 有机钙 + A/D/B1/B2 等十几种营养元素……"</div>
           </div>
-          <div class="ccd-body">
-            <div class="ccd-head"><span class="ccd-name">🏅 复合背书型（三重信任矩阵）</span><span class="ccd-badge b-combo">最均衡</span></div>
-            <div class="ccd-strip"></div>
-            <div class="ccd-metrics">
-              <span class="ccd-metric">消耗 <b>7–8万</b></span>
-              <span class="ccd-metric">ROI <b>1.7–2.0</b></span>
-              <span class="ccd-metric">CVR <b>6.5–8.0%</b></span>
-              <span class="ccd-metric best">背书 <b>三重</b></span>
-            </div>
-            <div class="ccd-desc">
-              <b>核心打法</b>：世界冠军 + 国家营养师 + SGS 检测 → <strong>三重信任矩阵</strong><br>
-              <b>话术结构</b>：五段式（冠军引入→场景痛点→权威亮证→成分数据化→大促引导）<br>
-              <b>核心价值</b>：同时解决"有没有效"和"安不安全"两大家长核心痛点<br>
-              <b>特点</b>：各维度最均衡，可叠加情景化开场进一步提升
-            </div>
-            <div class="ccd-quote">"连世界冠军都震惊的信息差……皓哥，你也给孩子吃？……我是前奥组委驻队营养师。300mg 有机钙+SGS 送检无激素……"</div>
+        </div>
+        <div class="cx-card">
+          <div class="cx-card-shot"><video class="cx-card-video" preload="metadata" muted playsinline onclick="var v=this;var o=v.nextElementSibling;if(v.paused){v.play();o.style.display='none';}else{v.pause();o.style.display='flex';}"><source src="http://adsmind.gdtimg.com/ads_svp_video__0b53gycs6aaf5maaf6py2fur6nqef43akl2a.f0.mp4?dis_k=3e2373e5caaabc9fe1285f84a1e719b6&dis_t=1778200033&m=412cbd01c3039695cf986d7f1670f814" type="video/mp4"></video><div class="cx-shot-overlay" onclick="this.previousElementSibling.play();this.style.display='none';"><div class="cx-shot-play">▶</div></div><span class="cx-shot-label">Top1 · 某中医药品牌</span></div>
+          <div class="cx-card-body">
+          <div class="cx-card-head"><span class="cx-card-name">🍬 形态创新型</span><span class="cx-card-badge">CVR 领跑</span></div>
+          <div class="cx-metrics"><span>消耗 <b>7–8万</b></span><span>ROI <b>1.5–1.7</b></span><span class="best">CVR <b>10.2–10.5%</b></span><span>时长 <b>30–45s</b></span></div>
+          <div class="cx-desc"><b>核心打法</b>：微痛点切入（孩子啃指甲 / 走神）+ <strong>软糖形态解决"不爱吃"痛点</strong><br><b>话术结构</b>：短三段式（痛点→产品→促销），亲和分享型语气，200 字/分钟<br><b>制作成本</b>：最低！30–45s 短素材 + 生活化场景 + 无需明星 / 实验室<br><b>适用</b>：朋友圈版位、低预算客户、有形态差异化的产品</div>
+          <div class="cx-quote">"很多妈妈不知道，孩子啃指甲、咬衣领，不是坏习惯，是身体在发出信号。每天一颗氨基丁酸软糖……"</div>
+          </div>
+        </div>
+        <div class="cx-card">
+          <div class="cx-card-shot"><video class="cx-card-video" preload="metadata" muted playsinline onclick="var v=this;var o=v.nextElementSibling;if(v.paused){v.play();o.style.display='none';}else{v.pause();o.style.display='flex';}"><source src="http://adsmind.gdtimg.com/ads_svp_video__0b53yub5saadluanfxrrm5vbtrie3hcqhwka.f0.mp4?dis_k=ee15b57feeae23ab9369dae43c505168&dis_t=1781664671&m=8d29b29491bfe3c92db8ea276a131b12" type="video/mp4"></video><div class="cx-shot-overlay" onclick="this.previousElementSibling.play();this.style.display='none';"><div class="cx-shot-play">▶</div></div><span class="cx-shot-label">Top素材 · 某复合背书品牌</span></div>
+          <div class="cx-card-body">
+          <div class="cx-card-head"><span class="cx-card-name">🏅 复合背书型（三重信任矩阵）</span><span class="cx-card-badge">最均衡</span></div>
+          <div class="cx-metrics"><span>消耗 <b>7–8万</b></span><span>ROI <b>1.7–2.0</b></span><span>CVR <b>6.5–8.0%</b></span><span class="best">背书 <b>三重</b></span></div>
+          <div class="cx-desc"><b>核心打法</b>：世界冠军 + 国家营养师 + SGS 检测 → <strong>三重信任矩阵</strong><br><b>话术结构</b>：五段式（冠军引入→场景痛点→权威亮证→成分数据化→大促引导）<br><b>核心价值</b>：同时解决"有没有效"和"安不安全"两大家长核心痛点<br><b>特点</b>：各维度最均衡，可叠加情景化开场进一步提升</div>
+          <div class="cx-quote">"连世界冠军都震惊的信息差……皓哥，你也给孩子吃？……我是前奥组委驻队营养师。300mg 有机钙+SGS 送检无激素……"</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 视频播放/暂停 JS（品类素材卡专用） -->
-    <script>
-    function toggleCcdVideo(overlay) {
-      var video = overlay.parentElement.querySelector('video');
-      if (video.paused) {
-        video.play();
-        overlay.style.opacity = '0';
-        overlay.style.pointerEvents = 'none';
-        video.addEventListener('ended', function() {
-          overlay.style.opacity = '1';
-          overlay.style.pointerEvents = 'auto';
-        }, { once: true });
-        video.onclick = function() {
-          video.pause();
-          overlay.style.opacity = '1';
-          overlay.style.pointerEvents = 'auto';
-          video.onclick = null;
-        };
-      }
-    }
-    document.querySelectorAll('.ccd-video video').forEach(function(v) {
-      v.addEventListener('loadedmetadata', function() { v.currentTime = 1; });
-    });
-    </script>
-  </div>
+    <!-- === Panel: 益生菌 (基于 2026-07-23 报告·Type A/B/C/D) === -->
+    <div class="cx-pane" id="cx-prb">
+      <div class="cx-grid">
+        <!-- Type A: 专家/权威科普型 -->
+        <div class="cx-card">
+          <div class="cx-card-shot"><img src="创意素材/益生菌/截图/A-专家科普型.png" alt="🔬 专家科普型" loading="lazy"></div>
+          <div class="cx-card-body">
+          <div class="cx-card-head"><span class="cx-card-name">🔬 专家/权威科普型</span><span class="cx-card-badge">消耗王者</span></div>
+          <div class="cx-metrics"><span class="best">消耗 <b>9.6万封顶</b></span><span>ROI <b>1.39–1.87</b></span><span>CVR <b>2.6–6.5%</b></span><span>客单 <b>700–1150</b></span></div>
+          <div class="cx-desc"><b>核心打法</b>：品牌 CEO / 首席科学家出镜，<strong>以科研话题建立专业壁垒</strong>，将产品定位为"科研成果落地"<br><b>视觉特征</b>：深蓝色大字标题 + 专家侧脸特写 + 菌株编号/营养表特写<br><b>话术结构</b>：科学话题钩子(0-5s) → 专家身份(5-25s) → 数据深度讲解(25-45s) → 场景收口(45-58s)<br><b>信任体系</b>：双博士(尹烨+肖亮) / 专利菌株号(TF08-1) / 行业奖项证书<br><b>适用</b>：有自研菌株或专利技术的中高端品牌，客单价≥500元</div>
+          <div class="cx-quote">"体重与身材 / 体脂率更值得关注——你就要担心了……发现了这一株专利减脂菌，我们把它命名为格氏乳杆菌 TF08-1。"</div>
+          </div>
+        </div>
+        <!-- Type B: 明星同款/KOL背书型 -->
+        <div class="cx-card">
+          <div class="cx-card-shot"><img src="创意素材/益生菌/截图/B-明星同款型.png" alt="⭐ 明星同款型" loading="lazy"></div>
+          <div class="cx-card-body">
+          <div class="cx-card-head"><span class="cx-card-name">⭐ 明星同款 / KOL 背书型</span><span class="cx-card-badge">CTR 登顶</span></div>
+          <div class="cx-metrics"><span class="best">消耗 <b>5.6万封顶</b></span><span class="best">CTR <b>2.3–8.2% 👑</b></span><span>ROI <b>1.67–2.26 👑</b></span><span>客单 <b>800–1050</b></span></div>
+          <div class="cx-desc"><b>核心打法</b>：以"明星同款"为钩子，<strong>用明星生活方式绑定产品</strong>，日常场景+技术数据双背书<br><b>视觉特征</b>：明星餐桌/居家场景 + 蓝色"同款"标签 + 系列产品矩阵展示<br><b>话术结构</b>：明星身份亮出(0-3s) → 日常使用(3-15s) → 核心卖点(15-25s) → 促销收口<br><b>信任体系</b>：影视明星(秦海璐/陆毅/郭涛) / 主持人(陈蓉) / 权威人士(高志凯"为国货证明")<br><b>适用</b>：有明星资源的中高端品牌，陆毅同款 CTR 8.2% 全样本最高</div>
+          <div class="cx-quote">"陆毅同款 / 正品的某头部益生菌品牌B益生菌——福利大促，今天某头部益生菌品牌B新品升级。"</div>
+          </div>
+        </div>
+        <!-- Type C: 情感剧情/梗图反转型 -->
+        <div class="cx-card">
+          <div class="cx-card-shot"><img src="创意素材/益生菌/截图/C-情感剧情型.png" alt="💬 情感剧情型" loading="lazy"></div>
+          <div class="cx-card-body">
+          <div class="cx-card-head"><span class="cx-card-name">💬 情感剧情 / 梗图反转型</span><span class="cx-card-badge">CVR 领跑</span></div>
+          <div class="cx-metrics"><span>消耗 <b>2.7万封顶</b></span><span>ROI <b>1.68–2.25</b></span><span class="best">CVR <b>4.6–13.4% 👑</b></span><span>客单 <b>100–200</b></span></div>
+          <div class="cx-desc"><b>核心打法</b>：<strong>先娱乐后种草</strong>——网络梗图/情感剧情制造"意外感/共鸣感"，再自然过渡到产品<br><b>视觉特征</b>：梗图(柴犬+00后老板) / 聊天记录截图 / 老人痛苦场景 / 明星隐出画面<br><b>话术结构</b>：梗图钩子(0-5s) → 聊天剧情(5-25s) → 明星自然引出(25-45s) → 促销收口<br><b>两子类型</b>：①梗图反转(江中"00后老板"+林心如背书) ②情感剧情(某头部综合营养品牌"60后阿姨700块退休金")<br><b>适用</b>：低客单价(100-200元)、医药大厂品牌、有梗创作能力的客户</div>
+          <div class="cx-quote">"为所欲为的00后老板 / 亲，我们可是国产大品牌江中的益生菌——就连明星林心如也在用。"</div>
+          </div>
+        </div>
+        <!-- Type D: 价格攻击/促销紧迫型 -->
+        <div class="cx-card">
+          <div class="cx-card-shot"><img src="创意素材/益生菌/截图/D-价格攻击型.png" alt="💰 价格攻击型" loading="lazy"></div>
+          <div class="cx-card-body">
+          <div class="cx-card-head"><span class="cx-card-name">💰 价格攻击 / 促销紧迫型</span><span class="cx-card-badge">大促冲量</span></div>
+          <div class="cx-metrics"><span>消耗 <b>1.1万封顶</b></span><span>ROI <b>1.63–2.12</b></span><span>CVR <b>1.5–8.0%</b></span><span>客单 <b>149–156</b></span></div>
+          <div class="cx-desc"><b>核心打法</b>：<strong>极致低价+超大赠品</strong>，用"价格锚点"和"紧迫话术"驱动冲动消费<br><b>视觉特征</b>：黄色背景大字价格冲击 / 商务谈判鼓掌场景 / 撕包装使用场景 / AI生成直播<br><b>话术结构</b>：价格锚点钩子(0-5s) → 专家口播(5-45s) → 产品+使用引导(45-65s)<br><b>两子类型</b>：①价格攻击(某头部叶黄素品牌"超过40块不要买"+AI生成) ②促销紧迫(某头部综合营养品牌"拍1发10盒"+618大促)<br><b>适用</b>：低客单价(149-156元)、价格敏感中老年、预算有限可接受AI生成的中小客户</div>
+          <div class="cx-quote">"益生菌超过40块一定不要买 / 别再花冤枉钱——经过12小时谈判把价格带下来了。"</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   <!-- 子模块④：产品化工具 · 创意机会 -->
   <div class="submodule">
@@ -2900,6 +2924,8 @@ body {
 <footer class="footer">
   膳食健康赛道 · 广告竞争力提升全景指引 · 数据已脱敏
 </footer>
+</div>
+</div>
 
 <!-- ============== 锚点滚动 + 吸顶导航 + 滚动高亮联动 ============== -->
 <script>
