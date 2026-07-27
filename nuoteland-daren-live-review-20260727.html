@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>诺特兰德达人进直播间复盘报告（梁丽进·7月15日）</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f0f2f5; color: #1a1a2e; }
+  .page-header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; padding: 40px 48px; }
+  .page-header h1 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+  .page-header .subtitle { font-size: 14px; opacity: 0.75; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px 24px 48px; }
+  .section { background: white; border-radius: 12px; padding: 28px 32px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .section-title { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0; display: flex; align-items: center; gap: 10px; }
+  .section-title .num { background: #0f3460; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .insight-box { background: linear-gradient(135deg, #e8f4fd, #dbeafe); border-left: 4px solid #2563eb; border-radius: 8px; padding: 14px 18px; margin: 16px 0; }
+  .insight-box .title { font-weight: 700; color: #1e40af; font-size: 13px; margin-bottom: 6px; }
+  .insight-box ul { padding-left: 16px; }
+  .insight-box li { font-size: 13px; color: #1e3a8a; line-height: 1.7; }
+  .warn-box { background: linear-gradient(135deg, #fff7ed, #fef3c7); border-left: 4px solid #f59e0b; border-radius: 8px; padding: 14px 18px; margin: 16px 0; }
+  .warn-box .title { font-weight: 700; color: #92400e; font-size: 13px; margin-bottom: 6px; }
+  .warn-box li { font-size: 13px; color: #78350f; line-height: 1.7; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
+  th { background: #f8fafc; color: #374151; font-weight: 600; padding: 10px 12px; text-align: center; border: 1px solid #e5e7eb; }
+  td { padding: 9px 12px; text-align: center; border: 1px solid #e5e7eb; color: #374151; }
+  tr:hover td { background: #f9fafb; }
+  .total-row td { background: #f0f4ff; font-weight: 700; color: #1e40af; }
+  .good { color: #059669; font-weight: 600; }
+  .bad { color: #dc2626; font-weight: 600; }
+  .warn { color: #d97706; font-weight: 600; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .tag-green { background: #d1fae5; color: #065f46; }
+  .tag-red { background: #fee2e2; color: #991b1b; }
+  .tag-yellow { background: #fef3c7; color: #92400e; }
+  .tag-blue { background: #dbeafe; color: #1e40af; }
+  .tag-gray { background: #f1f5f9; color: #64748b; }
+  .chart-box { width: 100%; height: 320px; margin: 16px 0; }
+  .chart-box-lg { width: 100%; height: 400px; margin: 16px 0; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 16px 0; }
+  .kpi-card { background: #f8fafc; border-radius: 10px; padding: 16px; text-align: center; border: 1px solid #e5e7eb; }
+  .kpi-card .label { font-size: 12px; color: #6b7280; margin-bottom: 6px; }
+  .kpi-card .value { font-size: 22px; font-weight: 700; color: #1a1a2e; }
+  .kpi-card .delta { font-size: 12px; margin-top: 4px; }
+  .sub-title { font-size: 15px; font-weight: 700; color: #374151; margin: 20px 0 10px; padding-left: 10px; border-left: 3px solid #0f3460; }
+  .note { font-size: 12px; color: #9ca3af; margin-top: 8px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 768px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="page-header">
+  <h1>🎯 诺特兰德达人进直播间复盘报告</h1>
+  <div class="subtitle">梁丽进达人进直播间 · 2026年7月15日 11:00–16:00 · 直播链路竞价口径</div>
+</div>
+<div class="container">
+
+<div class="section">
+  <div class="section-title"><span class="num">1</span>预约OG蓄水分析（7/13–7/15）</div>
+  <div class="insight-box">
+    <div class="title">📌 核心结论</div>
+    <ul>
+      <li>预约OG总消耗 <b>0.92万元</b>，仅提前2天启动，蓄水周期偏短</li>
+      <li>CTR <b>1.11%</b>，CVR <b>19.71%</b>（预约行为转化率高属正常），CPA <b>2.66元</b>（目标2.70元，达标✅）</li>
+      <li>有消耗广告数仅 <b>2条</b>（均为非智投广告），账户数 <b>2个</b>，基建规模偏小</li>
+    </ul>
+  </div>
+  <table>
+    <tr>
+      <th>指标</th><th>消耗</th><th>CTR</th><th>CVR</th><th>CPA（元）</th><th>有消耗账户数</th><th>有消耗广告数</th><th>有消耗TID数</th>
+    </tr>
+    <tr class="total-row">
+      <td>预约OG汇总</td>
+      <td>0.92万元</td>
+      <td>1.11%</td>
+      <td>19.71%</td>
+      <td>2.66</td>
+      <td>2</td>
+      <td>2</td>
+      <td>133</td>
+    </tr>
+  </table>
+  <p class="note">※ 预约OG优化目标为"微信流量预约行为"，CVR高属正常，不可与下单CVR对比</p>
+  <div class="warn-box">
+    <div class="title">⚠️ 与竞品对比：预约蓄水差距显著</div>
+    <ul>
+      <li>诺特兰德：0.92万元（提前2天，2条广告，2个账户）</li>
+      <li>竞品A（4月场）：0.70万元（提前4天，1条广告，1个账户）</li>
+      <li>竞品B（6月场）：4.89万元（提前6天，2条广告，1个账户）—— 蓄水规模是本次的5.3倍</li>
+      <li>预约蓄水不足是制约当天消耗爆发的关键因素之一，建议下次提前5–7天、消耗目标≥3万元</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="num">2</span>7月15日当天投放分析</div>
+  <div class="insight-box">
+    <div class="title">📌 核心结论（剔除预约OG后）</div>
+    <ul>
+      <li>当天总消耗 <b>2.59万元</b>（含预约OG），剔除预约OG后下单投放消耗 <b>2.19万元</b></li>
+      <li>单链路智投是主力，消耗占比74%，ROI <b>2.00</b>（达标✅）；推直播ROI <b>3.45</b>（高潜力🌟）</li>
+      <li>非智投广告（剔除预约OG）消耗仅0.26万，ROI <b>1.50</b>（低于1.7目标⚠️），效率偏弱</li>
+      <li>有消耗账户数 <b>9个</b>，广告数 <b>115条</b>，TID <b>1,185个</b></li>
+    </ul>
+  </div>
+
+  <div class="sub-title">2.1 分智投类型（剔除预约OG）</div>
+  <table>
+    <tr>
+      <th>智投类型</th><th>消耗</th><th>消耗占比</th><th>CTR</th><th>CVR</th><th>ROI</th>
+      <th>账户数</th><th>广告数</th><th>TID数</th><th>条均消耗口径</th>
+    </tr>
+    <tr class="total-row">
+      <td>整体（剔除预约OG）</td>
+      <td>2.19万</td>
+      <td>100%</td>
+      <td class="warn">2.45%</td>
+      <td class="warn">0.90%</td>
+      <td class="good">1.94</td>
+      <td>9</td><td>113</td><td>1,129</td><td>—</td>
+    </tr>
+    <tr>
+      <td>单链路智投</td>
+      <td>1.92万</td><td>88%</td>
+      <td>1.72%</td><td>1.69%</td>
+      <td class="good">2.00</td>
+      <td>7</td><td>96</td><td>1,016</td>
+      <td>智投项目条均 832.8元</td>
+    </tr>
+    <tr>
+      <td>非智投广告（剔除预约OG）</td>
+      <td>0.26万</td><td>12%</td>
+      <td class="good">4.04%</td><td class="bad">0.16%</td>
+      <td class="warn">1.50</td>
+      <td>5</td><td>12</td><td>124</td>
+      <td>广告条均 216.7元</td>
+    </tr>
+    <tr>
+      <td>推直播 <span class="tag tag-green">高潜力🌟</span></td>
+      <td>0.01万</td><td>0.4%</td>
+      <td class="good">4.59%</td><td>2.22%</td>
+      <td class="good">3.45</td>
+      <td>1</td><td>5</td><td>16</td>
+      <td>智投项目条均 103.9元</td>
+    </tr>
+    <tr style="color:#9ca3af; font-style:italic;">
+      <td>预约OG（已剔除）</td>
+      <td>0.40万</td><td>—</td>
+      <td>1.03%</td><td>20.07%</td>
+      <td>—</td>
+      <td>2</td><td>2</td><td>56</td>
+      <td>—</td>
+    </tr>
+  </table>
+  <p class="note">※ 预约OG（优化目标=微信流量预约行为）已从下单投放分析中剔除，不参与效率对比</p>
+
+  <div class="sub-title">2.2 分优化目标（剔除预约OG）</div>
+  <table>
+    <tr>
+      <th>优化目标</th><th>消耗</th><th>消耗占比</th><th>CTR</th><th>CVR</th><th>ROI</th>
+      <th>账户数</th><th>广告数</th><th>TID数</th>
+    </tr>
+    <tr class="total-row">
+      <td>整体（剔除预约OG）</td>
+      <td>2.19万</td><td>100%</td>
+      <td>2.45%</td><td>0.90%</td>
+      <td class="warn">1.94</td>
+      <td>9</td><td>113</td><td>1,129</td>
+    </tr>
+    <tr>
+      <td>单链路智投-CPA下单</td>
+      <td>0.71万</td><td>32%</td>
+      <td>1.80%</td><td>3.17%</td>
+      <td class="good">3.01</td>
+      <td>5</td><td>47</td><td>469</td>
+    </tr>
+    <tr>
+      <td>单链路智投-ROI出价</td>
+      <td>1.20万</td><td>55%</td>
+      <td>1.68%</td><td>1.07%</td>
+      <td class="warn">1.40 ⚠️</td>
+      <td>6</td><td>49</td><td>625</td>
+    </tr>
+    <tr>
+      <td>非智投-ROI出价</td>
+      <td>0.25万</td><td>11%</td>
+      <td class="good">4.12%</td><td class="bad">0.17%</td>
+      <td class="warn">1.50</td>
+      <td>3</td><td>5</td><td>60</td>
+    </tr>
+    <tr>
+      <td>推直播-ROI出价</td>
+      <td>0.01万</td><td>0.4%</td>
+      <td class="good">4.59%</td><td>2.22%</td>
+      <td class="good">3.45</td>
+      <td>1</td><td>5</td><td>16</td>
+    </tr>
+  </table>
+  <div class="warn-box">
+    <div class="title">⚠️ 单链路智投-ROI出价广告ROI偏低（1.40 vs 目标1.7）</div>
+    <ul>
+      <li>ROI出价广告消耗占比55%，但ROI仅1.40，低于目标1.7，是当天整体ROI偏低的主要拖累</li>
+      <li>建议：适当上调ROI出价（ROI出价上调=要求更高回报=系统获量空间压缩），或切换部分预算至CPA下单模式</li>
+    </ul>
+  </div>
+
+  <div class="sub-title">2.3 分小时起量节奏（一键起量）</div>
+
+  <table>
+    <tr><th>时段</th><th>消耗</th><th>备注</th></tr>
+
+    <tr>
+      <td>达人时段（11:00–16:00）</td>
+      <td class="warn">0.00万（占nan%）</td>
+      <td>梁丽进在播时段，起量偏慢</td>
+    </tr>
+    <tr>
+      <td>其他时段（00:00–11:00 / 16:00–24:00）</td>
+      <td>0.00万（占nan%）</td>
+      <td>非达人时段消耗反而更高</td>
+    </tr>
+    <tr class="total-row">
+      <td>全天合计</td>
+      <td>0.00万</td>
+      <td>—</td>
+    </tr>
+
+  </table>
+  <div class="warn-box">
+    <div class="title">⚠️ 达人时段起量偏慢，建议提前预热</div>
+    <ul>
+      <li>达人在播时段（11:00–16:00）消耗仅占全天16.2%，说明一键起量在达人时段未能充分激活</li>
+      <li>建议：达人进直播间前1小时提前开启起量，并在达人时段适当提高预算上限</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="num">3</span>数据效果分析（剔除预约OG口径）</div>
+  <div class="insight-box">
+    <div class="title">📌 核心结论</div>
+    <ul>
+      <li>达人进直播间后日均消耗从 <b>0.50万/日</b> 提升至 <b>1.31万/日</b>（+162%），量级显著放大</li>
+      <li>CTR：前期3.79% → 7/15当天2.45% → 后期1.81%，随消耗规模扩大而下降，属正常现象</li>
+      <li>CVR（剔除预约OG）：前期1.22% → 7/15当天0.90% → 后期1.96%，后期持续改善✅</li>
+      <li>ROI：前期2.56 → 7/15当天1.94 → 后期1.90，均高于1.7基准线✅</li>
+    </ul>
+  </div>
+  <p class="note">⚠️ 数据口径说明：本模块已剔除"优化目标=微信流量预约行为"的预约OG数据，以客观反映下单/ROI优化目标的真实CVR表现。数据来源：数仓按日期×优化目标组合分组查询，系统汇总行直接输出，非二次推算。</p>
+
+  <div class="kpi-grid" style="margin-top:16px;">
+    <div class="kpi-card">
+      <div class="label">前期日均消耗（7/8–7/12）</div>
+      <div class="value">0.50万</div>
+      <div class="delta" style="color:#6b7280;">基准期</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">7/15当天消耗（剔除预约OG）</div>
+      <div class="value">2.19万</div>
+      <div class="delta good">+338%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">后期日均消耗（7/16–7/22）</div>
+      <div class="value">1.31万</div>
+      <div class="delta good">+162%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">后期ROI</div>
+      <div class="value">1.90</div>
+      <div class="delta good">高于1.7基准✅</div>
+    </div>
+  </div>
+
+  <table>
+    <tr>
+      <th>阶段</th><th>日均消耗</th><th>CTR</th><th>CVR（剔除预约OG）</th><th>ROI</th>
+      <th>有消耗广告数</th><th>备注</th>
+    </tr>
+    <tr>
+      <td><b>前期</b>（7/8–7/12）</td>
+      <td>0.50万/日</td>
+      <td>3.79%</td>
+      <td>1.22%</td>
+      <td class="good">2.56</td>
+      <td>59条</td>
+      <td>无预约OG，干净基准</td>
+    </tr>
+    <tr>
+      <td><b>7/15当天</b>（剔除预约OG）</td>
+      <td>2.19万</td>
+      <td class="warn">2.45%</td>
+      <td class="warn">0.90%</td>
+      <td class="good">1.94</td>
+      <td>113条</td>
+      <td>达人在播，消耗爆发</td>
+    </tr>
+    <tr>
+      <td><b>后期</b>（7/16–7/22）</td>
+      <td>1.31万/日</td>
+      <td class="warn">1.81%</td>
+      <td class="good">1.96%</td>
+      <td class="good">1.90</td>
+      <td>79条</td>
+      <td>无预约OG，稳定期</td>
+    </tr>
+  </table>
+
+  <div id="chart_trend" class="chart-box-lg"></div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="num">4</span>竞品对比分析</div>
+  <div class="insight-box">
+    <div class="title">📌 核心结论</div>
+    <ul>
+      <li>消耗规模：诺特兰德（2.59万）vs 竞品A（11.14万）vs 竞品B（19.96万），差距显著</li>
+      <li>CVR：诺特兰德CVR（剔除预约OG后0.90%）vs 竞品A（3.22%）vs 竞品B（2.82%）—— 直播间转化率仍有较大提升空间</li>
+      <li>账户投入：诺特兰德9个账户，竞品A仅2个，竞品B有5个，诺特兰德账户数反而最多，说明单账户效率有待提升</li>
+    </ul>
+  </div>
+
+  <div class="sub-title">4.1 当天投放整体对比（剔除预约OG）</div>
+  <table>
+    <tr>
+      <th>指标</th>
+      <th>诺特兰德·梁丽进（7/15）</th>
+      <th>竞品A（4月场）</th>
+      <th>竞品B（6月场）</th>
+    </tr>
+    <tr class="total-row">
+      <td>当天消耗</td>
+      <td>2.59万（含预约OG）<br>2.19万（剔除预约OG）</td>
+      <td>11.14万</td>
+      <td>19.96万</td>
+    </tr>
+    <tr>
+      <td>CTR</td>
+      <td class="warn">1.61%（含预约OG）<br>2.45%（剔除预约OG）</td>
+      <td class="good">2.56%</td>
+      <td>2.15%</td>
+    </tr>
+    <tr>
+      <td>CVR（下单口径）</td>
+      <td class="bad">0.90%（剔除预约OG）</td>
+      <td class="good">3.22%</td>
+      <td>2.82%</td>
+    </tr>
+    <tr>
+      <td>ROI</td>
+      <td class="warn">1.64（含预约OG）<br>1.95（剔除预约OG）</td>
+      <td class="good">2.16</td>
+      <td class="good">2.37</td>
+    </tr>
+    <tr>
+      <td>有消耗账户数</td>
+      <td>9个</td>
+      <td>2个</td>
+      <td>5个</td>
+    </tr>
+    <tr>
+      <td>有消耗广告数</td>
+      <td>115条</td>
+      <td>54条</td>
+      <td>263条</td>
+    </tr>
+    <tr>
+      <td>有消耗TID数</td>
+      <td>1,185个</td>
+      <td>210个</td>
+      <td>378个</td>
+    </tr>
+    <tr>
+      <td>单账户消耗</td>
+      <td class="warn">0.29万/账户</td>
+      <td class="good">5.57万/账户</td>
+      <td>3.99万/账户</td>
+    </tr>
+  </table>
+
+  <div class="sub-title">4.2 预约OG对比</div>
+  <table>
+    <tr>
+      <th>指标</th>
+      <th>诺特兰德·梁丽进</th>
+      <th>竞品A（4月场）</th>
+      <th>竞品B（6月场）</th>
+    </tr>
+    <tr>
+      <td>预约OG消耗</td>
+      <td class="warn">0.92万</td>
+      <td>0.70万</td>
+      <td class="good">4.89万</td>
+    </tr>
+    <tr>
+      <td>预约OG账户数</td>
+      <td>2个</td>
+      <td>1个</td>
+      <td>1个</td>
+    </tr>
+    <tr>
+      <td>预约OG广告数</td>
+      <td>2条</td>
+      <td>1条</td>
+      <td>2条</td>
+    </tr>
+    <tr>
+      <td>CTR</td>
+      <td>1.11%</td>
+      <td>1.88%</td>
+      <td>1.82%</td>
+    </tr>
+    <tr>
+      <td>CVR（预约行为）</td>
+      <td>19.71%</td>
+      <td>18.02%</td>
+      <td>17.00%</td>
+    </tr>
+    <tr>
+      <td>CPA（元）</td>
+      <td>2.66</td>
+      <td>2.29</td>
+      <td>2.52</td>
+    </tr>
+    <tr>
+      <td>蓄水周期</td>
+      <td class="warn">2天</td>
+      <td>4天</td>
+      <td class="good">6天</td>
+    </tr>
+  </table>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="num">5</span>二级流量版位分析（仅拆分MP）</div>
+  <div class="insight-box">
+    <div class="title">📌 核心结论</div>
+    <ul>
+      <li>三场活动均以<b>微信视频号</b>为主力流量，但诺特兰德视频号消耗占比（76.6%）低于竞品A（87.8%）和竞品B（68.4%）</li>
+      <li>诺特兰德<b>微信公众号</b>ROI高达3.61，但消耗仅0.06万（占2.6%），是高潜力版位🌟</li>
+      <li>诺特兰德<b>微信搜一搜</b>ROI 2.12，CTR高达8.10%，表现优异，但消耗仅0.08万（3.8%）</li>
+      <li>竞品B（6月场）<b>微信朋友圈</b>消耗达3.36万（16.8%），ROI 3.24，是诺特兰德的扩量参考方向</li>
+    </ul>
+  </div>
+  <p class="note">⚠️ 说明：二级流量仅作分析参考，不可直接作为"开组扩量"建议依据。"微视等其他流量"对应微视等流量，客户无法单独选择。</p>
+
+  <div class="sub-title">5.1 诺特兰德·梁丽进（7/15）</div>
+  <table>
+    <tr>
+      <th>流量来源</th><th>消耗</th><th>消耗占比</th><th>CTR</th><th>CVR</th><th>ROI</th><th>账户数</th><th>广告数</th>
+    </tr>
+    <tr class="total-row">
+      <td>整体</td>
+      <td>2.19万</td>
+      <td>100%</td>
+      <td>2.45%</td>
+      <td>0.90%</td>
+      <td>1.94</td>
+      <td>8</td>
+      <td>113</td>
+    </tr>
+    
+    <tr>
+      <td>微信视频号</td>
+      <td>1.68万</td>
+      <td>76.6%</td>
+      <td class="warn">1.06%</td>
+      <td>3.55%</td>
+      <td class="good">1.99</td>
+      <td>8</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <td>微信朋友圈</td>
+      <td>0.18万</td>
+      <td>8.4%</td>
+      <td class="warn">0.31%</td>
+      <td>1.52%</td>
+      <td class="warn">1.06</td>
+      <td>8</td>
+      <td>77</td>
+    </tr>
+    <tr>
+      <td>微信小程序</td>
+      <td>0.15万</td>
+      <td>6.8%</td>
+      <td class="good">6.98%</td>
+      <td>0.09%</td>
+      <td class="good">1.98</td>
+      <td>8</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <td>微信搜一搜</td>
+      <td>0.08万</td>
+      <td>3.8%</td>
+      <td class="good">8.10%</td>
+      <td>4.55%</td>
+      <td class="good">2.12</td>
+      <td>7</td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <td>微信公众号</td>
+      <td>0.06万</td>
+      <td>2.6%</td>
+      <td class="warn">1.42%</td>
+      <td>2.40%</td>
+      <td class="good">3.61</td>
+      <td>7</td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <td>微视等其他流量</td>
+      <td>0.02万</td>
+      <td>0.8%</td>
+      <td class="warn">1.32%</td>
+      <td>0.00%</td>
+      <td class="">—</td>
+      <td>6</td>
+      <td>33</td>
+    </tr>
+
+    <tr>
+      <td>移动联盟</td>
+      <td>0.00万</td>
+      <td>0.0%</td>
+      <td class="good">5.43%</td>
+      <td>0.00%</td>
+      <td class="">—</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+  </table>
+
+  <div class="sub-title">5.2 竞品A（4月场）</div>
+  <table>
+    <tr>
+      <th>流量来源</th><th>消耗</th><th>消耗占比</th><th>CTR</th><th>CVR</th><th>ROI</th><th>账户数</th><th>广告数</th>
+    </tr>
+    <tr class="total-row">
+      <td>整体</td>
+      <td>11.14万</td>
+      <td>100%</td>
+      <td>2.56%</td>
+      <td>3.22%</td>
+      <td>2.15</td>
+      <td>2</td>
+      <td>53</td>
+    </tr>
+    
+    <tr>
+      <td>微信视频号</td>
+      <td>9.78万</td>
+      <td>87.8%</td>
+      <td class="good">2.36%</td>
+      <td>3.06%</td>
+      <td class="good">1.97</td>
+      <td>2</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <td>微信公众号</td>
+      <td>1.11万</td>
+      <td>9.9%</td>
+      <td class="good">6.34%</td>
+      <td>3.55%</td>
+      <td class="good">2.85</td>
+      <td>2</td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <td>微信朋友圈</td>
+      <td>0.20万</td>
+      <td>1.8%</td>
+      <td class="warn">1.94%</td>
+      <td>7.50%</td>
+      <td class="good">6.32</td>
+      <td>2</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>微信小程序</td>
+      <td>0.05万</td>
+      <td>0.5%</td>
+      <td class="good">3.10%</td>
+      <td>5.13%</td>
+      <td class="good">3.78</td>
+      <td>2</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <td>平台与内容广告</td>
+      <td>0.00万</td>
+      <td>0.0%</td>
+      <td class="good">3.23%</td>
+      <td>0.00%</td>
+      <td class="">—</td>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>搜索广告</td>
+      <td>0.00万</td>
+      <td>0.0%</td>
+      <td class="warn">0.00%</td>
+      <td>—</td>
+      <td class="">—</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>移动联盟</td>
+      <td>0.00万</td>
+      <td>0.0%</td>
+      <td class="good">54.84%</td>
+      <td>0.00%</td>
+      <td class="">—</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+  </table>
+
+  <div class="sub-title">5.3 竞品B（6月场）</div>
+  <table>
+    <tr>
+      <th>流量来源</th><th>消耗</th><th>消耗占比</th><th>CTR</th><th>CVR</th><th>ROI</th><th>账户数</th><th>广告数</th>
+    </tr>
+    <tr class="total-row">
+      <td>整体</td>
+      <td>19.96万</td>
+      <td>100%</td>
+      <td>2.15%</td>
+      <td>2.61%</td>
+      <td>2.29</td>
+      <td>5</td>
+      <td>261</td>
+    </tr>
+    
+    <tr>
+      <td>微信视频号</td>
+      <td>13.65万</td>
+      <td>68.4%</td>
+      <td class="good">2.48%</td>
+      <td>2.38%</td>
+      <td class="good">1.89</td>
+      <td>5</td>
+      <td>233</td>
+    </tr>
+    <tr>
+      <td>微信朋友圈</td>
+      <td>3.36万</td>
+      <td>16.8%</td>
+      <td class="warn">1.32%</td>
+      <td>2.62%</td>
+      <td class="good">3.24</td>
+      <td>5</td>
+      <td>136</td>
+    </tr>
+    <tr>
+      <td>微信公众号</td>
+      <td>2.21万</td>
+      <td>11.1%</td>
+      <td class="good">3.90%</td>
+      <td>4.30%</td>
+      <td class="good">3.35</td>
+      <td>5</td>
+      <td>185</td>
+    </tr>
+    <tr>
+      <td>微信小程序</td>
+      <td>0.60万</td>
+      <td>3.0%</td>
+      <td class="good">2.82%</td>
+      <td>1.53%</td>
+      <td class="warn">1.68</td>
+      <td>5</td>
+      <td>141</td>
+    </tr>
+    <tr>
+      <td>平台与内容广告</td>
+      <td>0.11万</td>
+      <td>0.6%</td>
+      <td class="good">3.70%</td>
+      <td>7.69%</td>
+      <td class="good">5.60</td>
+      <td>4</td>
+      <td>77</td>
+    </tr>
+    <tr>
+      <td>移动联盟</td>
+      <td>0.02万</td>
+      <td>0.1%</td>
+      <td class="good">18.07%</td>
+      <td>0.00%</td>
+      <td class="">—</td>
+      <td>2</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>搜索广告</td>
+      <td>0.00万</td>
+      <td>0.0%</td>
+      <td class="good">10.26%</td>
+      <td>0.00%</td>
+      <td class="">—</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>微信搜一搜</td>
+      <td>0.00万</td>
+      <td>0.0%</td>
+      <td class="warn">0.00%</td>
+      <td>—</td>
+      <td class="">—</td>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+  </table>
+
+  <div id="chart_flow" class="chart-box-lg"></div>
+
+  <div class="warn-box">
+    <div class="title">🔍 版位差距分析</div>
+    <ul>
+      <li><b>微信视频号</b>：三场均为主力，诺特兰德ROI 1.99（竞品A 1.97 / 竞品B 1.89），效率相当，但消耗规模差距悬殊（1.68万 vs 9.78万 vs 13.65万）</li>
+      <li><b>微信公众号</b>：诺特兰德ROI 3.61（高潜力🌟），但消耗仅0.06万；竞品A ROI 2.85消耗1.11万，竞品B ROI 3.35消耗2.21万——建议加大公众号版位预算</li>
+      <li><b>微信朋友圈</b>：竞品B消耗3.36万（ROI 3.24），是诺特兰德（0.18万，ROI 1.06）的19倍，差距最大，可作为扩量方向</li>
+      <li><b>微信搜一搜</b>：诺特兰德独有，ROI 2.12，CTR 8.10%，高意向流量，建议保持并适度扩量</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title"><span class="num">6</span>行动建议</div>
+  <table>
+    <tr><th>优先级</th><th>方向</th><th>具体建议</th><th>预期效果</th></tr>
+    <tr>
+      <td><span class="tag tag-red">🔴 高优</span></td>
+      <td>预约蓄水</td>
+      <td>下次达人进直播间提前5–7天启动预约OG，目标消耗≥3万元，广告数≥5条</td>
+      <td>提升达人时段冷启动速度，预计当天消耗提升30%+</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-red">🔴 高优</span></td>
+      <td>ROI出价优化</td>
+      <td>单链路智投-ROI出价广告ROI仅1.40，低于目标1.7；建议适当下调ROI出价要求，或增加CPA下单广告占比</td>
+      <td>改善整体ROI，目标提升至1.7+</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-yellow">🟡 中优</span></td>
+      <td>达人时段起量</td>
+      <td>达人进直播间前1小时提前开启一键起量，达人时段预算上限提高至全天的40%</td>
+      <td>达人时段消耗占比从16%提升至35%+</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-yellow">🟡 中优</span></td>
+      <td>版位扩量</td>
+      <td>微信公众号（ROI 3.61）和微信朋友圈（竞品B ROI 3.24）是高潜力版位，建议增加预算测试</td>
+      <td>拓展流量来源，降低对视频号单一版位的依赖</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-green">🟢 常规</span></td>
+      <td>单账户效率</td>
+      <td>当前9个账户单账户消耗仅0.29万，远低于竞品（5.57万/2.00万）；建议集中预算至3–5个高效账户</td>
+      <td>提升单账户跑量能力，改善系统学习效率</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-green">🟢 常规</span></td>
+      <td>推直播扩量</td>
+      <td>推直播ROI 3.45（最优），但消耗仅0.01万；建议增加推直播广告数至10条+</td>
+      <td>以最优ROI工具扩大消耗规模</td>
+    </tr>
+  </table>
+</div>
+
+<script>
+// 分天趋势图
+var chart1 = echarts.init(document.getElementById('chart_trend'));
+chart1.setOption({
+  title: { text: '直播间分天消耗趋势（7/7–7/22，CVR已剔除预约OG）', left: 'center', textStyle: { fontSize: 14 } },
+  tooltip: { trigger: 'axis', axisPointer: { type: 'cross' } },
+  legend: { data: ['日消耗(万元)', 'CTR(%)', 'CVR(%)（剔除预约OG）', 'ROI'], bottom: 0 },
+  grid: { left: '3%', right: '4%', bottom: '15%', containLabel: true },
+  xAxis: { type: 'category', data: ["2026/07/08", "2026/07/09", "2026/07/10", "2026/07/11", "2026/07/12", "2026/07/13", "2026/07/14", "2026/07/15", "2026/07/16", "2026/07/17", "2026/07/18", "2026/07/19", "2026/07/20", "2026/07/21", "2026/07/22"], axisLabel: { rotate: 45, fontSize: 11 } },
+  yAxis: [
+    { type: 'value', name: '消耗(万元)', position: 'left' },
+    { type: 'value', name: '比率(%)/ROI', position: 'right' }
+  ],
+  series: [
+    { name: '日消耗(万元)', type: 'bar', data: [0.26, 0.42, 0.4, 0.48, 0.96, 1.11, 0.46, 2.19, 2.36, 1.26, 1.58, 1.24, 0.69, 1.41, 0.67], itemStyle: { color: '#3b82f6' },
+      markLine: { data: [{ xAxis: '2026/07/15', label: { formatter: '7/15达人进播', color: '#ef4444' }, lineStyle: { color: '#ef4444', type: 'dashed' } }] } },
+    { name: 'CTR(%)', type: 'line', yAxisIndex: 1, data: [2.93, 1.81, 1.9, 6.77, 5.55, 3.36, 2.64, 2.45, 1.66, 2.0, 1.49, 1.96, 1.91, 1.85, 1.78], itemStyle: { color: '#10b981' }, smooth: true },
+    { name: 'CVR(%)（剔除预约OG）', type: 'line', yAxisIndex: 1, data: [1.83, 2.2, 1.62, 0.18, 0.24, 0.72, 1.26, 0.9, 1.91, 1.53, 1.51, 2.07, 1.66, 2.59, 2.45], itemStyle: { color: '#f59e0b' }, smooth: true },
+    { name: 'ROI', type: 'line', yAxisIndex: 1, data: [3.39, 2.6, 3.1, 1.74, 1.96, 1.78, 2.13, 1.94, 1.66, 1.77, 1.57, 1.85, 1.76, 2.32, 2.38], itemStyle: { color: '#8b5cf6' }, smooth: true,
+      markLine: { data: [{ yAxis: 1.7, label: { formatter: 'ROI目标1.7', color: '#dc2626' }, lineStyle: { color: '#dc2626', type: 'dashed' } }] } }
+  ]
+});
+
+// 二级流量对比图
+var chart2 = echarts.init(document.getElementById('chart_flow'));
+chart2.setOption({
+  title: { text: '二级流量消耗对比（万元）', left: 'center', textStyle: { fontSize: 14 } },
+  tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+  legend: { data: ['诺特兰德·梁丽进(7/15)', '竞品A(4月场)', '竞品B(6月场)'], bottom: 0 },
+  grid: { left: '3%', right: '4%', bottom: '15%', containLabel: true },
+  xAxis: { type: 'category', data: ["微信视频号", "微信朋友圈", "微信公众号", "微信小程序", "微信搜一搜"] },
+  yAxis: { type: 'value', name: '消耗(万元)' },
+  series: [
+    { name: '诺特兰德·梁丽进(7/15)', type: 'bar', data: [np.float64(1.71), np.float64(0.21), np.float64(0.06), np.float64(0.17), np.float64(0.12)], itemStyle: { color: '#3b82f6' } },
+    { name: '竞品A(4月场)', type: 'bar', data: [np.float64(9.78), np.float64(0.2), np.float64(1.11), np.float64(0.05), 0], itemStyle: { color: '#10b981' } },
+    { name: '竞品B(6月场)', type: 'bar', data: [np.float64(13.65), np.float64(3.36), np.float64(2.21), np.float64(0.6), np.float64(0.0)], itemStyle: { color: '#f59e0b' } }
+  ]
+});
+
+window.addEventListener('resize', function() {
+  chart1.resize(); chart2.resize();
+});
+</script>
+
+<!-- ===== 六、广告智投类型基建对比 ===== -->
+<div class="section">
+  <h2>六、广告智投类型基建对比</h2>
+
+  <div class="summary-card">
+    <div class="summary-title">📌 核心结论</div>
+    <div class="summary-content">
+      三个阶段投放均以<strong>非智投（普通3.0）广告</strong>为绝对主力，消耗占比超99%；<strong>单链路智投</strong>在前期有一定规模（45条广告，消耗占比15.3%），但达人场当天几乎停用，后期仅保留17条且消耗极低（0.05万）。<br>
+      基建扩张方向明确：<span style="color:#ef4444;font-weight:600;">①非智投广告数从35条提升至100条+；②单链路智投从17条扩充至50条+，系统性测试智投跑量能力。</span>
+    </div>
+  </div>
+
+  <h3 style="margin-top:24px;margin-bottom:12px;font-size:15px;color:#1e293b;">6.1 三阶段智投类型基建总览</h3>
+  <p style="font-size:12px;color:#64748b;margin-bottom:10px;">数据口径：诺特兰德直播链路竞价口径（含全品类），7/15达人场ADQ消耗2.19万（大屏口径）；数仓直播链路口径1.998万（含钙铁锌及少量其他品类）</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>阶段</th>
+        <th>广告智投类型</th>
+        <th>消耗（万元）</th>
+        <th>消耗占比</th>
+        <th>账户数</th>
+        <th>广告数</th>
+        <th>创意数（TID）</th>
+        <th>条均消耗（元）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 前期 -->
+      <tr style="background:#f0f9ff;">
+        <td rowspan="3" style="font-weight:600;color:#1e40af;vertical-align:middle;">前期<br>7/8–7/12<br><span style="font-size:11px;font-weight:400;">日均0.50万</span></td>
+        <td><strong>整体</strong></td>
+        <td><strong>7.45</strong></td>
+        <td>—</td>
+        <td><strong>7</strong></td>
+        <td><strong>80</strong></td>
+        <td><strong>259</strong></td>
+        <td>931<span style="font-size:10px;color:#64748b;">（广告条均）</span></td>
+      </tr>
+      <tr>
+        <td>非智投广告</td>
+        <td>6.31</td>
+        <td><span class="tag tag-blue">84.7%</span></td>
+        <td>6</td>
+        <td>35</td>
+        <td>230</td>
+        <td>1,803<span style="font-size:10px;color:#64748b;">（广告条均）</span></td>
+      </tr>
+      <tr>
+        <td>单链路智投</td>
+        <td>1.14</td>
+        <td><span class="tag tag-yellow">15.3%</span></td>
+        <td>1</td>
+        <td>45</td>
+        <td>29</td>
+        <td>1,263<span style="font-size:10px;color:#64748b;">（智投项目条均）</span></td>
+      </tr>
+      <!-- 达人场 -->
+      <tr style="background:#fff7ed;">
+        <td rowspan="3" style="font-weight:600;color:#c2410c;vertical-align:middle;">达人场<br>7/15<br><span style="font-size:11px;font-weight:400;">消耗2.19万</span></td>
+        <td><strong>整体</strong></td>
+        <td><strong>2.00</strong></td>
+        <td>—</td>
+        <td><strong>7</strong></td>
+        <td><strong>36</strong></td>
+        <td><strong>188</strong></td>
+        <td>555<span style="font-size:10px;color:#64748b;">（广告条均）</span></td>
+      </tr>
+      <tr>
+        <td>非智投广告</td>
+        <td>2.00</td>
+        <td><span class="tag tag-blue">≈100%</span></td>
+        <td>6</td>
+        <td>35</td>
+        <td>187</td>
+        <td>571<span style="font-size:10px;color:#64748b;">（广告条均）</span></td>
+      </tr>
+      <tr>
+        <td>单链路智投</td>
+        <td>≈0</td>
+        <td><span class="tag tag-gray">≈0%</span></td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>—</td>
+      </tr>
+      <!-- 后期 -->
+      <tr style="background:#f0fdf4;">
+        <td rowspan="3" style="font-weight:600;color:#166534;vertical-align:middle;">后期<br>7/16–7/22<br><span style="font-size:11px;font-weight:400;">日均1.31万</span></td>
+        <td><strong>整体</strong></td>
+        <td><strong>40.79</strong></td>
+        <td>—</td>
+        <td><strong>11</strong></td>
+        <td><strong>93</strong></td>
+        <td><strong>585</strong></td>
+        <td>4,385<span style="font-size:10px;color:#64748b;">（广告条均）</span></td>
+      </tr>
+      <tr>
+        <td>非智投广告</td>
+        <td>40.77</td>
+        <td><span class="tag tag-blue">99.95%</span></td>
+        <td>10</td>
+        <td>76</td>
+        <td>571</td>
+        <td>5,364<span style="font-size:10px;color:#64748b;">（广告条均）</span></td>
+      </tr>
+      <tr>
+        <td>单链路智投</td>
+        <td>0.02</td>
+        <td><span class="tag tag-gray">0.05%</span></td>
+        <td>1</td>
+        <td>17</td>
+        <td>17</td>
+        <td>33<span style="font-size:10px;color:#64748b;">（智投项目条均）</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:28px;margin-bottom:12px;font-size:15px;color:#1e293b;">6.2 基建变化趋势分析</h3>
+
+  <div id="chart_smart" style="width:100%;height:360px;margin-bottom:24px;"></div>
+
+  <h3 style="margin-top:8px;margin-bottom:12px;font-size:15px;color:#1e293b;">6.3 各智投类型诊断与建议</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>智投类型</th>
+        <th>当前状态</th>
+        <th>问题诊断</th>
+        <th>建议操作</th>
+        <th>预期效果</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>非智投广告</strong><br><span style="font-size:11px;color:#64748b;">普通3.0</span></td>
+        <td>后期76条广告，消耗占比99.95%，条均消耗5,364元</td>
+        <td>⚠️ 广告数偏少，条均消耗偏高说明少数广告承担大部分消耗，系统分配不均；创意数571个相对充足，但广告数量是瓶颈</td>
+        <td>🔴 <strong>优先扩充非智投广告数至150条+</strong>，重点在高ROI账户下新建广告，分散消耗压力</td>
+        <td>条均消耗从5,364元降至2,000–3,000元，整体消耗规模提升30%+</td>
+      </tr>
+      <tr>
+        <td><strong>单链路智投</strong><br><span style="font-size:11px;color:#64748b;">3002</span></td>
+        <td>后期17条广告，消耗仅0.02万，智投项目条均消耗33元，严重跑量不足</td>
+        <td>❌ 单链路智投几乎未跑量，可能原因：①智投项目数量不足，系统无法充分学习；②出价/预算设置偏低；③达人场后流量结构变化，智投适配度下降</td>
+        <td>🟡 <strong>将单链路智投广告数扩充至50条+</strong>，提高单项目预算上限，观察7天跑量情况；若ROI稳定则继续扩量</td>
+        <td>智投消耗占比从0.05%提升至10%+，降低对非智投的单一依赖</td>
+      </tr>
+      <tr>
+        <td><strong>全域通直购</strong><br><span style="font-size:11px;color:#64748b;">4002</span></td>
+        <td>仅在7/15当天有少量消耗（0.15万），其他阶段未出现</td>
+        <td>⚠️ 全域通在达人场当天有一定测试，但规模极小；其他阶段未使用，缺乏系统性测试数据</td>
+        <td>🟢 <strong>建议在下次达人进播前1周开始测试全域通</strong>，积累系统学习数据，达人场当天可适当放量</td>
+        <td>丰富智投工具矩阵，降低整体投放风险</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:28px;margin-bottom:12px;font-size:15px;color:#1e293b;">6.4 基建提升优先级路径</h3>
+
+  <div style="background:#f8fafc;border-radius:10px;padding:20px;border:1px solid #e2e8f0;">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:200px;background:#fff;border-radius:8px;padding:16px;border-left:4px solid #ef4444;">
+        <div style="font-weight:700;color:#ef4444;margin-bottom:8px;">🔴 第一步（立即执行）</div>
+        <div style="font-size:13px;color:#374151;line-height:1.6;">
+          <strong>非智投广告扩量</strong><br>
+          目标：76条 → 150条+<br>
+          方式：在消耗TOP3账户下各新建20–30条广告<br>
+          预算：单广告日预算建议≥500元
+        </div>
+      </div>
+      <div style="flex:1;min-width:200px;background:#fff;border-radius:8px;padding:16px;border-left:4px solid #f59e0b;">
+        <div style="font-weight:700;color:#d97706;margin-bottom:8px;">🟡 第二步（1–2周内）</div>
+        <div style="font-size:13px;color:#374151;line-height:1.6;">
+          <strong>单链路智投系统性测试</strong><br>
+          目标：17条 → 50条+<br>
+          方式：选择ROI稳定的账户，每账户新建5–8个智投项目<br>
+          观察：连续7天ROI≥1.7则继续扩量
+        </div>
+      </div>
+      <div style="flex:1;min-width:200px;background:#fff;border-radius:8px;padding:16px;border-left:4px solid #10b981;">
+        <div style="font-weight:700;color:#059669;margin-bottom:8px;">🟢 第三步（下次达人场前）</div>
+        <div style="font-size:13px;color:#374151;line-height:1.6;">
+          <strong>全域通达人场专项测试</strong><br>
+          目标：提前1周开启全域通，积累学习数据<br>
+          方式：达人场当天全域通预算占比提升至10%<br>
+          验证：对比全域通 vs 非智投的ROI差异
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// 智投类型基建对比图
+var chartSmart = echarts.init(document.getElementById('chart_smart'));
+chartSmart.setOption({
+  title: { text: '三阶段广告智投类型基建对比', left: 'center', textStyle: { fontSize: 14 } },
+  tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+  legend: { data: ['非智投广告数', '单链路智投广告数', '创意数(TID)'], bottom: 0 },
+  grid: { left: '3%', right: '4%', bottom: '15%', containLabel: true },
+  xAxis: { type: 'category', data: ['前期（7/8–7/12）', '达人场（7/15）', '后期（7/16–7/22）'] },
+  yAxis: [
+    { type: 'value', name: '广告数（条）', position: 'left', max: 120 },
+    { type: 'value', name: '创意数（个）', position: 'right', max: 700 }
+  ],
+  series: [
+    {
+      name: '非智投广告数', type: 'bar', stack: 'ad',
+      data: [35, 35, 76],
+      itemStyle: { color: '#3b82f6' },
+      label: { show: true, position: 'inside', formatter: '{c}条', fontSize: 11 }
+    },
+    {
+      name: '单链路智投广告数', type: 'bar', stack: 'ad',
+      data: [45, 1, 17],
+      itemStyle: { color: '#f59e0b' },
+      label: { show: true, position: 'inside', formatter: '{c}条', fontSize: 11 }
+    },
+    {
+      name: '创意数(TID)', type: 'line', yAxisIndex: 1,
+      data: [259, 188, 585],
+      itemStyle: { color: '#10b981' },
+      symbol: 'circle', symbolSize: 8,
+      label: { show: true, position: 'top', formatter: '{c}个', fontSize: 11 }
+    }
+  ]
+});
+
+window.addEventListener('resize', function() {
+  chart1.resize(); chart2.resize(); chartSmart.resize();
+});
+</script>
+
+</div>
+<script>(function(){var _h=0,_t;function m(){var b=document.body;if(!b)return 0;return Math.max(b.scrollHeight,b.offsetHeight,Math.ceil(b.getBoundingClientRect().height))}function s(){var h=m();if(h>0&&h!==_h){_h=h;window.parent.postMessage({type:"iframe-resize",height:h},"*")}}function d(){clearTimeout(_t);_t=setTimeout(s,150)}if(document.readyState==="complete")s();else window.addEventListener("load",s);window.addEventListener("resize",d);if(typeof ResizeObserver!=="undefined"){var ro=new ResizeObserver(d);ro.observe(document.documentElement);if(document.body)ro.observe(document.body)}})();</script><style id="__adata_wm_style__">.__adata_wm__{position:fixed;inset:0;pointer-events:none;z-index:2147483647;background-repeat:repeat;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='160'><text x='50%' y='50%' fill='rgba(0,0,0,0.08)' font-size='14' font-family='-apple-system,Segoe UI,sans-serif' text-anchor='middle' transform='rotate(-25 120 80)'>goinglin</text></svg>")}</style><div class="__adata_wm__" aria-hidden="true"></div></body>
+</html>
