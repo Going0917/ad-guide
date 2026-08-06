@@ -277,6 +277,40 @@ body {
 .sticky-nav button.active[data-accent="teal"] .sn-dot { background: var(--teal); opacity: 1; }
 .sticky-nav button.active[data-accent="blue"] .sn-dot { background: var(--blue); opacity: 1; }
 
+/* —— 上新速递横幅（Hero 之后、吸顶导航之前） —— */
+.new-arrivals {
+  background: linear-gradient(180deg, #fffdf7 0%, var(--paper) 100%);
+  padding: 24px 0 20px;
+  border-top: 1px solid var(--ink-15);
+  border-bottom: 1px solid var(--ink-15);
+}
+.new-arrivals-inner { max-width: var(--container-w); margin: 0 auto; padding: 0 24px; }
+.new-arrivals-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+.new-arrivals-eyebrow { font-family: var(--font-label); font-size: 11px; font-weight: 800; color: var(--orange); letter-spacing: 0.08em; }
+.new-arrivals-title { font-family: var(--font-display); font-size: 20px; font-weight: 900; color: var(--ink); }
+.new-arrivals-sub { font-family: var(--font-label); font-size: 11px; font-weight: 600; color: rgba(10,10,10,0.5); margin-left: auto; }
+.new-arrivals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.new-arrivals-col { background: var(--paper); border-radius: 14px; padding: 12px 14px; box-shadow: inset 0 0 0 1px var(--ink-10); }
+.new-arrivals-col-title { font-family: var(--font-label); font-size: 12px; font-weight: 800; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed var(--ink-15); display: flex; align-items: center; gap: 6px; }
+.new-arrivals-col-title.support { color: var(--mustard); }
+.new-arrivals-col-title.effect { color: var(--blue); }
+.new-arrivals-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 8px; border-radius: 8px;
+  font-size: 12.5px; line-height: 1.4; color: var(--ink);
+  text-decoration: none; transition: background 0.15s;
+}
+.new-arrivals-item:hover { background: rgba(0,0,0,0.03); }
+.new-arrivals-item .na-tag {
+  font-family: var(--font-label); font-size: 10px; font-weight: 800;
+  padding: 2px 7px; border-radius: 10px; white-space: nowrap; flex-shrink: 0;
+}
+.new-arrivals-item .na-tag.support { background: var(--mustard); color: #fff; }
+.new-arrivals-item .na-tag.effect { background: var(--blue); color: #fff; }
+.new-arrivals-item .na-tag.new { background: var(--orange); color: #fff; }
+.new-arrivals-item .na-text { flex: 1; }
+.new-arrivals-item .na-time { font-family: var(--font-label); font-size: 10px; color: rgba(10,10,10,0.5); white-space: nowrap; flex-shrink: 0; }
+
 /* ================ 四大板块内容区（连续平铺，可滚动浏览） ================ */
 .pillar-section {
   padding: 44px 0;
@@ -745,6 +779,67 @@ body {
       <div class="factor-card" data-accent="blue" onclick="switchTab('投放')">
         <div class="fc-metric">流量规模</div>
         <div class="fc-name">投放</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 上新速递：跨板块新能力/扶持汇总（Hero 之后、吸顶导航之前） ============== -->
+<section class="new-arrivals">
+  <div class="new-arrivals-inner">
+    <div class="new-arrivals-head">
+      <span class="new-arrivals-eyebrow">🆕 NEW</span>
+      <h2 class="new-arrivals-title">上新速递</h2>
+      <span class="new-arrivals-sub">点此查看全部新能力 → 滑至下方对应板块</span>
+    </div>
+    <div class="new-arrivals-grid">
+      <!-- 左列：限时扶持 -->
+      <div class="new-arrivals-col">
+        <div class="new-arrivals-col-title support">🔥 限时扶持</div>
+        <a class="new-arrivals-item" href="#pillar-投放" onclick="switchTab('投放');event.preventDefault();">
+          <span class="na-tag support">补贴</span>
+          <span class="na-text">清凉节+开学季活动补贴</span>
+          <span class="na-time">8.10产出</span>
+        </a>
+        <a class="new-arrivals-item" href="#pillar-投放" onclick="switchTab('投放');event.preventDefault();">
+          <span class="na-tag support">扶持</span>
+          <span class="na-text">商品聚合页腾飞扶持（直播 TOP1500）</span>
+          <span class="na-time">7.13-8.11</span>
+        </a>
+        <a class="new-arrivals-item" href="#pillar-投放" onclick="switchTab('投放');event.preventDefault();">
+          <span class="na-tag support">扶持</span>
+          <span class="na-text">KOC 加热专项扶持 · 全域通</span>
+          <span class="na-time">进行中</span>
+        </a>
+        <a class="new-arrivals-item" href="#pillar-投放" onclick="switchTab('投放');event.preventDefault();">
+          <span class="na-tag new">NEW</span>
+          <span class="na-text">视频号订阅号入口放量</span>
+          <span class="na-time">8.4起</span>
+        </a>
+      </div>
+      <!-- 右列：新能力上线 -->
+      <div class="new-arrivals-col">
+        <div class="new-arrivals-col-title effect">🆕 新能力上线</div>
+        <a class="new-arrivals-item" href="#pillar-投放" onclick="switchTab('投放');event.preventDefault();">
+          <span class="na-tag new">NEW</span>
+          <span class="na-text">妙思视频编辑器 · AI 成片一键精修</span>
+          <span class="na-time">开白中</span>
+        </a>
+        <a class="new-arrivals-item" href="#pillar-投放" onclick="switchTab('投放');event.preventDefault();">
+          <span class="na-tag new">NEW</span>
+          <span class="na-text">经营号 AI 直播复盘新版（三维复盘+标杆话术）</span>
+          <span class="na-time">已上线</span>
+        </a>
+        <a class="new-arrivals-item" href="#pillar-投放" onclick="switchTab('投放');event.preventDefault();">
+          <span class="na-tag effect">能力</span>
+          <span class="na-text">妙思共建平台 · 爆款素材一键做同款</span>
+          <span class="na-time">已上线</span>
+        </a>
+        <a class="new-arrivals-item" href="#pillar-投放" onclick="switchTab('投放');event.preventDefault();">
+          <span class="na-tag effect">能力</span>
+          <span class="na-text">创意洞察 · 13 个内容标签接入</span>
+          <span class="na-time">已全量</span>
+        </a>
       </div>
     </div>
   </div>
@@ -2217,7 +2312,7 @@ body {
     /* —— 新能力 & 扶持：双高亮卡 —— */
     .ad-feature-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 16px;
     }
     .ad-feature-card {
@@ -2248,10 +2343,10 @@ body {
     .afc-desc { font-size: 13px; color: rgba(10,10,10,0.68); line-height: 1.6; margin-bottom: 12px; }
     .afc-stats { display: flex; gap: 10px; margin-bottom: 12px; }
     .afc-stat {
-      flex: 1; background: rgba(63,115,183,0.1); border-radius: 12px;
+      flex: 1; background: color-mix(in srgb, var(--c) 12%, transparent); border-radius: 12px;
       padding: 10px 8px; text-align: center;
     }
-    .afc-stat b { display: block; font-family: var(--font-display); font-size: 22px; font-weight: 900; color: var(--blue); line-height: 1; }
+    .afc-stat b { display: block; font-family: var(--font-display); font-size: 22px; font-weight: 900; color: var(--c); line-height: 1; }
     .afc-stat span { font-family: var(--font-label); font-size: 10px; font-weight: 600; color: rgba(10,10,10,0.55); }
     .afc-points { list-style: none; padding: 0; margin: 0 0 14px; }
     .afc-points li {
@@ -2264,6 +2359,12 @@ body {
     .afc-hl { font-weight: 800; padding: 1px 6px; border-radius: 5px; white-space: nowrap; }
     .ad-feature-card.f-support .afc-hl { background: rgba(216,169,59,0.18); color: var(--mustard); }
     .ad-feature-card.f-effect .afc-hl { background: rgba(63,115,183,0.14); color: var(--blue); }
+    /* 能力归属分组标题 */
+    .afc-group { margin-bottom: 20px; }
+    .afc-group-title { font-family: var(--font-display); font-size: 16px; font-weight: 900; color: var(--ink); margin: 0 0 12px 4px; padding-bottom: 6px; border-bottom: 1px dashed rgba(10,10,10,0.15); display: flex; align-items: center; gap: 6px; }
+    /* 单卡分组配对容器：2列并排，各自标题在卡片上方 */
+    .afc-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .afc-pair .afc-group { margin-bottom: 0; }
 
     /* —— 基础能力指引：大组配色变量（默认蓝；小店艾米组改 teal 以与 3.0 广告区分） —— */
     .ad-group {
@@ -2450,150 +2551,171 @@ body {
       <span class="sm-badge">持续更新 · 卷基建享扶持 · 提效果</span>
     </div>
     <p class="sm-desc">投放放大器的"新弹药"——抓住平台新上线能力与限时腾飞扶持，先人一步把竞争力放大。</p>
-    <div class="ad-feature-grid">
-      <!-- 卡1：入夏好物补贴（最紧急·截止7.21） -->
-      <a class="ad-feature-card f-support" href="https://store.weixin.qq.com/chengzhang/webdoc/wiki/9672/eef53ddb7b970fac/growth_center_platform_notice/2" target="_blank" rel="noopener">
-        <div class="afc-head">
-          <span class="afc-kicker">应季爆品 · 平台补贴</span>
-          <span class="afc-hot">🔥 截至 7.21</span>
+    <!-- 配对1：小店平台补贴 + 流量红利（同行，各自标题在卡片上方） -->
+    <div class="afc-pair">
+      <!-- 分组1：小店平台补贴 -->
+      <div class="afc-group">
+        <div class="afc-group-title">🔥 小店平台补贴</div>
+        <div class="ad-feature-grid">
+          <!-- 清凉节+开学季补贴 -->
+          <a class="ad-feature-card f-support" href="https://store.weixin.qq.com/chengzhang/webdoc/wiki/9739/7ba7332c3430871f/growth_center_platform_notice" target="_blank" rel="noopener">
+            <div class="afc-head">
+              <span class="afc-kicker">应季爆品 · 平台补贴</span>
+              <span class="afc-hot">🔥 报名进行中</span>
+            </div>
+            <div class="afc-title">微信小店「清凉节+开学季」补贴 · 一次报名覆盖两阶段</div>
+            <p class="afc-desc">清凉季与开学季两阶段合并报名，一次报名参与完整活动周期。活动补贴与集赞补贴<span class="afc-hl">打包发放</span>，具体政策<span class="afc-hl">8月10日</span>产出，节点自动切换主题氛围。</p>
+            <div class="afc-stats">
+              <div class="afc-stat"><b>两阶段</b><span>清凉季+开学季合并</span></div>
+              <div class="afc-stat"><b>8.10</b><span>补贴政策产出</span></div>
+            </div>
+            <ul class="afc-points">
+              <li><span class="afc-hl">已报名且在投</span>：加大广告投放，用补贴撬动成交</li>
+              <li><span class="afc-hl">已报名未投</span>：尽快开投 ADQ，把补贴转成成交</li>
+              <li>节点自动切换清凉季 / 开学季主题氛围</li>
+            </ul>
+            <span class="afc-link">查看活动详情 →</span>
+          </a>
         </div>
-        <div class="afc-title">微信小店「入夏好物」补贴 · 应季爆品红利</div>
-        <p class="afc-desc">报名活动商品可享阶梯式平台加补：<span class="afc-hl">2:1 配补</span>，商家让利 10% 平台加补 5%（到手约 85 折）。应季品 + 活动补贴，投放 CVR 更高。</p>
-        <div class="afc-stats">
-          <div class="afc-stat"><b>50元</b><span>单件最高补贴</span></div>
-          <div class="afc-stat"><b>10万</b><span>单店最高补贴</span></div>
-        </div>
-        <ul class="afc-points">
-          <li><span class="afc-hl">已报名且在投</span>：加大广告投放，用补贴撬动成交</li>
-          <li><span class="afc-hl">已报名未投</span>：尽快开投 ADQ，把补贴转成成交</li>
-          <li>公众号版位自动呈现「入夏好物」利益点样式</li>
-        </ul>
-        <span class="afc-link">查看活动详情 →</span>
-      </a>
-      <!-- 卡2：商品聚合页（卷基建·享扶持） -->
-      <a class="ad-feature-card f-support" href="https://doc.weixin.qq.com/doc/w3_AN0ARwawACgCNgNOzKDrjR00Ewj0F?scode=AJEAIQdfAAoA1WAdHqASwAcwYbAEo" target="_blank" rel="noopener">
-        <div class="afc-head">
-          <span class="afc-kicker">卷基建 · 享扶持</span>
-          <span class="afc-hot">🔥 限时腾飞扶持中</span>
-        </div>
-        <div class="afc-title">闭环链路 · 商品聚合页（多品组合）</div>
-        <p class="afc-desc">把多个活动商品打包成集合，在节点内重点宣推（直播间内挂多商品）。投直播能力已<span class="afc-hl">全量开放</span>，无需开白即可直接使用；直购链路也已同步支持。</p>
-        <ul class="afc-points">
-          <li>直播链路：<span class="afc-hl">已全量</span>，所有客户均可直接投放，无需申请加白</li>
-          <li>二期腾飞扶持：7.1–7.9 直播链路消耗 <span class="afc-hl">TOP1500 账户</span>（明细请联系直客或运营），扶持周期 7.13–8.11（共 30 天）</li>
-          <li>建议基建：名单内账户商品聚合页广告数 <span class="afc-hl">≥ 10 条</span>（按周配合增投）</li>
-        </ul>
-        <span class="afc-link">查看创编流程 SOP →</span>
-      </a>
-      <!-- 卡3：商品经营平台（经营·新能力） -->
-      <a class="ad-feature-card f-effect" href="https://doc.weixin.qq.com/doc/w3_AbEAEAZXAOcCNYOyEPzn0TWOUAcoT?scode=AJEAIQdfAAoBFlJxU1AcoA9QabAD0" target="_blank" rel="noopener">
-        <div class="afc-head">
-          <span class="afc-kicker">🆕 新能力 · 经营三件套</span>
-          <span class="afc-hot">🔥 AI直播复盘新版上线</span>
-        </div>
-        <div class="afc-title">商品经营平台 · 选品 + 直播复盘 + 企微私域</div>
-        <p class="afc-desc">腾讯经营平台三大经营能力：<span class="afc-hl">商品经营</span>帮您筛选爆品、监控大盘趋势；<span class="afc-hl">直播经营</span>提供主播数字分身 + AI 直播复盘；<span class="afc-hl">企微经营</span>用 ClawBot 服务私域转化、长效提升 GMV。</p>
-        <ul class="afc-points">
-          <li>前提：<span class="afc-hl">注册腾讯经营号</span> + 入驻经营平台</li>
-          <li>AI 直播复盘<span class="afc-hl">全新版本上线</span>：支持<span class="afc-hl">按时序 / 按主播 / 按商品</span>三维复盘，话术基于<span class="afc-hl">行业标杆直播间</span>生成，支持一键脚本改写</li>
-          <li>适合：希望在腾讯生态内做<span class="afc-hl">深度经营</span>的小店商家</li>
-        </ul>
-        <span class="afc-link">查看 AI 直播复盘操作手册 →</span>
-      </a>
-      <!-- 卡4：KOC加热专项扶持（含全域通主页内容加热） -->
-      <div class="ad-feature-card f-support">
-        <div class="afc-head">
-          <span class="afc-kicker">卷内容 · 享扶持</span>
-          <span class="afc-hot">🔥 KOC 加热专项进行中</span>
-        </div>
-        <div class="afc-title">KOC 加热专项扶持 · 全域通「小店主页内容加热」已全量</div>
-        <p class="afc-desc">把 KOC 内容 / 小店主页优质内容通过全域通做加热，享受专项扶持。全域通加热 vs ADQ 原生内容加热，<span class="afc-hl">起量能力、ROI、eCPM 均更强</span>。</p>
-        <ul class="afc-points">
-          <li>玩法①：进全域通做 KOC / 主页内容加热（<span class="afc-hl">上手最快，推荐优先</span>）</li>
-          <li>玩法②：原做 ADQ 原生内容加热的，可在全域通再测一轮对比</li>
-          <li>适合：<span class="afc-hl">有 KOC 内容投放</span>或<span class="afc-hl">人设号 / 内容型商家</span>（老粉多、需拉新的尤其适合）</li>
-        </ul>
-        <span class="afc-link">2 步开测 · 找直客 / 运营对接名单 →</span>
       </div>
-      <!-- 卡4：智投·朋友圈九图创意扶持激励 -->
-      <a class="ad-feature-card f-support" href="https://doc.weixin.qq.com/doc/w3_Ae8AGwbgAKwCNm0q3wpKBRqOocD0u" target="_blank" rel="noopener">
-        <div class="afc-head">
-          <span class="afc-kicker">卷九图 · 享激励</span>
-          <span class="afc-hot">🔥 7.15–7.31 限时</span>
+      <!-- 分组2：流量红利 -->
+      <div class="afc-group">
+        <div class="afc-group-title">📡 流量红利</div>
+        <div class="ad-feature-grid">
+          <!-- 视频号订阅号入口放量 -->
+          <a class="ad-feature-card f-support" href="https://ad.weixin.qq.com/" target="_blank" rel="noopener">
+            <div class="afc-head">
+              <span class="afc-kicker">🆕 新上线 · 流量红利</span>
+              <span class="afc-hot">🔥 8.4 起放量</span>
+            </div>
+            <div class="afc-title">视频号原生广告 · 订阅号入口放量</div>
+            <p class="afc-desc">8月4日起订阅号入口开始放量，日均新增<span class="afc-hl">千万量级流量</span>，供给充足、竞争宽松。增量人群与信息流<span class="afc-hl">重合度低</span>，<span class="afc-hl">更年轻、学历更高</span>。</p>
+            <ul class="afc-points">
+              <li>投放<span class="afc-hl">微信视频号版位</span>自动获得增量流量</li>
+              <li>定投：版位定投 → 微信视频号【定投】→ <span class="afc-hl">「视频号原生广告-订阅号入口」</span></li>
+              <li>适合：<span class="afc-hl">内容型 / 人设号商家</span>（订阅号场景原生植入，转化更自然）</li>
+            </ul>
+            <span class="afc-link">进入投放平台查看 →</span>
+          </a>
         </div>
-        <div class="afc-title">智投 · 朋友圈九图创意扶持激励</div>
-        <p class="afc-desc">九图在智投场景各行业 CTR 和条均消耗均表现优秀。激励期内，符合条件的广告在朋友圈版位自动生效<span class="afc-hl">精排 eCPM 系数提升</span>。</p>
-        <ul class="afc-points">
-          <li>生效流量位：<span class="afc-hl">朋友圈</span></li>
-          <li>条件：智能投放 × 常规多图 <span class="afc-hl">1:1 九图</span> × 激励期内新建广告</li>
-          <li>时间：2026.7.15–7.31（共 17 天）</li>
-        </ul>
-        <span class="afc-link">查看投放指引 →</span>
-      </a>
-      <!-- 卡5：妙思共建平台（创意·新能力） -->
-      <a class="ad-feature-card f-effect" href="https://colebai.devcloud.woa.com/" target="_blank" rel="noopener">
-        <div class="afc-head">
-          <span class="afc-kicker">🆕 新能力 · 爆款复用</span>
-          <span class="afc-hot">已上线</span>
+      </div>
+    </div>
+    <!-- 配对2：广告搭建 + 新业务模式（同行，各自标题在卡片上方） -->
+    <div class="afc-pair">
+      <!-- 分组3：广告搭建 -->
+      <div class="afc-group">
+        <div class="afc-group-title">🏗️ 广告搭建</div>
+        <div class="ad-feature-grid">
+          <!-- 商品聚合页 -->
+          <a class="ad-feature-card f-support" href="https://doc.weixin.qq.com/doc/w3_AN0ARwawACgCNgNOzKDrjR00Ewj0F?scode=AJEAIQdfAAoA1WAdHqASwAcwYbAEo" target="_blank" rel="noopener">
+            <div class="afc-head">
+              <span class="afc-kicker">卷基建 · 享扶持</span>
+              <span class="afc-hot">🔥 限时腾飞扶持中</span>
+            </div>
+            <div class="afc-title">闭环链路 · 商品聚合页（多品组合）</div>
+            <p class="afc-desc">把多个活动商品打包成集合，在节点内重点宣推（直播间内挂多商品）。投直播能力已<span class="afc-hl">全量开放</span>，无需开白即可直接使用；直购链路也已同步支持。</p>
+            <ul class="afc-points">
+              <li>直播链路：<span class="afc-hl">已全量</span>，所有客户均可直接投放，无需申请加白</li>
+              <li>二期腾飞扶持：7.1–7.9 直播链路消耗 <span class="afc-hl">TOP1500 账户</span>（明细请联系直客或运营），扶持周期 7.13–8.11（共 30 天）</li>
+              <li>建议基建：名单内账户商品聚合页广告数 <span class="afc-hl">≥ 10 条</span>（按周配合增投）</li>
+            </ul>
+            <span class="afc-link">查看创编流程 SOP →</span>
+          </a>
         </div>
-        <div class="afc-title">妙思共建平台 · 爆款素材一键做同款</div>
-        <p class="afc-desc">您沉淀的爆款视频 / 素材，可由平台 AI 反推为可复用的创作模板，上架后<span class="afc-hl">一键做同款</span>，快速批量产出同风格素材。</p>
-        <ul class="afc-points">
-          <li>流程：上传爆款 → AI 反推模板 → 补充经验微调 → 上架</li>
-          <li>后续在<span class="afc-hl">妙思-灵感</span>中一键做同款</li>
-          <li>适合：<span class="afc-hl">已跑出爆款素材</span>、希望批量复制成功经验的商家</li>
-        </ul>
-        <span class="afc-link">查看操作手册 →</span>
-      </a>
-      <!-- 卡6：创意洞察13标签（创意·新能力） -->
-      <a class="ad-feature-card f-effect" href="https://adata.woa.com/bi/view/18245" target="_blank" rel="noopener">
-        <div class="afc-head">
-          <span class="afc-kicker">🆕 新能力 · 素材诊断</span>
-          <span class="afc-hot">已全量</span>
+      </div>
+      <!-- 分组4：新业务模式 -->
+      <div class="afc-group">
+        <div class="afc-group-title">🔄 新业务模式</div>
+        <div class="ad-feature-grid">
+          <!-- KOC加热专项（含链接） -->
+          <a class="ad-feature-card f-support" href="https://doc.weixin.qq.com/doc/w3_APwAnQbDAK4CNkVhGlSxrRK6WaoLA?scode=AJEAIQdfAAotsnip0VAGYAPQbmACg" target="_blank" rel="noopener">
+            <div class="afc-head">
+              <span class="afc-kicker">卷内容 · 享扶持</span>
+              <span class="afc-hot">🔥 KOC 加热专项进行中</span>
+            </div>
+            <div class="afc-title">KOC 加热专项扶持 · 全域通「小店主页内容加热」已全量</div>
+            <p class="afc-desc">把 KOC 内容 / 小店主页优质内容通过全域通做加热，享受专项扶持。全域通加热 vs ADQ 原生内容加热，<span class="afc-hl">起量能力、ROI、eCPM 均更强</span>。</p>
+            <ul class="afc-points">
+              <li>玩法①：进全域通做 KOC / 主页内容加热（<span class="afc-hl">上手最快，推荐优先</span>）</li>
+              <li>玩法②：原做 ADQ 原生内容加热的，可在全域通再测一轮对比</li>
+              <li>适合：<span class="afc-hl">有 KOC 内容投放</span>或<span class="afc-hl">人设号 / 内容型商家</span>（老粉多、需拉新的尤其适合）</li>
+            </ul>
+            <span class="afc-link">查看内测文档 →</span>
+          </a>
         </div>
-        <div class="afc-title">创意洞察 · 13 个内容标签接入</div>
-        <p class="afc-desc">在 Creative+ 拆解您自身素材的内容构成，对标行业爆款标签找差距、做优化，<span class="afc-hl">系统化提升素材竞争力</span>。</p>
-        <ul class="afc-points">
-          <li><span class="afc-hl">13 维标签</span>：适用人群 / 内容情绪 / 开场钩子 / 结尾钩子 / 场景背景 / 背景风格 / 明星名人 / IP 等</li>
-          <li>用法：Creative+「自身创意资产洞察 → 内容标签分析」</li>
-          <li>适合：希望<span class="afc-hl">系统化诊断和提升素材竞争力</span>的商家</li>
-        </ul>
-        <span class="afc-link">查看内容标签分析 →</span>
-      </a>
-      <!-- 卡7：一键艾米（旧能力） -->
-      <a class="ad-feature-card f-effect" href="https://doc.weixin.qq.com/doc/w3_AawAZgZPAMACN5ilj20nfQiCRPQWZ" target="_blank" rel="noopener">
-        <div class="afc-head">
-          <span class="afc-kicker">🆕 新能力 · 双投提效</span>
-          <span class="afc-hot">灰度中</span>
-        </div>
-        <div class="afc-title">一键艾米 · 3.0 广告一键增投小店艾米</div>
-        <p class="afc-desc">一键将 3.0 广告增投至小店艾米广告，原 3.0 广告不下线，实现<span class="afc-hl">一套素材、双端投放</span>，提升跑量能力、省重复搭建的基建成本。</p>
-        <ul class="afc-points">
-          <li>正逐步<span class="afc-hl">灰度开放</span>中（按账户尾号推进）</li>
-          <li>开放后在 3.0 广告上一键增投，原广告继续正常投放</li>
-          <li>适合：<span class="afc-hl">已在投 3.0 广告</span>、希望进一步放量提效的商家</li>
-        </ul>
-        <span class="afc-link">查看使用指南 →</span>
-      </a>
-      <!-- 卡8：潜客优投（提效果·旧能力） -->
-      <a class="ad-feature-card f-effect" href="https://doc.weixin.qq.com/doc/w3_ARoAPgaoANUCNtB1LB501QBW0Ij24?scode=AJEAIQdfAAoEhOS9UzAGYAPQbmACg" target="_blank" rel="noopener">
-        <div class="afc-head">
-          <span class="afc-kicker">提效果 · 双率提升</span>
-          <span class="afc-hot">需加白</span>
-        </div>
-        <div class="afc-title">小店「潜客优投」· 智能触达高购意向潜客</div>
-        <p class="afc-desc">系统识别近期浏览过商品 / 看过直播间的高购意向潜客，可自主设置提价系数，对这部分潜客<span class="afc-hl">加大竞争力、提升转化</span>。</p>
-        <div class="afc-stats">
-          <div class="afc-stat"><b>+15%</b><span>下单 ROI</span></div>
-          <div class="afc-stat"><b>+10%</b><span>全链路转化 CTCVR</span></div>
-        </div>
-        <ul class="afc-points">
-          <li>适用：<span class="afc-hl">AIM+智能投放 & 竞价投放</span>的小店客户</li>
-          <li>用法：出价与预算 → 探索策略 → 潜客优投，提价系数 <span class="afc-hl">1.1–2.0</span></li>
-          <li>操作建议：系数从 <span class="afc-hl">1.05 起步</span>，逐步扩展到 1.3</li>
-        </ul>
-        <span class="afc-link">查看能力说明 →</span>
-      </a>
+      </div>
+    </div>
+    <!-- 分组5：创意能力 -->
+    <div class="afc-group">
+      <div class="afc-group-title">🎬 创意能力</div>
+      <div class="ad-feature-grid">
+        <!-- 妙思视频编辑器 -->
+        <a class="ad-feature-card f-effect" href="https://doc.weixin.qq.com/doc/w3_AZsAkQaUAHUCN3E0zEeJBQiyK3JgS?scode=AJEAIQdfAAoLH9EmJ9AeAAeQZMAIA" target="_blank" rel="noopener">
+          <div class="afc-head">
+            <span class="afc-kicker">🆕 新上线 · 快修二编</span>
+            <span class="afc-hot">🆕 开白中</span>
+          </div>
+          <div class="afc-title">妙思视频编辑器 · AI 成片一键精修</div>
+          <p class="afc-desc">AI 广告视频快修工作台（类似剪映）：解决 AI 成片<span class="afc-hl">局部修改困难</span>、二编跨工具的痛点，在妙思内直接<span class="afc-hl">生成 → 精修 → 投放</span>全链路闭环。</p>
+          <ul class="afc-points">
+            <li>解决：AI 成片局部改不了、需跨工具二编</li>
+            <li>打通：<span class="afc-hl">生成-二编-投放</span>一站式工作流</li>
+            <li>适合：<span class="afc-hl">使用妙思产出素材</span>、需精细调整后再投放的商家</li>
+          </ul>
+          <span class="afc-link">查看产品介绍 →</span>
+        </a>
+        <!-- 妙思共建平台 -->
+        <a class="ad-feature-card f-effect" href="https://colebai.devcloud.woa.com/" target="_blank" rel="noopener">
+          <div class="afc-head">
+            <span class="afc-kicker">🆕 新能力 · 爆款复用</span>
+            <span class="afc-hot">已上线</span>
+          </div>
+          <div class="afc-title">妙思共建平台 · 爆款素材一键做同款</div>
+          <p class="afc-desc">您沉淀的爆款视频 / 素材，可由平台 AI 反推为可复用的创作模板，上架后<span class="afc-hl">一键做同款</span>，快速批量产出同风格素材。</p>
+          <ul class="afc-points">
+            <li>流程：上传爆款 → AI 反推模板 → 补充经验微调 → 上架</li>
+            <li>后续在<span class="afc-hl">妙思-灵感</span>中一键做同款</li>
+            <li>适合：<span class="afc-hl">已跑出爆款素材</span>、希望批量复制成功经验的商家</li>
+          </ul>
+          <span class="afc-link">查看操作手册 →</span>
+        </a>
+        <!-- 创意洞察13标签 -->
+        <a class="ad-feature-card f-effect" href="https://adata.woa.com/bi/view/18245" target="_blank" rel="noopener">
+          <div class="afc-head">
+            <span class="afc-kicker">🆕 新能力 · 素材诊断</span>
+            <span class="afc-hot">已全量</span>
+          </div>
+          <div class="afc-title">创意洞察 · 13 个内容标签接入</div>
+          <p class="afc-desc">在 Creative+ 拆解您自身素材的内容构成，对标行业爆款标签找差距、做优化，<span class="afc-hl">系统化提升素材竞争力</span>。</p>
+          <ul class="afc-points">
+            <li><span class="afc-hl">13 维标签</span>：适用人群 / 内容情绪 / 开场钩子 / 结尾钩子 / 场景背景 / 背景风格 / 明星名人 / IP 等</li>
+            <li>用法：Creative+「自身创意资产洞察 → 内容标签分析」</li>
+            <li>适合：希望<span class="afc-hl">系统化诊断和提升素材竞争力</span>的商家</li>
+          </ul>
+          <span class="afc-link">查看内容标签分析 →</span>
+        </a>
+      </div>
+    </div>
+    <!-- 分组6：经营工具 -->
+    <div class="afc-group">
+      <div class="afc-group-title">📊 经营工具</div>
+      <div class="ad-feature-grid">
+        <!-- 商品经营平台 -->
+        <a class="ad-feature-card f-effect" href="https://doc.weixin.qq.com/doc/w3_AbEAEAZXAOcCNYOyEPzn0TWOUAcoT?scode=AJEAIQdfAAoBFlJxU1AcoA9QabAD0" target="_blank" rel="noopener">
+          <div class="afc-head">
+            <span class="afc-kicker">🆕 新能力 · 经营三件套</span>
+            <span class="afc-hot">🔥 AI直播复盘新版上线</span>
+          </div>
+          <div class="afc-title">商品经营平台 · 选品 + 直播复盘 + 企微私域</div>
+          <p class="afc-desc">腾讯经营平台三大经营能力：<span class="afc-hl">商品经营</span>帮您筛选爆品、监控大盘趋势；<span class="afc-hl">直播经营</span>提供主播数字分身 + AI 直播复盘；<span class="afc-hl">企微经营</span>用 ClawBot 服务私域转化、长效提升 GMV。</p>
+          <ul class="afc-points">
+            <li>前提：<span class="afc-hl">注册腾讯经营号</span> + 入驻经营平台</li>
+            <li>AI 直播复盘<span class="afc-hl">全新版本上线</span>：支持<span class="afc-hl">按时序 / 按主播 / 按商品</span>三维复盘，话术基于<span class="afc-hl">行业标杆直播间</span>生成，支持一键脚本改写</li>
+            <li>适合：希望在腾讯生态内做<span class="afc-hl">深度经营</span>的小店商家</li>
+          </ul>
+          <span class="afc-link">查看 AI 直播复盘操作手册 →</span>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -2712,6 +2834,16 @@ body {
           <div class="adc-top"><span class="adc-badge amind">出价能力</span><span class="adc-go">查看 →</span></div>
           <div class="adc-title">小店艾米 ·「净成交」出价能力</div>
           <div class="adc-use">退货率高时，优化净成交 GMV</div>
+        </a>
+        <a class="ad-doc-card" href="https://doc.weixin.qq.com/doc/w3_AawAZgZPAMACN5ilj20nfQiCRPQWZ" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge amind">双投提效</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">一键艾米 · 3.0 广告一键增投小店艾米</div>
+          <div class="adc-use">一套素材双端投放，灰度开放中</div>
+        </a>
+        <a class="ad-doc-card" href="https://doc.weixin.qq.com/doc/w3_ARoAPgaoANUCNtB1LB501QBW0Ij24?scode=AJEAIQdfAAoEhOS9UzAGYAPQbmACg" target="_blank" rel="noopener">
+          <div class="adc-top"><span class="adc-badge amind">提效果</span><span class="adc-go">查看 →</span></div>
+          <div class="adc-title">小店「潜客优投」· 智能触达高购意向潜客</div>
+          <div class="adc-use">对高购意向潜客提价加竞争力，ROI+15%</div>
         </a>
       </div>
     </div>
