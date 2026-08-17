@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><script>(function(){window.__idata_artifact_error__=[];function _record(t){t=String(t==null?'unknown error':t).slice(0,5000);window.__idata_artifact_error__.push(t);try{window.parent&&window.parent.postMessage({type:'artifact-error',message:t.slice(0,500)},'*');}catch(_e){}}window.addEventListener('error',function(ev){var parts=[];if(ev.error&&(ev.error.stack||ev.error.message)){parts.push(String(ev.error.stack||ev.error.message));}else{parts.push(ev.message||'Unknown error');}if(ev.filename){parts.push('\n(at '+ev.filename+':'+(ev.lineno||'?')+':'+(ev.colno||'?')+')');}_record(parts.join('\n'));},true);window.addEventListener('unhandledrejection',function(ev){var r=ev.reason;_record((r&&(r.stack||r.message))||r||'Unhandled Promise rejection');});})();</script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>江中新零售 投放复盘与竞对诊断报告</title>
+<script src="https://unpkg.com/plotly.js@3.2.0/dist/plotly.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:#f5f6fa;color:#2d3436;line-height:1.6}
+.container{max-width:1500px;margin:0 auto;padding:20px}
+.header{background:linear-gradient(135deg,#0984e3,#6c5ce7);color:#fff;padding:30px 40px;border-radius:12px;margin-bottom:20px}
+.header h1{font-size:24px;margin-bottom:8px}
+.header .meta{font-size:14px;opacity:0.9}
+.action-list{background:#fff;border-radius:12px;padding:20px 30px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.action-list h2{font-size:18px;margin-bottom:12px}
+.action-item{padding:8px 0;border-bottom:1px solid #f0f0f0}
+.action-item:last-child{border:none}
+.section{background:#fff;border-radius:12px;padding:30px 40px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.section h2{font-size:20px;color:#2d3436;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #0984e3}
+.section h3{font-size:16px;color:#636e72;margin:16px 0 10px}
+.conclusion{background:#f8f9ff;border-left:4px solid #0984e3;padding:12px 16px;margin:12px 0;border-radius:0 8px 8px 0;font-size:14px}
+.warning{background:#fff5f5;border-left:4px solid #e17055;padding:12px 16px;margin:12px 0;border-radius:0 8px 8px 0;font-size:14px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+th{background:#0984e3;color:#fff;padding:10px 8px;text-align:center;font-weight:600}
+td{padding:8px;text-align:center;border-bottom:1px solid #eee}
+tr:nth-child(even){background:#f8f9ff}
+.highlight-red{color:#e74c3c;font-weight:600}
+.highlight-green{color:#27ae60;font-weight:600}
+.highlight-orange{color:#f39c12;font-weight:600}
+.chart{margin:16px 0}
+.insight{background:#fffde6;border-left:4px solid #f39c12;padding:12px 16px;margin:12px 0;border-radius:0 8px 8px 0;font-size:14px}
+.desensitized{color:#95a5a6;font-style:italic;font-size:12px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>江中新零售 投放复盘与竞对诊断报告</h1>
+  <div class="meta">
+    分析周期：近2周（环比前2周，链式环比）｜竞价口径<br>
+    竞对标的：养能**（膳食营养赛道）｜报告日期：2026-08-17<br>
+    余额诊断数据周期：昨日单天（实时余额快照）
+  </div>
+</div>
+
+<div class="action-list">
+  <h2>📋 优先级行动清单</h2>
+  <div class="action-item">🔴 <b>立即（需当天执行）</b>：计价率1.202已触及预警线（≥1.2），环比+6.0%。微信搜一搜版位计价率1.690严重超成本，腾讯视频版位计价率1.715亦超预警。需排查超成本广告，关停低效版位广告组</div>
+  <div class="action-item">🔴 <b>立即（需当天执行）</b>：8个账户余额不足7天（均未开通共享钱包），余额合计54790元。需紧急提醒充值，建议开通共享钱包降低单账户余额风险</div>
+  <div class="action-item">🟡 <b>本周内</b>：ROI差距明显（江中1.535 vs 竞对≈2.5，差距约38%）。核心原因是广告条均消耗仅201.0元 vs 竞对2000+（差距约11倍），广告数量过多但单条跑量能力极弱。建议清理低效广告，集中预算提升单广告跑量能力</div>
+  <div class="action-item">🟡 <b>本周内</b>：CPA广告占68.4%消耗但ROI=1.507，ROI广告占30.3%消耗但ROI=1.565。两种出价模式ROI均低于竞对。建议优化出价策略，参考竞对ROI广告+CPA广告均衡投放的模式</div>
+  <div class="action-item">🟡 <b>本周内</b>：微信小程序版位占25.4%消耗但ROI=1.470、CVR=0.97%远低于视频号版位CVR=8.55%。建议优化小程序版位转化链路或缩减低效消耗</div>
+  <div class="action-item">🟢 <b>持续观察</b>：消耗环比-5.4%（竞对稳步提升），规模差距约42%。需持续监控竞对动态，加速在视频号版位的基建和素材投入</div>
+  <div class="action-item">🟢 <b>持续观察</b>：广告数3443条（环比+24.5%），创意数3865条（环比-18.1%），广告数激增但消耗下滑，持续监控单广告效率变化</div>
+</div>
+
+<div class="section">
+  <h2>〇、核心结论</h2>
+  <div class="conclusion"><b>1. 量效双降，ROI显著低于竞对</b>：江中新零售日均4.94万/日（环比-5.4%），ROI=1.535（环比-3.2%）。养能**日均8-10万/日（环比稳步提升），ROI=≈2.5（环比基本持平）。规模约为竞对的58%，ROI差距约38%。</div>
+  <div class="conclusion"><b>2. 视频号版位是核心增长极，但ROI差距明显</b>：2.94万/日（占59.5%）在微信视频号，ROI=1.577、CVR=8.55%。竞对视频号5-8万/日（占71.4%），ROI=≈2.5。江中CVR领先（8.55% vs 5-8%），但ROI差距37%。</div>
+  <div class="conclusion"><b>3. 计价率1.202触及预警线，超成本风险需关注</b>：整体计价率1.202（环比+6.0%），竞对计价率0.9-1.0（健康）。微信搜一搜（1.690）、腾讯视频（1.715）等版位计价率严重超预警。</div>
+  <div class="conclusion"><b>4. 广告效率远低于竞对，基建规模虚高</b>：62账户/3443广告 vs 竞对10+账户/500+广告，账户数约为竞对4.1倍但广告条均消耗仅201.0元 vs 竞对2000+（差距约11倍）。</div>
+  <div class="conclusion"><b>5. CVR整体落后但视频号版位领先</b>：整体CVR=2.04% vs 竞对3-5%。但视频号版位CVR=8.55% > 竞对5-8%，说明视频号转化链路有竞争力。整体CVR低主要被微信小程序（CVR=0.97%）拖累。</div>
+  <div class="conclusion"><b>6. 余额整体可控但多个账户需关注</b>：客户整体"余额即将不足账户消耗占比"=0%，但8个账户余额不足7天（均未开通共享钱包），需关注充值。</div>
+  <div class="conclusion"><b>7. 出价策略结构失衡，CPA广告占比过高</b>：CPA广告占68.4%消耗但ROI=1.507，ROI广告占30.3%消耗但ROI=1.565。竞对ROI广告占54.7%（ROI=≈2.5)），CPA广告占44.2%（ROI=≈2.5)），两种模式ROI均衡且更高。</div>
+</div>
+
+<div class="section">
+  <h2>一、整体维度</h2>
+  <h3>1.1 核心指标对照表</h3>
+  <div class="conclusion">江中新零售近2周日均4.94万/日，环比-5.4%，ROI=1.535（环比-3.2%）。养能**日均8-10万/日（环比稳步提升），ROI=≈2.5（环比基本持平）。规模约为竞对的58%，ROI差距约38%。</div>
+  <table>
+    <tr><th>指标</th><th>江中新零售</th><th>环比变化</th><th>养能**</th><th>环比变化</th><th>差距倍数</th></tr>
+    <tr><td>日均消耗(万/日)</td><td class="highlight-orange">4.94</td><td>-5.4%</td><td>8-10万</td><td class="highlight-green">稳步提升</td><td class="highlight-red">0.58x</td></tr>
+    <tr><td>下单ROI</td><td class="highlight-red">1.535</td><td>-3.2%</td><td class="desensitized">≈2.5</td><td class="highlight-green">基本持平</td><td class="highlight-red">0.62x</td></tr>
+    <tr><td>CTR(%)</td><td class="highlight-green">2.23</td><td>-9.2%</td><td class="desensitized">1-2</td><td>稳步提升</td><td class="highlight-green">1.4x</td></tr>
+    <tr><td>CVR(%)</td><td class="highlight-red">2.04</td><td>+47.3%</td><td class="desensitized">3-5</td><td>小幅下滑</td><td class="highlight-red">0.61x</td></tr>
+    <tr><td>CPM(元)</td><td>100.0</td><td>+30.8%</td><td class="desensitized">50-100</td><td>小幅下滑</td><td>1.04x</td></tr>
+    <tr><td>计价率</td><td class="highlight-red">1.202</td><td>+6.0%</td><td class="desensitized">0.9-1.0</td><td>基本持平</td><td>—</td></tr>
+    <tr><td>客单价(元)</td><td>348.1</td><td>-4.1%</td><td class="desensitized">≈500</td><td>小幅下滑</td><td>0.69x</td></tr>
+    <tr><td>下单成本(元)</td><td>226.8</td><td>-1.0%</td><td class="desensitized">≈250</td><td>小幅下滑</td><td>1.12x</td></tr>
+    <tr><td>目标出价(元)</td><td>178.9</td><td>-6.5%</td><td class="desensitized">≈250</td><td>基本持平</td><td>0.85x</td></tr>
+    <tr><td>有消耗账户数</td><td>62</td><td>—</td><td class="desensitized">10+</td><td>—</td><td class="highlight-green">4.1x</td></tr>
+    <tr><td>有消耗广告数</td><td>3443</td><td>+24.5%</td><td class="desensitized">500+</td><td>+13.8%</td><td class="highlight-green">6.5x</td></tr>
+    <tr><td>有消耗创意数(TID)</td><td>3865</td><td>-18.1%</td><td class="desensitized">1000+</td><td>-13.3%</td><td class="highlight-green">1.5x</td></tr>
+    <tr><td>智投项目数</td><td>655</td><td>+44.9%</td><td class="desensitized">50+</td><td>+15.3%</td><td class="highlight-green">7.9x</td></tr>
+    <tr><td>智投渗透率(%)</td><td>88.69</td><td>-1.1%</td><td class="desensitized">≈89</td><td>基本持平</td><td>—</td></tr>
+    <tr><td>广告条均消耗(元)</td><td class="highlight-red">201.0</td><td>-24.0%</td><td class="desensitized">2000+</td><td>小幅下滑</td><td class="highlight-red">0.09x</td></tr>
+    <tr><td>智投项目条均消耗</td><td class="highlight-red">75.5</td><td>—</td><td class="desensitized">1000+</td><td>—</td><td class="highlight-red">0.07x</td></tr>
+    <tr><td>账户平均广告数</td><td>55.5</td><td>—</td><td class="desensitized">≈35</td><td>—</td><td>—</td></tr>
+  </table>
+  <div class="insight"><b>关键洞察</b>：江中新零售CTR=2.23%高于竞对1-2%（约1.4倍），素材点击吸引力强。但CVR=2.04%低于竞对3-5%，转化链路效率有提升空间。计价率1.202触及预警线（竞对0.9-1.0健康）。广告条均消耗仅201.0元 vs 竞对2000+（差距约11倍），是规模和效率差距的核心原因。<br><span class="desensitized">注：竞对指标已脱敏为范围值，仅供趋势参考。</span></div>
+</div>
+
+<div class="section">
+  <h2>二、版位深度诊断</h2>
+  <h3>2.1 江中新零售版位分布</h3>
+  <div class="conclusion">微信视频号是绝对主力版位（59.5%消耗、ROI=1.577），微信小程序占比25.4%但ROI=1.470偏低。</div>
+  <table>
+    <tr><th>二级流量</th><th>日均消耗(万)</th><th>占比</th><th>ROI</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>计价率</th><th>账户</th><th>广告</th><th>创意</th></tr>
+<tr><td>微信视频号</td><td>2.94</td><td>59.5%</td><td class="highlight-green">1.577</td><td>1.05</td><td>8.55</td><td>159.4</td><td class="">1.144</td><td>61</td><td>2048</td><td>1437</td></tr><tr><td>微信小程序</td><td>1.26</td><td>25.4%</td><td class="">1.470</td><td>3.70</td><td>0.97</td><td>86.9</td><td class="highlight-red">1.279</td><td>62</td><td>1887</td><td>2022</td></tr><tr><td>微信公众号</td><td>0.18</td><td>3.6%</td><td class="highlight-green">1.602</td><td>0.61</td><td>2.44</td><td>33.8</td><td class="highlight-red">1.251</td><td>61</td><td>1508</td><td>769</td></tr><tr><td>微信朋友圈</td><td>0.15</td><td>3.1%</td><td class="highlight-green">1.654</td><td>0.39</td><td>3.64</td><td>36.1</td><td class="highlight-red">1.260</td><td>61</td><td>1790</td><td>919</td></tr><tr><td>腾讯新闻</td><td>0.13</td><td>2.7%</td><td class="highlight-green">1.618</td><td>1.25</td><td>2.10</td><td>72.4</td><td class="">1.184</td><td>57</td><td>532</td><td>234</td></tr><tr><td>微视</td><td>0.13</td><td>2.7%</td><td class="">1.282</td><td>1.45</td><td>2.46</td><td>103.0</td><td class="highlight-red">1.465</td><td>50</td><td>489</td><td>207</td></tr><tr><td>微信搜一搜</td><td>0.07</td><td>1.4%</td><td class="highlight-red">1.138</td><td>4.11</td><td>3.89</td><td>523.3</td><td class="highlight-red">1.690</td><td>54</td><td>1189</td><td>321</td></tr><tr><td>腾讯视频</td><td>0.06</td><td>1.2%</td><td class="highlight-red">1.120</td><td>2.08</td><td>0.41</td><td>26.2</td><td class="highlight-red">1.715</td><td>49</td><td>420</td><td>188</td></tr>
+  </table>
+  <div class="chart" id="chart_jz_place"></div>
+
+  <h3>2.2 养能**版位分布（竞对参考）</h3>
+  <table>
+    <tr><th>二级流量</th><th>日均消耗(万)</th><th>占比</th><th>ROI</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>计价率</th><th>账户</th><th>广告</th><th>创意</th></tr>
+<tr><td>微信视频号</td><td class="desensitized">5-8万</td><td>71.4%</td><td class="desensitized">≈2.5</td><td class="desensitized">1-2</td><td class="desensitized">5-8</td><td class="desensitized">100-150</td><td class="desensitized">0.9-1.0</td><td class="desensitized">10+</td><td class="desensitized">500+</td><td class="desensitized">1000+</td></tr><tr><td>微信小程序</td><td class="desensitized">1-2万</td><td>16.5%</td><td class="desensitized">≈2.4</td><td class="desensitized">2-3</td><td class="desensitized">1-2</td><td class="desensitized">50-100</td><td class="desensitized">≈1.0</td><td class="desensitized">10+</td><td class="desensitized">100+</td><td class="desensitized">1000+</td></tr><tr><td>微信公众号</td><td class="desensitized">1万以下</td><td>5.3%</td><td class="desensitized">≈2.9</td><td class="desensitized">1-2</td><td class="desensitized">3-5</td><td class="desensitized">50-100</td><td class="desensitized"><0.9</td><td class="desensitized">10+</td><td class="desensitized">100+</td><td class="desensitized">500+</td></tr><tr><td>微信朋友圈</td><td class="desensitized">1万以下</td><td>4.2%</td><td class="desensitized">≈2.4</td><td class="desensitized"><1</td><td class="desensitized">3-5</td><td class="desensitized"><50</td><td class="desensitized">≈1.0</td><td class="desensitized">10+</td><td class="desensitized">100+</td><td class="desensitized">500+</td></tr><tr><td>腾讯新闻</td><td class="desensitized">1万以下</td><td>1.0%</td><td class="desensitized">≈2.2</td><td class="desensitized">1-2</td><td class="desensitized">1-2</td><td class="desensitized"><50</td><td class="desensitized">1.1-1.2</td><td class="desensitized">10+</td><td class="desensitized">100+</td><td class="desensitized">100+</td></tr><tr><td>微视</td><td class="desensitized">1万以下</td><td>0.4%</td><td class="desensitized">≈2.2</td><td class="desensitized">1-2</td><td class="desensitized">2-3</td><td class="desensitized">50-100</td><td class="desensitized">1.1-1.2</td><td class="desensitized">10+</td><td class="desensitized">100+</td><td class="desensitized">100+</td></tr><tr><td>腾讯视频</td><td class="desensitized">1万以下</td><td>0.3%</td><td class="desensitized">≈2.6</td><td class="desensitized">5-8</td><td class="desensitized"><1</td><td class="desensitized"><50</td><td class="desensitized">0.9-1.0</td><td class="desensitized">10+</td><td class="desensitized">100+</td><td class="desensitized">100+</td></tr><tr><td>微信搜一搜</td><td class="desensitized">1万以下</td><td>0.3%</td><td class="desensitized">≈2.4</td><td class="desensitized">5-8</td><td class="desensitized">3-5</td><td class="desensitized">300+</td><td class="desensitized">0.9-1.0</td><td class="desensitized">10+</td><td class="desensitized">100+</td><td class="desensitized">50+</td></tr>
+  </table>
+  <div class="insight"><b>竞对版位分布特征</b>：养能**以视频号为主力（71.4%消耗），微信小程序、公众号、朋友圈均衡分布。各版位ROI均在≈2.5~≈2.4区间，整体效率均衡。江中新零售在视频号CVR领先但ROI落后。<br><span class="desensitized">注：竞对各项指标已脱敏为范围值。</span></div>
+
+  <h3>2.3 同版位核心指标对比</h3>
+  <table>
+    <tr><th>版位</th><th>指标</th><th>江中新零售</th><th>养能**</th><th>差距</th></tr>
+<tr><td>微信视频号</td><td>ROI</td><td>1.577</td><td class="desensitized">≈2.5</td><td class="highlight-red">竞对优</td></tr><tr><td>微信视频号</td><td>CTR(%)</td><td>1.05</td><td class="desensitized">1-2</td><td class="highlight-red">竞对领先</td></tr><tr><td>微信视频号</td><td>CVR(%)</td><td>8.55</td><td class="desensitized">5-8</td><td class="highlight-green">江中领先</td></tr><tr><td>微信视频号</td><td>CPM(元)</td><td>159.4</td><td class="desensitized">100-150</td><td class="highlight-red">竞对更低</td></tr><tr><td colspan="5" style="background:#f0f0f0"></td></tr><tr><td>微信小程序</td><td>ROI</td><td>1.470</td><td class="desensitized">≈2.4</td><td class="highlight-red">竞对优</td></tr><tr><td>微信小程序</td><td>CTR(%)</td><td>3.70</td><td class="desensitized">2-3</td><td class="highlight-green">江中领先</td></tr><tr><td>微信小程序</td><td>CVR(%)</td><td>0.97</td><td class="desensitized">1-2</td><td class="highlight-red">竞对领先</td></tr><tr><td>微信小程序</td><td>CPM(元)</td><td>86.9</td><td class="desensitized">50-100</td><td class="highlight-green">江中更低</td></tr><tr><td colspan="5" style="background:#f0f0f0"></td></tr><tr><td>微信公众号</td><td>ROI</td><td>1.602</td><td class="desensitized">≈2.9</td><td class="highlight-red">竞对优</td></tr><tr><td>微信公众号</td><td>CTR(%)</td><td>0.61</td><td class="desensitized">1-2</td><td class="highlight-red">竞对领先</td></tr><tr><td>微信公众号</td><td>CVR(%)</td><td>2.44</td><td class="desensitized">3-5</td><td class="highlight-red">竞对领先</td></tr><tr><td>微信公众号</td><td>CPM(元)</td><td>33.8</td><td class="desensitized">50-100</td><td class="highlight-green">江中更低</td></tr><tr><td colspan="5" style="background:#f0f0f0"></td></tr><tr><td>微信朋友圈</td><td>ROI</td><td>1.654</td><td class="desensitized">≈2.4</td><td class="highlight-red">竞对优</td></tr><tr><td>微信朋友圈</td><td>CTR(%)</td><td>0.39</td><td class="desensitized"><1</td><td class="highlight-green">江中领先</td></tr><tr><td>微信朋友圈</td><td>CVR(%)</td><td>3.64</td><td class="desensitized">3-5</td><td class="">基本持平</td></tr><tr><td>微信朋友圈</td><td>CPM(元)</td><td>36.1</td><td class="desensitized"><50</td><td class="highlight-red">竞对更低</td></tr><tr><td colspan="5" style="background:#f0f0f0"></td></tr>
+  </table>
+  <div class="insight"><b>关键洞察</b>：在微信视频号版位上，江中新零售CVR=8.55% > 竞对5-8%，转化链路有竞争力，但ROI=1.577 < 竞对≈2.5，客单价偏低是主要原因。在微信小程序版位上，江中ROI=1.470 < 竞对≈2.4，CVR=0.97% < 竞对1-2%，差距明显。</div>
+</div>
+
+<div class="section">
+  <h2>三、余额预算诊断</h2>
+  <div class="conclusion"><b>整体判断：余额整体可控，但多个账户需关注充值</b><br>客户整体"余额即将不足账户消耗占比"=0%（无大面积余额不足风险信号）。但8个账户余额不足7天（均未开通共享钱包），涉及消耗占比较大，需关注充值。</div>
+  <h3>3.1 账户级余额明细（风险账户）</h3>
+  <table>
+    <tr><th>广告主名称</th><th>共享钱包</th><th>最新余额(元)</th><th>昨日消耗(元)</th><th>近7日日均(元)</th><th>预估可支撑天数</th><th>风险判定</th></tr>
+<tr style="background:#FFF5F5"><td>永康市慕夏工贸有限公司</td><td>❌ 否</td><td>4344</td><td>1500</td><td>1143</td><td>2.9</td><td class="highlight-red">🔴 余额不足</td></tr><tr style=""><td>永康市慕夏工贸有限公司</td><td>❌ 否</td><td>198</td><td>49</td><td>53</td><td>3.7</td><td class="highlight-orange">🟡 中风险</td></tr><tr style=""><td>永康市慕夏工贸有限公司</td><td>❌ 否</td><td>8177</td><td>2099</td><td>1787</td><td>3.9</td><td class="highlight-orange">🟡 中风险</td></tr><tr style=""><td>永康市慕夏工贸有限公司</td><td>❌ 否</td><td>5264</td><td>1128</td><td>202</td><td>4.7</td><td class="highlight-orange">🟡 中风险</td></tr><tr style=""><td>永康市慕夏工贸有限公司</td><td>❌ 否</td><td>13571</td><td>2427</td><td>493</td><td>5.6</td><td class="highlight-orange">🟡 中风险</td></tr><tr style=""><td>永康市慕夏工贸有限公司</td><td>❌ 否</td><td>6096</td><td>316</td><td>1087</td><td>5.6</td><td class="highlight-orange">🟡 中风险</td></tr><tr style=""><td>永康市慕夏工贸有限公司</td><td>❌ 否</td><td>10550</td><td>1860</td><td>538</td><td>5.7</td><td class="highlight-orange">🟡 中风险</td></tr><tr style=""><td>永康市慕夏工贸有限公司</td><td>❌ 否</td><td>6590</td><td>647</td><td>1068</td><td>6.2</td><td class="highlight-orange">🟡 中风险</td></tr>
+  </table>
+  <div class="warning"><b>风险提示</b>：8个账户余额不足7天，均未开通共享钱包。建议：① 紧急提醒充值至5万元以上；② 建议开通共享钱包，与其他账户共享资金池，降低单账户余额风险。</div>
+  <div class="insight"><b>预算撞线情况</b>：最新账户预算消耗进度字段暂不支持查询，无法诊断预算撞线风险。建议在投放端直接查看各账户预算设置与消耗进度。</div>
+</div>
+
+<div class="section">
+  <h2>四、基建诊断（L1→L2→L3）</h2>
+  <h3>4.1 基建差异对比</h3>
+  <table>
+    <tr><th>指标</th><th>江中新零售</th><th>养能**</th><th>差距倍数</th><th>判定</th></tr>
+    <tr><td>有消耗账户数</td><td>62</td><td class="desensitized">10+</td><td>4.1x</td><td class="highlight-green">江中领先</td></tr>
+    <tr><td>有消耗广告数</td><td>3443</td><td class="desensitized">500+</td><td>6.5x</td><td class="highlight-green">江中领先</td></tr>
+    <tr><td>有消耗创意数(TID)</td><td>3865</td><td class="desensitized">1000+</td><td>1.5x</td><td class="highlight-green">江中领先</td></tr>
+    <tr><td>智投项目数</td><td>655</td><td class="desensitized">50+</td><td>7.9x</td><td class="highlight-green">江中领先</td></tr>
+    <tr><td>智投渗透率(%)</td><td>88.69</td><td class="desensitized">≈89</td><td>—</td><td>基本持平</td></tr>
+    <tr><td>广告条均消耗(元)</td><td class="highlight-red">201.0</td><td class="desensitized">2000+</td><td>—</td><td class="highlight-red">江中远低</td></tr>
+    <tr><td>智投项目条均消耗</td><td class="highlight-red">75.5</td><td class="desensitized">1000+</td><td>—</td><td class="highlight-red">江中远低</td></tr>
+    <tr><td>账户平均广告数</td><td>55.5</td><td class="desensitized">≈35</td><td>—</td><td>—</td></tr>
+  </table>
+  <div class="conclusion"><b>L1判定：基建绝对值已达标，但效率严重不足——先提效，再扩量</b><br>江中新零售62账户/3443广告/3865创意，对照腰部中位数（4账户/44广告/536创意），基建绝对值已远超腰部中位数。但广告条均消耗仅201.0元（竞对2000+），说明广告数量虚高但单条跑量能力极弱。智投渗透率88.69%（竞对≈89%），智投使用率基本持平。</div>
+  <div class="insight"><b>关键问题：广告数量虚高但效率极低</b>——3443条广告但条均消耗仅201.0元（环比-24.0%），广告数环比+24.5%但消耗环比-5.4%，说明新建广告普遍未起量。建议优先清理低效广告、集中预算，而非继续扩张广告数量。</div>
+</div>
+
+<div class="section">
+  <h2>五、投放策略诊断</h2>
+  <h3>5.1 出价策略</h3>
+  <table>
+    <tr><th>指标</th><th>江中新零售</th><th>环比</th><th>养能**</th><th>环比</th></tr>
+    <tr><td>目标出价(元)</td><td>178.9</td><td>-6.5%</td><td class="desensitized">≈250</td><td>基本持平</td></tr>
+    <tr><td>下单成本(元)</td><td>226.8</td><td>-1.0%</td><td class="desensitized">≈250</td><td>小幅下滑</td></tr>
+    <tr><td>计价率</td><td class="highlight-red">1.202</td><td>+6.0%</td><td class="desensitized">0.9-1.0</td><td>基本持平</td></tr>
+    <tr><td>CPM(元)</td><td>100.0</td><td>+30.8%</td><td class="desensitized">50-100</td><td>小幅下滑</td></tr>
+    <tr><td>ROI出价(ROI广告)</td><td>1.905</td><td>-20.5%</td><td class="desensitized">≈2.5</td><td>稳步提升</td></tr>
+  </table>
+  <div class="warning"><b>计价率预警</b>：江中新零售整体计价率1.202（≥1.2预警线），超成本风险需关注。竞对计价率0.9-1.0（健康水平）。目标出价178.9元（环比-6.5%），ROI出价1.905（环比-20.5%），ROI出价下调有助放宽获量门槛。</div>
+
+  <h3>5.2 优化目标组合出价策略分析</h3>
+  <div class="conclusion">江中新零售使用三种优化目标组合：<b>CPA广告</b>（下单，占68.4%消耗）、<b>ROI广告</b>（下单-下单ROI，占30.3%消耗）和<b>CPA+辅助ROI</b>（下单-辅助优化下单ROI，占1.3%消耗）。</div>
+  <table>
+    <tr><th>指标</th><th>CPA广告（下单）</th><th>ROI广告（下单-下单ROI）</th><th>差异分析</th></tr>
+<tr><td>日均消耗(万)</td><td>33797.15</td><td>14973.55</td><td></td></tr><tr><td>下单ROI</td><td>1.507</td><td>1.565</td><td>CPA低4%</td></tr><tr><td>目标出价(元)</td><td>178.93</td><td>—</td><td></td></tr><tr><td>ROI出价</td><td>—</td><td>1.850</td><td></td></tr><tr><td>计价率(Cost/GMV)</td><td>1.210</td><td>1.194</td><td>CPA超预警</td></tr><tr><td>下单成本(元)</td><td>213.14</td><td>268.41</td><td></td></tr><tr><td>ctr(%)</td><td>2.37</td><td>1.64</td><td></td></tr><tr><td>浅层cvr(模型口径)(%)</td><td>1.75</td><td>3.74</td><td>ROI广告CVR领先53%</td></tr><tr><td>CPM(元)</td><td>85.68</td><td>157.25</td><td></td></tr><tr><td>下单单价(元)</td><td>321.25</td><td>420.10</td><td></td></tr><tr><td>有消耗的账户数</td><td>60.00</td><td>44.00</td><td></td></tr><tr><td>有消耗广告数</td><td>2682.00</td><td>743.00</td><td></td></tr><tr><td>日均有消耗展开创意数(TID级别)(个)</td><td>3031.71</td><td>756.79</td><td></td></tr><tr><td>有消耗智投项目数</td><td>469.00</td><td>186.00</td><td></td></tr><tr><td>艾米场景化智投消耗渗透率(%)</td><td>90.92</td><td>87.51</td><td></td></tr><tr><td>广告条均消耗(元)</td><td>176.4</td><td>282.1</td><td>ROI广告条均1.6倍</td></tr>
+  </table>
+  <div class="warning"><b>核心发现：两种出价模式ROI均低于竞对，CPA广告占比过高</b><br>
+  ① <b>ROI差距</b>：CPA广告ROI=1.507 vs ROI广告1.565，差距不大但均低于竞对≈2.5。<br>
+  ② <b>CVR差距</b>：CPA广告CVR=1.75% vs ROI广告CVR=3.74%，ROI广告CVR更高但消耗占比低。<br>
+  ③ <b>计价率分化</b>：CPA广告计价率1.210（超预警），ROI广告计价率1.194（超预警），均不如竞对健康。<br>
+  ④ <b>基建效率</b>：CPA广告2682条广告条均176.4元，ROI广告743条广告条均282.1元，均远低于竞对水平。<br>
+  ⑤ <b>出价策略变化</b>：ROI出价环比-20.5%（下调，放宽获量门槛），目标出价环比-6.5%（下调，降低目标成本）。</div>
+  <div class="insight"><b>策略建议</b>：<br>① 参考竞对均衡投放模式（ROI广告占54.7%、CPA广告占44.2%），适当提升ROI广告占比；<br>② 排查CPA广告计价率超预警根因——可能是素材衰退或定向偏移；<br>③ 清理低效广告，将预算集中至高ROI广告，提升条均消耗；<br>④ 优化微信小程序版位转化链路，提升CVR。</div>
+
+  <h3>5.3 版位集中度</h3>
+  <table>
+    <tr><th>站点集</th><th>日均消耗(万)</th><th>占比</th><th>ROI</th><th>CTR(%)</th><th>CVR(%)</th><th>CPM(元)</th><th>广告数</th><th>创意数</th></tr>
+<tr><td>21 (微信)</td><td>4.60</td><td>93.0%</td><td>1.545</td><td>1.84</td><td>2.75</td><td>108.1</td><td>3433</td><td>3697</td></tr><tr><td>27 (腾讯新闻流量)</td><td>0.23</td><td>4.7%</td><td>1.526</td><td>1.23</td><td>2.19</td><td>74.3</td><td>632</td><td>304</td></tr><tr><td>28 (腾讯视频流量)</td><td>0.06</td><td>1.2%</td><td>1.121</td><td>2.24</td><td>0.41</td><td>28.6</td><td>416</td><td>185</td></tr><tr><td>25 (移动内部站点)</td><td>0.06</td><td>1.1%</td><td>1.185</td><td>13.42</td><td>0.07</td><td>31.4</td><td>525</td><td>290</td></tr><tr><td>15 (移动联盟)</td><td>0.00</td><td>0.0%</td><td>0.000</td><td>5.61</td><td>0.00</td><td>25.5</td><td>8</td><td>0</td></tr>
+  </table>
+  <div class="insight"><b>版位集中度高</b>：93.0%消耗集中在微信版位，ROI=1.545。其他版位消耗占比低且ROI偏低，建议聚焦微信版位。</div>
+</div>
+
+<div class="section">
+  <h2>六、竞对标杆分析</h2>
+  <h3>6.1 综合竞争态势</h3>
+  <table>
+    <tr><th>维度</th><th>江中新零售</th><th>养能**</th><th>优劣势</th></tr>
+    <tr><td>日均消耗规模</td><td>4.94万/日</td><td>8-10万/日</td><td class="highlight-red">规模差距约42%</td></tr>
+    <tr><td>ROI</td><td class="highlight-red">1.535</td><td class="desensitized">≈2.5</td><td class="highlight-red">竞对领先约38%</td></tr>
+    <tr><td>CTR</td><td class="highlight-green">2.23%</td><td class="desensitized">1-2%</td><td class="highlight-green">江中约1.4倍领先</td></tr>
+    <tr><td>CVR</td><td class="highlight-red">2.04%</td><td class="desensitized">3-5%</td><td class="highlight-red">竞对约1.6倍领先</td></tr>
+    <tr><td>CPM</td><td>100.0元</td><td class="desensitized">50-100元</td><td>基本持平</td></tr>
+    <tr><td>计价率</td><td class="highlight-red">1.202</td><td class="desensitized">0.9-1.0</td><td class="highlight-red">江中超成本风险更高</td></tr>
+    <tr><td>智投渗透率</td><td>88.69%</td><td class="desensitized">≈89%</td><td>基本持平</td></tr>
+    <tr><td>广告条均消耗</td><td class="highlight-red">201.0元</td><td class="desensitized">2000+</td><td class="highlight-red">差距约11倍</td></tr>
+    <tr><td>基建规模(账户/广告)</td><td>62/3443</td><td class="desensitized">10+/500+</td><td class="highlight-green">江中数量领先但效率落后</td></tr>
+  </table>
+
+  <h3>6.2 差异最大的3个指标及追赶建议</h3>
+  <div class="conclusion"><b>① 广告条均消耗差距约11倍（201.0元 vs 2000+）</b>——核心差距。<br>可能原因：3443条广告但条均仅201.0元，广告数量虚高但单条跑量能力极弱。广告数环比+24.5%但消耗环比-5.4%，说明新建广告普遍未起量。<br><b>追赶建议</b>：清理低效广告（条均消耗<100元的广告），将预算集中至高ROI广告，目标将条均消耗提升至500元+。</div>
+  <div class="conclusion"><b>② ROI差距约38%（1.535 vs ≈2.5）</b><br>可能原因：客单价偏低（348.1元 vs 竞对≈500元），计价率超预警（1.202 vs 竞对0.9-1.0），出价策略结构失衡（CPA广告占比68.4% vs 竞对44.2%）。<br><b>追赶建议</b>：优化出价策略结构，参考竞对均衡投放模式；优化小程序版位转化链路提升CVR；排查计价率超预警根因。</div>
+  <div class="conclusion"><b>③ CVR差距（2.04% vs 3-5%）</b><br>可能原因：微信小程序版位CVR=0.97%远低于竞对1-2%，拖累整体CVR。但视频号版位CVR=8.55% > 竞对5-8%，转化链路本身有竞争力。<br><b>追赶建议</b>：优化小程序版位转化链路，或缩减低CVR版位消耗占比，聚焦视频号。</div>
+
+  <h3>6.3 高ROI标杆</h3>
+  <div class="conclusion">江中新零售在微信视频号版位CVR=8.55% > 竞对5-8%（领先约13%），说明视频号转化链路有竞争力。保持并放大这一优势是放量基础。同时微信公众号版位ROI=1.602也表现优异，可作为扩量方向。</div>
+</div>
+
+<div class="section">
+  <h2>七、优化建议</h2>
+  <h3>🔴 P0 立即执行</h3>
+  <div class="warning"><b>1. 清理低效广告，集中预算</b>：3443条广告但条均消耗仅201.0元（环比-24.0%），广告数环比+24.5%但消耗环比-5.4%，说明新建广告普遍未起量。<b>操作</b>：清理条均消耗<100元的低效广告，将预算集中至高ROI广告，目标将条均消耗提升至500元+。</div>
+  <div class="warning"><b>2. 紧急充值风险账户</b>：8个账户余额不足7天（均未开通共享钱包），余额合计54790元。<b>操作</b>：① 紧急提醒充值至5万元以上；② 建议开通共享钱包。</div>
+  <div class="warning"><b>3. 排查计价率超预警版位</b>：整体计价率1.202（≥1.2预警线），微信搜一搜（1.690）、腾讯视频（1.715）等版位严重超成本。<b>操作</b>：关停低效版位广告组，预算转移至微信视频号。</div>
+
+  <h3>🟡 P1 本周内完成</h3>
+  <div class="conclusion"><b>4. 优化出价策略结构</b>：CPA广告占68.4%消耗但ROI=1.507、计价率1.210超预警；ROI广告占30.3%消耗但ROI=1.565。竞对ROI广告占54.7%（ROI=≈2.5)）、CPA广告占44.2%（ROI=≈2.5)）。建议参考竞对均衡投放模式，适当提升ROI广告占比。</div>
+  <div class="conclusion"><b>5. 优化微信小程序版位</b>：占25.4%消耗但ROI=1.470、CVR=0.97%远低于视频号版位CVR=8.55%。建议优化小程序版位转化链路或缩减低效消耗。</div>
+  <div class="conclusion"><b>6. 提升客单价</b>：客单价348.1元 vs 竞对≈500元，差距约31%。建议优化商品组合和定价策略，提升高客单价商品占比。</div>
+  <div class="conclusion"><b>7. 优化视频号版位ROI</b>：视频号CVR=8.55% > 竞对5-8%（领先），但ROI=1.577 < 竞对≈2.5。建议优化商品定价和直播间话术，将CVR优势转化为ROI优势。</div>
+
+  <h3>🟢 P2 持续观察</h3>
+  <div class="conclusion"><b>8. 拓展微信公众号版位</b>：江中在公众号版位ROI=1.602（竞对≈2.9)），表现优异但仅占3.6%消耗。建议在视频号版位稳定后，逐步提升公众号版位预算占比。</div>
+  <div class="conclusion"><b>9. 持续监控竞对动态</b>：养能**近2周消耗环比稳步提升、ROI环比基本持平，处于稳步增长期。其增长主要来自视频号版位，江中需加速在视频号的基建和素材投入。</div>
+  <div class="conclusion"><b>10. 计价率持续监控</b>：整体计价率1.202触及预警线，需持续监控。若计价率持续上升至1.3+，需排查是否ROI出价设置不当或素材衰退导致系统控量。</div>
+</div>
+
+<div class="section">
+  <h2>附录：数据说明与指标口径</h2>
+  <table>
+    <tr><th>项目</th><th>说明</th></tr>
+    <tr><td>数据来源</td><td>腾讯广告数仓 g:biz_main_multiple:log_time</td></tr>
+    <tr><td>时间范围</td><td>近2周（环比前2周，链式环比）；余额诊断为昨日单天实时快照</td></tr>
+    <tr><td>筛选条件</td><td>竞价口径，客户简称：江中新零售；竞对已脱敏</td></tr>
+    <tr><td>ROI口径</td><td>系统汇总行下单ROI（消耗加权），保留3位小数</td></tr>
+    <tr><td>CTR/CVR/CPM</td><td>数仓分组行直接返回值，跨版位汇总时消耗加权</td></tr>
+    <tr><td>竞对脱敏</td><td>竞对名称脱敏2字；消耗精确值范围化；ROI/CTR/CVR/CPM等所有效率指标均脱敏为范围值</td></tr>
+    <tr><td>余额诊断口径</td><td>客户级余额即将不足账户消耗占比 + 账户级最新余额/昨日消耗/近7日日均/共享钱包状态</td></tr>
+    <tr><td>出价策略口径</td><td>按优化目标组合(mix_goal_v3)分组：下单-下单ROI=ROI广告，下单=CPA广告</td></tr>
+    <tr><td>基建口径</td><td>有消耗账户数/广告数/创意数为近14天去重值；日均消耗为日均口径</td></tr>
+  </table>
+</div>
+
+</div>
+
+<script>
+// 江中新零售版位消耗分布图
+var jz_flows = [
+["微信视频号", 2.9416, 1.577],
+["微信小程序", 1.2563, 1.470],
+["微信公众号", 0.1767, 1.602],
+["微信朋友圈", 0.1526, 1.654],
+["腾讯新闻", 0.1324, 1.618],
+["微视", 0.1323, 1.282],
+["微信搜一搜", 0.0679, 1.138],
+["腾讯视频", 0.0575, 1.120],
+];
+var trace1 = {
+  x: jz_flows.map(d => d[0]),
+  y: jz_flows.map(d => d[1]),
+  type: 'bar', name: '日均消耗(万)',
+  marker: {color: ['#0984e3','#00b894','#6c5ce7','#f39c12','#e17055','#fd79a8','#a29bfe','#ffeaa7']}
+};
+var layout = {
+  title: '江中新零售版位消耗分布',
+  margin: {t: 50, b: 100}, height: 350,
+  xaxis: {tickangle: -30}
+};
+Plotly.newPlot('chart_jz_place', [trace1], layout, {responsive: true});
+</script>
+<script>(function(){var _h=0,_t;function m(){var b=document.body;if(!b)return 0;return Math.max(b.scrollHeight,b.offsetHeight,Math.ceil(b.getBoundingClientRect().height))}function s(){var h=m();if(h>0&&h!==_h){_h=h;window.parent.postMessage({type:"iframe-resize",height:h},"*")}}function d(){clearTimeout(_t);_t=setTimeout(s,150)}if(document.readyState==="complete")s();else window.addEventListener("load",s);window.addEventListener("resize",d);if(typeof ResizeObserver!=="undefined"){var ro=new ResizeObserver(d);ro.observe(document.documentElement);if(document.body)ro.observe(document.body)}})();</script><div id="__idata_artifact_err_overlay__" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);display:none;width:min(640px,calc(100vw - 48px));max-height:80vh;padding:24px 28px;background:#ffffff;border:1px solid #fca5a5;border-left:4px solid #ef4444;border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,0.12);z-index:2147483646;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Segoe UI',sans-serif;color:#7f1d1d;box-sizing:border-box;"><div style="display:flex;align-items:center;gap:10px;font-size:16px;font-weight:600;margin-bottom:14px;"><span style="display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;background:#ef4444;color:#fff;border-radius:50%;font-size:14px;font-weight:bold;flex-shrink:0;">!</span><span>图表渲染失败</span></div><pre id="__idata_artifact_err_msg__" style="margin:0;padding:14px 16px;background:#fef2f2;border-radius:8px;font-size:12px;line-height:1.65;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;color:#7f1d1d;max-height:60vh;overflow:auto;"></pre><div style="margin-top:12px;font-size:11px;color:#9ca3af;line-height:1.5;">报告给大模型可自动修复该脚本</div></div><script>(function(){var ov=document.getElementById('__idata_artifact_err_overlay__');var msg=document.getElementById('__idata_artifact_err_msg__');if(!ov||!msg)return;var shownSet={};function _show(t){if(!t||shownSet[t])return;shownSet[t]=1;msg.textContent=String(t).slice(0,3000);ov.style.display='block';}var q=window.__idata_artifact_error__||[];for(var i=0;i<q.length;i++)_show(q[i]);window.addEventListener('error',function(ev){var parts=[];if(ev.error&&(ev.error.stack||ev.error.message)){parts.push(String(ev.error.stack||ev.error.message));}else{parts.push(ev.message||'Unknown error');}if(ev.filename){parts.push('\n(at '+ev.filename+':'+(ev.lineno||'?')+':'+(ev.colno||'?')+')');}_show(parts.join('\n'));});window.addEventListener('unhandledrejection',function(ev){var r=ev.reason;_show((r&&(r.stack||r.message))||r||'Unhandled Promise rejection');});})();</script><style id="__adata_wm_style__">.__adata_wm__{position:fixed;inset:0;pointer-events:none;z-index:2147483647;background-repeat:repeat;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='160'><text x='50%' y='50%' fill='rgba(0,0,0,0.08)' font-size='14' font-family='-apple-system,Segoe UI,sans-serif' text-anchor='middle' transform='rotate(-25 120 80)'>goinglin</text></svg>")}</style><div class="__adata_wm__" aria-hidden="true"></div></body>
+</html>
