@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><script>(function(){window.__idata_artifact_error__=[];function _record(t){t=String(t==null?'unknown error':t).slice(0,5000);window.__idata_artifact_error__.push(t);try{window.parent&&window.parent.postMessage({type:'artifact-error',message:t.slice(0,500)},'*');}catch(_e){}}window.addEventListener('error',function(ev){var parts=[];if(ev.error&&(ev.error.stack||ev.error.message)){parts.push(String(ev.error.stack||ev.error.message));}else{parts.push(ev.message||'Unknown error');}if(ev.filename){parts.push('\n(at '+ev.filename+':'+(ev.lineno||'?')+':'+(ev.colno||'?')+')');}_record(parts.join('\n'));},true);window.addEventListener('unhandledrejection',function(ev){var r=ev.reason;_record((r&&(r.stack||r.message))||r||'Unhandled Promise rejection');});})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>多燕瘦 vs 竞对投放优化分析报告（更新版）</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f0f2f5; color: #333; line-height: 1.8; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+.header { background: linear-gradient(135deg, #1a237e 0%, #283593 100%); color: white; padding: 40px 32px; border-radius: 12px; margin-bottom: 24px; }
+.header h1 { font-size: 26px; margin-bottom: 8px; }
+.header .subtitle { font-size: 14px; opacity: 0.85; }
+.header .meta { margin-top: 16px; display: flex; gap: 24px; font-size: 13px; opacity: 0.8; }
+.header .meta span { display: inline-flex; align-items: center; gap: 4px; }
+.section { background: white; border-radius: 12px; padding: 28px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.section h2 { font-size: 20px; color: #1a237e; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #e8eaf6; display: flex; align-items: center; gap: 8px; }
+.section h2 .icon { font-size: 24px; }
+.section h3 { font-size: 17px; color: #283593; margin: 20px 0 12px; }
+.section h4 { font-size: 15px; color: #455a64; margin: 16px 0 8px; }
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+th { background: #e8eaf6; color: #1a237e; padding: 10px 8px; text-align: center; font-weight: 600; border: 1px solid #c5cae9; }
+td { padding: 8px; text-align: center; border: 1px solid #e0e0e0; }
+tr:nth-child(even) td { background: #fafafa; }
+.highlight-row td { background: #fff3e0 !important; font-weight: 600; }
+.best { color: #2e7d32; font-weight: 700; }
+.worst { color: #c62828; font-weight: 700; }
+.warn { color: #e65100; font-weight: 600; }
+.insight-box { background: #e3f2fd; border-left: 4px solid #1976d2; padding: 16px 20px; margin: 16px 0; border-radius: 0 8px 8px 0; }
+.insight-box .title { font-weight: 700; color: #1565c0; margin-bottom: 6px; font-size: 14px; }
+.finding-box { background: #fff3e0; border-left: 4px solid #ff9800; padding: 16px 20px; margin: 16px 0; border-radius: 0 8px 8px 0; }
+.finding-box .title { font-weight: 700; color: #e65100; margin-bottom: 6px; font-size: 14px; }
+.creative-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; margin: 12px 0; background: #fafafa; }
+.creative-card .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.creative-card .client-name { font-weight: 700; font-size: 15px; color: #1a237e; }
+.creative-card .ctr-badge { background: #e8f5e9; color: #2e7d32; padding: 2px 10px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+.creative-card .ctr-badge.low { background: #ffebee; color: #c62828; }
+.creative-card .hook { font-size: 14px; color: #455a64; margin: 8px 0; }
+.creative-card .hook strong { color: #1a237e; }
+.creative-card .strategy { font-size: 13px; color: #616161; }
+.creative-card .material-img { width: 100%; max-width: 400px; border-radius: 8px; margin: 8px 0; border: 1px solid #e0e0e0; }
+.creative-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+.priority-section { margin: 20px 0; }
+.priority-item { display: flex; gap: 12px; padding: 16px; border-radius: 8px; margin-bottom: 12px; }
+.priority-item.red { background: #ffebee; border-left: 4px solid #c62828; }
+.priority-item.yellow { background: #fff8e1; border-left: 4px solid #ff8f00; }
+.priority-item.green { background: #e8f5e9; border-left: 4px solid #2e7d32; }
+.priority-badge { font-size: 20px; flex-shrink: 0; }
+.priority-content h4 { margin: 0 0 6px; font-size: 15px; color: #333; }
+.priority-content p { font-size: 13px; color: #616161; margin: 0; }
+.summary-box { background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%); color: white; padding: 24px; border-radius: 12px; margin-bottom: 20px; }
+.summary-box h2 { color: white; border-bottom: 1px solid rgba(255,255,255,0.3); }
+.summary-box .key-finding { background: rgba(255,255,255,0.1); padding: 12px 16px; border-radius: 8px; margin: 8px 0; }
+.summary-box .key-finding strong { color: #ffd54f; }
+.note { font-size: 12px; color: #9e9e9e; margin-top: 4px; }
+.comparison-bar { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+.bar-container { flex: 1; height: 24px; background: #f0f0f0; border-radius: 12px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 12px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 12px; color: white; font-weight: 600; }
+.bar-label { width: 100px; font-size: 13px; text-align: right; }
+.preview-btn { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #1976d2, #1565c0); color: white; border: none; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 8px rgba(25,118,210,0.3); }
+.preview-btn:hover { background: linear-gradient(135deg, #1565c0, #0d47a1); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(25,118,210,0.4); }
+.preview-btn:active { transform: translateY(0); }
+.video-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; }
+.video-modal.active { display: flex; }
+.video-modal-content { position: relative; max-width: 90%; max-height: 90%; }
+.video-modal-content video { max-width: 800px; width: 100%; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+.close-modal { position: absolute; top: -40px; right: 0; color: white; font-size: 28px; cursor: pointer; background: rgba(255,255,255,0.15); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.close-modal:hover { background: rgba(255,255,255,0.3); }
+.modal-title { color: white; text-align: center; margin-bottom: 12px; font-size: 15px; opacity: 0.9; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+    <h1>📊 多燕瘦 vs 竞对投放优化分析报告</h1>
+    <div class="subtitle">减肥瘦身类目 · 竞价口径 · 近7天数据</div>
+    <div class="meta">
+        <span>📅 数据时间：近7天（截至昨日）</span>
+        <span>🎯 分析维度：链路CPA / CTR版位 / 素材创意</span>
+        <span>📊 竞对范围：日耗≥5万的TOP客户</span>
+    </div>
+</div>
+
+<!-- 核心结论 -->
+<div class="summary-box">
+    <h2>🎯 核心结论</h2>
+    <div class="key-finding">
+        <strong>消耗规模：</strong>多燕瘦日均消耗 <strong>10.27万/日</strong>，在减肥瘦身类目TOP6客户中排第4位（10万+梯队），低于中未**瘦（10万+）、霞*（10万+）、双*（10万+），高于敖*（8-10万）、尚*（5-8万）。
+    </div>
+    <div class="key-finding">
+        <strong>ROI表现：</strong>多燕瘦 ROI <strong>1.304</strong>，在所有TOP客户中<strong>最高</strong>，远超双*（0.915）、敖*（0.750）、尚*（0.560）。但加粉链路客户（中未**瘦/霞*）ROI极低（0.247/0.000），因链路类型不同不具直接可比性。
+    </div>
+    <div class="key-finding">
+        <strong>核心矛盾：</strong>多燕瘦<strong>ROI最高但出价最低</strong>（目标出价50.0元，同类直播/直购客户中最低），出价策略偏保守，限制获量空间。同时<strong>CTR仅1.86%</strong>，在TOP6中倒数第二，素材吸引力不足是制约获量的核心瓶颈。
+    </div>
+    <div class="key-finding">
+        <strong>素材短板：</strong>多燕瘦100%使用视频素材，视频CTR仅2.11%，而竞对中未**瘦/霞*/尚*以图片素材为主，CTR达2.97%~5.25%。多燕瘦的钩子文案"早上起来不要吃鸡蛋"情绪唤醒度低，远弱于竞对的"好奇心+权威/恐惧"策略。
+    </div>
+</div>
+
+<!-- 一、投放链路及CPA差异 -->
+<div class="section">
+    <h2><span class="icon">🔗</span> 一、投放链路及CPA差异分析</h2>
+
+    <h3>1.1 各客户链路结构对比</h3>
+    <table>
+        <tr>
+            <th>客户</th>
+            <th>日均消耗</th>
+            <th>链路结构</th>
+            <th>链路类型</th>
+            <th>CPA(元)</th>
+            <th>ROI</th>
+            <th>目标出价(元)</th>
+            <th>计价率</th>
+        </tr>
+        <tr>
+            <td>中未**瘦</td>
+            <td>10万+</td>
+            <td>加粉(100%)</td>
+            <td>加粉</td>
+            <td>11.5</td>
+            <td>0.247</td>
+            <td>270.4</td>
+            <td>1.051</td>
+        </tr>
+        <tr>
+            <td>霞*</td>
+            <td>10万+</td>
+            <td>加粉(100%)</td>
+            <td>加粉</td>
+            <td>237.3</td>
+            <td>0.000</td>
+            <td>234.8</td>
+            <td>1.012</td>
+        </tr>
+        <tr>
+            <td>双*</td>
+            <td>10万+</td>
+            <td>直播(60%)+直购(40%)</td>
+            <td>直播+直购</td>
+            <td>60.5</td>
+            <td>0.915</td>
+            <td>65.6</td>
+            <td>1.178</td>
+        </tr>
+        <tr class="highlight-row">
+            <td>多燕瘦</td>
+            <td>10.27万/日</td>
+            <td>直播(86%)+直购(14%)</td>
+            <td>直播+直购</td>
+            <td>55.0</td>
+            <td class="best">1.304</td>
+            <td class="worst">50.0</td>
+            <td>1.113</td>
+        </tr>
+        <tr>
+            <td>敖*</td>
+            <td>8-10万</td>
+            <td>直购(100%)</td>
+            <td>直购</td>
+            <td>69.3</td>
+            <td>0.750</td>
+            <td>58.7</td>
+            <td>1.176</td>
+        </tr>
+        <tr>
+            <td>尚*</td>
+            <td>5-8万</td>
+            <td>直购(98%)+品宣(2%)</td>
+            <td>直购</td>
+            <td>0.5</td>
+            <td>0.560</td>
+            <td>98.7</td>
+            <td>1.123</td>
+        </tr>
+    </table>
+    <div class="note">注：加粉链路CPA为加粉成本（非下单CPA），与直播/直购链路CPA口径不同，不可直接比较。尚*CPA异常低（0.5元），疑为浅层转化口径差异。</div>
+
+    <div class="insight-box">
+        <div class="title">💡 关键洞察</div>
+        <p><strong>链路分化明显：</strong>TOP6客户呈现三种链路模式——加粉型（中未**瘦/霞*，100%加粉）、直播+直购型（多燕瘦/双*）、纯直购型（敖*/尚*）。多燕瘦以直播为主(86%)，与双*的"直播+直购均衡"结构不同。</p>
+        <p><strong>多燕瘦核心矛盾：</strong>ROI 1.304在直播/直购客户中最高，但目标出价50.0元是同类客户中最低（双*65.6、敖*58.7、尚*98.7）。<strong>高ROI+低出价=系统获量空间被压缩</strong>，消耗规模受限。</p>
+        <p><strong>出价竞争力不足：</strong>多燕瘦计价率1.113处于正常区间，但CPM仅57.9元（双*102.3元），说明在同等竞价环境下，多燕瘦的eCPM竞争力偏弱，主要受低CTR和低出价双重压制。</p>
+    </div>
+
+    <h3>1.2 分链路CPA与ROI对比</h3>
+    <table>
+        <tr>
+            <th>客户</th>
+            <th>链路</th>
+            <th>日耗(万/日)</th>
+            <th>占比</th>
+            <th>CPA(元)</th>
+            <th>ROI</th>
+            <th>CTR(%)</th>
+        </tr>
+        <tr class="highlight-row">
+            <td>多燕瘦</td>
+            <td>直播</td>
+            <td>8.83</td>
+            <td>86%</td>
+            <td>54.5</td>
+            <td class="best">1.341</td>
+            <td class="worst">1.60</td>
+        </tr>
+        <tr class="highlight-row">
+            <td>多燕瘦</td>
+            <td>直购</td>
+            <td>1.44</td>
+            <td>14%</td>
+            <td>71.6</td>
+            <td>0.852</td>
+            <td>3.00</td>
+        </tr>
+        <tr>
+            <td>双*</td>
+            <td>直播</td>
+            <td>6.46</td>
+            <td>60%</td>
+            <td>51.1</td>
+            <td>1.017</td>
+            <td>3.84</td>
+        </tr>
+        <tr>
+            <td>双*</td>
+            <td>直购</td>
+            <td>4.23</td>
+            <td>40%</td>
+            <td>80.8</td>
+            <td>0.781</td>
+            <td>2.95</td>
+        </tr>
+        <tr>
+            <td>敖*</td>
+            <td>直购</td>
+            <td>8.25</td>
+            <td>100%</td>
+            <td>68.2</td>
+            <td>0.773</td>
+            <td>3.18</td>
+        </tr>
+    </table>
+
+    <div class="finding-box">
+        <div class="title">⚠️ 核心发现</div>
+        <p><strong>多燕瘦直播链路ROI最高(1.341)但CTR最低(1.60%)</strong>——在同样的微信视频号直播版位上，双*的CTR达到3.84%（多燕瘦的2.4倍），说明多燕瘦直播间的素材吸引力严重不足，高ROI主要靠后端转化效率（CVR 7.19%）支撑，而非前端获量能力。</p>
+        <p><strong>直购链路占比偏低：</strong>多燕瘦直购仅占14%，而双*直购占40%。双*通过直购链路在微信小程序版位获得了CTR 3.84%的表现，多燕瘦可考虑提升直购链路占比以分散风险。</p>
+    </div>
+</div>
+
+<!-- 二、CTR及版位差异 -->
+<div class="section">
+    <h2><span class="icon">📈</span> 二、CTR及版位差异分析</h2>
+
+    <h3>2.1 整体CTR对比</h3>
+    
+    <div class="comparison-bar">
+        <div class="bar-label">尚*</div>
+        <div class="bar-container"><div class="bar-fill" style="width:100%;background:#2e7d32;">6.17%</div></div>
+    </div>
+    <div class="comparison-bar">
+        <div class="bar-label">霞*</div>
+        <div class="bar-container"><div class="bar-fill" style="width:76%;background:#43a047;">4.71%</div></div>
+    </div>
+    <div class="comparison-bar">
+        <div class="bar-label">中未**瘦</div>
+        <div class="bar-container"><div class="bar-fill" style="width:70%;background:#66bb6a;">4.33%</div></div>
+    </div>
+    <div class="comparison-bar">
+        <div class="bar-label">双*</div>
+        <div class="bar-container"><div class="bar-fill" style="width:51%;background:#ffeb3b;color:#333;">3.13%</div></div>
+    </div>
+    <div class="comparison-bar">
+        <div class="bar-label">多燕瘦</div>
+        <div class="bar-container"><div class="bar-fill" style="width:30%;background:#ef5350;">1.86%</div></div>
+    </div>
+    <div class="comparison-bar">
+        <div class="bar-label">敖*</div>
+        <div class="bar-container"><div class="bar-fill" style="width:29%;background:#c62828;">1.80%</div></div>
+    </div>
+
+    <div class="finding-box">
+        <div class="title">⚠️ 核心发现</div>
+        <p>多燕瘦整体CTR <strong>1.86%</strong>，仅为竞对均值的<strong>46%</strong>（竞对均值4.04%），在TOP6中倒数第二。最高的是尚*(6.17%)，是的多燕瘦的3.3倍。</p>
+    </div>
+
+    <h3>2.2 二级流量版位拆分对比</h3>
+    <table>
+        <tr>
+            <th>客户</th>
+            <th>主要版位1</th>
+            <th>占比1</th>
+            <th>CTR1</th>
+            <th>主要版位2</th>
+            <th>占比2</th>
+            <th>CTR2</th>
+            <th>整体CTR</th>
+        </tr>
+        <tr>
+            <td>中未**瘦</td>
+            <td>微信公众号</td>
+            <td>53%</td>
+            <td>5.45%</td>
+            <td>微信朋友圈</td>
+            <td>26%</td>
+            <td>1.87%</td>
+            <td>4.33%</td>
+        </tr>
+        <tr>
+            <td>霞*</td>
+            <td>微信公众号</td>
+            <td>86%</td>
+            <td>5.00%</td>
+            <td>平台与内容广告</td>
+            <td>12%</td>
+            <td>4.30%</td>
+            <td>4.71%</td>
+        </tr>
+        <tr>
+            <td>双*</td>
+            <td>微信视频号</td>
+            <td>44%</td>
+            <td>2.95%</td>
+            <td>微信小程序</td>
+            <td>44%</td>
+            <td>3.84%</td>
+            <td>3.13%</td>
+        </tr>
+        <tr class="highlight-row">
+            <td>多燕瘦</td>
+            <td>微信视频号</td>
+            <td>60%</td>
+            <td class="worst">1.60%</td>
+            <td>微信小程序</td>
+            <td>25%</td>
+            <td class="worst">1.84%</td>
+            <td>1.86%</td>
+        </tr>
+        <tr>
+            <td>敖*</td>
+            <td>微信视频号</td>
+            <td>52%</td>
+            <td>3.18%</td>
+            <td>微信小程序</td>
+            <td>38%</td>
+            <td>1.38%</td>
+            <td>1.80%</td>
+        </tr>
+        <tr>
+            <td>尚*</td>
+            <td>微信公众号</td>
+            <td>34%</td>
+            <td>2.76%</td>
+            <td>平台与内容广告</td>
+            <td>23%</td>
+            <td>3.79%</td>
+            <td>6.17%</td>
+        </tr>
+    </table>
+
+    <div class="insight-box">
+        <div class="title">💡 关键洞察</div>
+        <p><strong>CTR偏低非版位选择问题，而是同版位下素材吸引力不足。</strong>多燕瘦与双*使用高度相似的版位结构（微信视频号+微信小程序），但在相同版位上：</p>
+        <ul style="margin-left:20px;margin-top:8px;">
+            <li><strong>微信视频号：</strong>多燕瘦CTR 1.60% vs 双* 2.95% — <span class="worst">低46%</span></li>
+            <li><strong>微信小程序：</strong>多燕瘦CTR 1.84% vs 双* 3.84% — <span class="worst">低52%</span></li>
+        </ul>
+        <p style="margin-top:8px;">中未**瘦和霞*的高CTR主要来自微信公众号版位（图片素材+加粉链路），版位和链路类型不同，不直接可比。但<strong>在同版位同链路的对比中，多燕瘦的素材短板暴露无遗</strong>。</p>
+    </div>
+
+    <h3>2.3 CPM竞争力对比</h3>
+    <table>
+        <tr>
+            <th>客户</th>
+            <th>整体CPM(元)</th>
+            <th>整体CTR(%)</th>
+            <th>目标出价(元)</th>
+            <th>竞争力评估</th>
+        </tr>
+        <tr>
+            <td>双*</td>
+            <td class="best">102.3</td>
+            <td>3.13%</td>
+            <td>65.6</td>
+            <td class="best">eCPM最强，获量能力突出</td>
+        </tr>
+        <tr>
+            <td>中未**瘦</td>
+            <td>67.1</td>
+            <td>4.33%</td>
+            <td>270.4</td>
+            <td>加粉高出价支撑CPM</td>
+        </tr>
+        <tr>
+            <td>霞*</td>
+            <td>64.9</td>
+            <td>4.71%</td>
+            <td>234.8</td>
+            <td>加粉高出价支撑CPM</td>
+        </tr>
+        <tr class="highlight-row">
+            <td>多燕瘦</td>
+            <td class="worst">57.9</td>
+            <td class="worst">1.86%</td>
+            <td class="worst">50.0</td>
+            <td class="worst">低CTR+低出价双重压制</td>
+        </tr>
+        <tr>
+            <td>敖*</td>
+            <td>56.8</td>
+            <td>1.80%</td>
+            <td>58.7</td>
+            <td>CTR偏低，出价略高于多燕瘦</td>
+        </tr>
+        <tr>
+            <td>尚*</td>
+            <td>19.8</td>
+            <td>6.17%</td>
+            <td>98.7</td>
+            <td>CPM极低，量级有限</td>
+        </tr>
+    </table>
+    <div class="note">注：CPM = eCPM（竞价口径），反映广告在竞价环境中的实际竞争力。多燕瘦CPM 57.9元，仅为双*的57%。</div>
+</div>
+
+<!-- 三、素材维度差异 -->
+<div class="section">
+    <h2><span class="icon">🎨</span> 三、素材维度差异分析</h2>
+
+    <h3>3.1 素材类型分布对比</h3>
+    <table>
+        <tr>
+            <th>客户</th>
+            <th>图片日耗(万)</th>
+            <th>图片占比</th>
+            <th>图片CTR</th>
+            <th>视频日耗(万)</th>
+            <th>视频占比</th>
+            <th>视频CTR</th>
+            <th>素材总数</th>
+        </tr>
+        <tr>
+            <td>中未**瘦</td>
+            <td>13.04</td>
+            <td>89%</td>
+            <td class="best">4.66%</td>
+            <td>1.56</td>
+            <td>11%</td>
+            <td>4.59%</td>
+            <td>833</td>
+        </tr>
+        <tr>
+            <td>霞*</td>
+            <td>15.14</td>
+            <td>100%</td>
+            <td>2.97%</td>
+            <td>0.07</td>
+            <td>0%</td>
+            <td>-</td>
+            <td>1135</td>
+        </tr>
+        <tr>
+            <td>双*</td>
+            <td>0.06</td>
+            <td>0%</td>
+            <td>-</td>
+            <td>27.42</td>
+            <td>100%</td>
+            <td class="best">4.14%</td>
+            <td>10231</td>
+        </tr>
+        <tr class="highlight-row">
+            <td>多燕瘦</td>
+            <td>0.04</td>
+            <td>0%</td>
+            <td>-</td>
+            <td>10.27</td>
+            <td>100%</td>
+            <td class="worst">2.11%</td>
+            <td>2112</td>
+        </tr>
+        <tr>
+            <td>敖*</td>
+            <td>0.18</td>
+            <td>2%</td>
+            <td>1.06%</td>
+            <td>8.07</td>
+            <td>98%</td>
+            <td>2.32%</td>
+            <td>7455</td>
+        </tr>
+        <tr>
+            <td>尚*</td>
+            <td>6.20</td>
+            <td>66%</td>
+            <td>5.25%</td>
+            <td>3.20</td>
+            <td>34%</td>
+            <td>4.35%</td>
+            <td>18760</td>
+        </tr>
+    </table>
+
+    <div class="finding-box">
+        <div class="title">⚠️ 核心发现</div>
+        <p><strong>多燕瘦100%使用视频素材，视频CTR仅2.11%，是所有客户中最低的。</strong>同为100%视频的双*，视频CTR达到4.14%（多燕瘦的2倍）。而以图片素材为主的中未**瘦/霞*/尚*，图片CTR达2.97%~5.25%。</p>
+        <p style="margin-top:8px;"><strong>素材类型单一化风险：</strong>多燕瘦完全没有图片素材投放，错失了图片素材在微信公众号等版位上的高CTR机会。竞对中未**瘦和霞*通过图片素材在微信公众号版位获得CTR 5.00%~5.45%，这一版位+素材组合多燕瘦完全未覆盖。</p>
+    </div>
+
+    <h3>3.2 图片素材创意对比</h3>
+
+    <div class="creative-card">
+        <div class="header-row">
+            <span class="client-name">中未**瘦 · TOP1图片素材</span>
+            <span class="ctr-badge">CTR 4.77%</span>
+        </div>
+        <div class="hook"><strong>钩子文案：</strong>"人体缺什么会容易发胖" + "体重下降没效果的人建议看完"</div>
+        <div class="strategy"><strong>创意策略：</strong>专家权威（中年男性教授+图表背景）+ 好奇心悬念（"缺什么"引发求知欲）+ 精准人群筛选（"没效果的人"锁定目标用户）</div>
+        <div class="strategy"><strong>产品：</strong>归一牌美好茶（保健食品，蓝帽子标识）</div>
+        <img class="material-img" src="data/pics/zhongweimeishou_1.jpg" alt="中未魅瘦TOP1素材">
+    </div>
+
+    <div class="creative-card">
+        <div class="header-row">
+            <span class="client-name">霞* · TOP1图片素材</span>
+            <span class="ctr-badge">CTR 5.31%</span>
+        </div>
+        <div class="hook"><strong>钩子文案：</strong>"女人年纪大了为啥都容易发胖？改掉这2个坏习惯，想胖都难"</div>
+        <div class="strategy"><strong>创意策略：</strong>性别定向（精准锁定女性群体）+ 好奇心（"2个坏习惯"引发求知欲）+ 权威背书（白大褂女专家+人体脂肪透视模型）</div>
+        <div class="strategy"><strong>产品：</strong>归一牌美好茶（与中未**瘦同款产品）</div>
+        <img class="material-img" src="data/pics/xiashu_1.jpg" alt="霞曙TOP1素材">
+    </div>
+
+    <div class="creative-card">
+        <div class="header-row">
+            <span class="client-name">霞* · TOP3图片素材（高CTR标杆）</span>
+            <span class="ctr-badge">CTR 8.41%</span>
+        </div>
+        <div class="hook"><strong>钩子文案：</strong>"早上空腹加一物，想胖都难" + "（看后删除）"</div>
+        <div class="strategy"><strong>创意策略：</strong>极强好奇心（"加一物"不说是什么）+ 稀缺性/紧迫感（"看后删除"暗示内容敏感/珍贵）+ 简单行动指令（"早上空腹"降低执行门槛）</div>
+        <img class="material-img" src="data/pics/xiashu_3.jpg" alt="霞曙TOP3素材">
+    </div>
+
+    <div class="creative-card">
+        <div class="header-row">
+            <span class="client-name">尚* · TOP1图片素材</span>
+            <span class="ctr-badge">CTR 2.26%</span>
+        </div>
+        <div class="hook"><strong>钩子文案：</strong>"缺点是：瘦成骨头架"</div>
+        <div class="strategy"><strong>创意策略：</strong>逆向心理（把"瘦"说成"缺点"）+ 夸张表达（"骨头架"视觉冲击）+ 引发好奇</div>
+        <img class="material-img" src="data/pics/shangshi_1.jpg" alt="尚氏TOP1素材">
+    </div>
+
+    <h3>3.3 视频素材创意对比</h3>
+    <p style="color:#616161;font-size:13px;margin-bottom:16px;">以下对TOP客户的高消耗视频素材进行逐帧分析，提炼可借鉴的视频创意策略。</p>
+
+    <!-- 双新 TOP1 视频 -->
+    <div class="creative-card">
+        <div class="header-row">
+            <span class="client-name">双* · TOP1视频素材（震惊恐惧型）</span>
+            <span class="ctr-badge">CTR 3.53%</span>
+            <button class="preview-btn" onclick="openVideoPreview('http://adsmind.gdtimg.com/ads_svp_video__0bc3taaquaabdyaogv4gsfvbvgaebkmaccsa.f0.mp4', '双* TOP1视频 · CTR 3.53% · 震惊恐惧型')">▶ 素材预览</button>
+        </div>
+        <div class="hook"><strong>钩子文案：</strong>"一女子检查出血压高晚期" + CT影像画面</div>
+        <div class="strategy"><strong>创意策略：</strong>震惊恐惧（"血压高晚期"制造健康焦虑）+ 医学权威（CT扫描影像增强可信度）+ 情绪唤醒度高</div>
+        <div class="strategy"><strong>视觉结构：</strong>开场即用CT影像画面制造视觉冲击 → 疾病恐惧叙事 → 引出产品解决方案</div>
+        <div class="strategy"><strong>可借鉴点：</strong>用医学影像/检查报告等视觉元素制造紧迫感，将"肥胖"与"疾病风险"直接关联，比温和的饮食建议更能激发行动意愿。</div>
+    </div>
+
+    <!-- 双新 TOP2 视频 -->
+    <div class="creative-card">
+        <div class="header-row">
+            <span class="client-name">双* · TOP2视频素材（新闻采访型，高CTR标杆）</span>
+            <span class="ctr-badge">CTR 5.50%</span>
+            <button class="preview-btn" onclick="openVideoPreview('http://adsmind.gdtimg.com/ads_svp_video__0b53zea4iaabdyahj537knvbvsieyteqdrca.f0.mp4', '双* TOP2视频 · CTR 5.50% · 新闻采访型（高CTR标杆）')">▶ 素材预览</button>
+        </div>
+        <div class="hook"><strong>钩子文案演进：</strong>"都不用发愁了" → "敢不敢对着镜头再说一遍" → "它是获批正规" → "亲自试试就知道了"</div>
+        <div class="strategy"><strong>创意策略：</strong>新闻采访形式（增强可信度）+ 多场景切换（演播室→藏族老人采访→车内女性采访，保持视觉新鲜感）+ 挑战性质询（"敢不敢再说一遍"制造冲突和戏剧性）+ 用户体验证言（"亲自试试就知道了"社交证明）</div>
+        <div class="strategy"><strong>视觉结构：</strong>新闻演播室开场（权威感）→ 街头采访藏族老人（猎奇+冲突）→ 车内女性采访（真实感+证言）→ 产品合规信息全程展示</div>
+        <div class="strategy"><strong>可借鉴点：</strong>①"采访+质询"形式比单向说教更有戏剧性，能显著提升完播率；②多场景切换避免视觉疲劳；③"敢不敢"类挑战性话术制造冲突感，激发用户好奇心；④用户体验证言（"亲自试试"）比产品自夸更有说服力。</div>
+        <img class="material-img" src="data/frames/shuangxin_2_frame_01_10.2s.jpg" alt="双新TOP2视频-演播室">
+        <img class="material-img" src="data/frames/shuangxin_2_frame_03_30.8s.jpg" alt="双新TOP2视频-采访藏族老人">
+        <img class="material-img" src="data/frames/shuangxin_2_frame_08_82.1s.jpg" alt="双新TOP2视频-车内采访">
+    </div>
+
+    <!-- 中未魅瘦 TOP1 视频 -->
+    <div class="creative-card">
+        <div class="header-row">
+            <span class="client-name">中未**瘦 · TOP1视频素材（AI生成+健身教练型）</span>
+            <span class="ctr-badge">CTR 4.41%</span>
+            <button class="preview-btn" onclick="openVideoPreview('http://adsmind.gdtimg.com/ads_svp_video__0bc3puafaaaax4anqtsx6zvbu7iekb6qauca.f0.mp4', '中未**瘦 TOP1视频 · CTR 4.41% · AI生成+健身教练型')">▶ 素材预览</button>
+        </div>
+        <div class="hook"><strong>钩子文案演进：</strong>"你要大胆喝" → "它是蓝帽认证的产品" → "因为它就有这个实力" → "现在厂家直发"</div>
+        <div class="strategy"><strong>创意策略：</strong>AI生成视频（低成本量产）+ 健身教练形象（专业权威感）+ 产品资质背书（"蓝帽认证"+"太平洋保险承保"）+ 简短有力文案（每句5~7字，节奏紧凑）</div>
+        <div class="strategy"><strong>视觉结构：</strong>产品包装特写（"你要大胆喝"）→ 手持产品+红笔标注（"蓝帽认证"）→ 健身教练抱拳展示（"有这个实力"）→ 健身教练+厂家直发信息</div>
+        <div class="strategy"><strong>可借鉴点：</strong>①AI生成视频可大幅降低制作成本，实现高频素材迭代；②健身教练/专业人设比素人更有说服力；③"蓝帽认证""保险承保"等资质信息前置展示，降低用户信任门槛；④短句节奏（5~7字/句）比长句更适合短视频信息流。</div>
+        <img class="material-img" src="data/frames/zhongweimeishou_vid1_frame_01_5.1s.jpg" alt="中未魅瘦视频-产品展示">
+        <img class="material-img" src="data/frames/zhongweimeishou_vid1_frame_05_25.5s.jpg" alt="中未魅瘦视频-健身教练">
+    </div>
+
+    <!-- 敖东 TOP2 视频 -->
+    <div class="creative-card">
+        <div class="header-row">
+            <span class="client-name">敖* · TOP2视频素材（AI合成+家庭场景型）</span>
+            <span class="ctr-badge">CTR 3.20%</span>
+            <button class="preview-btn" onclick="openVideoPreview('http://adsmind.gdtimg.com/ads_svp_video__0bc3gyadcaaaaaaftpticzvbunqege3aamka.f0.mp4', '敖* TOP2视频 · CTR 3.20% · AI合成+家庭场景型')">▶ 素材预览</button>
+        </div>
+        <div class="hook"><strong>钩子文案演进：</strong>"婆婆给了我这个，我都不好意思出门了" → "你自己贪心了" → "120斤的随餐两粒/140斤的随餐两粒" → "顽固肥能用"</div>
+        <div class="strategy"><strong>创意策略：</strong>AI合成家庭场景（婆媳对话，贴近生活）+ 精准体重人群定向（"120斤""140斤"让用户对号入座）+ 视觉冲击（女性扣不上裤子展示腹部赘肉）+ 痛点聚焦（"顽固肥"直击难减人群</div>
+        <div class="strategy"><strong>视觉结构：</strong>婆媳对话场景（好奇+代入）→ 专家建议+体重分档（精准定向）→ 女性扣裤子展示腹部赘肉（视觉冲击+痛点放大）</div>
+        <div class="strategy"><strong>可借鉴点：</strong>①"婆媳对话"等家庭场景比专家说教更有代入感；②按体重分档（"120斤的""140斤的"）让用户自动对号入座，提升点击意愿；③展示真实痛点画面（扣不上裤子）比抽象的"减肥"概念更有冲击力；④"顽固肥"等精准标签锁定细分人群。</div>
+        <img class="material-img" src="data/frames/aodong_2_frame_01_7.7s.jpg" alt="敖东视频-婆媳对话">
+        <img class="material-img" src="data/frames/aodong_2_frame_06_46.4s.jpg" alt="敖东视频-专家建议">
+        <img class="material-img" src="data/frames/aodong_2_frame_08_61.9s.jpg" alt="敖东视频-痛点展示">
+    </div>
+
+    <!-- 多燕瘦 TOP1 视频 -->
+    <div class="creative-card" style="border: 2px solid #c62828;">
+        <div class="header-row">
+            <span class="client-name">多燕瘦 · TOP1视频素材（温和教育型）</span>
+            <span class="ctr-badge low">CTR 1.86%</span>
+            <button class="preview-btn" onclick="openVideoPreview('http://adsmind.gdtimg.com/ads_svp_video__0bc3jybhyaacdiai2ith2zvbqtqeprhae7ca.f0.mp4', '多燕瘦 TOP1视频 · CTR 1.86% · 温和教育型')">▶ 素材预览</button>
+        </div>
+        <div class="hook"><strong>钩子文案：</strong>"早上起来不要吃鸡蛋"</div>
+        <div class="strategy"><strong>创意策略：</strong>温和饮食建议（反常识但情绪平淡）+ 教育性内容 + <strong>缺乏紧迫感、好奇心和情绪刺激</strong></div>
+        <div class="strategy"><strong style="color:#c62828;">问题诊断：</strong>钩子情绪唤醒度极低，"不要吃鸡蛋"虽有反常识元素，但缺乏恐惧、好奇、权威等高唤醒情绪驱动，导致CTR在TOP6客户中倒数第二。</div>
+        <div class="strategy"><strong style="color:#c62828;">与竞对视频对比差距：</strong></div>
+        <table style="margin-top:8px;">
+            <tr><th>对比维度</th><th>多燕瘦</th><th>双* TOP2（CTR 5.50%）</th><th>差距</th></tr>
+            <tr><td>视频形式</td><td>单向口播</td><td>新闻采访+多场景</td><td class="worst">缺乏戏剧性</td></tr>
+            <tr><td>情绪策略</td><td>温和教育</td><td>质询挑战+证言</td><td class="worst">唤醒度低</td></tr>
+            <tr><td>场景切换</td><td>单一场景</td><td>3+场景切换</td><td class="worst">视觉疲劳风险</td></tr>
+            <tr><td>信任建立</td><td>无权威背书</td><td>新闻+采访+证言</td><td class="worst">可信度不足</td></tr>
+            <tr><td>文案节奏</td><td>长句叙述</td><td>短句5~7字</td><td class="worst">信息密度低</td></tr>
+        </table>
+    </div>
+
+    <h3>3.4 创意策略差异总结</h3>
+    <table>
+        <tr>
+            <th>客户</th>
+            <th>素材类型</th>
+            <th>钩子策略</th>
+            <th>视频形式</th>
+            <th>情绪唤醒度</th>
+            <th>CTR</th>
+            <th>vs 多燕瘦</th>
+        </tr>
+        <tr>
+            <td>霞*</td>
+            <td>图片</td>
+            <td>好奇心+稀缺性</td>
+            <td>-</td>
+            <td class="best">极高</td>
+            <td>5.31%~8.41%</td>
+            <td class="worst">+185%~+352%</td>
+        </tr>
+        <tr>
+            <td>双*</td>
+            <td>视频</td>
+            <td>新闻采访+质询挑战</td>
+            <td>多场景采访</td>
+            <td class="best">高</td>
+            <td>5.50%</td>
+            <td class="worst">+196%</td>
+        </tr>
+        <tr>
+            <td>中未**瘦</td>
+            <td>图片+视频</td>
+            <td>专家权威+好奇心</td>
+            <td>AI生成+健身教练</td>
+            <td class="best">高</td>
+            <td>4.41%~4.77%</td>
+            <td class="worst">+137%~+156%</td>
+        </tr>
+        <tr>
+            <td>双*</td>
+            <td>视频</td>
+            <td>震惊恐惧+医学</td>
+            <td>CT影像+疾病叙事</td>
+            <td>高</td>
+            <td>3.53%</td>
+            <td>+90%</td>
+        </tr>
+        <tr>
+            <td>敖*</td>
+            <td>视频</td>
+            <td>家庭场景+体重定向</td>
+            <td>AI合成婆媳对话</td>
+            <td>中</td>
+            <td>3.20%</td>
+            <td>+72%</td>
+        </tr>
+        <tr>
+            <td>尚*</td>
+            <td>图片</td>
+            <td>逆向心理/夸张</td>
+            <td>-</td>
+            <td>中</td>
+            <td>2.26%</td>
+            <td>+22%</td>
+        </tr>
+        <tr class="highlight-row">
+            <td>多燕瘦</td>
+            <td>视频</td>
+            <td>温和饮食建议</td>
+            <td>单向口播</td>
+            <td class="worst">低</td>
+            <td>1.86%</td>
+            <td>-</td>
+        </tr>
+    </table>
+
+    <div class="insight-box">
+        <div class="title">💡 创意策略洞察</div>
+        <p><strong>高CTR素材的共性公式：</strong>好奇心悬念 + 情绪唤醒（恐惧/权威/稀缺） + 精准人群定向。图片端霞*"早上空腹加一物，想胖都难（看后删除）"CTR 8.41%，视频端双*"敢不敢对着镜头再说一遍"CTR 5.50%，均符合此公式。</p>
+        <p style="margin-top:8px;"><strong>视频素材三大可借鉴方向：</strong></p>
+        <ul style="margin-left:20px;margin-top:4px;">
+            <li><strong>新闻采访型（双* TOP2，CTR 5.50%）：</strong>多场景切换+质询挑战话术+用户体验证言，比单向口播的戏剧性和可信度更强。多燕瘦可尝试"街头采访+挑战性质询"形式。</li>
+            <li><strong>AI生成+专业人设型（中未**瘦 TOP1，CTR 4.41%）：</strong>AI生成降低制作成本，健身教练/专家人设增强权威感，资质信息（蓝帽认证/保险承保）前置展示降低信任门槛。多燕瘦可引入AI生成+专业人设组合。</li>
+            <li><strong>家庭场景+痛点视觉化型（敖* TOP2，CTR 3.20%）：</strong>婆媳对话增强代入感，体重分档（"120斤的""140斤的"）让用户对号入座，痛点画面（扣不上裤子）比抽象概念更有冲击力。多燕瘦可尝试生活场景+痛点视觉化。</li>
+        </ul>
+        <p style="margin-top:8px;"><strong>多燕瘦的创意短板：</strong>钩子"早上起来不要吃鸡蛋"情绪平淡，视频形式为单一场景单向口播，缺乏场景切换、权威背书和戏剧冲突。在减肥瘦身类目中，用户被大量高情绪广告轰炸后，温和的教育性内容难以在信息流中脱颖而出。</p>
+        <p style="margin-top:8px;"><strong>素材类型机会：</strong>中未**瘦和霞*均推广同一款产品（归一牌美好茶），以图片素材在微信公众号版位获得高CTR。多燕瘦可借鉴图片素材+公众号版位的组合，拓展素材类型。</p>
+    </div>
+</div>
+
+<!-- 四、优化建议 -->
+<div class="section">
+    <h2><span class="icon">🚀</span> 四、投放优化建议</h2>
+
+    <div class="priority-section">
+        <div class="priority-item red">
+            <div class="priority-badge">🔴</div>
+            <div class="priority-content">
+                <h4>P0：素材钩子升级——从"温和教育"转向"高唤醒情绪"</h4>
+                <p>多燕瘦当前TOP素材CTR仅1.86%，钩子"早上起来不要吃鸡蛋"情绪唤醒度低。建议参考竞对高CTR素材的创意公式：<strong>好奇心悬念 + 情绪驱动 + 人群定向</strong>。具体方向：①好奇心型："减肥一直不掉？你可能缺了这个"（对标中未**瘦"人体缺什么会容易发胖"）；②恐惧/健康焦虑型："体检报告上的这个指标，正在暗示你该减肥了"（对标双*"血压高晚期"）；③稀缺性型："这个减肥方法马上要下架了（建议先收藏）"（对标霞*"看后删除"）。目标：CTR从1.86%提升至3.0%+（60%提升空间）。</p>
+            </div>
+        </div>
+
+        <div class="priority-item red">
+            <div class="priority-badge">🔴</div>
+            <div class="priority-content">
+                <h4>P0：视频创意形式升级——从"单向口播"转向"多场景叙事"</h4>
+                <p>多燕瘦当前视频为单一场景单向口播，CTR 1.86%。竞对双*TOP2视频（CTR 5.50%）采用新闻采访+多场景切换+质询挑战，CTR是多燕瘦的3倍。建议借鉴三个方向：①<strong>新闻采访型</strong>（对标双*TOP2）：制作"街头采访+挑战性质询"视频，如"敢不敢承认自己胖是因为这个？"，多场景切换（演播室→街头→车内）保持视觉新鲜感；②<strong>AI生成+专业人设型</strong>（对标中未**瘦TOP1）：用AI生成视频降低制作成本，引入健身教练/营养师人设，前置展示产品资质（蓝帽认证等），短句节奏（5~7字/句）；③<strong>家庭场景+痛点视觉化型</strong>（对标敖*TOP2）：制作婆媳/朋友对话场景，按体重分档（"120斤的""140斤的"）让用户对号入座，展示痛点画面（如扣不上裤子）增强视觉冲击。建议每种形式制作3~5条素材A/B测试。</p>
+            </div>
+        </div>
+
+        <div class="priority-item red">
+            <div class="priority-badge">🔴</div>
+            <div class="priority-content">
+                <h4>P0：素材类型多元化——补充图片素材投放</h4>
+                <p>多燕瘦100%使用视频素材，完全缺失图片素材。竞对中未**瘦（图片89%）、霞*（图片100%）、尚*（图片66%）均以图片素材获得更高CTR（2.97%~5.25%）。建议：①制作图片素材投放微信公众号版位（对标中未**瘦/霞*的高CTR组合）；②图片素材制作成本低、迭代快，可快速测试不同钩子文案；③视频+图片组合投放，覆盖不同版位流量。目标：图片素材贡献日均消耗1~2万，CTR 3.5%+。</p>
+            </div>
+        </div>
+
+        <div class="priority-item yellow">
+            <div class="priority-badge">🟡</div>
+            <div class="priority-content">
+                <h4>P1：出价策略调整——适度上调目标出价释放获量空间</h4>
+                <p>多燕瘦目标出价50.0元，是直播/直购同类客户中最低（双*65.6、敖*58.7、尚*98.7）。当前ROI 1.304为同类最高，<strong>有空间承受适度提价</strong>。建议：①将目标出价从50元上调至55~60元（对标敖*58.7），预计CPA从55元上升至58~62元，ROI从1.304下降至1.15~1.20，仍在健康区间；②出价上调后CPM竞争力增强，预计可获量10%~20%增长；③分批次小幅上调，观察3~5天数据后再决定是否继续提价。</p>
+            </div>
+        </div>
+
+        <div class="priority-item yellow">
+            <div class="priority-badge">🟡</div>
+            <div class="priority-content">
+                <h4>P1：版位拓展——测试微信公众号+图片素材组合</h4>
+                <p>多燕瘦当前60%消耗在微信视频号版位，CTR仅1.60%。竞对中未**瘦在微信公众号版位获得CTR 5.45%，霞*获得5.00%。建议：①新建图片素材计划投放微信公众号版位，测试CTR表现；②初始预算分配2~3万/日，观察3~5天CTR和加粉/转化成本；③若CTR达到3.5%+，逐步扩大预算占比至15%~20%。注意：公众号版位适合图片素材+科普型钩子，与视频号直播间的素材逻辑不同。</p>
+            </div>
+        </div>
+
+        <div class="priority-item yellow">
+            <div class="priority-badge">🟡</div>
+            <div class="priority-content">
+                <h4>P1：直播链路素材优化——对标双*提升直播间CTR</h4>
+                <p>多燕瘦直播链路CTR 1.60%，双*直播链路CTR 3.84%（2.4倍差距）。两者使用相同版位（微信视频号），差距完全来自素材质量。建议：①借鉴双*TOP2视频的"新闻采访+多场景切换"形式，将直播间素材从单向口播升级为采访/对话形式；②在视频封面/缩略图中加入高冲击力视觉元素（如CT影像、检查报告等，对标双*TOP1）；③尝试AI生成视频降低制作成本、提升素材迭代速度（对标中未**瘦TOP1）；④A/B测试不同封面图和钩子文案的CTR表现，筛选高CTR组合。</p>
+            </div>
+        </div>
+
+        <div class="priority-item green">
+            <div class="priority-badge">🟢</div>
+            <div class="priority-content">
+                <h4>P2：链路结构优化——适度提升直购链路占比</h4>
+                <p>多燕瘦直播86%+直购14%，双*为直播60%+直购40%。双*直购链路在微信小程序版位获得CTR 3.84%。建议：①适度提升直购链路预算占比至20%~25%；②直购链路可使用不同素材策略，分散单一链路风险；③观察直购链路CPA和ROI变化，若ROI维持在0.85+可继续扩大。</p>
+            </div>
+        </div>
+
+        <div class="priority-item green">
+            <div class="priority-badge">🟢</div>
+            <div class="priority-content">
+                <h4>P2：素材数量扩容——提升测试效率</h4>
+                <p>多燕瘦日均消耗创意ID数1972个，低于尚*(5991)和敖*(2812)。在CTR偏低的情况下，需要更密集的素材测试来找到高CTR组合。建议：①将素材测试节奏从当前水平提升30%~50%；②每个新钩子策略制作3~5条素材进行对比测试；③建立素材CTR排行榜，快速淘汰CTR低于1.5%的素材，集中预算到高CTR素材。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 附录 -->
+<div class="section">
+    <h2><span class="icon">📋</span> 附录：数据说明</h2>
+    <table>
+        <tr><th>项目</th><th>说明</th></tr>
+        <tr><td>数据来源</td><td>腾讯广告数仓，探索分析报告链接</td></tr>
+        <tr><td>时间范围</td><td>近7天（截至昨日），竞价口径</td></tr>
+        <tr><td>品类筛选</td><td>三级类目=减肥瘦身</td></tr>
+        <tr><td>竞对范围</td><td>日均消耗≥5万的TOP6客户</td></tr>
+        <tr><td>竞对脱敏</td><td>竞对名称至少脱敏2字，日耗范围化处理</td></tr>
+        <tr><td>素材数据</td><td>近7天，till=2（T-2数据，高基数维度延迟）</td></tr>
+        <tr><td>加粉链路说明</td><td>加粉链路CPA为加粉成本（非下单CPA），ROI为下单ROI（加粉链路下单转化率低，ROI偏低属正常现象）</td></tr>
+    </table>
+    <div class="note">本报告竞对数据已做脱敏处理，日耗以范围值呈现。多燕瘦数据保留精确值。</div>
+</div>
+
+</div>
+
+<!-- 视频预览弹窗 -->
+<div id="videoModal" class="video-modal" onclick="closeVideoModal()">
+    <div class="video-modal-content" onclick="event.stopPropagation()">
+        <span class="close-modal" onclick="closeVideoModal()">&times;</span>
+        <div class="modal-title" id="modalTitle"></div>
+        <video id="modalVideo" controls></video>
+    </div>
+</div>
+
+<script>
+function openVideoPreview(url, title) {
+    var modal = document.getElementById('videoModal');
+    var video = document.getElementById('modalVideo');
+    var titleEl = document.getElementById('modalTitle');
+    titleEl.textContent = title || '素材预览';
+    video.src = url;
+    modal.classList.add('active');
+    video.play().catch(function() {});
+}
+
+function closeVideoModal() {
+    var modal = document.getElementById('videoModal');
+    var video = document.getElementById('modalVideo');
+    video.pause();
+    video.src = '';
+    modal.classList.remove('active');
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeVideoModal();
+});
+</script>
+
+<script>(function(){var _h=0,_t;function m(){var b=document.body;if(!b)return 0;return Math.max(b.scrollHeight,b.offsetHeight,Math.ceil(b.getBoundingClientRect().height))}function s(){var h=m();if(h>0&&h!==_h){_h=h;window.parent.postMessage({type:"iframe-resize",height:h},"*")}}function d(){clearTimeout(_t);_t=setTimeout(s,150)}if(document.readyState==="complete")s();else window.addEventListener("load",s);window.addEventListener("resize",d);if(typeof ResizeObserver!=="undefined"){var ro=new ResizeObserver(d);ro.observe(document.documentElement);if(document.body)ro.observe(document.body)}})();</script><div id="__idata_artifact_err_overlay__" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);display:none;width:min(640px,calc(100vw - 48px));max-height:80vh;padding:24px 28px;background:#ffffff;border:1px solid #fca5a5;border-left:4px solid #ef4444;border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,0.12);z-index:2147483646;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Segoe UI',sans-serif;color:#7f1d1d;box-sizing:border-box;"><div style="display:flex;align-items:center;gap:10px;font-size:16px;font-weight:600;margin-bottom:14px;"><span style="display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;background:#ef4444;color:#fff;border-radius:50%;font-size:14px;font-weight:bold;flex-shrink:0;">!</span><span>图表渲染失败</span></div><pre id="__idata_artifact_err_msg__" style="margin:0;padding:14px 16px;background:#fef2f2;border-radius:8px;font-size:12px;line-height:1.65;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;color:#7f1d1d;max-height:60vh;overflow:auto;"></pre><div style="margin-top:12px;font-size:11px;color:#9ca3af;line-height:1.5;">报告给大模型可自动修复该脚本</div></div><script>(function(){var ov=document.getElementById('__idata_artifact_err_overlay__');var msg=document.getElementById('__idata_artifact_err_msg__');if(!ov||!msg)return;var shownSet={};function _show(t){if(!t||shownSet[t])return;shownSet[t]=1;msg.textContent=String(t).slice(0,3000);ov.style.display='block';}var q=window.__idata_artifact_error__||[];for(var i=0;i<q.length;i++)_show(q[i]);window.addEventListener('error',function(ev){var parts=[];if(ev.error&&(ev.error.stack||ev.error.message)){parts.push(String(ev.error.stack||ev.error.message));}else{parts.push(ev.message||'Unknown error');}if(ev.filename){parts.push('\n(at '+ev.filename+':'+(ev.lineno||'?')+':'+(ev.colno||'?')+')');}_show(parts.join('\n'));});window.addEventListener('unhandledrejection',function(ev){var r=ev.reason;_show((r&&(r.stack||r.message))||r||'Unhandled Promise rejection');});})();</script><style id="__adata_wm_style__">.__adata_wm__{position:fixed;inset:0;pointer-events:none;z-index:2147483647;background-repeat:repeat;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='160'><text x='50%' y='50%' fill='rgba(0,0,0,0.08)' font-size='14' font-family='-apple-system,Segoe UI,sans-serif' text-anchor='middle' transform='rotate(-25 120 80)'>goinglin</text></svg>")}</style><div class="__adata_wm__" aria-hidden="true"></div></body>
+</html>
