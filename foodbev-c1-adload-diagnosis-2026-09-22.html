@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>食品饮料一中心 - Adload放量承接勤奋度诊断报告</title>
+<script src="https://cdn.staticfile.net/echarts/5.4.3/echarts.min.js"></script>
+<script>window.echarts||document.write('<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"><\/script>');</script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif; background:#f0f2f5; color:#333; line-height:1.6; }
+.container { max-width:1200px; margin:0 auto; padding:20px; }
+.header { background:linear-gradient(135deg,#0f0c29,#302b63,#24243e); border-radius:16px; padding:36px 44px; color:#fff; margin-bottom:20px; }
+.header h1 { font-size:28px; font-weight:700; margin-bottom:8px; }
+.header .subtitle { font-size:14px; opacity:0.8; margin-bottom:20px; }
+.header .alert-box { background:rgba(255,193,7,0.15); border:1px solid rgba(255,193,7,0.4); border-radius:10px; padding:14px 18px; margin-bottom:20px; }
+.header .alert-box strong { color:#ffd54f; }
+.kpi-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+.kpi-card { background:rgba(255,255,255,0.1); border-radius:10px; padding:16px; text-align:center; }
+.kpi-card .label { font-size:12px; opacity:0.7; margin-bottom:6px; }
+.kpi-card .value { font-size:22px; font-weight:700; }
+.kpi-card .unit { font-size:12px; opacity:0.6; }
+.section { background:#fff; border-radius:14px; padding:28px 32px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+.section-header { display:flex; align-items:center; margin-bottom:20px; padding-bottom:14px; border-bottom:2px solid #f0f0f0; }
+.section-icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:18px; margin-right:12px; color:#fff; }
+.section-title { font-size:20px; font-weight:700; }
+.section-tag { margin-left:auto; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; }
+.l1-color { background:#0984e3; } .l2-color { background:#00b894; } .l21-color { background:#6c5ce7; } .l3-color { background:#f39c12; } .target-color { background:#e17055; }
+table { width:100%; border-collapse:collapse; table-layout:fixed; margin:12px 0; }
+th { background:#f8f9fa; padding:10px 14px; text-align:left; font-size:12px; color:#636e72; border-bottom:2px solid #e9ecef; }
+td { padding:10px 14px; border-bottom:1px solid #f0f0f0; font-size:13px; }
+tr:hover { background:#f8f9fa; }
+.conclusion { border-radius:10px; padding:16px 20px; margin-bottom:16px; font-size:14px; }
+.conclusion.good { background:#f0fff4; border-left:4px solid #27ae60; }
+.conclusion.warn { background:#fff8f0; border-left:4px solid #f39c12; }
+.conclusion.bad { background:#fff0f0; border-left:4px solid #e74c3c; }
+.conclusion.info { background:#f0f4ff; border-left:4px solid #0984e3; }
+.scene-wrapper { display:flex; gap:16px; margin:16px 0; }
+.scene-platform { flex:1; border:2px solid; border-radius:12px; padding:16px; }
+.scene-platform h4 { font-size:14px; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid #eee; }
+.scene-grid-4 { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+.scene-card { border:1px solid #e0e0e0; border-radius:8px; padding:12px; font-size:12px; }
+.scene-card .scene-name { font-weight:600; margin-bottom:4px; }
+.cap-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:16px 0; }
+.cap-card { border:1px solid #e0e0e0; border-radius:10px; padding:18px; border-top:3px solid #6c5ce7; }
+.cap-card h4 { font-size:15px; margin-bottom:10px; }
+.cap-status { display:inline-block; padding:2px 10px; border-radius:12px; font-size:11px; font-weight:600; margin-bottom:10px; }
+.target-table th { background:#fff5f0; }
+.target-highlight { background:#fff8f0; }
+.diff-rate-high { color:#e74c3c; font-weight:600; }
+.diff-rate-mid { color:#e17055; font-weight:600; }
+.diff-rate-low { color:#0984e3; font-weight:600; }
+.action-list { background:linear-gradient(135deg,#ff6b6b,#ee5a24); border-radius:12px; padding:24px 28px; color:#fff; margin-bottom:20px; }
+.action-list h3 { font-size:18px; margin-bottom:14px; }
+.action-item { background:rgba(255,255,255,0.15); border-radius:8px; padding:12px 16px; margin-bottom:8px; font-size:13px; }
+.action-priority { display:inline-block; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:700; margin-right:8px; }
+.chart-container { width:100%; height:300px; margin:12px 0; }
+.seasonal-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin:16px 0; }
+.seasonal-card { border:1px solid #e0e0e0; border-radius:10px; padding:16px; border-left:4px solid #00b894; }
+.seasonal-card h4 { font-size:14px; margin-bottom:8px; }
+.seasonal-card .desc { font-size:12px; color:#636e72; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <h1>食品饮料一中心 · Adload放量承接勤奋度诊断报告</h1>
+    <div class="subtitle">诊断周期：2026年8月23日 - 9月21日（近30天） | 竞价口径 | 2026年9月22日生成</div>
+    <div class="alert-box">
+        <strong>Adload放量背景</strong>：视频号国庆前启动Adload放量，放到本轮总量的30%（节后放70%）。
+        需准备商户引入/商品引入/素材准备/账户充值/腾飞加持/服务商同步等措施。
+        本报告基于放量背景，针对性地在不同维度拆解需要提升和关注的指标，结合各维度特点制定差异化提升策略。
+    </div>
+    <div class="kpi-grid">
+        <div class="kpi-card"><div class="label">日均消耗</div><div class="value">1942</div><div class="unit">万/日</div></div>
+        <div class="kpi-card"><div class="label">有消耗账户数</div><div class="value">45,802</div><div class="unit">个</div></div>
+        <div class="kpi-card"><div class="label">有消耗广告数</div><div class="value">315,576</div><div class="unit">条</div></div>
+        <div class="kpi-card"><div class="label">消耗创意唯一性ID数</div><div class="value">4,130,189</div><div class="unit">个</div></div>
+        <div class="kpi-card"><div class="label">SPU量级</div><div class="value">45,258</div><div class="unit">个</div></div>
+    </div>
+</div>
+
+<!-- 指标拆解总览 -->
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon target-color">🔥</div>
+        <div class="section-title">基于Adload放量背景的指标拆解总览</div>
+        <div class="section-tag" style="background:#fff0f0;color:#e17055">差异化提升策略</div>
+    </div>
+    <div class="conclusion info">
+        <strong>拆解逻辑</strong>：Adload放量30%是流量侧的增量，但不同维度的承接逻辑不同——
+        消耗和账户/广告基建按流量增幅线性扩容（+30%）；
+        消耗创意唯一性ID数需<b>超配</b>以防止放量期间素材疲劳加速（+50%）；
+        智投占比需<b>加速提升</b>至50%目标（当前26.6%），非智投引导客户对视频号单独增投；
+        头部客户竞争力更强，应设定<b>更高消耗目标</b>（+40%）吃更多量；
+        L2.1能力考核应聚焦<b>覆盖客户数</b>提升而非单纯日耗增长。
+    </div>
+    <table class="target-table">
+        <tr><th style="width:10%">指标层级</th><th style="width:18%">指标</th><th style="width:12%">当前值</th><th style="width:12%">放量目标</th><th style="width:10%">提升幅度</th><th style="width:38%">差异化承接逻辑</th></tr>
+        <tr class="target-highlight"><td rowspan="4" style="color:#0984e3;font-weight:600">L1 基建</td>
+            <td>日均消耗</td><td>1942万/日</td><td>2525万/日</td><td class="diff-rate-mid">+30%</td><td>流量+30%，消耗同步线性扩容</td></tr>
+        <tr class="target-highlight"><td>有消耗账户数</td><td>45,802</td><td>59,542</td><td class="diff-rate-mid">+30%</td><td>更多账户参竞拿增量，线性扩容</td></tr>
+        <tr class="target-highlight"><td>有消耗广告数</td><td>315,576</td><td>410,249</td><td class="diff-rate-mid">+30%</td><td>广告基建同步扩容</td></tr>
+        <tr class="target-highlight"><td>消耗创意唯一性ID数</td><td>4,130,189</td><td>6,195,284</td><td class="diff-rate-high">+50%</td><td><b>超配防疲劳</b>：放量期间素材消耗加速，需额外储备防止疲劳降效</td></tr>
+        <tr><td rowspan="3" style="color:#0984e3;font-weight:600">L1 客户分层</td>
+            <td>头部日耗</td><td>860.7万/日</td><td>1205万/日</td><td class="diff-rate-high">+40%</td><td><b>头部吃更多量</b>：竞争力更强，放量过程中获取增量比例更高</td></tr>
+        <tr><td>腰部日耗</td><td>835.1万/日</td><td>1086万/日</td><td class="diff-rate-mid">+30%</td><td>同步扩容，补基建承接增量</td></tr>
+        <tr><td>尾部日耗</td><td>246.6万/日</td><td>370万/日</td><td class="diff-rate-high">+50%</td><td><b>激活为主</b>：基数低增幅大，重点激活有消耗账户数</td></tr>
+        <tr><td rowspan="3" style="color:#00b894;font-weight:600">L2 结构</td>
+            <td>ADQ智投占比</td><td>26.6%</td><td>≥50%</td><td class="diff-rate-high">+23.4pp</td><td><b>加速跑量</b>：非智投广告1:1复制到智投侧，智投侧重加速跑量</td></tr>
+        <tr><td>小店广告占比</td><td>17.6%</td><td>≥20%</td><td class="diff-rate-mid">+2.4pp</td><td>开通直购+直播双链路</td></tr>
+        <tr><td>非智投占比</td><td>58.2%</td><td>≤30%</td><td class="diff-rate-low">-28.2pp</td><td><b>引导客户对视频号单独增投</b>，吃到视频号版位的放量</td></tr>
+        <tr><td rowspan="3" style="color:#6c5ce7;font-weight:600">L2.1 能力</td>
+            <td>全店托管覆盖客户数</td><td>467</td><td>700+</td><td class="diff-rate-high">+50%</td><td><b>考核覆盖客户数</b>：让更多客户店铺接入自动分配</td></tr>
+        <tr><td>潜客优投覆盖客户数</td><td>759</td><td>1,100+</td><td class="diff-rate-mid">+45%</td><td><b>考核覆盖客户数</b>：拓展广告主覆盖面</td></tr>
+        <tr><td>多品聚合覆盖客户数</td><td>2,611</td><td>3,700+</td><td class="diff-rate-mid">+42%</td><td><b>考核覆盖客户数</b>：扩大直播间覆盖</td></tr>
+        <tr><td rowspan="3" style="color:#e17055;font-weight:600">L3 商品力</td>
+            <td>金秋补贴SPU覆盖</td><td>14,130</td><td>18,369+</td><td class="diff-rate-mid">+30%</td><td>选品+补贴放大，扩大A类+B类SPU报名</td></tr>
+        <tr><td>秋冬应季品引入</td><td>—</td><td>中心目标</td><td class="diff-rate-low">新增</td><td>传统滋补/粮油调味速食/休闲食品等三级行业引入应季品</td></tr>
+        <tr><td>双11活动品覆盖追踪</td><td>—</td><td>待追踪</td><td class="diff-rate-low">预留</td><td>后续将追踪双11活动品的覆盖情况，当前先做好金秋补贴扩面</td></tr>
+        <tr><td rowspan="2" style="color:#f39c12;font-weight:600">L3 内容力</td>
+            <td>777原生内容日耗</td><td>26.8万/日</td><td>40.2万/日</td><td class="diff-rate-high">+50%</td><td><b>加速放量</b>：777原生ROI 2.87远超整体1.70，CTR 4.62%表现优异</td></tr>
+        <tr><td>3s快滑率</td><td>54.2%</td><td>≤50%</td><td class="diff-rate-mid">-4.2pp</td><td>优化前3秒钩子，提升eco分</td></tr>
+        <tr><td rowspan="2" style="color:#27ae60;font-weight:600">L3 经营力</td>
+            <td>大场CVR</td><td>9.26%</td><td>≥10%</td><td class="diff-rate-mid">+0.74pp</td><td>放量期间增加大场频次</td></tr>
+        <tr><td>非大场CVR</td><td>6.40%</td><td>≥8%</td><td class="diff-rate-mid">+1.60pp</td><td>向大场看齐</td></tr>
+    </table>
+</div>
+
+<!-- L1 基建诊断 -->
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon l1-color">L1</div>
+        <div class="section-title">基建诊断 · 内部分层对标与差异化提升目标</div>
+        <div class="section-tag" style="background:#e8f4fd;color:#0984e3">拼概率 · 卷勤奋</div>
+    </div>
+    <div class="conclusion warn">
+        <strong>整体判断</strong>：中心日均消耗1942万/日，整体规模可观。但内部分层差异极大——
+        头部70客户贡献日耗860.7万/日（占44.3%），尾部20,168客户仅贡献日耗246.6万/日（占12.7%）。
+        Adload放量30%需要基建同步扩容，但不同分层承接逻辑不同：头部竞争力更强应吃更多量，尾部以激活为主。
+    </div>
+    <h4 style="margin:16px 0 8px;color:#0984e3;">客户分层现状与差异化提升目标（日耗口径）</h4>
+    <table>
+        <tr><th>层级</th><th>日均门槛</th><th>客户数</th><th>当前日耗(万/日)</th><th>当前占比</th><th>中位账户</th><th>中位广告</th><th>中位消耗创意ID数</th><th>目标日耗(万/日)</th><th>日耗提升</th><th>目标账户数</th><th>目标消耗创意ID数</th><th>承接逻辑</th></tr>
+        <tr><td style="color:#e17055;font-weight:600">头部</td><td>≥5万/日</td><td>70</td><td>860.7</td><td>44.3%</td><td>74</td><td>810</td><td>8,915</td><td style="color:#e74c3c;font-weight:600">1205.0</td><td class="diff-rate-high">+40%</td><td>104</td><td>13,373</td><td>竞争力强，放量中获取增量比例更高</td></tr><tr><td style="color:#e17055;font-weight:600">腰部</td><td>3K-5万/日</td><td>677</td><td>835.1</td><td>43.0%</td><td>5</td><td>63</td><td>1,065</td><td style="color:#e74c3c;font-weight:600">1086.0</td><td class="diff-rate-mid">+30%</td><td>7</td><td>1,598</td><td>同步扩容，补基建承接增量</td></tr><tr><td style="color:#e17055;font-weight:600">尾部</td><td><3K/日</td><td>20168</td><td>246.6</td><td>12.7%</td><td>1</td><td>1</td><td>18</td><td style="color:#e74c3c;font-weight:600">370.0</td><td class="diff-rate-high">+50%</td><td>2</td><td>27</td><td>基数低增幅大，重点激活有消耗账户</td></tr>
+    </table>
+    <div class="conclusion info" style="margin-top:12px;">
+        <strong>分层提升逻辑</strong>：头部客户在放量过程中竞争力更强（出价能力、基建深度、素材储备均领先），
+        应设定+40%日耗目标吃更多量级；腰部客户同步+30%扩容；尾部客户基数低（中位日耗接近0），
+        重点放在<b>激活</b>——将有消耗账户数提升100%，消耗创意唯一性ID数提升50%。
+    </div>
+    <div id="chart_trend" class="chart-container"></div>
+    <div id="chart_material" class="chart-container"></div>
+</div>
+
+<!-- L2 投流结构诊断 -->
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon l2-color">L2</div>
+        <div class="section-title">投流结构诊断 · 当前 vs 理想</div>
+        <div class="section-tag" style="background:#e8f8f0;color:#00b894">拼投放力 · 卷智能投放</div>
+    </div>
+    <div class="conclusion bad">
+        <strong>核心问题</strong>：ADQ内部智投占比仅26.6%，远低于50%目标。
+        非智投占比58.2%，小店广告占比17.6%，
+        均与理想结构差距显著。放量30%的流量需要多路径承接——智投侧1:1复制扩基建加速跑量，
+        <b>同时引导客户在非智投侧对视频号单独增投，直接吃到视频号版位的放量</b>。
+    </div>
+    <h4 style="margin:16px 0 8px;color:#00b894;">投流结构对比</h4>
+    <table>
+        <tr><th>投放类型</th><th>当前消耗(万)</th><th>当前占比</th><th>理想占比</th><th>差距</th><th>放量承接策略</th></tr>
+        <tr><td>ADQ智投</td><td>12,268</td><td>26.6%</td><td>50%</td><td style="color:#e74c3c">-23.4pp</td><td>非智投广告1:1复制到智投侧，智投侧重加速跑量</td></tr>
+        <tr><td>ADQ非智投</td><td>33,834</td><td>58.2%</td><td>30%</td><td style="color:#e17055">+28.2pp</td><td><b>引导客户对视频号单独增投</b>，吃到视频号版位放量</td></tr>
+        <tr><td>小店广告</td><td>10,237</td><td>17.6%</td><td>20%</td><td style="color:#e74c3c">-2.4pp</td><td>开通直购+直播双链路</td></tr>
+    </table>
+    <h4 style="margin:16px 0 8px;color:#00b894;">智投场景覆盖客户数与目标提升</h4>
+    <div class="scene-wrapper">
+        <div class="scene-platform" style="border-color:#0984e3">
+            <h4 style="color:#0984e3">ADQ平台</h4>
+            <div class="scene-grid-4">
+                <div class="scene-card"><div class="scene-name">单链路·推直播</div><div class="scene-status">客户数 1,438 → 目标 2,013（+40%）</div></div><div class="scene-card"><div class="scene-name">短直双开</div><div class="scene-status">客户数 461 → 目标 645（+40%）</div></div><div class="scene-card"><div class="scene-name">推直购单品</div><div class="scene-status">客户数 64 → 目标 89（+40%）</div></div><div class="scene-card"><div class="scene-name">全店托管</div><div class="scene-status">客户数 467 → 目标 653（+40%）</div></div>
+            </div>
+        </div>
+        <div class="scene-platform" style="border-color:#00b894">
+            <h4 style="color:#00b894">小店广告平台</h4>
+            <div class="scene-grid-4">
+                <div class="scene-card"><div class="scene-name">全域通·直购</div><div class="scene-status">客户数 11,876 → 目标 16,626（+40%）</div></div><div class="scene-card"><div class="scene-name">全域通·直播</div><div class="scene-status">客户数 2,946 → 目标 4,124（+40%）</div></div>
+            </div>
+        </div>
+    </div>
+    <div class="conclusion info">
+        <strong>放量承接双路径</strong>：<br>
+        ① <b>智投侧</b>：非智投169,965条广告1:1复制到智投侧，智投和非智投系统层面不去重，同时做可增加参竞能力，智投侧重加速跑量；<br>
+        ② <b>非智投侧</b>：引导客户对视频号单独增投（3.0广告定投视频号版位），直接吃到视频号版位的Adload放量流量。
+    </div>
+</div>
+
+<!-- L2.1 核心投放能力 -->
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon l21-color">L2.1</div>
+        <div class="section-title">核心投放能力诊断 · 覆盖客户数提升导向</div>
+        <div class="section-tag" style="background:#f0f0ff;color:#6c5ce7">全店托管 / 潜客优投 / 多品聚合</div>
+    </div>
+    <div class="conclusion info">
+        <strong>考核维度</strong>：全店托管和潜客优投更适配商品供给和大场提收场景，
+        放量承接的考核应聚焦<b>覆盖客户数</b>提升，而非单纯的日耗增长——让更多客户享受自动化能力，才是放量承接的基础。
+    </div>
+    <div class="cap-grid">
+        <div class="cap-card">
+            <h4>🏪 全店托管</h4>
+            <span class="cap-status" style="background:#f0fff4;color:#27ae60">✅ 已使用</span>
+            <table>
+                <tr><td>当前消耗(万)</td><td>666.2</td></tr>
+                <tr><td>当前广告数</td><td>2,677</td></tr>
+                <tr><td>ROI</td><td>2.51</td></tr>
+                <tr><td>当前覆盖客户数</td><td><b>467</b></td></tr>
+            </table>
+            <div style="margin-top:10px;padding:10px;background:#fff8f0;border-radius:8px;font-size:12px;">
+                <b>📋 覆盖客户数目标</b>：467 → <b style="color:#e74c3c">700+</b>（+50%）<br>
+                让更多客户店铺接入自动分配预算
+            </div>
+        </div>
+        <div class="cap-card">
+            <h4>🎯 潜客优投</h4>
+            <span class="cap-status" style="background:#f0fff4;color:#27ae60">✅ 已使用</span>
+            <table>
+                <tr><td>当前消耗(万)</td><td>1,254.1</td></tr>
+                <tr><td>当前广告数</td><td>10,677</td></tr>
+                <tr><td>ROI</td><td>2.41</td></tr>
+                <tr><td>当前覆盖客户数</td><td><b>759</b></td></tr>
+            </table>
+            <div style="margin-top:10px;padding:10px;background:#fff8f0;border-radius:8px;font-size:12px;">
+                <b>📋 覆盖客户数目标</b>：759 → <b style="color:#e17055">1,100+</b>（+45%）<br>
+                ROI 2.41高于整体，拓展广告主覆盖面
+            </div>
+        </div>
+        <div class="cap-card">
+            <h4>📦 多品聚合</h4>
+            <span class="cap-status" style="background:#f0fff4;color:#27ae60">✅ 已使用</span>
+            <table>
+                <tr><td>当前消耗(万)</td><td>883.6</td></tr>
+                <tr><td>当前广告数</td><td>6,161</td></tr>
+                <tr><td>ROI</td><td>2.02</td></tr>
+                <tr><td>当前覆盖客户数</td><td><b>2,611</b></td></tr>
+            </table>
+            <div style="margin-top:10px;padding:10px;background:#fff8f0;border-radius:8px;font-size:12px;">
+                <b>📋 覆盖客户数目标</b>：2,611 → <b style="color:#e17055">3,700+</b>（+42%）<br>
+                扩大直播间覆盖，提升多品聚合渗透率
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- L3 三力概览 -->
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon l3-color">L3</div>
+        <div class="section-title">三力概览 · 商品力 / 内容力 / 经营力</div>
+        <div class="section-tag" style="background:#fff8f0;color:#f39c12">拼资源 · 围绕"人"打透</div>
+    </div>
+
+    <h4 style="margin:12px 0 8px;color:#e17055;">🛒 商品力 · 金秋补贴覆盖 + 秋冬应季品引入</h4>
+    <table>
+        <tr><th>类型</th><th>SPU数</th><th>消耗(万)</th><th>SPU占比</th><th>消耗占比</th></tr>
+        <tr><td>金秋大促（A类）</td><td>1,273</td><td>1,514.3</td><td>3.1%</td><td>4.2%</td></tr>
+        <tr><td>金秋大促（B类）</td><td>12,857</td><td>4,648.3</td><td>31.3%</td><td>12.9%</td></tr>
+        <tr><td>无金秋标签</td><td>26,896</td><td>29,948.1</td><td>65.6%</td><td>82.9%</td></tr>
+    </table>
+    <div class="conclusion warn">
+        <strong>商品力诊断</strong>：金秋补贴覆盖SPU仅14,130个（覆盖率34.4%），
+        但补贴品消耗占比达17.1%，说明补贴品跑量效率高，应扩大覆盖至18,369+（+30%）。
+        <b>后续将追踪双11活动品的覆盖情况</b>，当前先做好金秋补贴扩面。
+    </div>
+
+    <h4 style="margin:20px 0 8px;color:#00b894;">🍂 秋冬应季品引入</h4>
+    <div class="seasonal-grid">
+        <div class="seasonal-card">
+            <h4>秋冬滋补概念 · 应季品引入</h4>
+            <div class="desc">
+                结合当前秋冬季节，在相关度更高的KPI三级行业引入应季品：<br>
+                • <b>传统滋补</b>（消耗6,835万）：阿胶/燕窝/人参等秋冬滋补品，契合季节性需求<br>
+                • <b>粮油调味速食</b>（消耗7,892万）：秋冬进补调味品、火锅底料等，家庭消费场景强<br>
+                • <b>休闲食品</b>（消耗6,384万）：节假日零食消费旺季，坚果/膨化等<br>
+                <b>目标</b>：各三级行业TOP客户至少新增3-5个应季品SPU
+            </div>
+        </div>
+        <div class="seasonal-card">
+            <h4>膳食营养保健食品 · 大促活动提报</h4>
+            <div class="desc">
+                膳食营养（消耗6,350万）/保健食品（消耗10,929万）具有更强的电商品牌相关性：<br>
+                • 积极参与双11小店活动提报，提升竞争力<br>
+                • 开通小店广告直购+直播双链路<br>
+                • 结合Adload放量节奏，提前储备大促素材<br>
+                <b>目标</b>：中心内膳食营养+保健食品客户100%参与双11小店活动提报
+            </div>
+        </div>
+    </div>
+
+    <h4 style="margin:20px 0 8px;color:#0984e3;">🎬 内容力 · 5层递进诊断</h4>
+    <table>
+        <tr><th>层级</th><th>核心指标</th><th>当前值</th><th>放量目标</th><th>判定</th></tr>
+        <tr><td>第1层 素材基建</td><td>近3月累计素材MD5</td><td>704万</td><td>1,056万(+50%)</td><td>🟢规模充足，需超配</td></tr>
+        <tr><td>第2层 素材效率</td><td>CTR / CVR / ROI</td><td>3.17% / 4.00% / 1.70</td><td>—</td><td>🟡ROI偏低</td></tr>
+        <tr><td>第3层 混排质量</td><td>3s快滑率 / 播放时长</td><td>54.2% / 9.5s</td><td>≤50%</td><td style="color:#e74c3c">🔴快滑率偏高</td></tr>
+        <tr><td>第4层 矩阵分发</td><td>有消耗视频号数</td><td>21,889个</td><td>—</td><td>🟢矩阵广泛</td></tr>
+        <tr><td>第5层 777原生</td><td>日耗 / ROI / CTR</td><td>26.8万/日 / 2.87 / 4.62%</td><td>40.2万/日(+50%)</td><td style="color:#27ae60">🟢ROI优异，加速扩覆盖</td></tr>
+    </table>
+    <div class="conclusion good">
+        <strong>777原生内容诊断</strong>：777原生内容（创意形式ID=777）当前日耗26.8万/日，
+        有消耗广告36,599条，消耗创意唯一性ID数396,088个。
+        ROI 2.87远超整体1.70，CTR 4.62%高于整体3.17%，
+        CVR 18.95%远超整体4.00%。
+        777原生内容效率显著优于整体，放量期间应加速扩覆盖，日耗目标提升至40.2万/日（+50%）。
+    </div>
+    <div id="chart_flow" class="chart-container"></div>
+
+    <h4 style="margin:20px 0 8px;color:#00b894;">📊 经营力 · 大场 vs 非大场</h4>
+    <table>
+        <tr><th>类型</th><th>消耗(万)</th><th>CVR</th><th>放量目标CVR</th><th>判定</th></tr>
+        <tr><td>大场</td><td>6,302.9</td><td>9.26%</td><td>≥10%</td><td>🟢大场CVR优势明显，放量期间增加大场频次</td></tr>
+        <tr><td>非大场</td><td>13,544.3</td><td>6.40%</td><td>≥8%</td><td>🟡非大场CVR待提升，向大场看齐</td></tr>
+    </table>
+</div>
+
+<!-- TOP10客户清单 -->
+<div class="section">
+    <div class="section-header">
+        <div class="section-icon" style="background:#2d3436">📋</div>
+        <div class="section-title">消耗TOP10客户勤奋度清单</div>
+        <div class="section-tag" style="background:#f5f5f5;color:#2d3436">行动抓手</div>
+    </div>
+    <table>
+        <tr><th>排名</th><th>客户</th><th>日耗(万/日)</th><th>分层</th><th>账户数</th><th>广告数</th><th>消耗创意ID数</th><th>SPU</th><th>目标日耗(万/日)</th></tr>
+        <tr><td>1</td><td style="font-weight:600">诺特兰德</td><td>55.5</td><td>头部</td><td>247</td><td>2,253</td><td>68,274</td><td>60</td><td style="color:#e74c3c;font-weight:600">77.7</td></tr><tr><td>2</td><td style="font-weight:600">善智</td><td>46.9</td><td>头部</td><td>253</td><td>983</td><td>20,659</td><td>7</td><td style="color:#e74c3c;font-weight:600">65.7</td></tr><tr><td>3</td><td style="font-weight:600">华大营养</td><td>37.4</td><td>头部</td><td>89</td><td>558</td><td>11,569</td><td>25</td><td style="color:#e74c3c;font-weight:600">52.4</td></tr><tr><td>4</td><td style="font-weight:600">参状元</td><td>36.7</td><td>头部</td><td>64</td><td>159</td><td>2,533</td><td>1</td><td style="color:#e74c3c;font-weight:600">51.4</td></tr><tr><td>5</td><td style="font-weight:600">叮咚买菜</td><td>26.9</td><td>头部</td><td>99</td><td>2,567</td><td>16,907</td><td>354</td><td style="color:#e74c3c;font-weight:600">37.7</td></tr><tr><td>6</td><td style="font-weight:600">雪峰集团</td><td>25.0</td><td>头部</td><td>247</td><td>1,539</td><td>26,097</td><td>3</td><td style="color:#e74c3c;font-weight:600">35.0</td></tr><tr><td>7</td><td style="font-weight:600">杨博士</td><td>24.8</td><td>头部</td><td>25</td><td>292</td><td>31,619</td><td>57</td><td style="color:#e74c3c;font-weight:600">34.7</td></tr><tr><td>8</td><td style="font-weight:600">多燕瘦自营</td><td>23.9</td><td>头部</td><td>70</td><td>10,236</td><td>66,517</td><td>5</td><td style="color:#e74c3c;font-weight:600">33.5</td></tr><tr><td>9</td><td style="font-weight:600">齐梅</td><td>22.5</td><td>头部</td><td>224</td><td>3,022</td><td>65,697</td><td>4</td><td style="color:#e74c3c;font-weight:600">31.5</td></tr><tr><td>10</td><td style="font-weight:600">双新</td><td>20.7</td><td>头部</td><td>330</td><td>3,740</td><td>69,919</td><td>16</td><td style="color:#e74c3c;font-weight:600">29.0</td></tr>
+    </table>
+    <div class="conclusion info" style="margin-top:16px;">
+        <strong>TOP客户行动建议</strong>：头部客户设定+40%日耗目标（竞争力更强，放量中吃更多量）。
+        诺特兰德/善智/华大营养等优先执行智投1:1复制+引导客户对视频号单独增投；
+        参状元/雪峰集团等SPU偏少客户需补品扩品；
+        所有客户节前完成消耗创意唯一性ID数超配储备（+50%）和账户充值。
+    </div>
+</div>
+
+<!-- 行动清单 -->
+<div class="action-list">
+    <h3>核心行动清单</h3>
+    <div class="action-item"><span class="action-priority" style="background:#e74c3c">P0</span>智投占比仅26.6% → 非智投169,965条广告1:1复制到智投侧，加速跑量至≥50%</div>
+    <div class="action-item"><span class="action-priority" style="background:#e74c3c">P0</span>引导客户对视频号单独增投 → 3.0广告定投视频号版位，直接吃到Adload放量流量</div>
+    <div class="action-item"><span class="action-priority" style="background:#e74c3c">P0</span>消耗创意唯一性ID数超配+50% → 放量期间素材消耗加速，节前完成6,195,284个储备防疲劳</div>
+    <div class="action-item"><span class="action-priority" style="background:#f39c12">P1</span>777原生内容ROI 2.87远超整体 → 加速扩覆盖，日耗26.8万→40.2万/日（+50%）</div>
+    <div class="action-item"><span class="action-priority" style="background:#f39c12">P1</span>全店托管/潜客优投考核覆盖客户数 → 467→700+/759→1,100+/2,611→3,700+，而非单纯提日耗</div>
+    <div class="action-item"><span class="action-priority" style="background:#f39c12">P1</span>秋冬应季品引入 → 传统滋补/粮油调味速食/休闲食品新增应季品；膳食营养+保健食品参与双11小店活动提报</div>
+    <div class="action-item"><span class="action-priority" style="background:#27ae60">P2</span>头部客户日耗目标+40% → 竞争力更强吃更多量；尾部客户激活为主，有消耗账户数+100%</div>
+    <div class="action-item"><span class="action-priority" style="background:#27ae60">P2</span>3s快滑率54.2%偏高 → 优化素材前3秒钩子，降至≤50%提升eco分</div>
+</div>
+
+</div>
+
+<script>
+function safeInit(id) {
+    var el = document.getElementById(id);
+    if (!el) return null;
+    var existing = echarts.getInstanceByDom(el);
+    if (existing) existing.dispose();
+    return echarts.init(el);
+}
+document.addEventListener('DOMContentLoaded', function() {
+    var trendChart = safeInit('chart_trend');
+    if (trendChart) {
+        var trendData = [{"date": "08/23", "cost": 1872}, {"date": "08/24", "cost": 1803}, {"date": "08/25", "cost": 1770}, {"date": "08/26", "cost": 1824}, {"date": "08/27", "cost": 1856}, {"date": "08/28", "cost": 1816}, {"date": "08/29", "cost": 1786}, {"date": "08/30", "cost": 1764}, {"date": "08/31", "cost": 1713}, {"date": "09/01", "cost": 1931}, {"date": "09/02", "cost": 1943}, {"date": "09/03", "cost": 1979}, {"date": "09/04", "cost": 1939}, {"date": "09/05", "cost": 1967}, {"date": "09/06", "cost": 1878}, {"date": "09/07", "cost": 1890}, {"date": "09/08", "cost": 1876}, {"date": "09/09", "cost": 1978}, {"date": "09/10", "cost": 2005}, {"date": "09/11", "cost": 1953}, {"date": "09/12", "cost": 2011}, {"date": "09/13", "cost": 2036}, {"date": "09/14", "cost": 2087}, {"date": "09/15", "cost": 2188}, {"date": "09/16", "cost": 2170}, {"date": "09/17", "cost": 2144}, {"date": "09/18", "cost": 2073}, {"date": "09/19", "cost": 2035}, {"date": "09/20", "cost": 2018}, {"date": "09/21", "cost": 1966}];
+        trendChart.setOption({
+            title: { text: '近30天消耗趋势（万/日）', left: 'center', textStyle: { fontSize: 14 } },
+            tooltip: { trigger: 'axis' },
+            xAxis: { type: 'category', data: trendData.map(d => d.date), axisLabel: { fontSize: 10, rotate: 45 } },
+            yAxis: { type: 'value', name: '万' },
+            series: [{ data: trendData.map(d => d.cost), type: 'line', smooth: true, areaStyle: { opacity: 0.3 }, itemStyle: { color: '#0984e3' } }],
+            grid: { left: '8%', right: '5%', bottom: '15%' }
+        });
+    }
+    var matChart = safeInit('chart_material');
+    if (matChart) {
+        var matData = [{"month": "2026/06", "total_md5": 1170574, "cost_md5": 667253}, {"month": "2026/07", "total_md5": 2903871, "cost_md5": 1800425}, {"month": "2026/08", "total_md5": 2984122, "cost_md5": 1903147}, {"month": "2026/09", "total_md5": 2194897, "cost_md5": 1371884}];
+        matChart.setOption({
+            title: { text: '近3月素材基建趋势', left: 'center', textStyle: { fontSize: 14 } },
+            tooltip: { trigger: 'axis' },
+            legend: { data: ['总素材MD5', '有消耗素材MD5'], bottom: 0 },
+            xAxis: { type: 'category', data: matData.map(d => d.month) },
+            yAxis: { type: 'value' },
+            series: [
+                { name: '总素材MD5', data: matData.map(d => d.total_md5), type: 'bar', itemStyle: { color: '#74b9ff' } },
+                { name: '有消耗素材MD5', data: matData.map(d => d.cost_md5), type: 'bar', itemStyle: { color: '#0984e3' } }
+            ],
+            grid: { left: '8%', right: '5%', bottom: '15%' }
+        });
+    }
+    var flowChart = safeInit('chart_flow');
+    if (flowChart) {
+        var flowData = [
+            {name:"微信视频号",cost:27080},{name:"微信小程序",cost:14038},
+            {name:"微信公众号",cost:6598},{name:"微信朋友圈",cost:5016},
+            {name:"平台与内容广告",cost:3658},{name:"微信搜一搜",cost:1024},
+            {name:"移动联盟",cost:523},{name:"搜索广告",cost:164}
+        ];
+        flowChart.setOption({
+            title: { text: '二级流量分布（万）', left: 'center', textStyle: { fontSize: 14 } },
+            tooltip: { trigger: 'item', formatter: '{b}: {c}万 ({d}%)' },
+            series: [{ type:'pie', radius:['40%','70%'], data: flowData.map(d=>({name:d.name,value:d.cost})), label:{ formatter:'{b}\n{d}%', fontSize:11 } }],
+            legend: { bottom:0, type:'scroll', fontSize:11 }
+        });
+    }
+});
+</script>
+</body>
+</html>
